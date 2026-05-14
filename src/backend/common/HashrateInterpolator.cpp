@@ -20,7 +20,7 @@
 #include "backend/common/HashrateInterpolator.h"
 
 
-uint64_t xmrig::HashrateInterpolator::interpolate(uint64_t timeStamp) const
+uint64_t rxs::HashrateInterpolator::interpolate(uint64_t timeStamp) const
 {
     timeStamp -= LagMS;
 
@@ -44,7 +44,7 @@ uint64_t xmrig::HashrateInterpolator::interpolate(uint64_t timeStamp) const
     return 0;
 }
 
-void xmrig::HashrateInterpolator::addDataPoint(uint64_t count, uint64_t timeStamp)
+void rxs::HashrateInterpolator::addDataPoint(uint64_t count, uint64_t timeStamp)
 {
     std::lock_guard<std::mutex> l(m_lock);
 

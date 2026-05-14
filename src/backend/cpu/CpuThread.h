@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPUTHREAD_H
-#define XMRIG_CPUTHREAD_H
+#ifndef RXS_CPUTHREAD_H
+#define RXS_CPUTHREAD_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CpuThread
@@ -56,7 +56,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CPUTHREAD_H */
+#endif /* RXS_CPUTHREAD_H */

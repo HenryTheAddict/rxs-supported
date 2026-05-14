@@ -24,14 +24,14 @@
  */
 
 
-#ifndef XMRIG_KECCAK_H
-#define XMRIG_KECCAK_H
+#ifndef RXS_KECCAK_H
+#define RXS_KECCAK_H
 
 #include <cstdint>
 #include <cstring>
 
 
-namespace xmrig {
+namespace rxs {
 
 // compute a keccak hash (md) of given byte length from "in"
 void keccak(const uint8_t *in, int inlen, uint8_t *md, int mdlen);
@@ -51,6 +51,6 @@ inline void keccak(const char *in, size_t inlen, uint8_t *md)
 // update the state
 void keccakf(uint64_t st[25], int norounds);
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
-#endif /* XMRIG_KECCAK_H */
+#endif /* RXS_KECCAK_H */

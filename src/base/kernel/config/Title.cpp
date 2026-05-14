@@ -23,7 +23,7 @@
 #include "version.h"
 
 
-xmrig::Title::Title(const rapidjson::Value &value)
+rxs::Title::Title(const rapidjson::Value &value)
 {
     if (value.IsBool()) {
         m_enabled = value.GetBool();
@@ -34,7 +34,7 @@ xmrig::Title::Title(const rapidjson::Value &value)
 }
 
 
-rapidjson::Value xmrig::Title::toJSON() const
+rapidjson::Value rxs::Title::toJSON() const
 {
     if (isEnabled() && !m_value.isNull()) {
         return m_value.toJSON();
@@ -44,7 +44,7 @@ rapidjson::Value xmrig::Title::toJSON() const
 }
 
 
-xmrig::String xmrig::Title::value() const
+rxs::String rxs::Title::value() const
 {
     if (!isEnabled()) {
         return {};

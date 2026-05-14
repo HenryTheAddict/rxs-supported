@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BENCHCLIENT_H
-#define XMRIG_BENCHCLIENT_H
+#ifndef RXS_BENCHCLIENT_H
+#define RXS_BENCHCLIENT_H
 
 
 #include "backend/common/interfaces/IBenchListener.h"
@@ -26,13 +26,13 @@
 #include "base/net/stratum/Client.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class BenchClient : public IClient, public IHttpListener, public IBenchListener, public IDnsListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(BenchClient)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(BenchClient)
 
     BenchClient(const std::shared_ptr<BenchConfig> &benchmark, IClientListener* listener);
     ~BenchClient() override;
@@ -93,7 +93,7 @@ private:
     void printExit() const;
     void start();
 
-#   ifdef XMRIG_FEATURE_HTTP
+#   ifdef RXS_FEATURE_HTTP
     void onCreateReply(const rapidjson::Value &value);
     void onDoneReply(const rapidjson::Value &value);
     void onGetReply(const rapidjson::Value &value);
@@ -124,7 +124,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_BENCHCLIENT_H */
+#endif /* RXS_BENCHCLIENT_H */

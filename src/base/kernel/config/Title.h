@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_TITLE_H
-#define XMRIG_TITLE_H
+#ifndef RXS_TITLE_H
+#define RXS_TITLE_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Title
@@ -44,7 +44,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_TITLE_H */
+#endif /* RXS_TITLE_H */

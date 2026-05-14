@@ -20,7 +20,7 @@
 #include "3rdparty/rapidjson/document.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const char *JsonRequest::k2_0               = "2.0";
@@ -41,16 +41,16 @@ const char *JsonRequest::kInternalError     = "internal error";
 static uint64_t nextId                      = 0;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-rapidjson::Document xmrig::JsonRequest::create(const char *method)
+rapidjson::Document rxs::JsonRequest::create(const char *method)
 {
     return create(++nextId, method);
 }
 
 
-rapidjson::Document xmrig::JsonRequest::create(int64_t id, const char *method)
+rapidjson::Document rxs::JsonRequest::create(int64_t id, const char *method)
 {
     using namespace rapidjson;
     Document doc(kObjectType);
@@ -64,13 +64,13 @@ rapidjson::Document xmrig::JsonRequest::create(int64_t id, const char *method)
 }
 
 
-uint64_t xmrig::JsonRequest::create(rapidjson::Document &doc, const char *method, rapidjson::Value &params)
+uint64_t rxs::JsonRequest::create(rapidjson::Document &doc, const char *method, rapidjson::Value &params)
 {
     return create(doc, ++nextId, method, params);
 }
 
 
-uint64_t xmrig::JsonRequest::create(rapidjson::Document &doc, int64_t id, const char *method, rapidjson::Value &params)
+uint64_t rxs::JsonRequest::create(rapidjson::Document &doc, int64_t id, const char *method, rapidjson::Value &params)
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();

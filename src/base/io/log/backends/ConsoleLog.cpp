@@ -26,7 +26,7 @@
 #include <cstdio>
 
 
-xmrig::ConsoleLog::ConsoleLog(const Title &title)
+rxs::ConsoleLog::ConsoleLog(const Title &title)
 {
     if (!isSupported()) {
         Log::setColors(false);
@@ -42,7 +42,7 @@ xmrig::ConsoleLog::ConsoleLog(const Title &title)
 
     uv_tty_set_mode(m_tty, UV_TTY_MODE_NORMAL);
 
-#   ifdef XMRIG_OS_WIN
+#   ifdef RXS_OS_WIN
     m_stream = reinterpret_cast<uv_stream_t*>(m_tty);
 
     HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
@@ -61,19 +61,19 @@ xmrig::ConsoleLog::ConsoleLog(const Title &title)
 }
 
 
-xmrig::ConsoleLog::~ConsoleLog()
+rxs::ConsoleLog::~ConsoleLog()
 {
     Handle::close(m_tty);
 }
 
 
-void xmrig::ConsoleLog::print(uint64_t, int, const char *line, size_t, size_t size, bool colors)
+void rxs::ConsoleLog::print(uint64_t, int, const char *line, size_t, size_t size, bool colors)
 {
     if (!m_tty || Log::isColors() != colors) {
         return;
     }
 
-#   ifdef XMRIG_OS_WIN
+#   ifdef RXS_OS_WIN
     uv_buf_t buf = uv_buf_init(const_cast<char *>(line), static_cast<unsigned int>(size));
 
     if (!isWritable()) {
@@ -90,15 +90,15 @@ void xmrig::ConsoleLog::print(uint64_t, int, const char *line, size_t, size_t si
 }
 
 
-bool xmrig::ConsoleLog::isSupported()
+bool rxs::ConsoleLog::isSupported()
 {
     const uv_handle_type type = uv_guess_handle(1);
     return type == UV_TTY || type == UV_NAMED_PIPE;
 }
 
 
-#ifdef XMRIG_OS_WIN
-bool xmrig::ConsoleLog::isWritable() const
+#ifdef RXS_OS_WIN
+bool rxs::ConsoleLog::isWritable() const
 {
     if (!m_stream || uv_is_writable(m_stream) != 1) {
         return false;

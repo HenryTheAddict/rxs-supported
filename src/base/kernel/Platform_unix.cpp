@@ -16,7 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef XMRIG_OS_FREEBSD
+#ifdef RXS_OS_FREEBSD
 #   include <sys/types.h>
 #   include <sys/param.h>
 #   ifndef __DragonFly__
@@ -43,7 +43,7 @@
 #include "version.h"
 
 
-char *xmrig::Platform::createUserAgent()
+char *rxs::Platform::createUserAgent()
 {
     constexpr const size_t max = 256;
 
@@ -70,21 +70,21 @@ char *xmrig::Platform::createUserAgent()
 }
 
 
-#ifndef XMRIG_FEATURE_HWLOC
-#if defined(__DragonFly__) || defined(XMRIG_OS_OPENBSD) || defined(XMRIG_OS_HAIKU)
+#ifndef RXS_FEATURE_HWLOC
+#if defined(__DragonFly__) || defined(RXS_OS_OPENBSD) || defined(RXS_OS_HAIKU)
 
-bool xmrig::Platform::setThreadAffinity(uint64_t cpu_id)
+bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {
     return false;
 }
 
 #else
 
-#ifdef XMRIG_OS_FREEBSD
+#ifdef RXS_OS_FREEBSD
 typedef cpuset_t cpu_set_t;
 #endif
 
-bool xmrig::Platform::setThreadAffinity(uint64_t cpu_id)
+bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {
     cpu_set_t mn;
     CPU_ZERO(&mn);
@@ -101,15 +101,15 @@ bool xmrig::Platform::setThreadAffinity(uint64_t cpu_id)
 }
 
 #endif // __DragonFly__
-#endif // XMRIG_FEATURE_HWLOC
+#endif // RXS_FEATURE_HWLOC
 
 
-void xmrig::Platform::setProcessPriority(int)
+void rxs::Platform::setProcessPriority(int)
 {
 }
 
 
-void xmrig::Platform::setThreadPriority(int priority)
+void rxs::Platform::setThreadPriority(int priority)
 {
     if (priority == -1) {
         return;
@@ -157,7 +157,7 @@ void xmrig::Platform::setThreadPriority(int priority)
 }
 
 
-bool xmrig::Platform::isOnBatteryPower()
+bool rxs::Platform::isOnBatteryPower()
 {
     for (int i = 0; i <= 1; ++i) {
         char buf[64];
@@ -173,7 +173,7 @@ bool xmrig::Platform::isOnBatteryPower()
 }
 
 
-uint64_t xmrig::Platform::idleTime()
+uint64_t rxs::Platform::idleTime()
 {
     return std::numeric_limits<uint64_t>::max();
 }

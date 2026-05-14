@@ -22,15 +22,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLRXBASERUNNER_H
-#define XMRIG_OCLRXBASERUNNER_H
+#ifndef RXS_OCLRXBASERUNNER_H
+#define RXS_OCLRXBASERUNNER_H
 
 
 #include "backend/opencl/runners/OclBaseRunner.h"
 #include "base/tools/Buffer.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Blake2bHashRegistersKernel;
@@ -45,7 +45,7 @@ class HashAesKernel;
 class OclRxBaseRunner : public OclBaseRunner
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(OclRxBaseRunner)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(OclRxBaseRunner)
 
     OclRxBaseRunner(size_t index, const OclLaunchData &data);
     ~OclRxBaseRunner() override;
@@ -82,7 +82,7 @@ protected:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_OCLRXBASERUNNER_H
+#endif // RXS_OCLRXBASERUNNER_H

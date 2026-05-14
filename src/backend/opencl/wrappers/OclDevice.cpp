@@ -26,7 +26,7 @@
 #include "base/io/log/Log.h"
 
 
-#ifdef XMRIG_FEATURE_ADL
+#ifdef RXS_FEATURE_ADL
 #   include "backend/opencl/wrappers/AdlLib.h"
 #endif
 
@@ -35,7 +35,7 @@
 #include <map>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 struct topology_amd {
@@ -70,7 +70,7 @@ static OclVendor getPlatformVendorId(const String &vendor, const String &extensi
         return OCL_VENDOR_INTEL;
     }
 
-#   ifdef XMRIG_OS_APPLE
+#   ifdef RXS_OS_APPLE
     if (extensions.contains("cl_APPLE_") || vendor.contains("Apple")) {
         return OCL_VENDOR_APPLE;
     }
@@ -94,7 +94,7 @@ static OclVendor getVendorId(const String &vendor)
         return OCL_VENDOR_INTEL;
     }
 
-#   ifdef XMRIG_OS_APPLE
+#   ifdef RXS_OS_APPLE
     if (vendor.contains("Apple")) {
         return OCL_VENDOR_APPLE;
     }
@@ -104,10 +104,10 @@ static OclVendor getVendorId(const String &vendor)
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::OclDevice::OclDevice(uint32_t index, cl_device_id id, cl_platform_id platform) :
+rxs::OclDevice::OclDevice(uint32_t index, cl_device_id id, cl_platform_id platform) :
     m_id(id),
     m_platform(platform),
     m_platformVendor(OclLib::getString(platform, CL_PLATFORM_VENDOR)),
@@ -141,7 +141,7 @@ xmrig::OclDevice::OclDevice(uint32_t index, cl_device_id id, cl_platform_id plat
 }
 
 
-xmrig::String xmrig::OclDevice::printableName() const
+rxs::String rxs::OclDevice::printableName() const
 {
     if (m_board.isNull()) {
         return fmt::format(GREEN_BOLD("{}"), m_name).c_str();
@@ -151,13 +151,13 @@ xmrig::String xmrig::OclDevice::printableName() const
 }
 
 
-uint32_t xmrig::OclDevice::clock() const
+uint32_t rxs::OclDevice::clock() const
 {
     return OclLib::getUint(id(), CL_DEVICE_MAX_CLOCK_FREQUENCY);
 }
 
 
-void xmrig::OclDevice::generate(const Algorithm &algorithm, OclThreads &threads) const
+void rxs::OclDevice::generate(const Algorithm &algorithm, OclThreads &threads) const
 {
     for (auto fn : generators) {
         if (fn(*this, algorithm, threads)) {
@@ -167,8 +167,8 @@ void xmrig::OclDevice::generate(const Algorithm &algorithm, OclThreads &threads)
 }
 
 
-#ifdef XMRIG_FEATURE_API
-void xmrig::OclDevice::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
+#ifdef RXS_FEATURE_API
+void rxs::OclDevice::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -179,7 +179,7 @@ void xmrig::OclDevice::toJSON(rapidjson::Value &out, rapidjson::Document &doc) c
     out.AddMember("cu",          computeUnits(), allocator);
     out.AddMember("global_mem",  static_cast<uint64_t>(globalMemSize()), allocator);
 
-#   ifdef XMRIG_FEATURE_ADL
+#   ifdef RXS_FEATURE_ADL
     if (AdlLib::isReady()) {
         auto data = AdlLib::health(*this);
 
@@ -197,8 +197,8 @@ void xmrig::OclDevice::toJSON(rapidjson::Value &out, rapidjson::Document &doc) c
 #endif
 
 
-#ifndef XMRIG_OS_APPLE
-xmrig::OclDevice::Type xmrig::OclDevice::getType(const String &name)
+#ifndef RXS_OS_APPLE
+rxs::OclDevice::Type rxs::OclDevice::getType(const String &name)
 {
     static std::map<const char *, OclDevice::Type> types = {
         { "gfx900",     Vega_10 },

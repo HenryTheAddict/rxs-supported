@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ALGORITHM_H
-#define XMRIG_ALGORITHM_H
+#ifndef RXS_ALGORITHM_H
+#define RXS_ALGORITHM_H
 
 
 #include <functional>
@@ -28,7 +28,7 @@
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm
@@ -111,7 +111,7 @@ private:
 using Algorithms = std::vector<Algorithm>;
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_ALGORITHM_H */
+#endif /* RXS_ALGORITHM_H */

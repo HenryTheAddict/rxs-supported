@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_JSONREQUEST_H
-#define XMRIG_JSONREQUEST_H
+#ifndef RXS_JSONREQUEST_H
+#define RXS_JSONREQUEST_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class JsonRequest
@@ -57,7 +57,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_JSONREQUEST_H */
+#endif /* RXS_JSONREQUEST_H */

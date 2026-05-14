@@ -20,7 +20,7 @@
 #include "backend/opencl/wrappers/OclDevice.h"
 
 
-xmrig::OclDevice::Type xmrig::OclDevice::getType(const String &name)
+rxs::OclDevice::Type rxs::OclDevice::getType(const String &name)
 {
     // Apple Platform: uses product names, not gfx# or codenames
     if (name.contains("AMD Radeon")) {

@@ -22,15 +22,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDARXRUNNER_H
-#define XMRIG_CUDARXRUNNER_H
+#ifndef RXS_CUDARXRUNNER_H
+#define RXS_CUDARXRUNNER_H
 
 
 #include "backend/cuda/runners/CudaBaseRunner.h"
 #include "base/tools/Buffer.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CudaRxRunner : public CudaBaseRunner
@@ -52,7 +52,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_CUDARXRUNNER_H
+#endif // RXS_CUDARXRUNNER_H

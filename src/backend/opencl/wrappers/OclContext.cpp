@@ -28,14 +28,14 @@
 #include "backend/opencl/wrappers/OclLib.h"
 
 
-xmrig::OclContext::OclContext(const OclDevice &device)
+rxs::OclContext::OclContext(const OclDevice &device)
 {
     std::vector<cl_device_id> ids = { device.id() };
     m_ctx = OclLib::createContext(ids);
 }
 
 
-xmrig::OclContext::~OclContext()
+rxs::OclContext::~OclContext()
 {
     if (m_ctx) {
         OclLib::release(m_ctx);
@@ -43,7 +43,7 @@ xmrig::OclContext::~OclContext()
 }
 
 
-bool xmrig::OclContext::init(const std::vector<OclDevice> &devices, std::vector<OclLaunchData> &threads)
+bool rxs::OclContext::init(const std::vector<OclDevice> &devices, std::vector<OclLaunchData> &threads)
 {
     if (!m_ctx) {
         std::vector<cl_device_id> ids(devices.size());

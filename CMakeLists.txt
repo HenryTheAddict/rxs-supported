@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(xmrig)
+project(rxs)
 
 option(WITH_HWLOC           "Enable hwloc support" ON)
 option(WITH_RANDOMX         "Enable RandomX algorithms family" ON)
@@ -83,7 +83,7 @@ set(SOURCES
     src/net/JobResults.cpp
     src/net/Network.cpp
     src/Summary.cpp
-    src/xmrig.cpp
+    src/rxs.cpp
    )
 
 set(SOURCES_CRYPTO
@@ -104,7 +104,7 @@ if (WITH_HWLOC)
         )
 endif()
 
-if (XMRIG_OS_WIN)
+if (RXS_OS_WIN)
     list(APPEND SOURCES_OS
         res/app.rc
         src/App_win.cpp
@@ -112,7 +112,7 @@ if (XMRIG_OS_WIN)
         )
 
     set(EXTRA_LIBS ws2_32 psapi iphlpapi userenv dbghelp)
-elseif (XMRIG_OS_APPLE)
+elseif (RXS_OS_APPLE)
     list(APPEND SOURCES_OS
         src/App_unix.cpp
         src/crypto/common/VirtualMemory_unix.cpp
@@ -127,21 +127,21 @@ else()
         src/crypto/common/VirtualMemory_unix.cpp
         )
 
-    if (XMRIG_OS_ANDROID)
+    if (RXS_OS_ANDROID)
         set(EXTRA_LIBS pthread rt dl log)
-    elseif (XMRIG_OS_LINUX)
+    elseif (RXS_OS_LINUX)
         list(APPEND SOURCES_OS
             src/crypto/common/LinuxMemory.h
             src/crypto/common/LinuxMemory.cpp
             )
 
         set(EXTRA_LIBS pthread rt dl)
-    elseif (XMRIG_OS_FREEBSD)
+    elseif (RXS_OS_FREEBSD)
         set(EXTRA_LIBS kvm pthread)
     endif()
 endif()
 
-add_definitions(-DXMRIG_MINER_PROJECT -DXMRIG_JSON_SINGLE_LINE_ARRAY)
+add_definitions(-DRXS_MINER_PROJECT -DRXS_JSON_SINGLE_LINE_ARRAY)
 add_definitions(-D__STDC_FORMAT_MACROS -DUNICODE -D_FILE_OFFSET_BITS=64)
 
 find_package(UV REQUIRED)
@@ -156,7 +156,7 @@ if (VAES_SUPPORTED)
 endif()
 
 if (WITH_EMBEDDED_CONFIG)
-    add_definitions(/DXMRIG_FEATURE_EMBEDDED_CONFIG)
+    add_definitions(/DRXS_FEATURE_EMBEDDED_CONFIG)
 endif()
 
 include(src/hw/api/api.cmake)
@@ -170,8 +170,8 @@ if (WITH_DEBUG_LOG)
     add_definitions(/DAPP_DEBUG)
 endif()
 
-add_executable(${CMAKE_PROJECT_NAME} ${HEADERS} ${SOURCES} ${SOURCES_OS} ${HEADERS_CRYPTO} ${SOURCES_CRYPTO} ${SOURCES_SYSLOG} ${TLS_SOURCES} ${XMRIG_ASM_SOURCES})
-target_link_libraries(${CMAKE_PROJECT_NAME} ${XMRIG_ASM_LIBRARY} ${OPENSSL_LIBRARIES} ${UV_LIBRARIES} ${EXTRA_LIBS} ${CPUID_LIB} ${ARGON2_LIBRARY})
+add_executable(${CMAKE_PROJECT_NAME} ${HEADERS} ${SOURCES} ${SOURCES_OS} ${HEADERS_CRYPTO} ${SOURCES_CRYPTO} ${SOURCES_SYSLOG} ${TLS_SOURCES} ${RXS_ASM_SOURCES})
+target_link_libraries(${CMAKE_PROJECT_NAME} ${RXS_ASM_LIBRARY} ${OPENSSL_LIBRARIES} ${UV_LIBRARIES} ${EXTRA_LIBS} ${CPUID_LIB} ${ARGON2_LIBRARY})
 
 if (WIN32)
     if (NOT ARM_TARGET)

@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_PCITOPOLOGY_H
-#define XMRIG_PCITOPOLOGY_H
+#ifndef RXS_PCITOPOLOGY_H
+#define RXS_PCITOPOLOGY_H
 
 #include <cstdio>
 
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class PciTopology
@@ -72,7 +72,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_PCITOPOLOGY_H
+#endif // RXS_PCITOPOLOGY_H

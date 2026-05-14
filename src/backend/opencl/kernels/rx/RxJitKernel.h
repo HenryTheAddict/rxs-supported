@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_RXJITKERNEL_H
-#define XMRIG_RXJITKERNEL_H
+#ifndef RXS_RXJITKERNEL_H
+#define RXS_RXJITKERNEL_H
 
 
 #include "backend/opencl/wrappers/OclKernel.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class RxJitKernel : public OclKernel
@@ -42,7 +42,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_RXJITKERNEL_H */
+#endif /* RXS_RXJITKERNEL_H */

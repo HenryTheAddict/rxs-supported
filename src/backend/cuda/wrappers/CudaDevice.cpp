@@ -30,14 +30,14 @@
 #include "base/io/log/Log.h"
 
 
-#ifdef XMRIG_FEATURE_NVML
+#ifdef RXS_FEATURE_NVML
 #   include "backend/cuda/wrappers/NvmlLib.h"
 #endif
 
 #include <algorithm>
 
 
-xmrig::CudaDevice::CudaDevice(uint32_t index, int32_t bfactor, int32_t bsleep) :
+rxs::CudaDevice::CudaDevice(uint32_t index, int32_t bfactor, int32_t bsleep) :
     m_index(index)
 {
     auto *ctx = CudaLib::alloc(index, bfactor, bsleep);
@@ -53,7 +53,7 @@ xmrig::CudaDevice::CudaDevice(uint32_t index, int32_t bfactor, int32_t bsleep) :
 }
 
 
-xmrig::CudaDevice::CudaDevice(CudaDevice &&other) noexcept :
+rxs::CudaDevice::CudaDevice(CudaDevice &&other) noexcept :
     m_index(other.m_index),
     m_ctx(other.m_ctx),
     m_topology(other.m_topology),
@@ -63,49 +63,49 @@ xmrig::CudaDevice::CudaDevice(CudaDevice &&other) noexcept :
 }
 
 
-xmrig::CudaDevice::~CudaDevice()
+rxs::CudaDevice::~CudaDevice()
 {
     CudaLib::release(m_ctx);
 }
 
 
-size_t xmrig::CudaDevice::freeMemSize() const
+size_t rxs::CudaDevice::freeMemSize() const
 {
     return CudaLib::deviceUlong(m_ctx, CudaLib::DeviceMemoryFree);
 }
 
 
-size_t xmrig::CudaDevice::globalMemSize() const
+size_t rxs::CudaDevice::globalMemSize() const
 {
     return CudaLib::deviceUlong(m_ctx, CudaLib::DeviceMemoryTotal);
 }
 
 
-uint32_t xmrig::CudaDevice::clock() const
+uint32_t rxs::CudaDevice::clock() const
 {
     return CudaLib::deviceUint(m_ctx, CudaLib::DeviceClockRate) / 1000;
 }
 
 
-uint32_t xmrig::CudaDevice::computeCapability(bool major) const
+uint32_t rxs::CudaDevice::computeCapability(bool major) const
 {
     return CudaLib::deviceUint(m_ctx, major ? CudaLib::DeviceArchMajor : CudaLib::DeviceArchMinor);
 }
 
 
-uint32_t xmrig::CudaDevice::memoryClock() const
+uint32_t rxs::CudaDevice::memoryClock() const
 {
     return CudaLib::deviceUint(m_ctx, CudaLib::DeviceMemoryClockRate) / 1000;
 }
 
 
-uint32_t xmrig::CudaDevice::smx() const
+uint32_t rxs::CudaDevice::smx() const
 {
     return CudaLib::deviceUint(m_ctx, CudaLib::DeviceSmx);
 }
 
 
-void xmrig::CudaDevice::generate(const Algorithm &algorithm, CudaThreads &threads) const
+void rxs::CudaDevice::generate(const Algorithm &algorithm, CudaThreads &threads) const
 {
     if (!CudaLib::deviceInfo(m_ctx, -1, -1, algorithm)) {
         return;
@@ -115,8 +115,8 @@ void xmrig::CudaDevice::generate(const Algorithm &algorithm, CudaThreads &thread
 }
 
 
-#ifdef XMRIG_FEATURE_API
-void xmrig::CudaDevice::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
+#ifdef RXS_FEATURE_API
+void rxs::CudaDevice::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -129,7 +129,7 @@ void xmrig::CudaDevice::toJSON(rapidjson::Value &out, rapidjson::Document &doc) 
     out.AddMember("clock",          clock(), allocator);
     out.AddMember("memory_clock",   memoryClock(), allocator);
 
-#   ifdef XMRIG_FEATURE_NVML
+#   ifdef RXS_FEATURE_NVML
     if (m_nvmlDevice) {
         auto data = NvmlLib::health(m_nvmlDevice);
 

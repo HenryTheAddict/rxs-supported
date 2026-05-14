@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HASHRATE_INTERPOLATOR_H
-#define XMRIG_HASHRATE_INTERPOLATOR_H
+#ifndef RXS_HASHRATE_INTERPOLATOR_H
+#define RXS_HASHRATE_INTERPOLATOR_H
 
 
 #include <mutex>
@@ -25,7 +25,7 @@
 #include <utility>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HashrateInterpolator
@@ -45,7 +45,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_HASHRATE_INTERPOLATOR_H */
+#endif /* RXS_HASHRATE_INTERPOLATOR_H */

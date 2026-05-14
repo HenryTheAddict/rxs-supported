@@ -25,7 +25,7 @@
 #include <cctype>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 struct lscpu_desc
@@ -414,4 +414,4 @@ String cpu_name_arm()
 }
 
 
-} // namespace xmrig
+} // namespace rxs

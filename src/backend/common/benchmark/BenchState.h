@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BENCHSTATE_H
-#define XMRIG_BENCHSTATE_H
+#ifndef RXS_BENCHSTATE_H
+#define RXS_BENCHSTATE_H
 
 
 #include <atomic>
@@ -25,7 +25,7 @@
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -53,7 +53,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_BENCHSTATE_H */
+#endif /* RXS_BENCHSTATE_H */

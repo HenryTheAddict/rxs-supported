@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLPLATFORM_H
-#define XMRIG_OCLPLATFORM_H
+#ifndef RXS_OCLPLATFORM_H
+#define RXS_OCLPLATFORM_H
 
 
 #include <vector>
@@ -36,7 +36,7 @@
 using cl_platform_id = struct _cl_platform_id *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclPlatform
@@ -66,7 +66,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLPLATFORM_H */
+#endif /* RXS_OCLPLATFORM_H */

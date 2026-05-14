@@ -58,7 +58,7 @@ namespace randomx {
 	void CompiledVm<softAes>::execute() {
 		PROFILE_SCOPE(RandomX_JIT_execute);
 
-#		if defined(XMRIG_ARM) || defined(XMRIG_RISCV)
+#		if defined(RXS_ARM) || defined(RXS_RISCV)
 		memcpy(reg.f, config.eMask, sizeof(config.eMask));
 #		endif
 

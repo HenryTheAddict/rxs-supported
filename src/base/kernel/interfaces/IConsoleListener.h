@@ -16,20 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ICONSOLELISTENER_H
-#define XMRIG_ICONSOLELISTENER_H
+#ifndef RXS_ICONSOLELISTENER_H
+#define RXS_ICONSOLELISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IConsoleListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IConsoleListener)
+    RXS_DISABLE_COPY_MOVE(IConsoleListener)
 
     IConsoleListener()          = default;
     virtual ~IConsoleListener() = default;
@@ -38,7 +38,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ICONSOLELISTENER_H
+#endif // RXS_ICONSOLELISTENER_H

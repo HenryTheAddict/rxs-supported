@@ -39,7 +39,7 @@
 #include "crypto/rx/RxDataset.h"
 
 
-xmrig::OclRxBaseRunner::OclRxBaseRunner(size_t index, const OclLaunchData &data) : OclBaseRunner(index, data)
+rxs::OclRxBaseRunner::OclRxBaseRunner(size_t index, const OclLaunchData &data) : OclBaseRunner(index, data)
 {
     switch (data.thread.worksize()) {
     case 2:
@@ -67,7 +67,7 @@ xmrig::OclRxBaseRunner::OclRxBaseRunner(size_t index, const OclLaunchData &data)
 }
 
 
-xmrig::OclRxBaseRunner::~OclRxBaseRunner()
+rxs::OclRxBaseRunner::~OclRxBaseRunner()
 {
     delete m_fillAes1Rx4_scratchpad;
     delete m_fillAes4Rx4_entropy;
@@ -87,7 +87,7 @@ xmrig::OclRxBaseRunner::~OclRxBaseRunner()
 }
 
 
-void xmrig::OclRxBaseRunner::run(uint32_t nonce, uint32_t nonce_offset, uint32_t *hashOutput)
+void rxs::OclRxBaseRunner::run(uint32_t nonce, uint32_t nonce_offset, uint32_t *hashOutput)
 {
     static const uint32_t zero = 0;
 
@@ -141,7 +141,7 @@ void xmrig::OclRxBaseRunner::run(uint32_t nonce, uint32_t nonce_offset, uint32_t
 }
 
 
-void xmrig::OclRxBaseRunner::set(const Job &job, uint8_t *blob)
+void rxs::OclRxBaseRunner::set(const Job &job, uint8_t *blob)
 {
     if (!data().thread.isDatasetHost() && m_seed != job.seed()) {
         m_seed = job.seed();
@@ -168,7 +168,7 @@ void xmrig::OclRxBaseRunner::set(const Job &job, uint8_t *blob)
 }
 
 
-size_t xmrig::OclRxBaseRunner::bufferSize() const
+size_t rxs::OclRxBaseRunner::bufferSize() const
 {
     return OclBaseRunner::bufferSize() +
            align((m_algorithm.l3() + 64) * m_intensity) +
@@ -178,7 +178,7 @@ size_t xmrig::OclRxBaseRunner::bufferSize() const
 }
 
 
-void xmrig::OclRxBaseRunner::build()
+void rxs::OclRxBaseRunner::build()
 {
     OclBaseRunner::build();
 
@@ -209,7 +209,7 @@ void xmrig::OclRxBaseRunner::build()
 }
 
 
-void xmrig::OclRxBaseRunner::init()
+void rxs::OclRxBaseRunner::init()
 {
     OclBaseRunner::init();
 

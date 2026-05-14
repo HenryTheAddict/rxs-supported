@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ICUDARUNNER_H
-#define XMRIG_ICUDARUNNER_H
+#ifndef RXS_ICUDARUNNER_H
+#define RXS_ICUDARUNNER_H
 
 
 #include "base/tools/Object.h"
@@ -32,7 +32,7 @@
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Job;
@@ -41,7 +41,7 @@ class Job;
 class ICudaRunner
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(ICudaRunner)
+    RXS_DISABLE_COPY_MOVE(ICudaRunner)
 
     ICudaRunner()          = default;
     virtual ~ICudaRunner() = default;
@@ -56,7 +56,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ICUDARUNNER_H
+#endif // RXS_ICUDARUNNER_H

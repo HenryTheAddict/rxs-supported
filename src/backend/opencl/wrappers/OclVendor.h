@@ -22,11 +22,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLVENDOR_H
-#define XMRIG_OCLVENDOR_H
+#ifndef RXS_OCLVENDOR_H
+#define RXS_OCLVENDOR_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 enum OclVendor : unsigned {
@@ -38,7 +38,7 @@ enum OclVendor : unsigned {
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLVENDOR_H */
+#endif /* RXS_OCLVENDOR_H */

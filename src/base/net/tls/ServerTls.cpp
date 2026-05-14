@@ -26,13 +26,13 @@
 #include <openssl/ssl.h>
 
 
-xmrig::ServerTls::ServerTls(SSL_CTX *ctx) :
+rxs::ServerTls::ServerTls(SSL_CTX *ctx) :
     m_ctx(ctx)
 {
 }
 
 
-xmrig::ServerTls::~ServerTls()
+rxs::ServerTls::~ServerTls()
 {
     if (m_ssl) {
         SSL_free(m_ssl);
@@ -40,7 +40,7 @@ xmrig::ServerTls::~ServerTls()
 }
 
 
-bool xmrig::ServerTls::isHTTP(const char *data, size_t size)
+bool rxs::ServerTls::isHTTP(const char *data, size_t size)
 {
     assert(size > 0);
 
@@ -50,7 +50,7 @@ bool xmrig::ServerTls::isHTTP(const char *data, size_t size)
 }
 
 
-bool xmrig::ServerTls::isTLS(const char *data, size_t size)
+bool rxs::ServerTls::isTLS(const char *data, size_t size)
 {
     assert(size > 0);
 
@@ -60,7 +60,7 @@ bool xmrig::ServerTls::isTLS(const char *data, size_t size)
 }
 
 
-bool xmrig::ServerTls::send(const char *data, size_t size)
+bool rxs::ServerTls::send(const char *data, size_t size)
 {
     SSL_write(m_ssl, data, size);
 
@@ -68,7 +68,7 @@ bool xmrig::ServerTls::send(const char *data, size_t size)
 }
 
 
-void xmrig::ServerTls::read(const char *data, size_t size)
+void rxs::ServerTls::read(const char *data, size_t size)
 {
     if (!m_ssl) {
         m_ssl = SSL_new(m_ctx);
@@ -105,7 +105,7 @@ void xmrig::ServerTls::read(const char *data, size_t size)
 }
 
 
-void xmrig::ServerTls::read()
+void rxs::ServerTls::read()
 {
     static char buf[16384]{};
 

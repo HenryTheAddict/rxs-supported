@@ -27,7 +27,7 @@
 #include <string>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static std::mutex mutex;
@@ -100,10 +100,10 @@ static inline int64_t free_hugepages(uint32_t node, size_t hugePageSize)        
 static inline int64_t nr_hugepages(uint32_t node, size_t hugePageSize)                      { return sysfs_read_hugepages(node, hugePageSize, true); }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::LinuxMemory::reserve(size_t size, uint32_t node, size_t hugePageSize)
+bool rxs::LinuxMemory::reserve(size_t size, uint32_t node, size_t hugePageSize)
 {
     std::lock_guard<std::mutex> lock(mutex);
 

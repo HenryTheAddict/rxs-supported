@@ -25,7 +25,7 @@
 #include <algorithm>
 
 
-xmrig::CpuLaunchData::CpuLaunchData(const Miner *miner, const Algorithm &algorithm, const CpuConfig &config, const CpuThread &thread, size_t threads, const std::vector<int64_t>& affinities) :
+rxs::CpuLaunchData::CpuLaunchData(const Miner *miner, const Algorithm &algorithm, const CpuConfig &config, const CpuThread &thread, size_t threads, const std::vector<int64_t>& affinities) :
     algorithm(algorithm),
     assembly(config.assembly()),
     hugePages(config.isHugePages()),
@@ -41,7 +41,7 @@ xmrig::CpuLaunchData::CpuLaunchData(const Miner *miner, const Algorithm &algorit
 }
 
 
-bool xmrig::CpuLaunchData::isEqual(const CpuLaunchData &other) const
+bool rxs::CpuLaunchData::isEqual(const CpuLaunchData &other) const
 {
     return (algorithm.l3()      == other.algorithm.l3()
             && assembly         == other.assembly
@@ -54,7 +54,7 @@ bool xmrig::CpuLaunchData::isEqual(const CpuLaunchData &other) const
 }
 
 
-const char *xmrig::CpuLaunchData::tag()
+const char *rxs::CpuLaunchData::tag()
 {
     return cpu_tag();
 }

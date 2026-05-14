@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IOCLRUNNER_H
-#define XMRIG_IOCLRUNNER_H
+#ifndef RXS_IOCLRUNNER_H
+#define RXS_IOCLRUNNER_H
 
 
 #include "base/tools/Object.h"
@@ -35,7 +35,7 @@
 using cl_context = struct _cl_context *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -46,7 +46,7 @@ class OclLaunchData;
 class IOclRunner
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IOclRunner)
+    RXS_DISABLE_COPY_MOVE(IOclRunner)
 
     IOclRunner()          = default;
     virtual ~IOclRunner() = default;
@@ -73,7 +73,7 @@ protected:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IOCLRUNNER_H
+#endif // RXS_IOCLRUNNER_H

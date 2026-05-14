@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_TAGS_H
-#define XMRIG_TAGS_H
+#ifndef RXS_TAGS_H
+#define RXS_TAGS_H
 
 
 #include <cstddef>
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Tags
@@ -35,36 +35,36 @@ public:
     static const char *origin();
     static const char *signal();
 
-#   ifdef XMRIG_MINER_PROJECT
+#   ifdef RXS_MINER_PROJECT
     static const char *cpu();
     static const char *miner();
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     static const char *randomx();
 #   endif
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     static const char *bench();
 #   endif
 #   endif
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     static const char *proxy();
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     static const char *nvidia();
 #   endif
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     static const char *opencl();
 #   endif
 
-#   ifdef XMRIG_FEATURE_PROFILING
+#   ifdef RXS_FEATURE_PROFILING
     static const char* profiler();
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_TAGS_H */
+#endif /* RXS_TAGS_H */

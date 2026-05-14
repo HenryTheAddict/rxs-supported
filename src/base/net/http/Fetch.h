@@ -17,8 +17,8 @@
  */
 
 
-#ifndef XMRIG_FETCH_H
-#define XMRIG_FETCH_H
+#ifndef RXS_FETCH_H
+#define RXS_FETCH_H
 
 
 #include "3rdparty/llhttp/llhttp.h"
@@ -31,7 +31,7 @@
 #include <string>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IHttpListener;
@@ -65,8 +65,8 @@ public:
 void fetch(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener, int type = 0, uint64_t rpcId = 0);
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_FETCH_H
+#endif // RXS_FETCH_H
 

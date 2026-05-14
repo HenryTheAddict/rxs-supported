@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_RX_H
-#define XMRIG_RX_H
+#ifndef RXS_RX_H
+#define RXS_RX_H
 
 
 #include <cstdint>
@@ -29,7 +29,7 @@
 #include "crypto/common/HugePagesInfo.h"
 
 
-namespace xmrig
+namespace rxs
 {
 
 
@@ -52,7 +52,7 @@ public:
     template<typename T> static bool init(const T &seed, const RxConfig &config, const CpuConfig &cpu);
     template<typename T> static bool isReady(const T &seed);
 
-#   ifdef XMRIG_FEATURE_MSR
+#   ifdef RXS_FEATURE_MSR
     static bool isMSR();
 #   else
     static constexpr bool isMSR()   { return false; }
@@ -60,7 +60,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_RX_H */
+#endif /* RXS_RX_H */

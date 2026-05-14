@@ -29,12 +29,12 @@
 #include <algorithm>
 
 
-xmrig::OclRxVmRunner::OclRxVmRunner(size_t index, const OclLaunchData &data) : OclRxBaseRunner(index, data)
+rxs::OclRxVmRunner::OclRxVmRunner(size_t index, const OclLaunchData &data) : OclRxBaseRunner(index, data)
 {
 }
 
 
-xmrig::OclRxVmRunner::~OclRxVmRunner()
+rxs::OclRxVmRunner::~OclRxVmRunner()
 {
     delete m_init_vm;
     delete m_execute_vm;
@@ -43,13 +43,13 @@ xmrig::OclRxVmRunner::~OclRxVmRunner()
 }
 
 
-size_t xmrig::OclRxVmRunner::bufferSize() const
+size_t rxs::OclRxVmRunner::bufferSize() const
 {
     return OclRxBaseRunner::bufferSize() + (align(2560 * m_intensity));
 }
 
 
-void xmrig::OclRxVmRunner::build()
+void rxs::OclRxVmRunner::build()
 {
     OclRxBaseRunner::build();
 
@@ -67,7 +67,7 @@ void xmrig::OclRxVmRunner::build()
 }
 
 
-void xmrig::OclRxVmRunner::execute(uint32_t iteration)
+void rxs::OclRxVmRunner::execute(uint32_t iteration)
 {
     const uint32_t bfactor        = std::min(data().thread.bfactor(), 8U);
     const uint32_t num_iterations = RxAlgo::programIterations(m_algorithm) >> bfactor;
@@ -90,7 +90,7 @@ void xmrig::OclRxVmRunner::execute(uint32_t iteration)
 }
 
 
-void xmrig::OclRxVmRunner::init()
+void rxs::OclRxVmRunner::init()
 {
     OclRxBaseRunner::init();
 

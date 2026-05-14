@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLRXJITRUNNER_H
-#define XMRIG_OCLRXJITRUNNER_H
+#ifndef RXS_OCLRXJITRUNNER_H
+#define RXS_OCLRXJITRUNNER_H
 
 
 #include "backend/opencl/runners/OclRxBaseRunner.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class RxJitKernel;
@@ -33,7 +33,7 @@ class RxRunKernel;
 class OclRxJitRunner : public OclRxBaseRunner
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(OclRxJitRunner)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(OclRxJitRunner)
 
     OclRxJitRunner(size_t index, const OclLaunchData &data);
     ~OclRxJitRunner() override;
@@ -56,7 +56,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_OCLRXRUNNER_H
+#endif // RXS_OCLRXRUNNER_H

@@ -17,15 +17,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_FILELOG_H
-#define XMRIG_FILELOG_H
+#ifndef RXS_FILELOG_H
+#define RXS_FILELOG_H
 
 
 #include "base/io/log/FileLogWriter.h"
 #include "base/kernel/interfaces/ILogBackend.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class FileLog : public ILogBackend
@@ -41,7 +41,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_FILELOG_H */
+#endif /* RXS_FILELOG_H */

@@ -24,15 +24,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_MEMORYPOOL_H
-#define XMRIG_MEMORYPOOL_H
+#ifndef RXS_MEMORYPOOL_H
+#define RXS_MEMORYPOOL_H
 
 
 #include "backend/common/interfaces/IMemoryPool.h"
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class VirtualMemory;
@@ -41,7 +41,7 @@ class VirtualMemory;
 class MemoryPool : public IMemoryPool
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(MemoryPool)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(MemoryPool)
 
     MemoryPool(size_t size, bool hugePages, uint32_t node = 0);
     ~MemoryPool() override;
@@ -59,8 +59,8 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
 
-#endif /* XMRIG_MEMORYPOOL_H */
+#endif /* RXS_MEMORYPOOL_H */

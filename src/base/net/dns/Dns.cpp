@@ -22,17 +22,17 @@
 #include "base/net/dns/DnsUvBackend.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 DnsConfig Dns::m_config;
 std::map<String, std::shared_ptr<IDnsBackend>> Dns::m_backends;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-std::shared_ptr<xmrig::DnsRequest> xmrig::Dns::resolve(const String &host, IDnsListener *listener)
+std::shared_ptr<rxs::DnsRequest> rxs::Dns::resolve(const String &host, IDnsListener *listener)
 {
     auto req = std::make_shared<DnsRequest>(listener);
 

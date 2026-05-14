@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BLAKE2BINITIALHASHKERNEL_H
-#define XMRIG_BLAKE2BINITIALHASHKERNEL_H
+#ifndef RXS_BLAKE2BINITIALHASHKERNEL_H
+#define RXS_BLAKE2BINITIALHASHKERNEL_H
 
 
 #include "backend/opencl/wrappers/OclKernel.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Blake2bInitialHashKernel : public OclKernel
@@ -44,7 +44,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_BLAKE2BINITIALHASHKERNEL_H */
+#endif /* RXS_BLAKE2BINITIALHASHKERNEL_H */

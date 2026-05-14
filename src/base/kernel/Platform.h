@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_PLATFORM_H
-#define XMRIG_PLATFORM_H
+#ifndef RXS_PLATFORM_H
+#define RXS_PLATFORM_H
 
 
 #include <cstdint>
@@ -26,7 +26,7 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Platform
@@ -49,7 +49,7 @@ public:
     static inline bool isUserActive(uint64_t ms)    { return idleTime() < ms; }
     static inline const String &userAgent()         { return m_userAgent; }
 
-#   ifdef XMRIG_OS_WIN
+#   ifdef RXS_OS_WIN
     static bool hasKeepalive();
 #   else
     static constexpr bool hasKeepalive()            { return true; }
@@ -65,7 +65,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_PLATFORM_H */
+#endif /* RXS_PLATFORM_H */

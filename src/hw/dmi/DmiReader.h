@@ -18,8 +18,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_DMIREADER_H
-#define XMRIG_DMIREADER_H
+#ifndef RXS_DMIREADER_H
+#define RXS_DMIREADER_H
 
 
 #include "hw/dmi/DmiBoard.h"
@@ -29,7 +29,7 @@
 #include <functional>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DmiReader
@@ -45,7 +45,7 @@ public:
 
     bool read();
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     rapidjson::Value toJSON(rapidjson::Document &doc) const;
     void toJSON(rapidjson::Value &out, rapidjson::Document &doc) const;
 #   endif
@@ -64,7 +64,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_DMIREADER_H */
+#endif /* RXS_DMIREADER_H */

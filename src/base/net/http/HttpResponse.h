@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HTTPRESPONSE_H
-#define XMRIG_HTTPRESPONSE_H
+#ifndef RXS_HTTPRESPONSE_H
+#define RXS_HTTPRESPONSE_H
 
 
 #include <cstdint>
@@ -26,7 +26,7 @@
 #include <string>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HttpResponse
@@ -48,8 +48,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPRESPONSE_H
+#endif // RXS_HTTPRESPONSE_H
 

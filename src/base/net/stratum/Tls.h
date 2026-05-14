@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CLIENT_TLS_H
-#define XMRIG_CLIENT_TLS_H
+#ifndef RXS_CLIENT_TLS_H
+#define RXS_CLIENT_TLS_H
 
 
 using BIO       = struct bio_st;
@@ -31,13 +31,13 @@ using X509      = struct x509_st;
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Client::Tls
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Tls)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Tls)
 
     Tls(Client *client);
     ~Tls();
@@ -63,7 +63,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CLIENT_TLS_H */
+#endif /* RXS_CLIENT_TLS_H */

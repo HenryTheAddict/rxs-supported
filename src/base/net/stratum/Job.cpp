@@ -36,7 +36,7 @@
 #include "base/crypto/keccak.h"
 
 
-xmrig::Job::Job(bool nicehash, const Algorithm &algorithm, const String &clientId) :
+rxs::Job::Job(bool nicehash, const Algorithm &algorithm, const String &clientId) :
     m_algorithm(algorithm),
     m_nicehash(nicehash),
     m_clientId(clientId)
@@ -44,19 +44,19 @@ xmrig::Job::Job(bool nicehash, const Algorithm &algorithm, const String &clientI
 }
 
 
-bool xmrig::Job::isEqual(const Job &other) const
+bool rxs::Job::isEqual(const Job &other) const
 {
     return m_id == other.m_id && m_clientId == other.m_clientId && isEqualBlob(other) && m_target == other.m_target;
 }
 
 
-bool xmrig::Job::isEqualBlob(const Job &other) const
+bool rxs::Job::isEqualBlob(const Job &other) const
 {
     return (m_size == other.m_size) && (memcmp(m_blob, other.m_blob, m_size) == 0);
 }
 
 
-bool xmrig::Job::setBlob(const char *blob)
+bool rxs::Job::setBlob(const char *blob)
 {
     if (!blob) {
         return false;
@@ -82,7 +82,7 @@ bool xmrig::Job::setBlob(const char *blob)
         m_nicehash = true;
     }
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     memset(m_rawBlob, 0, sizeof(m_rawBlob));
     memcpy(m_rawBlob, blob, size * 2);
 #   endif
@@ -92,13 +92,13 @@ bool xmrig::Job::setBlob(const char *blob)
 }
 
 
-bool xmrig::Job::setSeedHash(const char *hash)
+bool rxs::Job::setSeedHash(const char *hash)
 {
     if (!hash || (strlen(hash) != kMaxSeedSize * 2)) {
         return false;
     }
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     m_rawSeedHash = hash;
 #   endif
 
@@ -108,7 +108,7 @@ bool xmrig::Job::setSeedHash(const char *hash)
 }
 
 
-bool xmrig::Job::setTarget(const char *target)
+bool rxs::Job::setTarget(const char *target)
 {
     static auto parse = [](const char *target, size_t size, const Algorithm &algorithm) -> uint64_t {
         if (algorithm == Algorithm::RX_YADA) {
@@ -139,7 +139,7 @@ bool xmrig::Job::setTarget(const char *target)
 
     m_diff = toDiff(m_target);
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     if (size >= sizeof(m_rawTarget)) {
         return false;
     }
@@ -152,7 +152,7 @@ bool xmrig::Job::setTarget(const char *target)
 }
 
 
-size_t xmrig::Job::nonceOffset() const
+size_t rxs::Job::nonceOffset() const
 {
     if (algorithm() == Algorithm::RX_YADA) {
         return 147;
@@ -162,18 +162,18 @@ size_t xmrig::Job::nonceOffset() const
 }
 
 
-void xmrig::Job::setDiff(uint64_t diff)
+void rxs::Job::setDiff(uint64_t diff)
 {
     m_diff   = diff;
     m_target = toDiff(diff);
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     Cvt::toHex(m_rawTarget, sizeof(m_rawTarget), reinterpret_cast<uint8_t *>(&m_target), sizeof(m_target));
 #   endif
 }
 
 
-void xmrig::Job::setSigKey(const char *sig_key)
+void rxs::Job::setSigKey(const char *sig_key)
 {
     constexpr const size_t size = 64;
 
@@ -181,7 +181,7 @@ void xmrig::Job::setSigKey(const char *sig_key)
         return;
     }
 
-#   ifndef XMRIG_PROXY_PROJECT
+#   ifndef RXS_PROXY_PROJECT
     const auto buf = Cvt::fromHex(sig_key, size * 2);
     if (buf.size() == size) {
         setEphemeralKeys(buf.data(), buf.data() + 32);
@@ -192,7 +192,7 @@ void xmrig::Job::setSigKey(const char *sig_key)
 }
 
 
-uint32_t xmrig::Job::getNumTransactions() const
+uint32_t rxs::Job::getNumTransactions() const
 {
     if (m_algorithm.family() != Algorithm::RANDOM_X) {
         return 0;
@@ -217,7 +217,7 @@ uint32_t xmrig::Job::getNumTransactions() const
 }
 
 
-void xmrig::Job::copy(const Job &other)
+void rxs::Job::copy(const Job &other)
 {
     m_algorithm  = other.m_algorithm;
     m_nicehash   = other.m_nicehash;
@@ -235,7 +235,7 @@ void xmrig::Job::copy(const Job &other)
 
     memcpy(m_blob, other.m_blob, sizeof(m_blob));
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     m_rawSeedHash = other.m_rawSeedHash;
     m_rawSigKey   = other.m_rawSigKey;
 
@@ -243,11 +243,11 @@ void xmrig::Job::copy(const Job &other)
     memcpy(m_rawTarget, other.m_rawTarget, sizeof(m_rawTarget));
 #   endif
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     m_benchSize = other.m_benchSize;
 #   endif
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     memcpy(m_spendSecretKey, other.m_spendSecretKey, sizeof(m_spendSecretKey));
     memcpy(m_viewSecretKey, other.m_viewSecretKey, sizeof(m_viewSecretKey));
     memcpy(m_spendPublicKey, other.m_spendPublicKey, sizeof(m_spendPublicKey));
@@ -269,7 +269,7 @@ void xmrig::Job::copy(const Job &other)
 }
 
 
-void xmrig::Job::move(Job &&other)
+void rxs::Job::move(Job &&other)
 {
     m_algorithm  = other.m_algorithm;
     m_nicehash   = other.m_nicehash;
@@ -291,7 +291,7 @@ void xmrig::Job::move(Job &&other)
     other.m_diff        = 0;
     other.m_algorithm   = Algorithm::INVALID;
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     m_rawSeedHash = std::move(other.m_rawSeedHash);
     m_rawSigKey   = std::move(other.m_rawSigKey);
 
@@ -299,11 +299,11 @@ void xmrig::Job::move(Job &&other)
     memcpy(m_rawTarget, other.m_rawTarget, sizeof(m_rawTarget));
 #   endif
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     m_benchSize = other.m_benchSize;
 #   endif
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     memcpy(m_spendSecretKey, other.m_spendSecretKey, sizeof(m_spendSecretKey));
     memcpy(m_viewSecretKey, other.m_viewSecretKey, sizeof(m_viewSecretKey));
     memcpy(m_spendPublicKey, other.m_spendPublicKey, sizeof(m_spendPublicKey));
@@ -326,10 +326,10 @@ void xmrig::Job::move(Job &&other)
 }
 
 
-#ifdef XMRIG_PROXY_PROJECT
+#ifdef RXS_PROXY_PROJECT
 
 
-void xmrig::Job::setSpendSecretKey(const uint8_t *key)
+void rxs::Job::setSpendSecretKey(const uint8_t *key)
 {
     m_hasMinerSignature = true;
     memcpy(m_spendSecretKey, key, sizeof(m_spendSecretKey));
@@ -340,7 +340,7 @@ void xmrig::Job::setSpendSecretKey(const uint8_t *key)
 }
 
 
-void xmrig::Job::setMinerTx(const uint8_t *begin, const uint8_t *end, size_t minerTxEphPubKeyOffset, size_t minerTxPubKeyOffset, size_t minerTxExtraNonceOffset, size_t minerTxExtraNonceSize, const Buffer &minerTxMerkleTreeBranch, uint32_t minerTxMerkleTreePath, bool hasViewTag)
+void rxs::Job::setMinerTx(const uint8_t *begin, const uint8_t *end, size_t minerTxEphPubKeyOffset, size_t minerTxPubKeyOffset, size_t minerTxExtraNonceOffset, size_t minerTxExtraNonceSize, const Buffer &minerTxMerkleTreeBranch, uint32_t minerTxMerkleTreePath, bool hasViewTag)
 {
     m_minerTxPrefix.assign(begin, end);
     m_minerTxEphPubKeyOffset    = minerTxEphPubKeyOffset;
@@ -353,19 +353,19 @@ void xmrig::Job::setMinerTx(const uint8_t *begin, const uint8_t *end, size_t min
 }
 
 
-void xmrig::Job::setViewTagInMinerTx(uint8_t view_tag)
+void rxs::Job::setViewTagInMinerTx(uint8_t view_tag)
 {
     memcpy(m_minerTxPrefix.data() + m_minerTxEphPubKeyOffset + 32, &view_tag, 1);
 }
 
 
-void xmrig::Job::setExtraNonceInMinerTx(uint32_t extra_nonce)
+void rxs::Job::setExtraNonceInMinerTx(uint32_t extra_nonce)
 {
     memcpy(m_minerTxPrefix.data() + m_minerTxExtraNonceOffset, &extra_nonce, std::min(m_minerTxExtraNonceSize, sizeof(uint32_t)));
 }
 
 
-void xmrig::Job::generateSignatureData(String &signatureData, uint8_t& view_tag) const
+void rxs::Job::generateSignatureData(String &signatureData, uint8_t& view_tag) const
 {
     uint8_t* eph_public_key = m_minerTxPrefix.data() + m_minerTxEphPubKeyOffset;
     uint8_t* txkey_pub = m_minerTxPrefix.data() + m_minerTxPubKeyOffset;
@@ -389,7 +389,7 @@ void xmrig::Job::generateSignatureData(String &signatureData, uint8_t& view_tag)
     signatureData = Cvt::toHex(buf, sizeof(buf));
 }
 
-void xmrig::Job::generateHashingBlob(String &blob) const
+void rxs::Job::generateHashingBlob(String &blob) const
 {
     uint8_t root_hash[32];
     const uint8_t* p = m_minerTxPrefix.data();
@@ -409,7 +409,7 @@ void xmrig::Job::generateHashingBlob(String &blob) const
 #else
 
 
-void xmrig::Job::generateMinerSignature(const uint8_t* blob, size_t size, uint8_t* out_sig) const
+void rxs::Job::generateMinerSignature(const uint8_t* blob, size_t size, uint8_t* out_sig) const
 {
     uint8_t tmp[kMaxBlobSize];
     memcpy(tmp, blob, size);
@@ -418,8 +418,8 @@ void xmrig::Job::generateMinerSignature(const uint8_t* blob, size_t size, uint8_
     memset(tmp + nonceOffset() + nonceSize(), 0, BlockTemplate::kSignatureSize);
 
     uint8_t prefix_hash[32];
-    xmrig::keccak(tmp, static_cast<int>(size), prefix_hash, sizeof(prefix_hash));
-    xmrig::generate_signature(prefix_hash, m_ephPublicKey, m_ephSecretKey, out_sig);
+    rxs::keccak(tmp, static_cast<int>(size), prefix_hash, sizeof(prefix_hash));
+    rxs::generate_signature(prefix_hash, m_ephPublicKey, m_ephSecretKey, out_sig);
 }
 
 

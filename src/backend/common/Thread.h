@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_THREAD_H
-#define XMRIG_THREAD_H
+#ifndef RXS_THREAD_H
+#define RXS_THREAD_H
 
 
 #include "backend/common/interfaces/IWorker.h"
@@ -26,13 +26,13 @@
 #include <thread>
 
 
-#ifdef XMRIG_OS_APPLE
+#ifdef RXS_OS_APPLE
 #   include <pthread.h>
 #   include <mach/thread_act.h>
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IBackend;
@@ -42,11 +42,11 @@ template<class T>
 class Thread
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Thread)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Thread)
 
     inline Thread(IBackend *backend, size_t id, const T &config) : m_id(id), m_config(config), m_backend(backend) {}
 
-#   ifdef XMRIG_OS_APPLE
+#   ifdef RXS_OS_APPLE
     inline ~Thread() { pthread_join(m_thread, nullptr); delete m_worker; }
 
     inline void start(void *(*callback)(void *))
@@ -82,7 +82,7 @@ private:
     IBackend *m_backend;
     IWorker *m_worker       = nullptr;
 
-    #ifdef XMRIG_OS_APPLE
+    #ifdef RXS_OS_APPLE
     pthread_t m_thread{};
 #   else
     std::thread m_thread;
@@ -90,7 +90,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_THREAD_H */
+#endif /* RXS_THREAD_H */

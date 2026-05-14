@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_NETBUFFER_H
-#define XMRIG_NETBUFFER_H
+#ifndef RXS_NETBUFFER_H
+#define RXS_NETBUFFER_H
 
 
 struct uv_buf_t;
@@ -27,7 +27,7 @@ using uv_handle_t = struct uv_handle_s;
 #include <cstddef>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class NetBuffer
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_NETBUFFER_H */
+#endif /* RXS_NETBUFFER_H */

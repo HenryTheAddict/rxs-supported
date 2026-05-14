@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HWAPI_H
-#define XMRIG_HWAPI_H
+#ifndef RXS_HWAPI_H
+#define RXS_HWAPI_H
 
 
 #include "base/api/interfaces/IApiListener.h"
@@ -26,7 +26,7 @@
 #include <memory>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DmiReader;
@@ -41,13 +41,13 @@ protected:
     void onRequest(IApiRequest &request) override;
 
 private:
-#   ifdef XMRIG_FEATURE_DMI
+#   ifdef RXS_FEATURE_DMI
     std::shared_ptr<DmiReader> m_dmi;
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_HWAPI_H */
+#endif /* RXS_HWAPI_H */

@@ -39,7 +39,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const char *colors_map[] = {
@@ -62,7 +62,7 @@ static const char *colors_map[] = {
 class LogPrivate
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(LogPrivate)
+    RXS_DISABLE_COPY_MOVE(LogPrivate)
 
 
     LogPrivate() = default;
@@ -198,11 +198,11 @@ LogPrivate *Log::d          = nullptr;
 uint32_t Log::m_verbose     = 0;
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
 
-void xmrig::Log::add(ILogBackend *backend)
+void rxs::Log::add(ILogBackend *backend)
 {
     assert(d != nullptr);
 
@@ -212,20 +212,20 @@ void xmrig::Log::add(ILogBackend *backend)
 }
 
 
-void xmrig::Log::destroy()
+void rxs::Log::destroy()
 {
     delete d;
     d = nullptr;
 }
 
 
-void xmrig::Log::init()
+void rxs::Log::init()
 {
     d = new LogPrivate();
 }
 
 
-void xmrig::Log::print(const char *fmt, ...)
+void rxs::Log::print(const char *fmt, ...)
 {
     if (!d) {
         return;
@@ -240,7 +240,7 @@ void xmrig::Log::print(const char *fmt, ...)
 }
 
 
-void xmrig::Log::print(Level level, const char *fmt, ...)
+void rxs::Log::print(Level level, const char *fmt, ...)
 {
     if (!d) {
         return;

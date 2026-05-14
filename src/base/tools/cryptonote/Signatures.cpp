@@ -30,7 +30,7 @@ extern "C" {
 
 #include "base/tools/Cvt.h"
 
-#ifdef XMRIG_PROXY_PROJECT
+#ifdef RXS_PROXY_PROJECT
 #define PROFILE_SCOPE(x)
 #else
 #include "crypto/rx/Profiler.h"
@@ -48,14 +48,14 @@ static inline void random_scalar(ec_scalar& res)
 {
     // Don't care about bias or possible 0 after reduce: probability ~10^-76, not happening in this universe.
     // Performance matters more. It's a miner after all.
-    xmrig::Cvt::randomBytes(res.data, sizeof(res.data));
+    rxs::Cvt::randomBytes(res.data, sizeof(res.data));
     sc_reduce32((uint8_t*) res.data);
 }
 
 
 static void hash_to_scalar(const void* data, size_t length, ec_scalar& res)
 {
-    xmrig::keccak((const uint8_t*) data, length, (uint8_t*) &res, sizeof(res));
+    rxs::keccak((const uint8_t*) data, length, (uint8_t*) &res, sizeof(res));
     sc_reduce32((uint8_t*) &res);
 }
 
@@ -81,7 +81,7 @@ static void derivation_to_scalar(const uint8_t* derivation, size_t output_index,
 }
 
 
-namespace xmrig {
+namespace rxs {
 
 
 void generate_signature(const uint8_t* prefix_hash, const uint8_t* pub, const uint8_t* sec, uint8_t* sig_bytes)
@@ -174,7 +174,7 @@ bool generate_key_derivation(const uint8_t* key1, const uint8_t* key2, uint8_t* 
         buf[SALT_SIZE + 32] = 0;
 
         uint8_t view_tag_full[32];
-        xmrig::keccak(buf, sizeof(buf), view_tag_full, sizeof(view_tag_full));
+        rxs::keccak(buf, sizeof(buf), view_tag_full, sizeof(view_tag_full));
         *view_tag = view_tag_full[0];
     }
 
@@ -246,4 +246,4 @@ bool secret_key_to_public_key(const uint8_t* sec, uint8_t* pub)
 }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */

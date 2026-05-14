@@ -18,8 +18,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_DMITOOLS_H
-#define XMRIG_DMITOOLS_H
+#ifndef RXS_DMITOOLS_H
+#define RXS_DMITOOLS_H
 
 
 #include <cstddef>
@@ -27,7 +27,7 @@
 #include "base/tools/Alignment.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 struct dmi_header
@@ -55,7 +55,7 @@ inline T dmi_get(const dmi_header *h, size_t offset)    { return readUnaligned(r
 const char *dmi_string(dmi_header *dm, size_t offset);
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_DMITOOLS_H */
+#endif /* RXS_DMITOOLS_H */

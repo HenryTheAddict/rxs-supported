@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HUGEPAGESINFO_H
-#define XMRIG_HUGEPAGESINFO_H
+#ifndef RXS_HUGEPAGESINFO_H
+#define RXS_HUGEPAGESINFO_H
 
 
 #include <cstdint>
 #include <cstddef>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class VirtualMemory;
@@ -55,7 +55,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_HUGEPAGESINFO_H */
+#endif /* RXS_HUGEPAGESINFO_H */

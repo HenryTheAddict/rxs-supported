@@ -25,7 +25,7 @@
 #include <algorithm>
 
 
-namespace xmrig {
+namespace rxs {
 
 const char *CpuConfig::kEnabled             = "enabled";
 const char *CpuConfig::kField               = "cpu";
@@ -37,26 +37,26 @@ const char *CpuConfig::kMemoryPool          = "memory-pool";
 const char *CpuConfig::kPriority            = "priority";
 const char *CpuConfig::kYield               = "yield";
 
-#ifdef XMRIG_FEATURE_ASM
+#ifdef RXS_FEATURE_ASM
 const char *CpuConfig::kAsm                 = "asm";
 #endif
 
-#ifdef XMRIG_ALGO_ARGON2
+#ifdef RXS_ALGO_ARGON2
 #endif
 
 
 extern template class Threads<CpuThreads>;
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::CpuConfig::isHwAES() const
+bool rxs::CpuConfig::isHwAES() const
 {
     return (m_aes == AES_AUTO ? (Cpu::info()->hasAES() ? AES_HW : AES_SOFT) : m_aes) == AES_HW;
 }
 
 
-rapidjson::Value xmrig::CpuConfig::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::CpuConfig::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -75,11 +75,11 @@ rapidjson::Value xmrig::CpuConfig::toJSON(rapidjson::Document &doc) const
         obj.AddMember(StringRef(kMaxThreadsHint), m_limit, allocator);
     }
 
-#   ifdef XMRIG_FEATURE_ASM
+#   ifdef RXS_FEATURE_ASM
     obj.AddMember(StringRef(kAsm), m_assembly.toJSON(), allocator);
 #   endif
 
-#   ifdef XMRIG_ALGO_ARGON2
+#   ifdef RXS_ALGO_ARGON2
 #   endif
 
     m_threads.toJSON(obj, doc);
@@ -88,13 +88,13 @@ rapidjson::Value xmrig::CpuConfig::toJSON(rapidjson::Document &doc) const
 }
 
 
-size_t xmrig::CpuConfig::memPoolSize() const
+size_t rxs::CpuConfig::memPoolSize() const
 {
     return m_memoryPool < 0 ? std::max(Cpu::info()->threads(), Cpu::info()->L3() >> 21) : m_memoryPool;
 }
 
 
-std::vector<xmrig::CpuLaunchData> xmrig::CpuConfig::get(const Miner *miner, const Algorithm &algorithm) const
+std::vector<rxs::CpuLaunchData> rxs::CpuConfig::get(const Miner *miner, const Algorithm &algorithm) const
 {
     std::vector<CpuLaunchData> out;
     const auto &threads = m_threads.get(algorithm);
@@ -121,7 +121,7 @@ std::vector<xmrig::CpuLaunchData> xmrig::CpuConfig::get(const Miner *miner, cons
 }
 
 
-void xmrig::CpuConfig::read(const rapidjson::Value &value)
+void rxs::CpuConfig::read(const rapidjson::Value &value)
 {
     if (value.IsObject()) {
         m_enabled      = Json::getBool(value, kEnabled, m_enabled);
@@ -134,7 +134,7 @@ void xmrig::CpuConfig::read(const rapidjson::Value &value)
         setMemoryPool(Json::getValue(value, kMemoryPool));
         setPriority(Json::getInt(value,  kPriority, -1));
 
-#       ifdef XMRIG_FEATURE_ASM
+#       ifdef RXS_FEATURE_ASM
         m_assembly = Json::getValue(value, kAsm);
 #       endif
 
@@ -153,7 +153,7 @@ void xmrig::CpuConfig::read(const rapidjson::Value &value)
 }
 
 
-void xmrig::CpuConfig::generate()
+void rxs::CpuConfig::generate()
 {
     if (!isEnabled() || m_threads.has("*")) {
         return;
@@ -161,13 +161,13 @@ void xmrig::CpuConfig::generate()
 
     size_t count = 0;
 
-    count += xmrig::generate<Algorithm::RANDOM_X>(m_threads, m_limit);
+    count += rxs::generate<Algorithm::RANDOM_X>(m_threads, m_limit);
 
     m_shouldSave |= count > 0;
 }
 
 
-void xmrig::CpuConfig::setAesMode(const rapidjson::Value &value)
+void rxs::CpuConfig::setAesMode(const rapidjson::Value &value)
 {
     if (value.IsBool()) {
         m_aes = value.GetBool() ? AES_HW : AES_SOFT;
@@ -178,7 +178,7 @@ void xmrig::CpuConfig::setAesMode(const rapidjson::Value &value)
 }
 
 
-void xmrig::CpuConfig::setHugePages(const rapidjson::Value &value)
+void rxs::CpuConfig::setHugePages(const rapidjson::Value &value)
 {
     if (value.IsBool()) {
         m_hugePageSize = value.GetBool() ? kDefaultHugePageSizeKb : 0U;
@@ -191,7 +191,7 @@ void xmrig::CpuConfig::setHugePages(const rapidjson::Value &value)
 }
 
 
-void xmrig::CpuConfig::setMemoryPool(const rapidjson::Value &value)
+void rxs::CpuConfig::setMemoryPool(const rapidjson::Value &value)
 {
     if (value.IsBool()) {
         m_memoryPool = value.GetBool() ? -1 : 0;

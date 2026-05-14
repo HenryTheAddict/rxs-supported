@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SOCKS5_H
-#define XMRIG_SOCKS5_H
+#ifndef RXS_SOCKS5_H
+#define RXS_SOCKS5_H
 
 
 #include "base/net/stratum/Client.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Client::Socks5
@@ -55,7 +55,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_SOCKS5_H */
+#endif /* RXS_SOCKS5_H */

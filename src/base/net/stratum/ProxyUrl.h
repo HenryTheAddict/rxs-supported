@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_PROXYURL_H
-#define XMRIG_PROXYURL_H
+#ifndef RXS_PROXYURL_H
+#define RXS_PROXYURL_H
 
 
 #include "base/net/stratum/Url.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ProxyUrl : public Url
@@ -40,7 +40,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_PROXYURL_H */
+#endif /* RXS_PROXYURL_H */

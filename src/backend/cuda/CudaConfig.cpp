@@ -25,7 +25,7 @@
 #include "base/io/log/Log.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static bool generated           = false;
@@ -35,7 +35,7 @@ static const char *kDevicesHint = "devices-hint";
 static const char *kEnabled     = "enabled";
 static const char *kLoader      = "loader";
 
-#ifdef XMRIG_FEATURE_NVML
+#ifdef RXS_FEATURE_NVML
 static const char *kNvml        = "nvml";
 #endif
 
@@ -43,10 +43,10 @@ static const char *kNvml        = "nvml";
 extern template class Threads<CudaThreads>;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-rapidjson::Value xmrig::CudaConfig::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::CudaConfig::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -56,7 +56,7 @@ rapidjson::Value xmrig::CudaConfig::toJSON(rapidjson::Document &doc) const
     obj.AddMember(StringRef(kEnabled),  m_enabled, allocator);
     obj.AddMember(StringRef(kLoader),   m_loader.toJSON(), allocator);
 
-#   ifdef XMRIG_FEATURE_NVML
+#   ifdef RXS_FEATURE_NVML
     if (m_nvmlLoader.isNull()) {
         obj.AddMember(StringRef(kNvml), m_nvml, allocator);
     }
@@ -71,7 +71,7 @@ rapidjson::Value xmrig::CudaConfig::toJSON(rapidjson::Document &doc) const
 }
 
 
-std::vector<xmrig::CudaLaunchData> xmrig::CudaConfig::get(const Miner *miner, const Algorithm &algorithm, const std::vector<CudaDevice> &devices) const
+std::vector<rxs::CudaLaunchData> rxs::CudaConfig::get(const Miner *miner, const Algorithm &algorithm, const std::vector<CudaDevice> &devices) const
 {
     auto deviceIndex = [&devices](uint32_t index) -> int {
         for (uint32_t i = 0; i < devices.size(); ++i) {
@@ -106,7 +106,7 @@ std::vector<xmrig::CudaLaunchData> xmrig::CudaConfig::get(const Miner *miner, co
 }
 
 
-void xmrig::CudaConfig::read(const rapidjson::Value &value)
+void rxs::CudaConfig::read(const rapidjson::Value &value)
 {
     if (value.IsObject()) {
         m_enabled   = Json::getBool(value, kEnabled, m_enabled);
@@ -116,7 +116,7 @@ void xmrig::CudaConfig::read(const rapidjson::Value &value)
 
         setDevicesHint(Json::getString(value, kDevicesHint));
 
-#       ifdef XMRIG_FEATURE_NVML
+#       ifdef RXS_FEATURE_NVML
         auto &nvml = Json::getValue(value, kNvml);
         if (nvml.IsString()) {
             m_nvmlLoader = nvml.GetString();
@@ -143,7 +143,7 @@ void xmrig::CudaConfig::read(const rapidjson::Value &value)
 }
 
 
-void xmrig::CudaConfig::generate()
+void rxs::CudaConfig::generate()
 {
     if (generated) {
         return;
@@ -168,14 +168,14 @@ void xmrig::CudaConfig::generate()
 
     size_t count = 0;
 
-    count += xmrig::generate<Algorithm::RANDOM_X>(m_threads, devices);
+    count += rxs::generate<Algorithm::RANDOM_X>(m_threads, devices);
 
     generated    = true;
     m_shouldSave = count > 0;
 }
 
 
-void xmrig::CudaConfig::setDevicesHint(const char *devicesHint)
+void rxs::CudaConfig::setDevicesHint(const char *devicesHint)
 {
     if (devicesHint == nullptr) {
         return;

@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDABASERUNNER_H
-#define XMRIG_CUDABASERUNNER_H
+#ifndef RXS_CUDABASERUNNER_H
+#define RXS_CUDABASERUNNER_H
 
 
 #include "backend/cuda/interfaces/ICudaRunner.h"
@@ -32,7 +32,7 @@
 using nvid_ctx = struct nvid_ctx;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CudaLaunchData;
@@ -41,7 +41,7 @@ class CudaLaunchData;
 class CudaBaseRunner : public ICudaRunner
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(CudaBaseRunner)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(CudaBaseRunner)
 
     CudaBaseRunner(size_t id, const CudaLaunchData &data);
     ~CudaBaseRunner() override;
@@ -65,7 +65,7 @@ protected:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_CUDABASERUNNER_H
+#endif // RXS_CUDABASERUNNER_H

@@ -21,7 +21,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsConfig;
@@ -33,7 +33,7 @@ class String;
 class IDnsBackend
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IDnsBackend)
+    RXS_DISABLE_COPY_MOVE(IDnsBackend)
 
     IDnsBackend()           = default;
     virtual ~IDnsBackend()  = default;
@@ -42,4 +42,4 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs

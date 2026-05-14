@@ -33,13 +33,13 @@
 
 
 
-#ifdef XMRIG_FEATURE_HTTP
+#ifdef RXS_FEATURE_HTTP
 #   include "base/net/stratum/DaemonClient.h"
 #   include "base/net/stratum/SelfSelectClient.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_BENCHMARK
+#ifdef RXS_FEATURE_BENCHMARK
 #   include "base/net/stratum/benchmark/BenchClient.h"
 #   include "base/net/stratum/benchmark/BenchConfig.h"
 #endif
@@ -50,7 +50,7 @@
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const String Pool::kDefaultPassword       = "x";
@@ -80,10 +80,10 @@ const char *Pool::kSpendSecretKey         = "spend-secret-key";
 const char *Pool::kNicehashHost           = "nicehash.com";
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::Pool::Pool(const char *url) :
+rxs::Pool::Pool(const char *url) :
     m_flags(1 << FLAG_ENABLED),
     m_pollInterval(kDefaultPollInterval),
     m_jobTimeout(kDefaultJobTimeout),
@@ -92,7 +92,7 @@ xmrig::Pool::Pool(const char *url) :
 }
 
 
-xmrig::Pool::Pool(const char *host, uint16_t port, const char *user, const char *password, const char* spendSecretKey, int keepAlive, bool nicehash, bool tls, Mode mode) :
+rxs::Pool::Pool(const char *host, uint16_t port, const char *user, const char *password, const char* spendSecretKey, int keepAlive, bool nicehash, bool tls, Mode mode) :
     m_keepAlive(keepAlive),
     m_mode(mode),
     m_flags(1 << FLAG_ENABLED),
@@ -108,7 +108,7 @@ xmrig::Pool::Pool(const char *host, uint16_t port, const char *user, const char 
 }
 
 
-xmrig::Pool::Pool(const rapidjson::Value &object) :
+rxs::Pool::Pool(const rapidjson::Value &object) :
     m_flags(1 << FLAG_ENABLED),
     m_pollInterval(kDefaultPollInterval),
     m_jobTimeout(kDefaultJobTimeout),
@@ -148,8 +148,8 @@ xmrig::Pool::Pool(const rapidjson::Value &object) :
 }
 
 
-#ifdef XMRIG_FEATURE_BENCHMARK
-xmrig::Pool::Pool(const std::shared_ptr<BenchConfig> &benchmark) :
+#ifdef RXS_FEATURE_BENCHMARK
+rxs::Pool::Pool(const std::shared_ptr<BenchConfig> &benchmark) :
     m_mode(MODE_BENCHMARK),
     m_flags(1 << FLAG_ENABLED),
     m_url(BenchConfig::kBenchmark),
@@ -158,7 +158,7 @@ xmrig::Pool::Pool(const std::shared_ptr<BenchConfig> &benchmark) :
 }
 
 
-xmrig::BenchConfig *xmrig::Pool::benchmark() const
+rxs::BenchConfig *rxs::Pool::benchmark() const
 {
     assert(m_mode == MODE_BENCHMARK && m_benchmark);
 
@@ -166,28 +166,28 @@ xmrig::BenchConfig *xmrig::Pool::benchmark() const
 }
 
 
-uint32_t xmrig::Pool::benchSize() const
+uint32_t rxs::Pool::benchSize() const
 {
     return benchmark()->size();
 }
 #endif
 
 
-bool xmrig::Pool::isEnabled() const
+bool rxs::Pool::isEnabled() const
 {
-#   ifndef XMRIG_FEATURE_TLS
+#   ifndef RXS_FEATURE_TLS
     if (isTLS()) {
         return false;
     }
 #   endif
 
-#   ifndef XMRIG_FEATURE_HTTP
+#   ifndef RXS_FEATURE_HTTP
     if (m_mode == MODE_DAEMON) {
         return false;
     }
 #   endif
 
-#   ifndef XMRIG_FEATURE_HTTP
+#   ifndef RXS_FEATURE_HTTP
     if (m_mode == MODE_SELF_SELECT) {
         return false;
     }
@@ -197,7 +197,7 @@ bool xmrig::Pool::isEnabled() const
 }
 
 
-bool xmrig::Pool::isEqual(const Pool &other) const
+bool rxs::Pool::isEqual(const Pool &other) const
 {
     return (m_flags           == other.m_flags
             && m_keepAlive    == other.m_keepAlive
@@ -217,12 +217,12 @@ bool xmrig::Pool::isEqual(const Pool &other) const
 }
 
 
-xmrig::IClient *xmrig::Pool::createClient(int id, IClientListener *listener) const
+rxs::IClient *rxs::Pool::createClient(int id, IClientListener *listener) const
 {
     IClient *client = nullptr;
 
     if (m_mode == MODE_POOL) {
-#       if defined XMRIG_ALGO_KAWPOW || defined XMRIG_ALGO_GHOSTRIDER
+#       if defined RXS_ALGO_KAWPOW || defined RXS_ALGO_GHOSTRIDER
         const uint32_t f = m_algorithm.family();
         else
 #       endif
@@ -230,7 +230,7 @@ xmrig::IClient *xmrig::Pool::createClient(int id, IClientListener *listener) con
             client = new Client(id, Platform::userAgent(), listener);
         }
     }
-#   ifdef XMRIG_FEATURE_HTTP
+#   ifdef RXS_FEATURE_HTTP
     else if (m_mode == MODE_DAEMON) {
         client = new DaemonClient(id, listener);
     }
@@ -238,12 +238,12 @@ xmrig::IClient *xmrig::Pool::createClient(int id, IClientListener *listener) con
         client = new SelfSelectClient(id, Platform::userAgent(), listener, m_submitToOrigin);
     }
 #   endif
-#   if defined XMRIG_ALGO_KAWPOW || defined XMRIG_ALGO_GHOSTRIDER
+#   if defined RXS_ALGO_KAWPOW || defined RXS_ALGO_GHOSTRIDER
     else if (m_mode == MODE_AUTO_ETH) {
         client = new AutoClient(id, Platform::userAgent(), listener);
     }
 #   endif
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     else if (m_mode == MODE_BENCHMARK) {
         client = new BenchClient(m_benchmark, listener);
     }
@@ -259,7 +259,7 @@ xmrig::IClient *xmrig::Pool::createClient(int id, IClientListener *listener) con
 }
 
 
-rapidjson::Value xmrig::Pool::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::Pool::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
 
@@ -280,7 +280,7 @@ rapidjson::Value xmrig::Pool::toJSON(rapidjson::Document &doc) const
         obj.AddMember(StringRef(kPass),  m_password.toJSON(), allocator);
         obj.AddMember(StringRef(kRigId), m_rigId.toJSON(), allocator);
 
-#       ifndef XMRIG_PROXY_PROJECT
+#       ifndef RXS_PROXY_PROJECT
         obj.AddMember(StringRef(kNicehash), isNicehash(), allocator);
 #       endif
 
@@ -313,7 +313,7 @@ rapidjson::Value xmrig::Pool::toJSON(rapidjson::Document &doc) const
 }
 
 
-std::string xmrig::Pool::printableName() const
+std::string rxs::Pool::printableName() const
 {
     std::string out(CSI "1;" + std::to_string(isEnabled() ? (isTLS() ? 32 : 36) : 31) + "m" + url().data() + CLEAR);
 
@@ -333,7 +333,7 @@ std::string xmrig::Pool::printableName() const
 
 
 #ifdef APP_DEBUG
-void xmrig::Pool::print() const
+void rxs::Pool::print() const
 {
     LOG_NOTICE("url:       %s", url().data());
     LOG_DEBUG ("host:      %s", host().data());
@@ -351,7 +351,7 @@ void xmrig::Pool::print() const
 #endif
 
 
-void xmrig::Pool::setKeepAlive(const rapidjson::Value &value)
+void rxs::Pool::setKeepAlive(const rapidjson::Value &value)
 {
     if (value.IsInt()) {
         setKeepAlive(value.GetInt());

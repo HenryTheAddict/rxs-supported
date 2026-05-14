@@ -24,15 +24,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_RX_SEED_H
-#define XMRIG_RX_SEED_H
+#ifndef RXS_RX_SEED_H
+#define RXS_RX_SEED_H
 
 
 #include "base/net/stratum/Job.h"
 #include "base/tools/Buffer.h"
 
 
-namespace xmrig
+namespace rxs
 {
 
 
@@ -69,7 +69,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_RX_CACHE_H */
+#endif /* RXS_RX_CACHE_H */

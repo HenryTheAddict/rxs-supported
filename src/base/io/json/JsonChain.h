@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_JSONCHAIN_H
-#define XMRIG_JSONCHAIN_H
+#ifndef RXS_JSONCHAIN_H
+#define RXS_JSONCHAIN_H
 
 
 #include <vector>
@@ -28,7 +28,7 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class JsonChain : public IJsonReader
@@ -67,7 +67,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_JSONCHAIN_H */
+#endif /* RXS_JSONCHAIN_H */

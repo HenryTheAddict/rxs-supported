@@ -18,8 +18,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_RX_QUEUE_H
-#define XMRIG_RX_QUEUE_H
+#ifndef RXS_RX_QUEUE_H
+#define RXS_RX_QUEUE_H
 
 
 #include "base/kernel/interfaces/IAsyncListener.h"
@@ -34,7 +34,7 @@
 #include <thread>
 
 
-namespace xmrig
+namespace rxs
 {
 
 
@@ -69,7 +69,7 @@ public:
 class RxQueue : public IAsyncListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(RxQueue);
+    RXS_DISABLE_COPY_MOVE(RxQueue);
 
     RxQueue(IRxListener *listener);
     ~RxQueue() override;
@@ -105,7 +105,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_RX_QUEUE_H */
+#endif /* RXS_RX_QUEUE_H */

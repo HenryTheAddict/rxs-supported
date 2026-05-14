@@ -40,7 +40,7 @@
 
 
 
-#if defined(XMRIG_FEATURE_OPENCL) || defined(XMRIG_FEATURE_CUDA)
+#if defined(RXS_FEATURE_OPENCL) || defined(RXS_FEATURE_CUDA)
 #   include "base/tools/Baton.h"
 #   include "crypto/common/VirtualMemory.h"
 #endif
@@ -53,10 +53,10 @@
 #include <uv.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
-#if defined(XMRIG_FEATURE_OPENCL) || defined(XMRIG_FEATURE_CUDA)
+#if defined(RXS_FEATURE_OPENCL) || defined(RXS_FEATURE_CUDA)
 class JobBundle
 {
 public:
@@ -143,7 +143,7 @@ static void getResults(JobBundle &bundle, std::vector<JobResult> &results, uint3
 class JobResultsPrivate : public IAsyncListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(JobResultsPrivate)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(JobResultsPrivate)
 
     inline JobResultsPrivate(IJobResultListener *listener, bool hwAES) :
         m_hwAES(hwAES),
@@ -165,7 +165,7 @@ public:
     }
 
 
-#   if defined(XMRIG_FEATURE_OPENCL) || defined(XMRIG_FEATURE_CUDA)
+#   if defined(RXS_FEATURE_OPENCL) || defined(RXS_FEATURE_CUDA)
     inline void submit(const Job &job, uint32_t *results, size_t count, uint32_t device_index)
     {
         std::lock_guard<std::mutex> lock(m_mutex);
@@ -181,7 +181,7 @@ protected:
 
 
 private:
-#   if defined(XMRIG_FEATURE_OPENCL) || defined(XMRIG_FEATURE_CUDA)
+#   if defined(RXS_FEATURE_OPENCL) || defined(RXS_FEATURE_CUDA)
     inline void submit()
     {
         std::list<JobBundle> bundles;
@@ -242,7 +242,7 @@ private:
     std::mutex m_mutex;
     std::shared_ptr<Async> m_async;
 
-#   if defined(XMRIG_FEATURE_OPENCL) || defined(XMRIG_FEATURE_CUDA)
+#   if defined(RXS_FEATURE_OPENCL) || defined(RXS_FEATURE_CUDA)
     std::list<JobBundle> m_bundles;
 #   endif
 };
@@ -251,16 +251,16 @@ private:
 static JobResultsPrivate *handler = nullptr;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-void xmrig::JobResults::done(const Job &job)
+void rxs::JobResults::done(const Job &job)
 {
     submit(JobResult(job));
 }
 
 
-void xmrig::JobResults::setListener(IJobResultListener *listener, bool hwAES)
+void rxs::JobResults::setListener(IJobResultListener *listener, bool hwAES)
 {
     assert(handler == nullptr);
 
@@ -268,7 +268,7 @@ void xmrig::JobResults::setListener(IJobResultListener *listener, bool hwAES)
 }
 
 
-void xmrig::JobResults::stop()
+void rxs::JobResults::stop()
 {
     assert(handler != nullptr);
 
@@ -278,19 +278,19 @@ void xmrig::JobResults::stop()
 }
 
 
-void xmrig::JobResults::submit(const Job &job, uint32_t nonce, const uint8_t *result)
+void rxs::JobResults::submit(const Job &job, uint32_t nonce, const uint8_t *result)
 {
     submit(JobResult(job, nonce, result));
 }
 
 
-void xmrig::JobResults::submit(const Job& job, uint32_t nonce, const uint8_t* result, const uint8_t* extra_data)
+void rxs::JobResults::submit(const Job& job, uint32_t nonce, const uint8_t* result, const uint8_t* extra_data)
 {
     submit(JobResult(job, nonce, result, nullptr, nullptr, extra_data));
 }
 
 
-void xmrig::JobResults::submit(const JobResult &result)
+void rxs::JobResults::submit(const JobResult &result)
 {
     assert(handler != nullptr);
 
@@ -300,8 +300,8 @@ void xmrig::JobResults::submit(const JobResult &result)
 }
 
 
-#if defined(XMRIG_FEATURE_OPENCL) || defined(XMRIG_FEATURE_CUDA)
-void xmrig::JobResults::submit(const Job &job, uint32_t *results, size_t count, uint32_t device_index)
+#if defined(RXS_FEATURE_OPENCL) || defined(RXS_FEATURE_CUDA)
+void rxs::JobResults::submit(const Job &job, uint32_t *results, size_t count, uint32_t device_index)
 {
     if (handler) {
         handler->submit(job, results, count, device_index);

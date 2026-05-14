@@ -31,22 +31,22 @@
 #include "crypto/common/Assembly.h"
 
 
-#ifdef XMRIG_ALGO_RANDOMX
+#ifdef RXS_ALGO_RANDOMX
 #   include "crypto/rx/RxConfig.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_OPENCL
+#ifdef RXS_FEATURE_OPENCL
 #   include "backend/opencl/OclConfig.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_CUDA
+#ifdef RXS_FEATURE_CUDA
 #   include "backend/cuda/CudaConfig.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 constexpr static uint32_t kIdleTime     = 60U;
@@ -56,19 +56,19 @@ const char *Config::kPauseOnBattery     = "pause-on-battery";
 const char *Config::kPauseOnActive      = "pause-on-active";
 
 
-#ifdef XMRIG_FEATURE_OPENCL
+#ifdef RXS_FEATURE_OPENCL
 const char *Config::kOcl                = "opencl";
 #endif
 
-#ifdef XMRIG_FEATURE_CUDA
+#ifdef RXS_FEATURE_CUDA
 const char *Config::kCuda               = "cuda";
 #endif
 
-#if defined(XMRIG_FEATURE_NVML) || defined (XMRIG_FEATURE_ADL)
+#if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
 const char *Config::kHealthPrintTime    = "health-print-time";
 #endif
 
-#ifdef XMRIG_FEATURE_DMI
+#ifdef RXS_FEATURE_DMI
 const char *Config::kDMI                = "dmi";
 #endif
 
@@ -80,23 +80,23 @@ public:
     CpuConfig cpu;
     uint32_t idleTime   = 0;
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     RxConfig rx;
 #   endif
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     OclConfig cl;
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     CudaConfig cuda;
 #   endif
 
-#   if defined(XMRIG_FEATURE_NVML) || defined (XMRIG_FEATURE_ADL)
+#   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
     uint32_t healthPrintTime = 60U;
 #   endif
 
-#   ifdef XMRIG_FEATURE_DMI
+#   ifdef RXS_FEATURE_DMI
     bool dmi = true;
 #   endif
 
@@ -111,92 +111,92 @@ public:
     }
 };
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::Config::Config() :
+rxs::Config::Config() :
     d_ptr(new ConfigPrivate())
 {
 }
 
 
-xmrig::Config::~Config()
+rxs::Config::~Config()
 {
     delete d_ptr;
 }
 
 
-bool xmrig::Config::isPauseOnBattery() const
+bool rxs::Config::isPauseOnBattery() const
 {
     return d_ptr->pauseOnBattery;
 }
 
 
-const xmrig::CpuConfig &xmrig::Config::cpu() const
+const rxs::CpuConfig &rxs::Config::cpu() const
 {
     return d_ptr->cpu;
 }
 
 
-uint32_t xmrig::Config::idleTime() const
+uint32_t rxs::Config::idleTime() const
 {
     return d_ptr->idleTime * 1000U;
 }
 
 
-#ifdef XMRIG_FEATURE_OPENCL
-const xmrig::OclConfig &xmrig::Config::cl() const
+#ifdef RXS_FEATURE_OPENCL
+const rxs::OclConfig &rxs::Config::cl() const
 {
     return d_ptr->cl;
 }
 #endif
 
 
-#ifdef XMRIG_FEATURE_CUDA
-const xmrig::CudaConfig &xmrig::Config::cuda() const
+#ifdef RXS_FEATURE_CUDA
+const rxs::CudaConfig &rxs::Config::cuda() const
 {
     return d_ptr->cuda;
 }
 #endif
 
 
-#ifdef XMRIG_ALGO_RANDOMX
-const xmrig::RxConfig &xmrig::Config::rx() const
+#ifdef RXS_ALGO_RANDOMX
+const rxs::RxConfig &rxs::Config::rx() const
 {
     return d_ptr->rx;
 }
 #endif
 
 
-#if defined(XMRIG_FEATURE_NVML) || defined (XMRIG_FEATURE_ADL)
-uint32_t xmrig::Config::healthPrintTime() const
+#if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
+uint32_t rxs::Config::healthPrintTime() const
 {
     return d_ptr->healthPrintTime;
 }
 #endif
 
 
-#ifdef XMRIG_FEATURE_DMI
-bool xmrig::Config::isDMI() const
+#ifdef RXS_FEATURE_DMI
+bool rxs::Config::isDMI() const
 {
     return d_ptr->dmi;
 }
 #endif
 
 
-bool xmrig::Config::isShouldSave() const
+bool rxs::Config::isShouldSave() const
 {
     if (!isAutoSave()) {
         return false;
     }
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     if (cl().isShouldSave()) {
         return true;
     }
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     if (cuda().isShouldSave()) {
         return true;
     }
@@ -206,7 +206,7 @@ bool xmrig::Config::isShouldSave() const
 }
 
 
-bool xmrig::Config::read(const IJsonReader &reader, const char *fileName)
+bool rxs::Config::read(const IJsonReader &reader, const char *fileName)
 {
     if (!BaseConfig::read(reader, fileName)) {
         return false;
@@ -217,29 +217,29 @@ bool xmrig::Config::read(const IJsonReader &reader, const char *fileName)
 
     d_ptr->cpu.read(reader.getValue(CpuConfig::kField));
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     if (!d_ptr->rx.read(reader.getValue(RxConfig::kField))) {
         m_upgrade = true;
     }
 #   endif
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     if (!pools().isBenchmark()) {
         d_ptr->cl.read(reader.getValue(kOcl));
     }
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     if (!pools().isBenchmark()) {
         d_ptr->cuda.read(reader.getValue(kCuda));
     }
 #   endif
 
-#   if defined(XMRIG_FEATURE_NVML) || defined (XMRIG_FEATURE_ADL)
+#   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
     d_ptr->healthPrintTime = reader.getUint(kHealthPrintTime, d_ptr->healthPrintTime);
 #   endif
 
-#   ifdef XMRIG_FEATURE_DMI
+#   ifdef RXS_FEATURE_DMI
     d_ptr->dmi = reader.getBool(kDMI, d_ptr->dmi);
 #   endif
 
@@ -247,7 +247,7 @@ bool xmrig::Config::read(const IJsonReader &reader, const char *fileName)
 }
 
 
-void xmrig::Config::getJSON(rapidjson::Document &doc) const
+void rxs::Config::getJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
 
@@ -266,17 +266,17 @@ void xmrig::Config::getJSON(rapidjson::Document &doc) const
     doc.AddMember(StringRef(kColors),                   Log::isColors(), allocator);
     doc.AddMember(StringRef(kTitle),                    title().toJSON(), allocator);
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     doc.AddMember(StringRef(RxConfig::kField),          rx().toJSON(doc), allocator);
 #   endif
 
     doc.AddMember(StringRef(CpuConfig::kField),         cpu().toJSON(doc), allocator);
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     doc.AddMember(StringRef(kOcl),                      cl().toJSON(doc), allocator);
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     doc.AddMember(StringRef(kCuda),                     cuda().toJSON(doc), allocator);
 #   endif
 
@@ -285,17 +285,17 @@ void xmrig::Config::getJSON(rapidjson::Document &doc) const
     m_pools.toJSON(doc, doc);
 
     doc.AddMember(StringRef(kPrintTime),                printTime(), allocator);
-#   if defined(XMRIG_FEATURE_NVML) || defined (XMRIG_FEATURE_ADL)
+#   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
     doc.AddMember(StringRef(kHealthPrintTime),          healthPrintTime(), allocator);
 #   endif
 
-#   ifdef XMRIG_FEATURE_DMI
+#   ifdef RXS_FEATURE_DMI
     doc.AddMember(StringRef(kDMI),                      isDMI(), allocator);
 #   endif
 
     doc.AddMember(StringRef(kSyslog),                   isSyslog(), allocator);
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     doc.AddMember(StringRef(kTls),                      m_tls.toJSON(doc), allocator);
 #   endif
 

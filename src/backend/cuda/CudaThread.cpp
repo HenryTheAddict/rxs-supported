@@ -25,7 +25,7 @@
 #include <algorithm>
 
 
-namespace xmrig {
+namespace rxs {
 
 static const char *kAffinity    = "affinity";
 static const char *kBFactor     = "bfactor";
@@ -35,10 +35,10 @@ static const char *kIndex       = "index";
 static const char *kThreads     = "threads";
 static const char *kDatasetHost = "dataset_host";
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::CudaThread::CudaThread(const rapidjson::Value &value)
+rxs::CudaThread::CudaThread(const rapidjson::Value &value)
 {
     if (!value.IsObject()) {
         return;
@@ -60,7 +60,7 @@ xmrig::CudaThread::CudaThread(const rapidjson::Value &value)
 }
 
 
-xmrig::CudaThread::CudaThread(uint32_t index, nvid_ctx *ctx) :
+rxs::CudaThread::CudaThread(uint32_t index, nvid_ctx *ctx) :
     m_blocks(CudaLib::deviceInt(ctx, CudaLib::DeviceBlocks)),
     m_datasetHost(CudaLib::deviceInt(ctx, CudaLib::DeviceDatasetHost)),
     m_threads(CudaLib::deviceInt(ctx, CudaLib::DeviceThreads)),
@@ -72,7 +72,7 @@ xmrig::CudaThread::CudaThread(uint32_t index, nvid_ctx *ctx) :
 }
 
 
-bool xmrig::CudaThread::isEqual(const CudaThread &other) const
+bool rxs::CudaThread::isEqual(const CudaThread &other) const
 {
     return m_blocks      == other.m_blocks &&
            m_threads     == other.m_threads &&
@@ -84,7 +84,7 @@ bool xmrig::CudaThread::isEqual(const CudaThread &other) const
 }
 
 
-rapidjson::Value xmrig::CudaThread::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::CudaThread::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();

@@ -26,7 +26,7 @@
 
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static uv_lib_t nvmlLib;
@@ -71,10 +71,10 @@ char NvmlLib::m_nvmlVersion[80]     = { 0 };
 String NvmlLib::m_loader;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::NvmlLib::init(const char *fileName)
+bool rxs::NvmlLib::init(const char *fileName)
 {
     if (!m_initialized) {
         m_loader      = fileName;
@@ -86,13 +86,13 @@ bool xmrig::NvmlLib::init(const char *fileName)
 }
 
 
-const char *xmrig::NvmlLib::lastError() noexcept
+const char *rxs::NvmlLib::lastError() noexcept
 {
     return uv_dlerror(&nvmlLib);
 }
 
 
-void xmrig::NvmlLib::close()
+void rxs::NvmlLib::close()
 {
     if (m_ready) {
         pNvmlShutdown();
@@ -102,7 +102,7 @@ void xmrig::NvmlLib::close()
 }
 
 
-bool xmrig::NvmlLib::assign(std::vector<CudaDevice> &devices)
+bool rxs::NvmlLib::assign(std::vector<CudaDevice> &devices)
 {
     uint32_t count = 0;
     if (pNvmlDeviceGetCount(&count) != NVML_SUCCESS) {
@@ -131,7 +131,7 @@ bool xmrig::NvmlLib::assign(std::vector<CudaDevice> &devices)
 }
 
 
-NvmlHealth xmrig::NvmlLib::health(nvmlDevice_t device)
+NvmlHealth rxs::NvmlLib::health(nvmlDevice_t device)
 {
     if (!device) {
         return {};
@@ -168,7 +168,7 @@ NvmlHealth xmrig::NvmlLib::health(nvmlDevice_t device)
 }
 
 
-bool xmrig::NvmlLib::dlopen()
+bool rxs::NvmlLib::dlopen()
 {
     if (!m_loader.isNull()) {
         return uv_dlopen(m_loader, &nvmlLib) == 0;
@@ -189,7 +189,7 @@ bool xmrig::NvmlLib::dlopen()
 }
 
 
-bool xmrig::NvmlLib::load()
+bool rxs::NvmlLib::load()
 {
     try {
         DLSYM(NvmlDeviceGetClockInfo);

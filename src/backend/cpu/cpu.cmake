@@ -32,31 +32,31 @@ if (WITH_HWLOC)
         set(CPUID_LIB ${HWLOC_LIBRARY})
     endif()
 
-    add_definitions(/DXMRIG_FEATURE_HWLOC)
+    add_definitions(/DRXS_FEATURE_HWLOC)
 
     if (HWLOC_DEBUG)
-        add_definitions(/DXMRIG_HWLOC_DEBUG)
+        add_definitions(/DRXS_HWLOC_DEBUG)
     endif()
 
     list(APPEND HEADERS_BACKEND_CPU src/backend/cpu/platform/HwlocCpuInfo.h)
     list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/HwlocCpuInfo.cpp)
 else()
-    remove_definitions(/DXMRIG_FEATURE_HWLOC)
+    remove_definitions(/DRXS_FEATURE_HWLOC)
 
     set(CPUID_LIB "")
 endif()
 
-if (XMRIG_RISCV)
+if (RXS_RISCV)
     list(APPEND SOURCES_BACKEND_CPU
         src/backend/cpu/platform/lscpu_riscv.cpp
         src/backend/cpu/platform/BasicCpuInfo_riscv.cpp
     )
-elseif (XMRIG_ARM)
+elseif (RXS_ARM)
     list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/BasicCpuInfo_arm.cpp)
 
-    if (XMRIG_OS_WIN)
+    if (RXS_OS_WIN)
         list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/BasicCpuInfo_arm_win.cpp)
-    elseif(XMRIG_OS_APPLE)
+    elseif(RXS_OS_APPLE)
         list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/BasicCpuInfo_arm_mac.cpp)
     else()
         list(APPEND SOURCES_BACKEND_CPU

@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPU_H
-#define XMRIG_CPU_H
+#ifndef RXS_CPU_H
+#define RXS_CPU_H
 
 
 #include "backend/cpu/interfaces/ICpuInfo.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Cpu
@@ -37,7 +37,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_CPU_H
+#endif // RXS_CPU_H

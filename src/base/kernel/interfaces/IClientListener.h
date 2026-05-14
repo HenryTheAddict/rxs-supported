@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ICLIENTLISTENER_H
-#define XMRIG_ICLIENTLISTENER_H
+#ifndef RXS_ICLIENTLISTENER_H
+#define RXS_ICLIENTLISTENER_H
 
 
 #include <cstdint>
@@ -32,7 +32,7 @@
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -55,7 +55,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ICLIENTLISTENER_H
+#endif // RXS_ICLIENTLISTENER_H

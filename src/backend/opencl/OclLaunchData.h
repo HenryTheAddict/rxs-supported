@@ -23,8 +23,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLLAUNCHDATA_H
-#define XMRIG_OCLLAUNCHDATA_H
+#ifndef RXS_OCLLAUNCHDATA_H
+#define RXS_OCLLAUNCHDATA_H
 
 
 #include "backend/opencl/OclThread.h"
@@ -38,7 +38,7 @@
 using cl_context = struct _cl_context *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclConfig;
@@ -71,7 +71,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLLAUNCHDATA_H */
+#endif /* RXS_OCLLAUNCHDATA_H */

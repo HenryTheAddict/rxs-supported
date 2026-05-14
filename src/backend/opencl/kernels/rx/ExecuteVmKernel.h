@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_EXECUTEVMKERNEL_H
-#define XMRIG_EXECUTEVMKERNEL_H
+#ifndef RXS_EXECUTEVMKERNEL_H
+#define RXS_EXECUTEVMKERNEL_H
 
 
 #include "backend/opencl/wrappers/OclKernel.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ExecuteVmKernel : public OclKernel
@@ -45,7 +45,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_EXECUTEVMKERNEL_H */
+#endif /* RXS_EXECUTEVMKERNEL_H */

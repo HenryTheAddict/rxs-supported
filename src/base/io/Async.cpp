@@ -31,7 +31,7 @@
 #include <cstdlib>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 struct uv_async_t: uv_poll_t
@@ -109,11 +109,11 @@ static int uv_async_send(uv_async_t *async)
 
 
 
-} // namespace xmrig
+} // namespace rxs
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class AsyncPrivate
@@ -125,10 +125,10 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::Async::Async(Callback callback) : d_ptr(new AsyncPrivate())
+rxs::Async::Async(Callback callback) : d_ptr(new AsyncPrivate())
 {
     d_ptr->callback     = std::move(callback);
     d_ptr->async        = new uv_async_t;
@@ -138,7 +138,7 @@ xmrig::Async::Async(Callback callback) : d_ptr(new AsyncPrivate())
 }
 
 
-xmrig::Async::Async(IAsyncListener *listener) : d_ptr(new AsyncPrivate())
+rxs::Async::Async(IAsyncListener *listener) : d_ptr(new AsyncPrivate())
 {
     d_ptr->listener     = listener;
     d_ptr->async        = new uv_async_t;
@@ -148,7 +148,7 @@ xmrig::Async::Async(IAsyncListener *listener) : d_ptr(new AsyncPrivate())
 }
 
 
-xmrig::Async::~Async()
+rxs::Async::~Async()
 {
     Handle::close(d_ptr->async);
 
@@ -156,7 +156,7 @@ xmrig::Async::~Async()
 }
 
 
-void xmrig::Async::send()
+void rxs::Async::send()
 {
     uv_async_send(d_ptr->async);
 }

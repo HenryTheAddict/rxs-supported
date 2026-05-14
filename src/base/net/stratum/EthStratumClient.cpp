@@ -34,7 +34,7 @@
 #include "base/kernel/interfaces/IClientListener.h"
 #include "net/JobResult.h"
 
-#ifdef XMRIG_ALGO_GHOSTRIDER
+#ifdef RXS_ALGO_GHOSTRIDER
 #include <cmath>
 
 extern "C" {
@@ -45,15 +45,15 @@ extern "C" {
 
 
 
-xmrig::EthStratumClient::EthStratumClient(int id, const char *agent, IClientListener *listener) :
+rxs::EthStratumClient::EthStratumClient(int id, const char *agent, IClientListener *listener) :
     Client(id, agent, listener)
 {
 }
 
 
-int64_t xmrig::EthStratumClient::submit(const JobResult& result)
+int64_t rxs::EthStratumClient::submit(const JobResult& result)
 {
-#   ifndef XMRIG_PROXY_PROJECT
+#   ifndef RXS_PROXY_PROJECT
     if ((m_state != ConnectedState) || !m_authorized) {
         return -1;
     }
@@ -75,7 +75,7 @@ int64_t xmrig::EthStratumClient::submit(const JobResult& result)
     params.PushBack(m_user.toJSON(), allocator);
     params.PushBack(result.jobId.toJSON(), allocator);
 
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
     if (m_pool.algorithm().id() == Algorithm::INVALID) {
         params.PushBack(Value("00000000000000000000000000000000", static_cast<uint32_t>(m_extraNonce2Size * 2)), allocator);
         params.PushBack(Value(m_ntime.data(), allocator), allocator);
@@ -112,7 +112,7 @@ int64_t xmrig::EthStratumClient::submit(const JobResult& result)
 
     uint64_t actual_diff;
 
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
     if (result.algorithm == Algorithm::INVALID) {
         actual_diff = reinterpret_cast<const uint64_t*>(result.result())[3];
     }
@@ -124,7 +124,7 @@ int64_t xmrig::EthStratumClient::submit(const JobResult& result)
 
     actual_diff = actual_diff ? (uint64_t(-1) / actual_diff) : 0;
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     m_results[m_sequence] = SubmitResult(m_sequence, result.diff, actual_diff, result.id, 0);
 #   else
     m_results[m_sequence] = SubmitResult(m_sequence, result.diff, actual_diff, 0, result.backend);
@@ -134,7 +134,7 @@ int64_t xmrig::EthStratumClient::submit(const JobResult& result)
 }
 
 
-void xmrig::EthStratumClient::login()
+void rxs::EthStratumClient::login()
 {
     m_results.clear();
 
@@ -143,14 +143,14 @@ void xmrig::EthStratumClient::login()
 }
 
 
-void xmrig::EthStratumClient::onClose()
+void rxs::EthStratumClient::onClose()
 {
     m_authorized = false;
     Client::onClose();
 }
 
 
-bool xmrig::EthStratumClient::handleResponse(int64_t id, const rapidjson::Value &result, const rapidjson::Value &error)
+bool rxs::EthStratumClient::handleResponse(int64_t id, const rapidjson::Value &result, const rapidjson::Value &error)
 {
     auto it = m_callbacks.find(id);
     if (it != m_callbacks.end()) {
@@ -172,7 +172,7 @@ bool xmrig::EthStratumClient::handleResponse(int64_t id, const rapidjson::Value 
 }
 
 
-void xmrig::EthStratumClient::parseNotification(const char *method, const rapidjson::Value &params, const rapidjson::Value &)
+void rxs::EthStratumClient::parseNotification(const char *method, const rapidjson::Value &params, const rapidjson::Value &)
 {
     if (strcmp(method, "mining.set_target") == 0) {
         return;
@@ -194,7 +194,7 @@ void xmrig::EthStratumClient::parseNotification(const char *method, const rapidj
         setExtraNonce(arr[0]);
     }
 
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
     if (strcmp(method, "mining.set_difficulty") == 0) {
         if (!params.IsArray()) {
             LOG_ERR("%s " RED("invalid mining.set_difficulty notification: params is not an array"), tag());
@@ -255,7 +255,7 @@ void xmrig::EthStratumClient::parseNotification(const char *method, const rapidj
 
         std::stringstream s;
 
-#       ifdef XMRIG_ALGO_GHOSTRIDER
+#       ifdef RXS_ALGO_GHOSTRIDER
         if (algo.id() == Algorithm::INVALID) {
             // Raptoreum uses Bitcoin's Stratum protocol
             // https://en.bitcoinwiki.org/wiki/Stratum_mining_protocol#mining.notify
@@ -409,7 +409,7 @@ void xmrig::EthStratumClient::parseNotification(const char *method, const rapidj
 }
 
 
-void xmrig::EthStratumClient::setExtraNonce(const rapidjson::Value &nonce)
+void rxs::EthStratumClient::setExtraNonce(const rapidjson::Value &nonce)
 {
     if (!nonce.IsString()) {
         throw std::runtime_error("invalid mining.subscribe response: extra nonce is not a string");
@@ -441,7 +441,7 @@ void xmrig::EthStratumClient::setExtraNonce(const rapidjson::Value &nonce)
 }
 
 
-const char *xmrig::EthStratumClient::errorMessage(const rapidjson::Value &error)
+const char *rxs::EthStratumClient::errorMessage(const rapidjson::Value &error)
 {
     if (error.IsArray() && error.GetArray().Size() > 1) {
         auto &value = error.GetArray()[1];
@@ -462,7 +462,7 @@ const char *xmrig::EthStratumClient::errorMessage(const rapidjson::Value &error)
 }
 
 
-void xmrig::EthStratumClient::authorize()
+void rxs::EthStratumClient::authorize()
 {
     using namespace rapidjson;
 
@@ -479,7 +479,7 @@ void xmrig::EthStratumClient::authorize()
 }
 
 
-void xmrig::EthStratumClient::onAuthorizeResponse(const rapidjson::Value &result, bool success, uint64_t)
+void rxs::EthStratumClient::onAuthorizeResponse(const rapidjson::Value &result, bool success, uint64_t)
 {
     try {
         if (!success) {
@@ -514,7 +514,7 @@ void xmrig::EthStratumClient::onAuthorizeResponse(const rapidjson::Value &result
 }
 
 
-void xmrig::EthStratumClient::onSubscribeResponse(const rapidjson::Value &result, bool success, uint64_t)
+void rxs::EthStratumClient::onSubscribeResponse(const rapidjson::Value &result, bool success, uint64_t)
 {
     if (!success) {
         return;
@@ -533,7 +533,7 @@ void xmrig::EthStratumClient::onSubscribeResponse(const rapidjson::Value &result
 
         setExtraNonce(arr[1]);
 
-#       ifdef XMRIG_ALGO_GHOSTRIDER
+#       ifdef RXS_ALGO_GHOSTRIDER
         if ((arr.Size() > 2) && (arr[2].IsUint())) {
             m_extraNonce2Size = arr[2].GetUint();
         }
@@ -554,7 +554,7 @@ void xmrig::EthStratumClient::onSubscribeResponse(const rapidjson::Value &result
 }
 
 
-void xmrig::EthStratumClient::subscribe()
+void rxs::EthStratumClient::subscribe()
 {
     using namespace rapidjson;
 

@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ADLHEALTH_H
-#define XMRIG_ADLHEALTH_H
+#ifndef RXS_ADLHEALTH_H
+#define RXS_ADLHEALTH_H
 
 
 #include <cstdint>
@@ -35,4 +35,4 @@ struct AdlHealth
 };
 
 
-#endif /* XMRIG_ADLHEALTH_H */
+#endif /* RXS_ADLHEALTH_H */

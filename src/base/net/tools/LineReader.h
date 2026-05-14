@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_LINEREADER_H
-#define XMRIG_LINEREADER_H
+#ifndef RXS_LINEREADER_H
+#define RXS_LINEREADER_H
 
 
 #include "base/tools/Object.h"
@@ -27,7 +27,7 @@
 #include <cstddef>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ILineListener;
@@ -36,7 +36,7 @@ class ILineListener;
 class LineReader
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(LineReader)
+    RXS_DISABLE_COPY_MOVE(LineReader)
 
     LineReader() = default;
     LineReader(ILineListener *listener) : m_listener(listener) {}
@@ -57,7 +57,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_NETBUFFER_H */
+#endif /* RXS_NETBUFFER_H */

@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDATHREAD_H
-#define XMRIG_CUDATHREAD_H
+#ifndef RXS_CUDATHREAD_H
+#define RXS_CUDATHREAD_H
 
 
 using nvid_ctx = struct nvid_ctx;
@@ -26,7 +26,7 @@ using nvid_ctx = struct nvid_ctx;
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CudaThread
@@ -68,7 +68,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CUDATHREAD_H */
+#endif /* RXS_CUDATHREAD_H */

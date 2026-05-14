@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDALIB_H
-#define XMRIG_CUDALIB_H
+#ifndef RXS_CUDALIB_H
+#define RXS_CUDALIB_H
 
 
 using nvid_ctx = struct nvid_ctx;
@@ -31,7 +31,7 @@ using nvid_ctx = struct nvid_ctx;
 #include <string>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CudaLib
@@ -101,7 +101,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CUDALIB_H */
+#endif /* RXS_CUDALIB_H */

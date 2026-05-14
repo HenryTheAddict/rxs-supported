@@ -18,14 +18,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_DMIMEMORY_H
-#define XMRIG_DMIMEMORY_H
+#ifndef RXS_DMIMEMORY_H
+#define RXS_DMIMEMORY_H
 
 
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 struct dmi_header;
@@ -53,7 +53,7 @@ public:
     const char *formFactor() const;
     const char *type() const;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     rapidjson::Value toJSON(rapidjson::Document &doc) const;
 #   endif
 
@@ -76,7 +76,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_DMIMEMORY_H */
+#endif /* RXS_DMIMEMORY_H */

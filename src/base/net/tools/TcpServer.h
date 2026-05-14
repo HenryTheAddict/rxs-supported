@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_TCPSERVER_H
-#define XMRIG_TCPSERVER_H
+#ifndef RXS_TCPSERVER_H
+#define RXS_TCPSERVER_H
 
 
 #include <uv.h>
@@ -32,7 +32,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ITcpServerListener;
@@ -42,7 +42,7 @@ class String;
 class TcpServer
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(TcpServer)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(TcpServer)
 
     TcpServer(const String &host, uint16_t port, ITcpServerListener *listener);
     ~TcpServer();
@@ -63,7 +63,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_TCPSERVER_H */
+#endif /* RXS_TCPSERVER_H */

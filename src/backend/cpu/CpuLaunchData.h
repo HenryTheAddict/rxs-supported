@@ -23,8 +23,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPULAUNCHDATA_H
-#define XMRIG_CPULAUNCHDATA_H
+#ifndef RXS_CPULAUNCHDATA_H
+#define RXS_CPULAUNCHDATA_H
 
 
 #include "base/crypto/Algorithm.h"
@@ -33,7 +33,7 @@
 #include "crypto/common/Nonce.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CpuConfig;
@@ -69,7 +69,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CPULAUNCHDATA_H */
+#endif /* RXS_CPULAUNCHDATA_H */

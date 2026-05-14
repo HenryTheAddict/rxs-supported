@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPUTHREADS_H
-#define XMRIG_CPUTHREADS_H
+#ifndef RXS_CPUTHREADS_H
+#define RXS_CPUTHREADS_H
 
 
 #include <vector>
@@ -26,7 +26,7 @@
 #include "backend/cpu/CpuThread.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CpuThreads
@@ -63,7 +63,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CPUTHREADS_H */
+#endif /* RXS_CPUTHREADS_H */

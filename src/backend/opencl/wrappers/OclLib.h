@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLLIB_H
-#define XMRIG_OCLLIB_H
+#ifndef RXS_OCLLIB_H
+#define RXS_OCLLIB_H
 
 
 #include <vector>
@@ -43,7 +43,7 @@
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclLib
@@ -120,7 +120,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLLIB_H */
+#endif /* RXS_OCLLIB_H */

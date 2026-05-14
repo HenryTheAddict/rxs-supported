@@ -16,20 +16,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SPAN_H
-#define XMRIG_SPAN_H
+#ifndef RXS_SPAN_H
+#define RXS_SPAN_H
 
 
 #include "3rdparty/epee/span.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 using Span = epee::span<const uint8_t>;
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_SPAN_H */
+#endif /* RXS_SPAN_H */

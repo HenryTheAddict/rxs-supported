@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_MINER_H
-#define XMRIG_MINER_H
+#ifndef RXS_MINER_H
+#define RXS_MINER_H
 
 
 #include <vector>
@@ -31,7 +31,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Controller;
@@ -43,7 +43,7 @@ class IBackend;
 class Miner : public ITimerListener, public IBaseListener, public IApiListener, public IRxListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Miner)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Miner)
 
     Miner(Controller *controller);
     ~Miner() override;
@@ -63,11 +63,11 @@ protected:
     void onConfigChanged(Config *config, Config *previousConfig) override;
     void onTimer(const Timer *timer) override;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     void onRequest(IApiRequest &request) override;
 #   endif
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     void onDatasetReady() override;
 #   endif
 
@@ -76,7 +76,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_MINER_H */
+#endif /* RXS_MINER_H */

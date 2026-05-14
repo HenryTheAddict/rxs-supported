@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CONSOLELOG_H
-#define XMRIG_CONSOLELOG_H
+#ifndef RXS_CONSOLELOG_H
+#define RXS_CONSOLELOG_H
 
 
 using uv_stream_t = struct uv_stream_s;
@@ -29,7 +29,7 @@ using uv_tty_t    = struct uv_tty_s;
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Title;
@@ -38,7 +38,7 @@ class Title;
 class ConsoleLog : public ILogBackend
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(ConsoleLog)
+    RXS_DISABLE_COPY_MOVE(ConsoleLog)
 
     ConsoleLog(const Title &title);
     ~ConsoleLog() override;
@@ -51,7 +51,7 @@ private:
 
     uv_tty_t *m_tty = nullptr;
 
-#   ifdef XMRIG_OS_WIN
+#   ifdef RXS_OS_WIN
     bool isWritable() const;
 
     uv_stream_t *m_stream = nullptr;
@@ -59,7 +59,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CONSOLELOG_H */
+#endif /* RXS_CONSOLELOG_H */

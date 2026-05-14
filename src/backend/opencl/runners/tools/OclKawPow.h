@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLKAWPOW_H
-#define XMRIG_OCLKAWPOW_H
+#ifndef RXS_OCLKAWPOW_H
+#define RXS_OCLKAWPOW_H
 
 
 #include <cstddef>
@@ -27,7 +27,7 @@
 using cl_kernel = struct _cl_kernel *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IOclRunner;
@@ -41,7 +41,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLKAWPOW_H */
+#endif /* RXS_OCLKAWPOW_H */

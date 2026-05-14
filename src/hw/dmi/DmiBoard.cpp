@@ -24,7 +24,7 @@
 #include "hw/dmi/DmiTools.h"
 
 
-void xmrig::DmiBoard::decode(dmi_header *h)
+void rxs::DmiBoard::decode(dmi_header *h)
 {
     if (h->length < 0x08) {
         return;
@@ -35,8 +35,8 @@ void xmrig::DmiBoard::decode(dmi_header *h)
 }
 
 
-#ifdef XMRIG_FEATURE_API
-rapidjson::Value xmrig::DmiBoard::toJSON(rapidjson::Document &doc) const
+#ifdef RXS_FEATURE_API
+rapidjson::Value rxs::DmiBoard::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
 

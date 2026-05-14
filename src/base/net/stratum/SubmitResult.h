@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SUBMITRESULT_H
-#define XMRIG_SUBMITRESULT_H
+#ifndef RXS_SUBMITRESULT_H
+#define RXS_SUBMITRESULT_H
 
 
 #include "base/tools/Chrono.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class SubmitResult
@@ -60,7 +60,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_SUBMITRESULT_H */
+#endif /* RXS_SUBMITRESULT_H */

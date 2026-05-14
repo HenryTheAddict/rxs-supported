@@ -30,24 +30,24 @@
 #include <uv.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const char *kCRLF      = "\r\n";
 static const char *kUserAgent = "user-agent";
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::HttpResponse::HttpResponse(uint64_t id, int statusCode) :
+rxs::HttpResponse::HttpResponse(uint64_t id, int statusCode) :
     m_id(id),
     m_statusCode(statusCode)
 {
 }
 
 
-bool xmrig::HttpResponse::isAlive() const
+bool rxs::HttpResponse::isAlive() const
 {
     auto ctx = HttpContext::get(m_id);
 
@@ -55,7 +55,7 @@ bool xmrig::HttpResponse::isAlive() const
 }
 
 
-void xmrig::HttpResponse::end(const char *data, size_t size)
+void rxs::HttpResponse::end(const char *data, size_t size)
 {
     if (!isAlive()) {
         return;

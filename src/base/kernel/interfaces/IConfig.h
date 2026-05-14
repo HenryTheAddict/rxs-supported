@@ -21,7 +21,7 @@
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IJsonReader;
@@ -174,4 +174,4 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs

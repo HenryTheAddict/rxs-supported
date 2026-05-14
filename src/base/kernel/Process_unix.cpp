@@ -24,7 +24,7 @@
 #include "base/kernel/Process.h"
 
 
-int xmrig::Process::pid()
+int rxs::Process::pid()
 {
 #   if UV_VERSION_HEX >= 0x011200
     return uv_os_getpid();

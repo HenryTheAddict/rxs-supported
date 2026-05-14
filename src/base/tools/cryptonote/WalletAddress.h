@@ -18,15 +18,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_WALLETADDRESS_H
-#define XMRIG_WALLETADDRESS_H
+#ifndef RXS_WALLETADDRESS_H
+#define RXS_WALLETADDRESS_H
 
 
 #include "base/tools/String.h"
 #include "base/crypto/Coin.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class WalletAddress
@@ -74,7 +74,7 @@ public:
     const char *typeName() const;
     rapidjson::Value toJSON(rapidjson::Document &doc) const;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     rapidjson::Value toAPI(rapidjson::Document &doc) const;
 #   endif
 
@@ -98,7 +98,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_WALLETADDRESS_H */
+#endif /* RXS_WALLETADDRESS_H */

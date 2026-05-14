@@ -17,15 +17,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_TLSCONFIG_H
-#define XMRIG_TLSCONFIG_H
+#ifndef RXS_TLSCONFIG_H
+#define RXS_TLSCONFIG_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class TlsConfig
@@ -81,6 +81,6 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
-#endif /* XMRIG_TLSCONFIG_H */
+#endif /* RXS_TLSCONFIG_H */

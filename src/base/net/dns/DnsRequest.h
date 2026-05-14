@@ -21,13 +21,13 @@
 #include "base/kernel/interfaces/IDnsListener.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsRequest : public IDnsListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(DnsRequest)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(DnsRequest)
 
     inline DnsRequest(IDnsListener *listener) : m_listener(listener) {}
     ~DnsRequest() override = default;
@@ -42,4 +42,4 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs

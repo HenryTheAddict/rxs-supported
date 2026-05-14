@@ -29,7 +29,7 @@
 #include "3rdparty/rapidjson/document.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 extern String cpu_name_riscv();
@@ -37,10 +37,10 @@ extern bool has_riscv_vector();
 extern bool has_riscv_aes();
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::BasicCpuInfo::BasicCpuInfo() :
+rxs::BasicCpuInfo::BasicCpuInfo() :
     m_threads(std::thread::hardware_concurrency())
 {
     m_units.resize(m_threads);
@@ -66,22 +66,22 @@ xmrig::BasicCpuInfo::BasicCpuInfo() :
 }
 
 
-const char *xmrig::BasicCpuInfo::backend() const
+const char *rxs::BasicCpuInfo::backend() const
 {
     return "basic/1";
 }
 
 
-xmrig::CpuThreads xmrig::BasicCpuInfo::threads(const Algorithm &algorithm, uint32_t) const
+rxs::CpuThreads rxs::BasicCpuInfo::threads(const Algorithm &algorithm, uint32_t) const
 {
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
 #   endif
 
     return CpuThreads(threads());
 }
 
 
-rapidjson::Value xmrig::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();

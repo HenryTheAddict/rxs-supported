@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BENCHCONFIG_H
-#define XMRIG_BENCHCONFIG_H
+#ifndef RXS_BENCHCONFIG_H
+#define RXS_BENCHCONFIG_H
 
 
 #include "base/crypto/Algorithm.h"
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class BenchConfig
@@ -43,7 +43,7 @@ public:
     static const char *kUser;
     static const char *kVerify;
 
-#   ifndef XMRIG_DEBUG_BENCHMARK_API
+#   ifndef RXS_DEBUG_BENCHMARK_API
     static constexpr bool kApiTLS               = true;
     static constexpr const uint16_t kApiPort    = 443;
 #   else
@@ -84,7 +84,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_BENCHCONFIG_H */
+#endif /* RXS_BENCHCONFIG_H */

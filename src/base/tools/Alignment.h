@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ALIGNMENT_H
-#define XMRIG_ALIGNMENT_H
+#ifndef RXS_ALIGNMENT_H
+#define RXS_ALIGNMENT_H
 
 
 #include <type_traits>
 #include <cstring>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template<typename T>
@@ -47,7 +47,7 @@ inline void writeUnaligned(T* ptr, T data)
 }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_ALIGNMENT_H */
+#endif /* RXS_ALIGNMENT_H */

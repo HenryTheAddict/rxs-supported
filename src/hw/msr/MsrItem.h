@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_MSRITEM_H
-#define XMRIG_MSRITEM_H
+#ifndef RXS_MSRITEM_H
+#define RXS_MSRITEM_H
 
 
 #include "base/tools/String.h"
@@ -27,7 +27,7 @@
 #include <vector>
 
 
-namespace xmrig
+namespace rxs
 {
 
 
@@ -64,7 +64,7 @@ private:
 using MsrItems = std::vector<MsrItem>;
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_MSRITEM_H */
+#endif /* RXS_MSRITEM_H */

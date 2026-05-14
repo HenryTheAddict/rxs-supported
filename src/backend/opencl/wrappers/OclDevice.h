@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLDEVICE_H
-#define XMRIG_OCLDEVICE_H
+#ifndef RXS_OCLDEVICE_H
+#define RXS_OCLDEVICE_H
 
 
 #include "backend/common/misc/PciTopology.h"
@@ -32,7 +32,7 @@ using cl_device_id      = struct _cl_device_id *;
 using cl_platform_id    = struct _cl_platform_id *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -81,7 +81,7 @@ public:
     inline size_t maxMemAllocSize() const       { return m_maxMemoryAlloc; }
     inline uint32_t index() const               { return m_index; }
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     void toJSON(rapidjson::Value &out, rapidjson::Document &doc) const;
 #   endif
 
@@ -106,7 +106,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLDEVICE_H */
+#endif /* RXS_OCLDEVICE_H */

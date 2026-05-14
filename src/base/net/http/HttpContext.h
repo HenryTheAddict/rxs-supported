@@ -18,8 +18,8 @@
  */
 
 
-#ifndef XMRIG_HTTPCONTEXT_H
-#define XMRIG_HTTPCONTEXT_H
+#ifndef RXS_HTTPCONTEXT_H
+#define RXS_HTTPCONTEXT_H
 
 
 using llhttp_settings_t     = struct llhttp_settings_s;
@@ -37,7 +37,7 @@ using uv_tcp_t              = struct uv_tcp_s;
 #include <memory>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IHttpListener;
@@ -46,7 +46,7 @@ class IHttpListener;
 class HttpContext : public HttpData
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(HttpContext)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(HttpContext)
 
     HttpContext(int parser_type, const std::weak_ptr<IHttpListener> &listener);
     ~HttpContext() override;
@@ -91,8 +91,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPCONTEXT_H
+#endif // RXS_HTTPCONTEXT_H
 

@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HTTPLISTENER_H
-#define XMRIG_HTTPLISTENER_H
+#ifndef RXS_HTTPLISTENER_H
+#define RXS_HTTPLISTENER_H
 
 
 #include "base/kernel/interfaces/IHttpListener.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HttpListener : public IHttpListener
@@ -47,7 +47,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_HTTPLISTENER_H
+#endif // RXS_HTTPLISTENER_H

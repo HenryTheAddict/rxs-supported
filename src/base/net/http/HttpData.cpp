@@ -28,7 +28,7 @@
 #include <stdexcept>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const std::string HttpData::kApplicationJson    = "application/json";
@@ -37,10 +37,10 @@ const std::string HttpData::kContentTypeL       = "content-type";
 const std::string HttpData::kTextPlain          = "text/plain";
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::HttpData::isJSON() const
+bool rxs::HttpData::isJSON() const
 {
     if (!headers.count(kContentTypeL)) {
         return false;
@@ -52,13 +52,13 @@ bool xmrig::HttpData::isJSON() const
 }
 
 
-const char *xmrig::HttpData::methodName() const
+const char *rxs::HttpData::methodName() const
 {
     return llhttp_method_name(static_cast<llhttp_method>(method));
 }
 
 
-rapidjson::Document xmrig::HttpData::json() const
+rapidjson::Document rxs::HttpData::json() const
 {
     if (status < 0) {
         throw std::runtime_error(statusName());
@@ -85,7 +85,7 @@ rapidjson::Document xmrig::HttpData::json() const
 }
 
 
-const char *xmrig::HttpData::statusName(int status)
+const char *rxs::HttpData::statusName(int status)
 {
     if (status < 0) {
         return uv_strerror(status);

@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BENCHMARK_H
-#define XMRIG_BENCHMARK_H
+#ifndef RXS_BENCHMARK_H
+#define RXS_BENCHMARK_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IBackend;
@@ -32,7 +32,7 @@ class IBackend;
 class Benchmark
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Benchmark)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Benchmark)
 
     Benchmark(size_t workers, const IBackend *backend);
     ~Benchmark() = default;
@@ -49,7 +49,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_BENCHMARK_H */
+#endif /* RXS_BENCHMARK_H */

@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HWLOCCPUINFO_H
-#define XMRIG_HWLOCCPUINFO_H
+#ifndef RXS_HWLOCCPUINFO_H
+#define RXS_HWLOCCPUINFO_H
 
 
 #include "backend/cpu/platform/BasicCpuInfo.h"
@@ -26,13 +26,13 @@
 using hwloc_obj_t = struct hwloc_obj *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HwlocCpuInfo : public BasicCpuInfo
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(HwlocCpuInfo)
+    RXS_DISABLE_COPY_MOVE(HwlocCpuInfo)
 
     HwlocCpuInfo();
     ~HwlocCpuInfo() override;
@@ -65,7 +65,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HWLOCCPUINFO_H
+#endif // RXS_HWLOCCPUINFO_H

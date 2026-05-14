@@ -25,7 +25,7 @@
 #include "3rdparty/rapidjson/document.h"
 
 
-xmrig::BasicCpuInfo::BasicCpuInfo() :
+rxs::BasicCpuInfo::BasicCpuInfo() :
     m_threads(std::thread::hardware_concurrency())
 {
     m_units.resize(m_threads);
@@ -33,7 +33,7 @@ xmrig::BasicCpuInfo::BasicCpuInfo() :
         m_units[i] = i;
     }
 
-#   if (XMRIG_ARM == 8)
+#   if (RXS_ARM == 8)
     memcpy(m_brand, "ARMv8", 5);
 #   else
     memcpy(m_brand, "ARMv7", 5);
@@ -43,22 +43,22 @@ xmrig::BasicCpuInfo::BasicCpuInfo() :
 }
 
 
-const char *xmrig::BasicCpuInfo::backend() const
+const char *rxs::BasicCpuInfo::backend() const
 {
     return "basic/1";
 }
 
 
-xmrig::CpuThreads xmrig::BasicCpuInfo::threads(const Algorithm &algorithm, uint32_t) const
+rxs::CpuThreads rxs::BasicCpuInfo::threads(const Algorithm &algorithm, uint32_t) const
 {
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
 #   endif
 
     return CpuThreads(threads());
 }
 
 
-rapidjson::Value xmrig::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -80,7 +80,7 @@ rapidjson::Value xmrig::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
     out.AddMember("msr",        "none", allocator);
     out.AddMember("assembly",   "none", allocator);
 
-#   if (XMRIG_ARM == 8)
+#   if (RXS_ARM == 8)
     out.AddMember("arch", "aarch64", allocator);
 #   else
     out.AddMember("arch", "aarch32", allocator);

@@ -17,15 +17,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_LOG_H
-#define XMRIG_LOG_H
+#ifndef RXS_LOG_H
+#define RXS_LOG_H
 
 
 #include <cstddef>
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ILogBackend;
@@ -76,7 +76,7 @@ private:
 #define BRIGHT_BLACK_S      CSI "0;90m" // somewhat MD.GRAY
 #define BLACK_S             CSI "0;30m"
 
-#ifdef XMRIG_OS_APPLE
+#ifdef RXS_OS_APPLE
 #   define BLACK_BOLD_S     CSI "0;37m"
 #else
 #   define BLACK_BOLD_S     CSI "1;30m" // another name for GRAY
@@ -136,36 +136,36 @@ private:
 #define CYAN_BG_BOLD(x)     CYAN_BG_BOLD_S x CLEAR
 
 
-#define LOG_EMERG(x, ...)   xmrig::Log::print(xmrig::Log::EMERG,   x, ##__VA_ARGS__)
-#define LOG_ALERT(x, ...)   xmrig::Log::print(xmrig::Log::ALERT,   x, ##__VA_ARGS__)
-#define LOG_CRIT(x, ...)    xmrig::Log::print(xmrig::Log::CRIT,    x, ##__VA_ARGS__)
-#define LOG_ERR(x, ...)     xmrig::Log::print(xmrig::Log::ERR,     x, ##__VA_ARGS__)
-#define LOG_WARN(x, ...)    xmrig::Log::print(xmrig::Log::WARNING, x, ##__VA_ARGS__)
-#define LOG_NOTICE(x, ...)  xmrig::Log::print(xmrig::Log::NOTICE,  x, ##__VA_ARGS__)
-#define LOG_INFO(x, ...)    xmrig::Log::print(xmrig::Log::INFO,    x, ##__VA_ARGS__)
-#define LOG_VERBOSE(x, ...) if (xmrig::Log::verbose() > 0) { xmrig::Log::print(xmrig::Log::INFO, x, ##__VA_ARGS__); }
-#define LOG_V1(x, ...)      if (xmrig::Log::verbose() > 0) { xmrig::Log::print(xmrig::Log::INFO, x, ##__VA_ARGS__); }
-#define LOG_V2(x, ...)      if (xmrig::Log::verbose() > 1) { xmrig::Log::print(xmrig::Log::INFO, x, ##__VA_ARGS__); }
-#define LOG_V3(x, ...)      if (xmrig::Log::verbose() > 2) { xmrig::Log::print(xmrig::Log::INFO, x, ##__VA_ARGS__); }
-#define LOG_V4(x, ...)      if (xmrig::Log::verbose() > 3) { xmrig::Log::print(xmrig::Log::INFO, x, ##__VA_ARGS__); }
-#define LOG_V5(x, ...)      if (xmrig::Log::verbose() > 4) { xmrig::Log::print(xmrig::Log::INFO, x, ##__VA_ARGS__); }
+#define LOG_EMERG(x, ...)   rxs::Log::print(rxs::Log::EMERG,   x, ##__VA_ARGS__)
+#define LOG_ALERT(x, ...)   rxs::Log::print(rxs::Log::ALERT,   x, ##__VA_ARGS__)
+#define LOG_CRIT(x, ...)    rxs::Log::print(rxs::Log::CRIT,    x, ##__VA_ARGS__)
+#define LOG_ERR(x, ...)     rxs::Log::print(rxs::Log::ERR,     x, ##__VA_ARGS__)
+#define LOG_WARN(x, ...)    rxs::Log::print(rxs::Log::WARNING, x, ##__VA_ARGS__)
+#define LOG_NOTICE(x, ...)  rxs::Log::print(rxs::Log::NOTICE,  x, ##__VA_ARGS__)
+#define LOG_INFO(x, ...)    rxs::Log::print(rxs::Log::INFO,    x, ##__VA_ARGS__)
+#define LOG_VERBOSE(x, ...) if (rxs::Log::verbose() > 0) { rxs::Log::print(rxs::Log::INFO, x, ##__VA_ARGS__); }
+#define LOG_V1(x, ...)      if (rxs::Log::verbose() > 0) { rxs::Log::print(rxs::Log::INFO, x, ##__VA_ARGS__); }
+#define LOG_V2(x, ...)      if (rxs::Log::verbose() > 1) { rxs::Log::print(rxs::Log::INFO, x, ##__VA_ARGS__); }
+#define LOG_V3(x, ...)      if (rxs::Log::verbose() > 2) { rxs::Log::print(rxs::Log::INFO, x, ##__VA_ARGS__); }
+#define LOG_V4(x, ...)      if (rxs::Log::verbose() > 3) { rxs::Log::print(rxs::Log::INFO, x, ##__VA_ARGS__); }
+#define LOG_V5(x, ...)      if (rxs::Log::verbose() > 4) { rxs::Log::print(rxs::Log::INFO, x, ##__VA_ARGS__); }
 
 #ifdef APP_DEBUG
-#   define LOG_DEBUG(x, ...) xmrig::Log::print(xmrig::Log::DEBUG, x, ##__VA_ARGS__)
+#   define LOG_DEBUG(x, ...) rxs::Log::print(rxs::Log::DEBUG, x, ##__VA_ARGS__)
 #else
 #   define LOG_DEBUG(x, ...)
 #endif
 
 #if defined(APP_DEBUG) || defined(APP_DEVEL)
-#   define LOG_DEBUG_ERR(x, ...)  xmrig::Log::print(xmrig::Log::ERR,     x, ##__VA_ARGS__)
-#   define LOG_DEBUG_WARN(x, ...) xmrig::Log::print(xmrig::Log::WARNING, x, ##__VA_ARGS__)
+#   define LOG_DEBUG_ERR(x, ...)  rxs::Log::print(rxs::Log::ERR,     x, ##__VA_ARGS__)
+#   define LOG_DEBUG_WARN(x, ...) rxs::Log::print(rxs::Log::WARNING, x, ##__VA_ARGS__)
 #else
 #   define LOG_DEBUG_ERR(x, ...)
 #   define LOG_DEBUG_WARN(x, ...)
 #endif
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_LOG_H */
+#endif /* RXS_LOG_H */

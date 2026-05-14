@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_WORKER_H
-#define XMRIG_WORKER_H
+#ifndef RXS_WORKER_H
+#define RXS_WORKER_H
 
 
 #include "backend/common/interfaces/IWorker.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Worker : public IWorker
@@ -47,7 +47,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_WORKER_H */
+#endif /* RXS_WORKER_H */

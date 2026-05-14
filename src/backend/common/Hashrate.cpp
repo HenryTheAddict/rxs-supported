@@ -41,7 +41,7 @@ inline static const char *format(std::pair<bool, double> h, char *buf, size_t si
 }
 
 
-xmrig::Hashrate::Hashrate(size_t threads) :
+rxs::Hashrate::Hashrate(size_t threads) :
     m_threads(threads + 1)
 {
     m_counts     = new uint64_t*[m_threads];
@@ -59,7 +59,7 @@ xmrig::Hashrate::Hashrate(size_t threads) :
 }
 
 
-xmrig::Hashrate::~Hashrate()
+rxs::Hashrate::~Hashrate()
 {
     for (size_t i = 0; i < m_threads; i++) {
         delete [] m_counts[i];
@@ -73,28 +73,28 @@ xmrig::Hashrate::~Hashrate()
 }
 
 
-double xmrig::Hashrate::average() const
+double rxs::Hashrate::average() const
 {
     const uint64_t ts = Chrono::steadyMSecs();
     return (ts > m_earliestTimestamp) ? (m_totalCount * 1e3 / (ts - m_earliestTimestamp)) : 0.0;
 }
 
 
-const char *xmrig::Hashrate::format(std::pair<bool, double> h, char *buf, size_t size)
+const char *rxs::Hashrate::format(std::pair<bool, double> h, char *buf, size_t size)
 {
     return ::format(h, buf, size);
 }
 
 
-rapidjson::Value xmrig::Hashrate::normalize(std::pair<bool, double> d)
+rapidjson::Value rxs::Hashrate::normalize(std::pair<bool, double> d)
 {
     using namespace rapidjson;
     return d.first ? Value(floor(d.second * 100.0) / 100.0) : Value(kNullType);
 }
 
 
-#ifdef XMRIG_FEATURE_API
-rapidjson::Value xmrig::Hashrate::toJSON(rapidjson::Document &doc) const
+#ifdef RXS_FEATURE_API
+rapidjson::Value rxs::Hashrate::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -108,7 +108,7 @@ rapidjson::Value xmrig::Hashrate::toJSON(rapidjson::Document &doc) const
 }
 
 
-rapidjson::Value xmrig::Hashrate::toJSON(size_t threadId, rapidjson::Document &doc) const
+rapidjson::Value rxs::Hashrate::toJSON(size_t threadId, rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -123,7 +123,7 @@ rapidjson::Value xmrig::Hashrate::toJSON(size_t threadId, rapidjson::Document &d
 #endif
 
 
-std::pair<bool, double> xmrig::Hashrate::hashrate(size_t index, size_t ms) const
+std::pair<bool, double> rxs::Hashrate::hashrate(size_t index, size_t ms) const
 {
     assert(index < m_threads);
     if (index >= m_threads) {
@@ -134,7 +134,7 @@ std::pair<bool, double> xmrig::Hashrate::hashrate(size_t index, size_t ms) const
     uint64_t earliestStamp     = 0;
     bool haveFullSet           = false;
 
-    const uint64_t timeStampLimit = xmrig::Chrono::steadyMSecs() - ms;
+    const uint64_t timeStampLimit = rxs::Chrono::steadyMSecs() - ms;
     uint64_t* timestamps          = m_timestamps[index];
     uint64_t* counts              = m_counts[index];
 
@@ -182,7 +182,7 @@ std::pair<bool, double> xmrig::Hashrate::hashrate(size_t index, size_t ms) const
 }
 
 
-void xmrig::Hashrate::addData(size_t index, uint64_t count, uint64_t timestamp)
+void rxs::Hashrate::addData(size_t index, uint64_t count, uint64_t timestamp)
 {
     const size_t top         = m_top[index];
     m_counts[index][top]     = count;

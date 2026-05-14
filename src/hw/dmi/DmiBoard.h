@@ -18,14 +18,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_DMIBOARD_H
-#define XMRIG_DMIBOARD_H
+#ifndef RXS_DMIBOARD_H
+#define RXS_DMIBOARD_H
 
 
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 struct dmi_header;
@@ -42,7 +42,7 @@ public:
 
     void decode(dmi_header *h);
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     rapidjson::Value toJSON(rapidjson::Document &doc) const;
 #   endif
 
@@ -52,7 +52,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_DMIBOARD_H */
+#endif /* RXS_DMIBOARD_H */

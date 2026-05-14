@@ -24,7 +24,7 @@
 #include "net/Network.h"
 
 
-#ifdef XMRIG_FEATURE_API
+#ifdef RXS_FEATURE_API
 #   include "base/api/Api.h"
 #   include "hw/api/HwApi.h"
 #endif
@@ -33,19 +33,19 @@
 #include <cassert>
 
 
-xmrig::Controller::Controller(Process *process) :
+rxs::Controller::Controller(Process *process) :
     Base(process)
 {
 }
 
 
-xmrig::Controller::~Controller()
+rxs::Controller::~Controller()
 {
     VirtualMemory::destroy();
 }
 
 
-int xmrig::Controller::init()
+int rxs::Controller::init()
 {
     Base::init();
 
@@ -53,7 +53,7 @@ int xmrig::Controller::init()
 
     m_network = std::make_shared<Network>(this);
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     m_hwApi = std::make_shared<HwApi>();
     api()->addListener(m_hwApi.get());
 #   endif
@@ -62,7 +62,7 @@ int xmrig::Controller::init()
 }
 
 
-void xmrig::Controller::start()
+void rxs::Controller::start()
 {
     Base::start();
 
@@ -72,7 +72,7 @@ void xmrig::Controller::start()
 }
 
 
-void xmrig::Controller::stop()
+void rxs::Controller::stop()
 {
     Base::stop();
 
@@ -83,7 +83,7 @@ void xmrig::Controller::stop()
 }
 
 
-xmrig::Miner *xmrig::Controller::miner() const
+rxs::Miner *rxs::Controller::miner() const
 {
     assert(m_miner);
 
@@ -91,7 +91,7 @@ xmrig::Miner *xmrig::Controller::miner() const
 }
 
 
-xmrig::Network *xmrig::Controller::network() const
+rxs::Network *rxs::Controller::network() const
 {
     assert(m_network);
 
@@ -99,7 +99,7 @@ xmrig::Network *xmrig::Controller::network() const
 }
 
 
-void xmrig::Controller::execCommand(char command) const
+void rxs::Controller::execCommand(char command) const
 {
     miner()->execCommand(command);
     network()->execCommand(command);

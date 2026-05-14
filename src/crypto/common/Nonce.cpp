@@ -20,17 +20,17 @@
 #include "crypto/common/Nonce.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 std::atomic<bool> Nonce::m_paused = {true};
 std::atomic<uint64_t>  Nonce::m_sequence[Nonce::MAX] = { {1}, {1}, {1} };
 std::atomic<uint64_t> Nonce::m_nonces[2] = { {0}, {0} };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::Nonce::next(uint8_t index, uint32_t *nonce, uint32_t reserveCount, uint64_t mask)
+bool rxs::Nonce::next(uint8_t index, uint32_t *nonce, uint32_t reserveCount, uint64_t mask)
 {
     mask &= 0x7FFFFFFFFFFFFFFFULL;
     if (reserveCount == 0 || mask < reserveCount - 1) {
@@ -65,7 +65,7 @@ bool xmrig::Nonce::next(uint8_t index, uint32_t *nonce, uint32_t reserveCount, u
 }
 
 
-void xmrig::Nonce::stop()
+void rxs::Nonce::stop()
 {
     pause(false);
 
@@ -75,7 +75,7 @@ void xmrig::Nonce::stop()
 }
 
 
-void xmrig::Nonce::touch()
+void rxs::Nonce::touch()
 {
     for (auto &i : m_sequence) {
         i++;

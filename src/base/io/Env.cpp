@@ -40,24 +40,24 @@
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
-#ifdef XMRIG_FEATURE_ENV
+#ifdef RXS_FEATURE_ENV
 static std::map<String, String> variables;
 
 
 static void createVariables()
 {
-    variables.insert({ "XMRIG_VERSION",  APP_VERSION });
-    variables.insert({ "XMRIG_KIND",     APP_KIND });
-    variables.insert({ "XMRIG_HOSTNAME", Env::hostname() });
-    variables.insert({ "XMRIG_EXE",      Process::exepath() });
-    variables.insert({ "XMRIG_EXE_DIR",  Process::location(Process::ExeLocation) });
-    variables.insert({ "XMRIG_CWD",      Process::location(Process::CwdLocation) });
-    variables.insert({ "XMRIG_HOME_DIR", Process::location(Process::HomeLocation) });
-    variables.insert({ "XMRIG_TEMP_DIR", Process::location(Process::TempLocation) });
-    variables.insert({ "XMRIG_DATA_DIR", Process::location(Process::DataLocation) });
+    variables.insert({ "RXS_VERSION",  APP_VERSION });
+    variables.insert({ "RXS_KIND",     APP_KIND });
+    variables.insert({ "RXS_HOSTNAME", Env::hostname() });
+    variables.insert({ "RXS_EXE",      Process::exepath() });
+    variables.insert({ "RXS_EXE_DIR",  Process::location(Process::ExeLocation) });
+    variables.insert({ "RXS_CWD",      Process::location(Process::CwdLocation) });
+    variables.insert({ "RXS_HOME_DIR", Process::location(Process::HomeLocation) });
+    variables.insert({ "RXS_TEMP_DIR", Process::location(Process::TempLocation) });
+    variables.insert({ "RXS_DATA_DIR", Process::location(Process::DataLocation) });
 
     String hostname = "HOSTNAME";
     if (!getenv(hostname)) { // NOLINT(concurrency-mt-unsafe)
@@ -67,12 +67,12 @@ static void createVariables()
 #endif
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::String xmrig::Env::expand(const char *in, const std::map<String, String> &extra)
+rxs::String rxs::Env::expand(const char *in, const std::map<String, String> &extra)
 {
-#   ifdef XMRIG_FEATURE_ENV
+#   ifdef RXS_FEATURE_ENV
     if (in == nullptr) {
         return {};
     }
@@ -116,9 +116,9 @@ xmrig::String xmrig::Env::expand(const char *in, const std::map<String, String> 
 }
 
 
-xmrig::String xmrig::Env::get(const String &name, const std::map<String, String> &extra)
+rxs::String rxs::Env::get(const String &name, const std::map<String, String> &extra)
 {
-#   ifdef XMRIG_FEATURE_ENV
+#   ifdef RXS_FEATURE_ENV
     if (variables.empty()) {
         createVariables();
     }
@@ -140,7 +140,7 @@ xmrig::String xmrig::Env::get(const String &name, const std::map<String, String>
 }
 
 
-xmrig::String xmrig::Env::hostname()
+rxs::String rxs::Env::hostname()
 {
     char buf[UV_MAXHOSTNAMESIZE]{};
 

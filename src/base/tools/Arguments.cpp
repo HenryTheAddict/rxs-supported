@@ -24,7 +24,7 @@
 #include "base/tools/Arguments.h"
 
 
-xmrig::Arguments::Arguments(int argc, char **argv) :
+rxs::Arguments::Arguments(int argc, char **argv) :
     m_argv(argv),
     m_argc(argc)
 {
@@ -36,7 +36,7 @@ xmrig::Arguments::Arguments(int argc, char **argv) :
 }
 
 
-bool xmrig::Arguments::hasArg(const char *name) const
+bool rxs::Arguments::hasArg(const char *name) const
 {
     if (m_argc == 1) {
         return false;
@@ -46,7 +46,7 @@ bool xmrig::Arguments::hasArg(const char *name) const
 }
 
 
-const char *xmrig::Arguments::value(const char *key1, const char *key2) const
+const char *rxs::Arguments::value(const char *key1, const char *key2) const
 {
     const size_t size = m_data.size();
     if (size < 3) {
@@ -63,7 +63,7 @@ const char *xmrig::Arguments::value(const char *key1, const char *key2) const
 }
 
 
-void xmrig::Arguments::add(const char *arg)
+void rxs::Arguments::add(const char *arg)
 {
     if (arg == nullptr) {
         return;

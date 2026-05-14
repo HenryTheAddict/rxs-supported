@@ -31,7 +31,7 @@
 #include <set>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 bool RxMsr::m_cacheQoS      = false;
@@ -42,7 +42,7 @@ bool RxMsr::m_initialized   = false;
 static MsrItems items;
 
 
-#ifdef XMRIG_OS_WIN
+#ifdef RXS_OS_WIN
 static constexpr inline int32_t get_cpu(int32_t)        { return -1; }
 #else
 static constexpr inline int32_t get_cpu(int32_t cpu)    { return cpu; }
@@ -125,10 +125,10 @@ static bool wrmsr(const MsrItems &preset, const std::vector<CpuThread> &threads,
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::RxMsr::init(const RxConfig &config, const std::vector<CpuThread> &threads)
+bool rxs::RxMsr::init(const RxConfig &config, const std::vector<CpuThread> &threads)
 {
     if (isInitialized()) {
         return isEnabled();
@@ -162,7 +162,7 @@ bool xmrig::RxMsr::init(const RxConfig &config, const std::vector<CpuThread> &th
 }
 
 
-void xmrig::RxMsr::destroy()
+void rxs::RxMsr::destroy()
 {
     if (!isInitialized()) {
         return;

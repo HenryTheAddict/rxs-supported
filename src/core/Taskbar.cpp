@@ -25,7 +25,7 @@
 #include <Objbase.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 struct TaskbarPrivate
@@ -105,13 +105,13 @@ void Taskbar::updateTaskbarColor()
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 #else // _WIN32
 
 
-namespace xmrig {
+namespace rxs {
 
 
 Taskbar::Taskbar() {}
@@ -120,7 +120,7 @@ void Taskbar::setActive(bool) {}
 void Taskbar::setEnabled(bool) {}
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 #endif // _WIN32

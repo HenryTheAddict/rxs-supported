@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ICONFIGTRANSFORM_H
-#define XMRIG_ICONFIGTRANSFORM_H
+#ifndef RXS_ICONFIGTRANSFORM_H
+#define RXS_ICONFIGTRANSFORM_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IJsonReader;
@@ -46,7 +46,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ICONFIGTRANSFORM_H
+#endif // RXS_ICONFIGTRANSFORM_H

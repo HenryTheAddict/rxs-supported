@@ -19,17 +19,17 @@
 #include "Chrono.h"
 
 
-#ifdef XMRIG_OS_WIN
+#ifdef RXS_OS_WIN
 #   include <Windows.h>
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 double Chrono::highResolutionMSecs()
 {
-#   ifdef XMRIG_OS_WIN
+#   ifdef RXS_OS_WIN
     LARGE_INTEGER f, t;
     QueryPerformanceFrequency(&f);
     QueryPerformanceCounter(&t);
@@ -41,4 +41,4 @@ double Chrono::highResolutionMSecs()
 }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */

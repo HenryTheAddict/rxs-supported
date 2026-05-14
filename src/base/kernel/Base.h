@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BASE_H
-#define XMRIG_BASE_H
+#ifndef RXS_BASE_H
+#define RXS_BASE_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -27,7 +27,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Api;
@@ -40,7 +40,7 @@ class Process;
 class Base : public IWatcherListener, public IApiListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Base)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Base)
 
     Base(Process *process);
     ~Base() override;
@@ -59,7 +59,7 @@ public:
 protected:
     void onFileChanged(const String &fileName) override;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     void onRequest(IApiRequest &request) override;
 #   endif
 
@@ -68,7 +68,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_BASE_H */
+#endif /* RXS_BASE_H */

@@ -20,25 +20,25 @@
 #include "base/io/log/Log.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const char *kTag = YELLOW_BG_BOLD(WHITE_BOLD_S " msr     ");
 static std::weak_ptr<Msr> instance;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 
-const char *xmrig::Msr::tag()
+const char *rxs::Msr::tag()
 {
     return kTag;
 }
 
 
 
-std::shared_ptr<xmrig::Msr> xmrig::Msr::get()
+std::shared_ptr<rxs::Msr> rxs::Msr::get()
 {
     auto msr = instance.lock();
     if (!msr) {
@@ -54,7 +54,7 @@ std::shared_ptr<xmrig::Msr> xmrig::Msr::get()
 }
 
 
-bool xmrig::Msr::write(uint32_t reg, uint64_t value, int32_t cpu, uint64_t mask, bool verbose)
+bool rxs::Msr::write(uint32_t reg, uint64_t value, int32_t cpu, uint64_t mask, bool verbose)
 {
     if (mask != MsrItem::kNoMask) {
         uint64_t old_value = 0;
@@ -72,7 +72,7 @@ bool xmrig::Msr::write(uint32_t reg, uint64_t value, int32_t cpu, uint64_t mask,
 }
 
 
-xmrig::MsrItem xmrig::Msr::read(uint32_t reg, int32_t cpu, bool verbose) const
+rxs::MsrItem rxs::Msr::read(uint32_t reg, int32_t cpu, bool verbose) const
 {
     uint64_t value = 0;
     if (rdmsr(reg, cpu, value)) {

@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_FILELOGWRITER_H
-#define XMRIG_FILELOGWRITER_H
+#ifndef RXS_FILELOGWRITER_H
+#define RXS_FILELOGWRITER_H
 
 
 #include <cstddef>
@@ -26,7 +26,7 @@
 #include <uv.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class FileLogWriter
@@ -45,7 +45,7 @@ public:
     bool writeLine(const char *data, size_t size);
 
 private:
-#   ifdef XMRIG_OS_WIN
+#   ifdef RXS_OS_WIN
     const char m_endl[3]  = {'\r', '\n', 0};
 #   else
     const char m_endl[2]  = {'\n', 0};
@@ -66,7 +66,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_FILELOGWRITER_H */
+#endif /* RXS_FILELOGWRITER_H */

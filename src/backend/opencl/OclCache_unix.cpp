@@ -29,14 +29,14 @@
 #include "backend/opencl/OclCache.h"
 
 
-void xmrig::OclCache::createDirectory()
+void rxs::OclCache::createDirectory()
 {
     std::string path = prefix() + "/.cache";
     mkdir(path.c_str(), 0744);
 }
 
 
-std::string xmrig::OclCache::prefix()
+std::string rxs::OclCache::prefix()
 {
     return ".";
 }

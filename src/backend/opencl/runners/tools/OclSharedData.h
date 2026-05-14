@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLSHAREDDATA_H
-#define XMRIG_OCLSHAREDDATA_H
+#ifndef RXS_OCLSHAREDDATA_H
+#define RXS_OCLSHAREDDATA_H
 
 
 #include <memory>
@@ -28,7 +28,7 @@ using cl_context = struct _cl_context *;
 using cl_mem     = struct _cl_mem *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Job;
@@ -50,7 +50,7 @@ public:
 
     inline OclSharedData &operator++()  { ++m_threads; return *this; }
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     cl_mem dataset() const;
     void createDataset(cl_context ctx, const Job &job, bool host);
 #   endif
@@ -65,13 +65,13 @@ private:
     uint32_t m_resumeCounter  = 0;
     uint64_t m_timestamp      = 0;
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     cl_mem m_dataset          = nullptr;
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_OCLSHAREDDATA_H */
+#endif /* RXS_OCLSHAREDDATA_H */

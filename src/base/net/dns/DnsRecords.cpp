@@ -66,7 +66,7 @@ static size_t dns_records_count(const addrinfo *res, int &ai_family)
 } // namespace
 
 
-xmrig::DnsRecords::DnsRecords(const addrinfo *res, int ai_family)
+rxs::DnsRecords::DnsRecords(const addrinfo *res, int ai_family)
 {
     size_t size = dns_records_count(res, ai_family);
     if (!size) {
@@ -100,7 +100,7 @@ xmrig::DnsRecords::DnsRecords(const addrinfo *res, int ai_family)
 }
 
 
-const xmrig::DnsRecord &xmrig::DnsRecords::get() const
+const rxs::DnsRecord &rxs::DnsRecords::get() const
 {
     static const DnsRecord defaultRecord;
 

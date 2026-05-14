@@ -39,13 +39,13 @@
 #include "base/kernel/interfaces/IStrategy.h"
 
 
-#ifdef XMRIG_FEATURE_API
+#ifdef RXS_FEATURE_API
 #   include "base/api/Api.h"
 #   include "base/api/interfaces/IApiRequest.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_BENCHMARK
+#ifdef RXS_FEATURE_BENCHMARK
 #   include "backend/common/benchmark/BenchState.h"
 #endif
 
@@ -57,13 +57,13 @@
 #include <memory>
 
 
-xmrig::Network::Network(Controller *controller) :
+rxs::Network::Network(Controller *controller) :
     m_controller(controller)
 {
     JobResults::setListener(this, controller->config()->cpu().isHwAES());
     controller->addListener(this);
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     controller->api()->addListener(this);
 #   endif
 
@@ -77,7 +77,7 @@ xmrig::Network::Network(Controller *controller) :
 }
 
 
-xmrig::Network::~Network()
+rxs::Network::~Network()
 {
     JobResults::stop();
 
@@ -87,13 +87,13 @@ xmrig::Network::~Network()
 }
 
 
-void xmrig::Network::connect()
+void rxs::Network::connect()
 {
     m_strategy->connect();
 }
 
 
-void xmrig::Network::execCommand(char command)
+void rxs::Network::execCommand(char command)
 {
     switch (command) {
     case 's':
@@ -112,12 +112,12 @@ void xmrig::Network::execCommand(char command)
 }
 
 
-void xmrig::Network::onActive(IStrategy *strategy, IClient *client)
+void rxs::Network::onActive(IStrategy *strategy, IClient *client)
 {
 
     const auto &pool = client->pool();
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     if (pool.mode() == Pool::MODE_BENCHMARK) {
         return;
     }
@@ -139,7 +139,7 @@ void xmrig::Network::onActive(IStrategy *strategy, IClient *client)
 }
 
 
-void xmrig::Network::onConfigChanged(Config *config, Config *previousConfig)
+void rxs::Network::onConfigChanged(Config *config, Config *previousConfig)
 {
     if (config->pools() == previousConfig->pools() || !config->pools().active()) {
         return;
@@ -155,19 +155,19 @@ void xmrig::Network::onConfigChanged(Config *config, Config *previousConfig)
 }
 
 
-void xmrig::Network::onJob(IStrategy *strategy, IClient *client, const Job &job, const rapidjson::Value &)
+void rxs::Network::onJob(IStrategy *strategy, IClient *client, const Job &job, const rapidjson::Value &)
 {
     setJob(client, job);
 }
 
 
-void xmrig::Network::onJobResult(const JobResult &result)
+void rxs::Network::onJobResult(const JobResult &result)
 {
     m_strategy->submit(result);
 }
 
 
-void xmrig::Network::onLogin(IStrategy *, IClient *client, rapidjson::Document &doc, rapidjson::Value &params)
+void rxs::Network::onLogin(IStrategy *, IClient *client, rapidjson::Document &doc, rapidjson::Value &params)
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -191,7 +191,7 @@ void xmrig::Network::onLogin(IStrategy *, IClient *client, rapidjson::Document &
 }
 
 
-void xmrig::Network::onPause(IStrategy *strategy)
+void rxs::Network::onPause(IStrategy *strategy)
 {
     if (!m_strategy->isActive()) {
         LOG_ERR("%s " RED("no active pools, stop mining"), Tags::network());
@@ -201,7 +201,7 @@ void xmrig::Network::onPause(IStrategy *strategy)
 }
 
 
-void xmrig::Network::onResultAccepted(IStrategy *, IClient *, const SubmitResult &result, const char *error)
+void rxs::Network::onResultAccepted(IStrategy *, IClient *, const SubmitResult &result, const char *error)
 {
     uint64_t diff     = result.diff;
     const char *scale = NetworkState::scaleDiff(diff);
@@ -217,7 +217,7 @@ void xmrig::Network::onResultAccepted(IStrategy *, IClient *, const SubmitResult
 }
 
 
-void xmrig::Network::onVerifyAlgorithm(IStrategy *, const IClient *, const Algorithm &algorithm, bool *ok)
+void rxs::Network::onVerifyAlgorithm(IStrategy *, const IClient *, const Algorithm &algorithm, bool *ok)
 {
     if (!m_controller->miner()->isEnabled(algorithm)) {
         *ok = false;
@@ -227,8 +227,8 @@ void xmrig::Network::onVerifyAlgorithm(IStrategy *, const IClient *, const Algor
 }
 
 
-#ifdef XMRIG_FEATURE_API
-void xmrig::Network::onRequest(IApiRequest &request)
+#ifdef RXS_FEATURE_API
+void rxs::Network::onRequest(IApiRequest &request)
 {
     if (request.type() == IApiRequest::REQ_SUMMARY) {
         request.accept();
@@ -240,9 +240,9 @@ void xmrig::Network::onRequest(IApiRequest &request)
 #endif
 
 
-void xmrig::Network::setJob(IClient *client, const Job &job)
+void rxs::Network::setJob(IClient *client, const Job &job)
 {
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     if (!BenchState::size())
 #   endif
     {
@@ -273,21 +273,21 @@ void xmrig::Network::setJob(IClient *client, const Job &job)
 }
 
 
-void xmrig::Network::tick()
+void rxs::Network::tick()
 {
     const uint64_t now = Chrono::steadyMSecs();
 
     m_strategy->tick(now);
 
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     m_controller->api()->tick();
 #   endif
 }
 
 
-#ifdef XMRIG_FEATURE_API
-void xmrig::Network::getConnection(rapidjson::Value &reply, rapidjson::Document &doc, int version) const
+#ifdef RXS_FEATURE_API
+void rxs::Network::getConnection(rapidjson::Value &reply, rapidjson::Document &doc, int version) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -297,7 +297,7 @@ void xmrig::Network::getConnection(rapidjson::Value &reply, rapidjson::Document 
 }
 
 
-void xmrig::Network::getResults(rapidjson::Value &reply, rapidjson::Document &doc, int version) const
+void rxs::Network::getResults(rapidjson::Value &reply, rapidjson::Document &doc, int version) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();

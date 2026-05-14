@@ -24,8 +24,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_JOB_H
-#define XMRIG_JOB_H
+#ifndef RXS_JOB_H
+#define RXS_JOB_H
 
 #include <cstddef>
 #include <cstdint>
@@ -35,7 +35,7 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Job
@@ -97,7 +97,7 @@ public:
     inline void setIndex(uint8_t index)                 { m_index = index; }
     inline void setPoolWallet(const String &poolWallet) { m_poolWallet = poolWallet; }
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     inline char *rawBlob()                              { return m_rawBlob; }
     inline const char *rawBlob() const                  { return m_rawBlob; }
     inline const char *rawTarget() const                { return m_rawTarget; }
@@ -112,12 +112,12 @@ public:
     inline Job &operator=(const Job &other)             { if (this != &other) { copy(other); } return *this; }
     inline Job &operator=(Job &&other) noexcept         { move(std::move(other)); return *this; }
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     inline uint32_t benchSize() const                   { return m_benchSize; }
     inline void setBenchSize(uint32_t size)             { m_benchSize = size; }
 #   endif
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     inline bool hasViewTag() const                      { return m_hasViewTag; }
 
     void setSpendSecretKey(const uint8_t* key);
@@ -162,7 +162,7 @@ private:
     uint8_t m_blob[kMaxBlobSize]{ 0 };
     uint8_t m_index     = 0;
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     char m_rawBlob[kMaxBlobSize * 2 + 8]{};
     char m_rawTarget[24]{};
     String m_rawSeedHash;
@@ -189,13 +189,13 @@ private:
 
     bool m_hasMinerSignature = false;
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     uint32_t m_benchSize = 0;
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_JOB_H */
+#endif /* RXS_JOB_H */

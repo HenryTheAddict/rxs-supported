@@ -26,7 +26,7 @@
 #include <hwloc.h>
 
 
-uint32_t xmrig::VirtualMemory::bindToNUMANode(int64_t affinity)
+uint32_t rxs::VirtualMemory::bindToNUMANode(int64_t affinity)
 {
     if (affinity < 0 || Cpu::info()->nodes() < 2) {
         return 0;

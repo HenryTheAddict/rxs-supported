@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_DNS_H
-#define XMRIG_DNS_H
+#ifndef RXS_DNS_H
+#define RXS_DNS_H
 
 
 #include "base/net/dns/DnsConfig.h"
@@ -28,7 +28,7 @@
 #include <memory>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsConfig;
@@ -51,7 +51,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_DNS_H */
+#endif /* RXS_DNS_H */

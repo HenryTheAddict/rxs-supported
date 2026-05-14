@@ -24,7 +24,7 @@
 #include "hw/dmi/DmiTools.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static void dmi_get_header(dmi_header *h, uint8_t *data)
@@ -36,11 +36,11 @@ static void dmi_get_header(dmi_header *h, uint8_t *data)
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#ifdef XMRIG_FEATURE_API
-rapidjson::Value xmrig::DmiReader::toJSON(rapidjson::Document &doc) const
+#ifdef RXS_FEATURE_API
+rapidjson::Value rxs::DmiReader::toJSON(rapidjson::Document &doc) const
 {
     rapidjson::Value obj;
     toJSON(obj, doc);
@@ -49,7 +49,7 @@ rapidjson::Value xmrig::DmiReader::toJSON(rapidjson::Document &doc) const
 }
 
 
-void xmrig::DmiReader::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
+void rxs::DmiReader::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
 {
     using namespace rapidjson;
 
@@ -71,7 +71,7 @@ void xmrig::DmiReader::toJSON(rapidjson::Value &out, rapidjson::Document &doc) c
 #endif
 
 
-bool xmrig::DmiReader::decode(uint8_t *buf, const Cleanup &cleanup)
+bool rxs::DmiReader::decode(uint8_t *buf, const Cleanup &cleanup)
 {
     const bool rc = decode(buf);
 
@@ -81,7 +81,7 @@ bool xmrig::DmiReader::decode(uint8_t *buf, const Cleanup &cleanup)
 }
 
 
-bool xmrig::DmiReader::decode(uint8_t *buf)
+bool rxs::DmiReader::decode(uint8_t *buf)
 {
     if (!buf) {
         return false;
@@ -102,7 +102,7 @@ bool xmrig::DmiReader::decode(uint8_t *buf)
             next++;
         }
 
-#       ifdef XMRIG_OS_APPLE
+#       ifdef RXS_OS_APPLE
         while ((unsigned long)(next - buf + 1) < m_size && (next[0] == 0 && next[1] == 0))
 #       endif
         next += 2;

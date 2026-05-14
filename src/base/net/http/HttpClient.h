@@ -18,8 +18,8 @@
  */
 
 
-#ifndef XMRIG_HTTPCLIENT_H
-#define XMRIG_HTTPCLIENT_H
+#ifndef RXS_HTTPCLIENT_H
+#define RXS_HTTPCLIENT_H
 
 
 #include "base/kernel/interfaces/IDnsListener.h"
@@ -29,7 +29,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsRequest;
@@ -38,7 +38,7 @@ class DnsRequest;
 class HttpClient : public HttpContext, public IDnsListener, public ITimerListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(HttpClient);
+    RXS_DISABLE_COPY_MOVE_DEFAULT(HttpClient);
 
     HttpClient(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener);
     ~HttpClient() override = default;
@@ -70,8 +70,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPCLIENT_H
+#endif // RXS_HTTPCLIENT_H
 

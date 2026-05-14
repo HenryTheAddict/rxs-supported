@@ -1,11 +1,11 @@
-if (BUILD_STATIC AND XMRIG_OS_UNIX AND WITH_OPENCL)
+if (BUILD_STATIC AND RXS_OS_UNIX AND WITH_OPENCL)
     message(WARNING "OpenCL backend is not compatible with static build, use -DWITH_OPENCL=OFF to suppress this warning")
 
     set(WITH_OPENCL OFF)
 endif()
 
 if (WITH_OPENCL)
-    add_definitions(/DXMRIG_FEATURE_OPENCL /DCL_USE_DEPRECATED_OPENCL_1_2_APIS)
+    add_definitions(/DRXS_FEATURE_OPENCL /DCL_USE_DEPRECATED_OPENCL_1_2_APIS)
 
     set(HEADERS_BACKEND_OPENCL
         src/backend/opencl/cl/OclSource.h
@@ -51,7 +51,7 @@ if (WITH_OPENCL)
         src/backend/opencl/wrappers/OclPlatform.cpp
         )
 
-    if (XMRIG_OS_APPLE)
+    if (RXS_OS_APPLE)
         add_definitions(/DCL_TARGET_OPENCL_VERSION=120)
         list(APPEND SOURCES_BACKEND_OPENCL src/backend/opencl/wrappers/OclDevice_mac.cpp)
     elseif (WITH_OPENCL_VERSION)
@@ -98,34 +98,34 @@ if (WITH_OPENCL)
              src/backend/opencl/runners/OclRxVmRunner.cpp
              )
     if (WITH_STRICT_CACHE)
-        add_definitions(/DXMRIG_STRICT_OPENCL_CACHE)
+        add_definitions(/DRXS_STRICT_OPENCL_CACHE)
     else()
-        remove_definitions(/DXMRIG_STRICT_OPENCL_CACHE)
+        remove_definitions(/DRXS_STRICT_OPENCL_CACHE)
     endif()
 
     if (WITH_INTERLEAVE_DEBUG_LOG)
-        add_definitions(/DXMRIG_INTERLEAVE_DEBUG)
+        add_definitions(/DRXS_INTERLEAVE_DEBUG)
     endif()
 
-    if (WITH_ADL AND (XMRIG_OS_WIN OR XMRIG_OS_LINUX))
-        add_definitions(/DXMRIG_FEATURE_ADL)
+    if (WITH_ADL AND (RXS_OS_WIN OR RXS_OS_LINUX))
+        add_definitions(/DRXS_FEATURE_ADL)
 
         list(APPEND HEADERS_BACKEND_OPENCL
              src/backend/opencl/wrappers/AdlHealth.h
              src/backend/opencl/wrappers/AdlLib.h
              )
 
-        if (XMRIG_OS_WIN)
+        if (RXS_OS_WIN)
             list(APPEND SOURCES_BACKEND_OPENCL src/backend/opencl/wrappers/AdlLib.cpp)
         else()
             list(APPEND SOURCES_BACKEND_OPENCL src/backend/opencl/wrappers/AdlLib_linux.cpp)
         endif()
     else()
-       remove_definitions(/DXMRIG_FEATURE_ADL)
+       remove_definitions(/DRXS_FEATURE_ADL)
     endif()
 else()
-    remove_definitions(/DXMRIG_FEATURE_OPENCL)
-    remove_definitions(/DXMRIG_FEATURE_ADL)
+    remove_definitions(/DRXS_FEATURE_OPENCL)
+    remove_definitions(/DRXS_FEATURE_ADL)
 
     set(HEADERS_BACKEND_OPENCL "")
     set(SOURCES_BACKEND_OPENCL "")

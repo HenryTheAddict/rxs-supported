@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_STRING_H
-#define XMRIG_STRING_H
+#ifndef RXS_STRING_H
+#define RXS_STRING_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -27,7 +27,7 @@
 #include <vector>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 /**
@@ -98,7 +98,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_STRING_H */
+#endif /* RXS_STRING_H */

@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLTHREADS_H
-#define XMRIG_OCLTHREADS_H
+#ifndef RXS_OCLTHREADS_H
+#define RXS_OCLTHREADS_H
 
 
 #include <vector>
@@ -33,7 +33,7 @@
 #include "backend/opencl/wrappers/OclDevice.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclThreads
@@ -60,7 +60,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_OCLTHREADS_H */
+#endif /* RXS_OCLTHREADS_H */

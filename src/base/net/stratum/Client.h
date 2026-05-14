@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CLIENT_H
-#define XMRIG_CLIENT_H
+#ifndef RXS_CLIENT_H
+#define RXS_CLIENT_H
 
 
 #include <bitset>
@@ -41,7 +41,7 @@
 using BIO = struct bio_st;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsRequest;
@@ -52,7 +52,7 @@ class JobResult;
 class Client : public BaseClient, public IDnsListener, public ILineListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Client)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Client)
 
     constexpr static uint64_t kConnectTimeout   = 20 * 1000;
     constexpr static uint64_t kResponseTimeout  = 20 * 1000;
@@ -149,7 +149,7 @@ template<> inline bool Client::has<Client::EXT_NICEHASH>() const noexcept  { ret
 template<> inline bool Client::has<Client::EXT_KEEPALIVE>() const noexcept { return m_extensions.test(EXT_KEEPALIVE) || m_pool.keepAlive() > 0; }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CLIENT_H */
+#endif /* RXS_CLIENT_H */

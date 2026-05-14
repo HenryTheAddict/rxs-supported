@@ -21,7 +21,7 @@
 #include "base/crypto/Algorithm.h"
 
 
-const char *xmrig::OclSource::get(const Algorithm &algorithm)
+const char *rxs::OclSource::get(const Algorithm &algorithm)
 {
     if (algorithm.family() == Algorithm::RANDOM_X) {
         return randomx_cl;

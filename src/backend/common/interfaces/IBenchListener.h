@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IBENCHLISTENER_H
-#define XMRIG_IBENCHLISTENER_H
+#ifndef RXS_IBENCHLISTENER_H
+#define RXS_IBENCHLISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IBackend;
@@ -32,7 +32,7 @@ class IBackend;
 class IBenchListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IBenchListener)
+    RXS_DISABLE_COPY_MOVE(IBenchListener)
 
     IBenchListener()            = default;
     virtual ~IBenchListener()   = default;
@@ -42,7 +42,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IBENCHLISTENER_H
+#endif // RXS_IBENCHLISTENER_H

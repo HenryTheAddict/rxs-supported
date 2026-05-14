@@ -17,8 +17,8 @@
  */
 
 
-#ifndef XMRIG_HTTPSCONTEXT_H
-#define XMRIG_HTTPSCONTEXT_H
+#ifndef RXS_HTTPSCONTEXT_H
+#define RXS_HTTPSCONTEXT_H
 
 
 using BIO = struct bio_st;
@@ -29,7 +29,7 @@ using SSL = struct ssl_st;
 #include "base/net/tls/ServerTls.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class TlsContext;
@@ -38,7 +38,7 @@ class TlsContext;
 class HttpsContext : public HttpContext, public ServerTls
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(HttpsContext)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(HttpsContext)
 
     HttpsContext(TlsContext *tls, const std::weak_ptr<IHttpListener> &listener);
     ~HttpsContext() override;
@@ -66,8 +66,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPSCONTEXT_H
+#endif // RXS_HTTPSCONTEXT_H
 

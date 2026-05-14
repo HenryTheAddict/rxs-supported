@@ -18,8 +18,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SELFSELECTCLIENT_H
-#define XMRIG_SELFSELECTCLIENT_H
+#ifndef RXS_SELFSELECTCLIENT_H
+#define RXS_SELFSELECTCLIENT_H
 
 
 #include "base/kernel/interfaces/IClient.h"
@@ -32,13 +32,13 @@
 #include <memory>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class SelfSelectClient : public IClient, public IClientListener, public IHttpListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(SelfSelectClient)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(SelfSelectClient)
 
     SelfSelectClient(int id, const char *agent, IClientListener *listener, bool submitToOrigin);
     ~SelfSelectClient() override;
@@ -123,7 +123,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_SELFSELECTCLIENT_H */
+#endif /* RXS_SELFSELECTCLIENT_H */

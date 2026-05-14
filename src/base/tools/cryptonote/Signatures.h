@@ -18,14 +18,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SIGNATURES_H
-#define XMRIG_SIGNATURES_H
+#ifndef RXS_SIGNATURES_H
+#define RXS_SIGNATURES_H
 
 
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 void generate_signature(const uint8_t* prefix_hash, const uint8_t* pub, const uint8_t* sec, uint8_t* sig);
@@ -40,7 +40,7 @@ void derive_view_secret_key(const uint8_t* spend_secret_key, uint8_t* view_secre
 void generate_keys(uint8_t* pub, uint8_t* sec);
 bool secret_key_to_public_key(const uint8_t* sec, uint8_t* pub);
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_SIGNATURES_H */
+#endif /* RXS_SIGNATURES_H */

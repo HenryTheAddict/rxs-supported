@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_NVMLHEALTH_H
-#define XMRIG_NVMLHEALTH_H
+#ifndef RXS_NVMLHEALTH_H
+#define RXS_NVMLHEALTH_H
 
 
 #include <cstdint>
@@ -40,4 +40,4 @@ struct NvmlHealth
 };
 
 
-#endif /* XMRIG_NVMLHEALTH_H */
+#endif /* RXS_NVMLHEALTH_H */

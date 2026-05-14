@@ -22,15 +22,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ISTRATEGYLISTENER_H
-#define XMRIG_ISTRATEGYLISTENER_H
+#ifndef RXS_ISTRATEGYLISTENER_H
+#define RXS_ISTRATEGYLISTENER_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -43,7 +43,7 @@ class SubmitResult;
 class IStrategyListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IStrategyListener);
+    RXS_DISABLE_COPY_MOVE(IStrategyListener);
 
     IStrategyListener()             = default;
     virtual ~IStrategyListener()    = default;
@@ -57,7 +57,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ISTRATEGYLISTENER_H
+#endif // RXS_ISTRATEGYLISTENER_H

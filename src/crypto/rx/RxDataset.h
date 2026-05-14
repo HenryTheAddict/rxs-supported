@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_RX_DATASET_H
-#define XMRIG_RX_DATASET_H
+#ifndef RXS_RX_DATASET_H
+#define RXS_RX_DATASET_H
 
 
 #include "base/tools/Buffer.h"
@@ -33,7 +33,7 @@
 struct randomx_dataset;
 
 
-namespace xmrig
+namespace rxs
 {
 
 
@@ -44,7 +44,7 @@ class VirtualMemory;
 class RxDataset
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(RxDataset)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(RxDataset)
 
     RxDataset(bool hugePages, bool oneGbPages, bool cache, RxConfig::Mode mode, uint32_t node);
     RxDataset(RxCache *cache);
@@ -78,7 +78,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_RX_DATASET_H */
+#endif /* RXS_RX_DATASET_H */

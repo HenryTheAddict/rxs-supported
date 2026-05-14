@@ -35,12 +35,12 @@
 #include "base/net/stratum/Pools.h"
 #include "core/config/Config_platform.h"
 
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 #   include "base/net/tls/TlsConfig.h"
 #endif
 
 
-void xmrig::BaseTransform::load(JsonChain &chain, Process *process, IConfigTransform &transform)
+void rxs::BaseTransform::load(JsonChain &chain, Process *process, IConfigTransform &transform)
 {
     using namespace rapidjson;
 
@@ -76,7 +76,7 @@ void xmrig::BaseTransform::load(JsonChain &chain, Process *process, IConfigTrans
 }
 
 
-void xmrig::BaseTransform::finalize(rapidjson::Document &doc)
+void rxs::BaseTransform::finalize(rapidjson::Document &doc)
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -105,7 +105,7 @@ void xmrig::BaseTransform::finalize(rapidjson::Document &doc)
 }
 
 
-void xmrig::BaseTransform::transform(rapidjson::Document &doc, int key, const char *arg)
+void rxs::BaseTransform::transform(rapidjson::Document &doc, int key, const char *arg)
 {
     switch (key) {
     case IConfig::AlgorithmKey: /* --algo */
@@ -154,10 +154,10 @@ void xmrig::BaseTransform::transform(rapidjson::Document &doc, int key, const ch
             array.PushBack(rapidjson::kObjectType, doc.GetAllocator());
         }
 
-#       ifdef XMRIG_FEATURE_BENCHMARK
+#       ifdef RXS_FEATURE_BENCHMARK
         if (key != IConfig::UrlKey) {
             set(doc, array[array.Size() - 1], Pool::kUrl,
-#           ifdef XMRIG_FEATURE_TLS
+#           ifdef RXS_FEATURE_TLS
                 "stratum+ssl://randomx.xmrig.com:443"
 #           else
                 "randomx.xmrig.com:3333"
@@ -215,7 +215,7 @@ void xmrig::BaseTransform::transform(rapidjson::Document &doc, int key, const ch
     case IConfig::TitleKey: /* --title */
         return set(doc, BaseConfig::kTitle, arg);
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     case IConfig::TlsCertKey: /* --tls-cert */
         return set(doc, BaseConfig::kTls, TlsConfig::kCert, arg);
 
@@ -273,7 +273,7 @@ void xmrig::BaseTransform::transform(rapidjson::Document &doc, int key, const ch
 }
 
 
-void xmrig::BaseTransform::transformBoolean(rapidjson::Document &doc, int key, bool enable)
+void rxs::BaseTransform::transformBoolean(rapidjson::Document &doc, int key, bool enable)
 {
     switch (key) {
     case IConfig::BackgroundKey: /* --background */
@@ -290,12 +290,12 @@ void xmrig::BaseTransform::transformBoolean(rapidjson::Document &doc, int key, b
 
     case IConfig::SubmitToOriginKey: /* --submit-to-origin */
         return add(doc, Pools::kPools, Pool::kSubmitToOrigin, enable);
-#   ifdef XMRIG_FEATURE_HTTP
+#   ifdef RXS_FEATURE_HTTP
     case IConfig::DaemonKey: /* --daemon */
         return add(doc, Pools::kPools, Pool::kDaemon, enable);
 #   endif
 
-#   ifndef XMRIG_PROXY_PROJECT
+#   ifndef RXS_PROXY_PROJECT
     case IConfig::NicehashKey: /* --nicehash */
         return add<bool>(doc, Pools::kPools, Pool::kNicehash, enable);
 #   endif
@@ -332,7 +332,7 @@ void xmrig::BaseTransform::transformBoolean(rapidjson::Document &doc, int key, b
 }
 
 
-void xmrig::BaseTransform::transformUint64(rapidjson::Document &doc, int key, uint64_t arg)
+void rxs::BaseTransform::transformUint64(rapidjson::Document &doc, int key, uint64_t arg)
 {
     switch (key) {
     case IConfig::RetriesKey: /* --retries */
@@ -351,7 +351,7 @@ void xmrig::BaseTransform::transformUint64(rapidjson::Document &doc, int key, ui
     case IConfig::DnsTtlKey: /* --dns-ttl */
         return set(doc, DnsConfig::kField, DnsConfig::kTTL, arg);
 
-#   ifdef XMRIG_FEATURE_HTTP
+#   ifdef RXS_FEATURE_HTTP
     case IConfig::DaemonPollKey:  /* --daemon-poll-interval */
         return add(doc, Pools::kPools, Pool::kDaemonPollInterval, arg);
 

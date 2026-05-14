@@ -26,23 +26,23 @@
 #include "base/net/stratum/SubmitResult.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 int64_t BaseClient::m_sequence = 1;
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-xmrig::BaseClient::BaseClient(int id, IClientListener *listener) :
+rxs::BaseClient::BaseClient(int id, IClientListener *listener) :
     m_listener(listener),
     m_id(id)
 {
 }
 
 
-void xmrig::BaseClient::setPool(const Pool &pool)
+void rxs::BaseClient::setPool(const Pool &pool)
 {
     if (!pool.isValid()) {
         return;
@@ -56,7 +56,7 @@ void xmrig::BaseClient::setPool(const Pool &pool)
 }
 
 
-bool xmrig::BaseClient::handleResponse(int64_t id, const rapidjson::Value &result, const rapidjson::Value &error)
+bool rxs::BaseClient::handleResponse(int64_t id, const rapidjson::Value &result, const rapidjson::Value &error)
 {
     if (id == 1) {
         return false;
@@ -82,7 +82,7 @@ bool xmrig::BaseClient::handleResponse(int64_t id, const rapidjson::Value &resul
 }
 
 
-bool xmrig::BaseClient::handleSubmitResponse(int64_t id, const char *error)
+bool rxs::BaseClient::handleSubmitResponse(int64_t id, const char *error)
 {
     auto it = m_results.find(id);
     if (it != m_results.end()) {

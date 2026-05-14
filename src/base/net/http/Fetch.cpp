@@ -24,12 +24,12 @@
 #include "base/net/http/HttpClient.h"
 
 
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 #   include "base/net/https/HttpsClient.h"
 #endif
 
 
-xmrig::FetchRequest::FetchRequest(llhttp_method method, const String &host, uint16_t port, const String &path, bool tls, bool quiet, const char *data, size_t size, const char *contentType) :
+rxs::FetchRequest::FetchRequest(llhttp_method method, const String &host, uint16_t port, const String &path, bool tls, bool quiet, const char *data, size_t size, const char *contentType) :
     quiet(quiet),
     tls(tls),
     method(method),
@@ -43,7 +43,7 @@ xmrig::FetchRequest::FetchRequest(llhttp_method method, const String &host, uint
 }
 
 
-xmrig::FetchRequest::FetchRequest(llhttp_method method, const String &host, uint16_t port, const String &path, const rapidjson::Value &value, bool tls, bool quiet) :
+rxs::FetchRequest::FetchRequest(llhttp_method method, const String &host, uint16_t port, const String &path, const rapidjson::Value &value, bool tls, bool quiet) :
     quiet(quiet),
     tls(tls),
     method(method),
@@ -57,7 +57,7 @@ xmrig::FetchRequest::FetchRequest(llhttp_method method, const String &host, uint
 }
 
 
-void xmrig::FetchRequest::setBody(const char *data, size_t size, const char *contentType)
+void rxs::FetchRequest::setBody(const char *data, size_t size, const char *contentType)
 {
     if (!data) {
         return;
@@ -76,7 +76,7 @@ void xmrig::FetchRequest::setBody(const char *data, size_t size, const char *con
 }
 
 
-void xmrig::FetchRequest::setBody(const rapidjson::Value &value)
+void rxs::FetchRequest::setBody(const rapidjson::Value &value)
 {
     assert(method != HTTP_GET && method != HTTP_HEAD);
 
@@ -94,7 +94,7 @@ void xmrig::FetchRequest::setBody(const rapidjson::Value &value)
 }
 
 
-void xmrig::fetch(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener, int type, uint64_t rpcId)
+void rxs::fetch(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener, int type, uint64_t rpcId)
 {
 #   ifdef APP_DEBUG
     LOG_DEBUG(CYAN("http%s://%s:%u ") MAGENTA_BOLD("\"%s %s\"") BLACK_BOLD(" body: ") CYAN_BOLD("%zu") BLACK_BOLD(" bytes"),
@@ -106,7 +106,7 @@ void xmrig::fetch(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttp
 #   endif
 
     HttpClient *client = nullptr;
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     if (req.tls) {
         client = new HttpsClient(tag, std::move(req), listener);
     }

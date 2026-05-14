@@ -32,27 +32,27 @@
 #include "version.h"
 
 
-#ifdef XMRIG_FEATURE_DMI
+#ifdef RXS_FEATURE_DMI
 #   include "hw/dmi/DmiReader.h"
 #endif
 
 
-#ifdef XMRIG_ALGO_RANDOMX
+#ifdef RXS_ALGO_RANDOMX
 #   include "crypto/rx/RxConfig.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
-#ifdef XMRIG_OS_WIN
+#ifdef RXS_OS_WIN
 static constexpr const char *kHugepagesSupported = GREEN_BOLD("permission granted");
 #else
 static constexpr const char *kHugepagesSupported = GREEN_BOLD("supported");
 #endif
 
 
-#ifdef XMRIG_FEATURE_ASM
+#ifdef RXS_FEATURE_ASM
 static const char *coloredAsmNames[] = {
     RED_BOLD("none"),
     "auto",
@@ -74,8 +74,8 @@ static void print_pages(const Config *config)
     Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-13s") "%s",
                "HUGE PAGES", config->cpu().isHugePages() ? (VirtualMemory::isHugepagesAvailable() ? kHugepagesSupported : RED_BOLD("unavailable")) : RED_BOLD("disabled"));
 
-#   ifdef XMRIG_ALGO_RANDOMX
-#   ifdef XMRIG_OS_LINUX
+#   ifdef RXS_ALGO_RANDOMX
+#   ifdef RXS_OS_LINUX
     Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-13s") "%s",
                "1GB PAGES", (VirtualMemory::isOneGbPagesAvailable() ? (config->rx().isOneGbPages() ? kHugepagesSupported : YELLOW_BOLD("disabled")) : YELLOW_BOLD("unavailable")));
 #   else
@@ -94,7 +94,7 @@ static void print_cpu(const Config *)
                info->brand(),
                info->packages(),
                ICpuInfo::is64bit()    ? GREEN_BOLD("64-bit") : RED_BOLD("32-bit"),
-#ifdef XMRIG_RISCV
+#ifdef RXS_RISCV
                info->hasRISCV_Vector() ? GREEN_BOLD_S "RVV " : RED_BOLD_S "-RVV ",
 #else
                "",
@@ -102,7 +102,7 @@ static void print_cpu(const Config *)
                info->hasAES()         ? GREEN_BOLD_S : RED_BOLD_S "-",
                info->isVM()           ? RED_BOLD_S " VM" : ""
                );
-#   if defined(XMRIG_FEATURE_HWLOC)
+#   if defined(RXS_FEATURE_HWLOC)
     Log::print(WHITE_BOLD("   %-13s") BLACK_BOLD("L2:") WHITE_BOLD("%.1f MB") BLACK_BOLD(" L3:") WHITE_BOLD("%.1f MB")
                CYAN_BOLD(" %zu") "C" BLACK_BOLD("/") CYAN_BOLD("%zu") "T"
                BLACK_BOLD(" NUMA:") CYAN_BOLD("%zu"),
@@ -134,7 +134,7 @@ static void print_memory(const Config *config)
                percent
                );
 
-#   ifdef XMRIG_FEATURE_DMI
+#   ifdef RXS_FEATURE_DMI
     if (!config->isDMI()) {
         return;
     }
@@ -171,7 +171,7 @@ static void print_memory(const Config *config)
 
 static void print_threads(const Config *config)
 {
-#   ifdef XMRIG_FEATURE_ASM
+#   ifdef RXS_FEATURE_ASM
     if (config->cpu().assembly() == Assembly::AUTO) {
         const Assembly assembly = Cpu::info()->assembly();
 
@@ -200,10 +200,10 @@ static void print_commands(Config *)
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-void xmrig::Summary::print(Controller *controller)
+void rxs::Summary::print(Controller *controller)
 {
     const auto config = controller->config();
 

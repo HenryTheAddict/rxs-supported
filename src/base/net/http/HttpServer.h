@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HTTPSERVER_H
-#define XMRIG_HTTPSERVER_H
+#ifndef RXS_HTTPSERVER_H
+#define RXS_HTTPSERVER_H
 
 
 #include "base/kernel/interfaces/ITcpServerListener.h"
@@ -28,7 +28,7 @@
 #include <memory>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IHttpListener;
@@ -37,7 +37,7 @@ class IHttpListener;
 class HttpServer : public ITcpServerListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(HttpServer)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(HttpServer)
 
     HttpServer(const std::shared_ptr<IHttpListener> &listener);
     ~HttpServer() override;
@@ -50,8 +50,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPSERVER_H
+#endif // RXS_HTTPSERVER_H
 

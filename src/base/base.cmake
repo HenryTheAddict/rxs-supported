@@ -224,13 +224,13 @@ if (WITH_HTTP)
         src/base/net/tools/TcpServer.cpp
         )
 
-    add_definitions(/DXMRIG_FEATURE_HTTP)
-    add_definitions(/DXMRIG_FEATURE_API)
+    add_definitions(/DRXS_FEATURE_HTTP)
+    add_definitions(/DRXS_FEATURE_API)
 else()
     set(HEADERS_BASE_HTTP "")
     set(SOURCES_BASE_HTTP "")
-    remove_definitions(/DXMRIG_FEATURE_HTTP)
-    remove_definitions(/DXMRIG_FEATURE_API)
+    remove_definitions(/DRXS_FEATURE_HTTP)
+    remove_definitions(/DRXS_FEATURE_API)
 endif()
 
 
@@ -240,9 +240,9 @@ endif()
 
 
 if (WITH_ENV_VARS)
-    add_definitions(/DXMRIG_FEATURE_ENV)
+    add_definitions(/DRXS_FEATURE_ENV)
 else()
-    remove_definitions(/DXMRIG_FEATURE_ENV)
+    remove_definitions(/DRXS_FEATURE_ENV)
 endif()
 
 
@@ -252,7 +252,7 @@ list(APPEND SOURCES_BASE src/base/net/stratum/AutoClient.cpp)
 
 
 if (WITH_RANDOMX AND WITH_BENCHMARK)
-    add_definitions(/DXMRIG_FEATURE_BENCHMARK)
+    add_definitions(/DRXS_FEATURE_BENCHMARK)
 
     list(APPEND HEADERS_BASE
         src/base/net/stratum/benchmark/BenchClient.h
@@ -264,5 +264,5 @@ if (WITH_RANDOMX AND WITH_BENCHMARK)
         src/base/net/stratum/benchmark/BenchConfig.cpp
         )
 else()
-    remove_definitions(/DXMRIG_FEATURE_BENCHMARK)
+    remove_definitions(/DRXS_FEATURE_BENCHMARK)
 endif()

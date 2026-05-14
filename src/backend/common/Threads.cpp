@@ -21,27 +21,27 @@
 #include "backend/cpu/CpuThreads.h"
 
 
-#ifdef XMRIG_FEATURE_OPENCL
+#ifdef RXS_FEATURE_OPENCL
 #   include "backend/opencl/OclThreads.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_CUDA
+#ifdef RXS_FEATURE_CUDA
 #   include "backend/cuda/CudaThreads.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const char *kAsterisk = "*";
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 template <class T>
-const T &xmrig::Threads<T>::get(const String &profileName) const
+const T &rxs::Threads<T>::get(const String &profileName) const
 {
     static T empty;
     if (profileName.isNull() || !has(profileName)) {
@@ -53,7 +53,7 @@ const T &xmrig::Threads<T>::get(const String &profileName) const
 
 
 template <class T>
-size_t xmrig::Threads<T>::read(const rapidjson::Value &value)
+size_t rxs::Threads<T>::read(const rapidjson::Value &value)
 {
     using namespace rapidjson;
 
@@ -97,7 +97,7 @@ size_t xmrig::Threads<T>::read(const rapidjson::Value &value)
 
 
 template <class T>
-xmrig::String xmrig::Threads<T>::profileName(const Algorithm &algorithm, bool strict) const
+rxs::String rxs::Threads<T>::profileName(const Algorithm &algorithm, bool strict) const
 {
     if (isDisabled(algorithm)) {
         return String();
@@ -132,7 +132,7 @@ xmrig::String xmrig::Threads<T>::profileName(const Algorithm &algorithm, bool st
 
 
 template <class T>
-void xmrig::Threads<T>::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
+void rxs::Threads<T>::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -151,16 +151,16 @@ void xmrig::Threads<T>::toJSON(rapidjson::Value &out, rapidjson::Document &doc) 
 }
 
 
-namespace xmrig {
+namespace rxs {
 
 template class Threads<CpuThreads>;
 
-#ifdef XMRIG_FEATURE_OPENCL
+#ifdef RXS_FEATURE_OPENCL
 template class Threads<OclThreads>;
 #endif
 
-#ifdef XMRIG_FEATURE_CUDA
+#ifdef RXS_FEATURE_CUDA
 template class Threads<CudaThreads>;
 #endif
 
-} // namespace xmrig
+} // namespace rxs

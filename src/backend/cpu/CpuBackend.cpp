@@ -38,20 +38,20 @@
 #include "crypto/rx/RxDataset.h"
 
 
-#ifdef XMRIG_FEATURE_API
+#ifdef RXS_FEATURE_API
 #   include "base/api/interfaces/IApiRequest.h"
 #endif
 
 
 
 
-#ifdef XMRIG_FEATURE_BENCHMARK
+#ifdef RXS_FEATURE_BENCHMARK
 #   include "backend/common/benchmark/Benchmark.h"
 #   include "backend/common/benchmark/BenchState.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 extern template class Threads<CpuThreads>;
@@ -151,7 +151,7 @@ public:
 
         status.start(threads, algo.l3());
 
-#       ifdef XMRIG_FEATURE_BENCHMARK
+#       ifdef RXS_FEATURE_BENCHMARK
         workers.start(threads, benchmark);
 #       else
         workers.start(threads);
@@ -171,7 +171,7 @@ public:
     {
         HugePagesInfo pages;
 
-    #   ifdef XMRIG_ALGO_RANDOMX
+    #   ifdef RXS_ALGO_RANDOMX
         if (algo.family() == Algorithm::RANDOM_X) {
             pages += Rx::hugePages();
         }
@@ -205,24 +205,24 @@ public:
     String profileName;
     Workers<CpuLaunchData> workers;
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     std::shared_ptr<Benchmark> benchmark;
 #   endif
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-const char *xmrig::backend_tag(uint32_t backend)
+const char *rxs::backend_tag(uint32_t backend)
 {
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     if (backend == Nonce::OPENCL) {
         return ocl_tag();
     }
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     if (backend == Nonce::CUDA) {
         return cuda_tag();
     }
@@ -232,67 +232,67 @@ const char *xmrig::backend_tag(uint32_t backend)
 }
 
 
-const char *xmrig::cpu_tag()
+const char *rxs::cpu_tag()
 {
     return Tags::cpu();
 }
 
 
-xmrig::CpuBackend::CpuBackend(Controller *controller) :
+rxs::CpuBackend::CpuBackend(Controller *controller) :
     d_ptr(new CpuBackendPrivate(controller))
 {
     d_ptr->workers.setBackend(this);
 }
 
 
-xmrig::CpuBackend::~CpuBackend()
+rxs::CpuBackend::~CpuBackend()
 {
     delete d_ptr;
 }
 
 
-bool xmrig::CpuBackend::isEnabled() const
+bool rxs::CpuBackend::isEnabled() const
 {
     return d_ptr->controller->config()->cpu().isEnabled();
 }
 
 
-bool xmrig::CpuBackend::isEnabled(const Algorithm &algorithm) const
+bool rxs::CpuBackend::isEnabled(const Algorithm &algorithm) const
 {
     return !d_ptr->controller->config()->cpu().threads().get(algorithm).isEmpty();
 }
 
 
-bool xmrig::CpuBackend::tick(uint64_t ticks)
+bool rxs::CpuBackend::tick(uint64_t ticks)
 {
     return d_ptr->workers.tick(ticks);
 }
 
 
-const xmrig::Hashrate *xmrig::CpuBackend::hashrate() const
+const rxs::Hashrate *rxs::CpuBackend::hashrate() const
 {
     return d_ptr->workers.hashrate();
 }
 
 
-const xmrig::String &xmrig::CpuBackend::profileName() const
+const rxs::String &rxs::CpuBackend::profileName() const
 {
     return d_ptr->profileName;
 }
 
 
-const xmrig::String &xmrig::CpuBackend::type() const
+const rxs::String &rxs::CpuBackend::type() const
 {
     return kType;
 }
 
 
-void xmrig::CpuBackend::prepare(const Job &nextJob)
+void rxs::CpuBackend::prepare(const Job &nextJob)
 {
 }
 
 
-void xmrig::CpuBackend::printHashrate(bool details)
+void rxs::CpuBackend::printHashrate(bool details)
 {
     if (!details || !hashrate()) {
         return;
@@ -323,12 +323,12 @@ void xmrig::CpuBackend::printHashrate(bool details)
 }
 
 
-void xmrig::CpuBackend::printHealth()
+void rxs::CpuBackend::printHealth()
 {
 }
 
 
-void xmrig::CpuBackend::setJob(const Job &job)
+void rxs::CpuBackend::setJob(const Job &job)
 {
     if (!isEnabled()) {
         return stop();
@@ -352,7 +352,7 @@ void xmrig::CpuBackend::setJob(const Job &job)
 
     stop();
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     if (BenchState::size()) {
         d_ptr->benchmark = std::make_shared<Benchmark>(threads.size(), this);
     }
@@ -363,7 +363,7 @@ void xmrig::CpuBackend::setJob(const Job &job)
 }
 
 
-void xmrig::CpuBackend::start(IWorker *worker, bool ready)
+void rxs::CpuBackend::start(IWorker *worker, bool ready)
 {
     mutex.lock();
 
@@ -379,7 +379,7 @@ void xmrig::CpuBackend::start(IWorker *worker, bool ready)
 }
 
 
-void xmrig::CpuBackend::stop()
+void rxs::CpuBackend::stop()
 {
     if (d_ptr->threads.empty()) {
         return;
@@ -394,8 +394,8 @@ void xmrig::CpuBackend::stop()
 }
 
 
-#ifdef XMRIG_FEATURE_API
-rapidjson::Value xmrig::CpuBackend::toJSON(rapidjson::Document &doc) const
+#ifdef RXS_FEATURE_API
+rapidjson::Value rxs::CpuBackend::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator         = doc.GetAllocator();
@@ -410,7 +410,7 @@ rapidjson::Value xmrig::CpuBackend::toJSON(rapidjson::Document &doc) const
     out.AddMember("priority",   cpu.priority(), allocator);
     out.AddMember("msr",        Rx::isMSR(), allocator);
 
-#   ifdef XMRIG_FEATURE_ASM
+#   ifdef RXS_FEATURE_ASM
     const Assembly assembly = Cpu::assembly(cpu.assembly());
     out.AddMember("asm", assembly.toJSON(), allocator);
 #   else
@@ -446,7 +446,7 @@ rapidjson::Value xmrig::CpuBackend::toJSON(rapidjson::Document &doc) const
 }
 
 
-void xmrig::CpuBackend::handleRequest(IApiRequest &request)
+void rxs::CpuBackend::handleRequest(IApiRequest &request)
 {
     if (request.type() == IApiRequest::REQ_SUMMARY) {
         request.reply().AddMember("hugepages", d_ptr->hugePages(request.version(), request.doc()), request.doc().GetAllocator());
@@ -455,14 +455,14 @@ void xmrig::CpuBackend::handleRequest(IApiRequest &request)
 #endif
 
 
-#ifdef XMRIG_FEATURE_BENCHMARK
-xmrig::Benchmark *xmrig::CpuBackend::benchmark() const
+#ifdef RXS_FEATURE_BENCHMARK
+rxs::Benchmark *rxs::CpuBackend::benchmark() const
 {
     return d_ptr->benchmark.get();
 }
 
 
-void xmrig::CpuBackend::printBenchProgress() const
+void rxs::CpuBackend::printBenchProgress() const
 {
     if (d_ptr->benchmark) {
         d_ptr->benchmark->printProgress();

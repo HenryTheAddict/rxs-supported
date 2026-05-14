@@ -33,7 +33,7 @@
 #include "base/tools/Chrono.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static std::mutex mutex;
@@ -98,10 +98,10 @@ static cl_program createFromBinary(const IOclRunner *runner, const std::string &
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-cl_program xmrig::OclCache::build(const IOclRunner *runner)
+cl_program rxs::OclCache::build(const IOclRunner *runner)
 {
     std::lock_guard<std::mutex> lock(mutex);
 
@@ -112,7 +112,7 @@ cl_program xmrig::OclCache::build(const IOclRunner *runner)
     std::string fileName;
     if (runner->data().cache) {
 #       ifdef _WIN32
-        fileName = prefix() + "\\xmrig\\.cache\\" + cacheKey(runner) + ".bin";
+        fileName = prefix() + "\\rxs\\.cache\\" + cacheKey(runner) + ".bin";
 #       else
         fileName = prefix() + "/.cache/" + cacheKey(runner) + ".bin";
 #       endif
@@ -132,7 +132,7 @@ cl_program xmrig::OclCache::build(const IOclRunner *runner)
 }
 
 
-std::string xmrig::OclCache::cacheKey(const char *deviceKey, const char *options, const char *source)
+std::string rxs::OclCache::cacheKey(const char *deviceKey, const char *options, const char *source)
 {
     std::string in(source);
     in += options;
@@ -148,13 +148,13 @@ std::string xmrig::OclCache::cacheKey(const char *deviceKey, const char *options
 }
 
 
-std::string xmrig::OclCache::cacheKey(const IOclRunner *runner)
+std::string rxs::OclCache::cacheKey(const IOclRunner *runner)
 {
     return cacheKey(runner->deviceKey(), runner->buildOptions(), runner->source());
 }
 
 
-void xmrig::OclCache::save(cl_program program, const std::string &fileName)
+void rxs::OclCache::save(cl_program program, const std::string &fileName)
 {
     size_t size = 0;
     if (OclLib::getProgramInfo(program, CL_PROGRAM_BINARY_SIZES, sizeof(size), &size) != CL_SUCCESS) {

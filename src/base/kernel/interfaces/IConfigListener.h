@@ -22,11 +22,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ICONFIGLISTENER_H
-#define XMRIG_ICONFIGLISTENER_H
+#ifndef RXS_ICONFIGLISTENER_H
+#define RXS_ICONFIGLISTENER_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IConfig;
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ICONFIGLISTENER_H
+#endif // RXS_ICONFIGLISTENER_H

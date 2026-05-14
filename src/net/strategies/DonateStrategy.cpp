@@ -38,20 +38,20 @@
 #include "net/Network.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 static inline double randomf(double min, double max)                 { return (max - min) * (((static_cast<double>(rand())) / static_cast<double>(RAND_MAX))) + min; }
 static inline uint64_t random(uint64_t base, double min, double max) { return static_cast<uint64_t>(base * randomf(min, max)); }
 
 static const char *kDonateHost = "127.0.0.1";
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 static const char *kDonateHostTls = "127.0.0.1";
 #endif
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener *listener) :
+rxs::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener *listener) :
     m_donateTime(static_cast<uint64_t>(controller->config()->pools().donateLevel()) * 60 * 1000),
     m_idleTime((100 - static_cast<uint64_t>(controller->config()->pools().donateLevel())) * 60 * 1000),
     m_controller(controller),
@@ -63,13 +63,13 @@ xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener 
     keccak(reinterpret_cast<const uint8_t *>(user.data()), user.size(), hash);
     Cvt::toHex(m_userId, sizeof(m_userId), hash, 32);
 
-#   if defined XMRIG_ALGO_KAWPOW || defined XMRIG_ALGO_GHOSTRIDER
+#   if defined RXS_ALGO_KAWPOW || defined RXS_ALGO_GHOSTRIDER
     constexpr Pool::Mode mode = Pool::MODE_AUTO_ETH;
 #   else
     constexpr Pool::Mode mode = Pool::MODE_POOL;
 #   endif
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     m_pools.emplace_back(kDonateHostTls, 443, m_userId, nullptr, nullptr, 0, true, true, mode);
 #   endif
     m_pools.emplace_back(kDonateHost, 3333, m_userId, nullptr, nullptr, 0, true, false, mode);
@@ -87,7 +87,7 @@ xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener 
 }
 
 
-xmrig::DonateStrategy::~DonateStrategy()
+rxs::DonateStrategy::~DonateStrategy()
 {
     delete m_timer;
     delete m_strategy;
@@ -98,7 +98,7 @@ xmrig::DonateStrategy::~DonateStrategy()
 }
 
 
-void xmrig::DonateStrategy::update(IClient *client, const Job &job)
+void rxs::DonateStrategy::update(IClient *client, const Job &job)
 {
     setAlgo(job.algorithm());
     setProxy(client->pool().proxy());
@@ -109,13 +109,13 @@ void xmrig::DonateStrategy::update(IClient *client, const Job &job)
 }
 
 
-int64_t xmrig::DonateStrategy::submit(const JobResult &result)
+int64_t rxs::DonateStrategy::submit(const JobResult &result)
 {
     return m_proxy ? m_proxy->submit(result) : m_strategy->submit(result);
 }
 
 
-void xmrig::DonateStrategy::connect()
+void rxs::DonateStrategy::connect()
 {
     m_proxy = createProxy();
     if (m_proxy) {
@@ -128,7 +128,7 @@ void xmrig::DonateStrategy::connect()
 }
 
 
-void xmrig::DonateStrategy::setAlgo(const xmrig::Algorithm &algo)
+void rxs::DonateStrategy::setAlgo(const rxs::Algorithm &algo)
 {
     m_algorithm = algo;
 
@@ -136,20 +136,20 @@ void xmrig::DonateStrategy::setAlgo(const xmrig::Algorithm &algo)
 }
 
 
-void xmrig::DonateStrategy::setProxy(const ProxyUrl &proxy)
+void rxs::DonateStrategy::setProxy(const ProxyUrl &proxy)
 {
     m_strategy->setProxy(proxy);
 }
 
 
-void xmrig::DonateStrategy::stop()
+void rxs::DonateStrategy::stop()
 {
     m_timer->stop();
     m_strategy->stop();
 }
 
 
-void xmrig::DonateStrategy::tick(uint64_t now)
+void rxs::DonateStrategy::tick(uint64_t now)
 {
     m_now = now;
 
@@ -165,7 +165,7 @@ void xmrig::DonateStrategy::tick(uint64_t now)
 }
 
 
-void xmrig::DonateStrategy::onActive(IStrategy *, IClient *client)
+void rxs::DonateStrategy::onActive(IStrategy *, IClient *client)
 {
     if (isActive()) {
         return;
@@ -176,12 +176,12 @@ void xmrig::DonateStrategy::onActive(IStrategy *, IClient *client)
 }
 
 
-void xmrig::DonateStrategy::onPause(IStrategy *)
+void rxs::DonateStrategy::onPause(IStrategy *)
 {
 }
 
 
-void xmrig::DonateStrategy::onClose(IClient *, int failures)
+void rxs::DonateStrategy::onClose(IClient *, int failures)
 {
     if (failures == 2 && m_controller->config()->pools().proxyDonate() == Pools::PROXY_DONATE_AUTO) {
         m_proxy->deleteLater();
@@ -192,12 +192,12 @@ void xmrig::DonateStrategy::onClose(IClient *, int failures)
 }
 
 
-void xmrig::DonateStrategy::onLogin(IClient *, rapidjson::Document &doc, rapidjson::Value &params)
+void rxs::DonateStrategy::onLogin(IClient *, rapidjson::Document &doc, rapidjson::Value &params)
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     if (m_tls) {
         char buf[40] = { 0 };
         snprintf(buf, sizeof(buf), "stratum+ssl://%s", m_pools[0].url().data());
@@ -214,13 +214,13 @@ void xmrig::DonateStrategy::onLogin(IClient *, rapidjson::Document &doc, rapidjs
 }
 
 
-void xmrig::DonateStrategy::onLogin(IStrategy *, IClient *, rapidjson::Document &doc, rapidjson::Value &params)
+void rxs::DonateStrategy::onLogin(IStrategy *, IClient *, rapidjson::Document &doc, rapidjson::Value &params)
 {
     setParams(doc, params);
 }
 
 
-void xmrig::DonateStrategy::onLoginSuccess(IClient *client)
+void rxs::DonateStrategy::onLoginSuccess(IClient *client)
 {
     if (isActive()) {
         return;
@@ -231,25 +231,25 @@ void xmrig::DonateStrategy::onLoginSuccess(IClient *client)
 }
 
 
-void xmrig::DonateStrategy::onVerifyAlgorithm(const IClient *client, const Algorithm &algorithm, bool *ok)
+void rxs::DonateStrategy::onVerifyAlgorithm(const IClient *client, const Algorithm &algorithm, bool *ok)
 {
     m_listener->onVerifyAlgorithm(this, client, algorithm, ok);
 }
 
 
-void xmrig::DonateStrategy::onVerifyAlgorithm(IStrategy *, const  IClient *client, const Algorithm &algorithm, bool *ok)
+void rxs::DonateStrategy::onVerifyAlgorithm(IStrategy *, const  IClient *client, const Algorithm &algorithm, bool *ok)
 {
     m_listener->onVerifyAlgorithm(this, client, algorithm, ok);
 }
 
 
-void xmrig::DonateStrategy::onTimer(const Timer *)
+void rxs::DonateStrategy::onTimer(const Timer *)
 {
     setState(isActive() ? STATE_WAIT : STATE_CONNECT);
 }
 
 
-xmrig::IClient *xmrig::DonateStrategy::createProxy()
+rxs::IClient *rxs::DonateStrategy::createProxy()
 {
     if (m_controller->config()->pools().proxyDonate() == Pools::PROXY_DONATE_NONE) {
         return nullptr;
@@ -275,13 +275,13 @@ xmrig::IClient *xmrig::DonateStrategy::createProxy()
 }
 
 
-void xmrig::DonateStrategy::idle(double min, double max)
+void rxs::DonateStrategy::idle(double min, double max)
 {
     m_timer->start(random(m_idleTime, min, max), 0);
 }
 
 
-void xmrig::DonateStrategy::setJob(IClient *client, const Job &job, const rapidjson::Value &params)
+void rxs::DonateStrategy::setJob(IClient *client, const Job &job, const rapidjson::Value &params)
 {
     if (isActive()) {
         m_listener->onJob(this, client, job, params);
@@ -289,7 +289,7 @@ void xmrig::DonateStrategy::setJob(IClient *client, const Job &job, const rapidj
 }
 
 
-void xmrig::DonateStrategy::setParams(rapidjson::Document &doc, rapidjson::Value &params)
+void rxs::DonateStrategy::setParams(rapidjson::Document &doc, rapidjson::Value &params)
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -316,13 +316,13 @@ void xmrig::DonateStrategy::setParams(rapidjson::Document &doc, rapidjson::Value
 }
 
 
-void xmrig::DonateStrategy::setResult(IClient *client, const SubmitResult &result, const char *error)
+void rxs::DonateStrategy::setResult(IClient *client, const SubmitResult &result, const char *error)
 {
     m_listener->onResultAccepted(this, client, result, error);
 }
 
 
-void xmrig::DonateStrategy::setState(State state)
+void rxs::DonateStrategy::setState(State state)
 {
     constexpr const uint64_t waitTime = 3000;
 

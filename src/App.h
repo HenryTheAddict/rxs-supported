@@ -23,8 +23,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_APP_H
-#define XMRIG_APP_H
+#ifndef RXS_APP_H
+#define RXS_APP_H
 
 
 #include "base/kernel/interfaces/IConsoleListener.h"
@@ -35,7 +35,7 @@
 #include <memory>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Console;
@@ -48,7 +48,7 @@ class Signals;
 class App : public IConsoleListener, public ISignalListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(App)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(App)
 
     App(Process *process);
     ~App() override;
@@ -69,7 +69,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_APP_H */
+#endif /* RXS_APP_H */

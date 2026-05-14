@@ -34,7 +34,7 @@
 #define IOCTL_WRITE_MSR CTL_CODE(40000, 0x822, METHOD_BUFFERED, FILE_ANY_ACCESS)
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const wchar_t *kServiceName = SERVICE_NAME;
@@ -82,10 +82,10 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::Msr::Msr() : d_ptr(new MsrPrivate())
+rxs::Msr::Msr() : d_ptr(new MsrPrivate())
 {
     DWORD err = 0;
 
@@ -192,7 +192,7 @@ xmrig::Msr::Msr() : d_ptr(new MsrPrivate())
 }
 
 
-xmrig::Msr::~Msr()
+rxs::Msr::~Msr()
 {
     d_ptr->uninstall();
 
@@ -200,13 +200,13 @@ xmrig::Msr::~Msr()
 }
 
 
-bool xmrig::Msr::isAvailable() const
+bool rxs::Msr::isAvailable() const
 {
     return d_ptr->driver != INVALID_HANDLE_VALUE;
 }
 
 
-bool xmrig::Msr::write(Callback &&callback)
+bool rxs::Msr::write(Callback &&callback)
 {
     const auto &units = Cpu::info()->units();
     bool success      = false;
@@ -231,7 +231,7 @@ bool xmrig::Msr::write(Callback &&callback)
 }
 
 
-bool xmrig::Msr::rdmsr(uint32_t reg, int32_t cpu, uint64_t &value) const
+bool rxs::Msr::rdmsr(uint32_t reg, int32_t cpu, uint64_t &value) const
 {
     assert(cpu < 0);
 
@@ -241,7 +241,7 @@ bool xmrig::Msr::rdmsr(uint32_t reg, int32_t cpu, uint64_t &value) const
 }
 
 
-bool xmrig::Msr::wrmsr(uint32_t reg, uint64_t value, int32_t cpu)
+bool rxs::Msr::wrmsr(uint32_t reg, uint64_t value, int32_t cpu)
 {
     assert(cpu < 0);
 

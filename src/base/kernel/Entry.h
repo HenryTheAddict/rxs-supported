@@ -22,11 +22,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ENTRY_H
-#define XMRIG_ENTRY_H
+#ifndef RXS_ENTRY_H
+#define RXS_ENTRY_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Process;
@@ -48,7 +48,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_ENTRY_H */
+#endif /* RXS_ENTRY_H */

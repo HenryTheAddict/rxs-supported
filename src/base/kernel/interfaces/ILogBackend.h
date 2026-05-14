@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ILOGBACKEND_H
-#define XMRIG_ILOGBACKEND_H
+#ifndef RXS_ILOGBACKEND_H
+#define RXS_ILOGBACKEND_H
 
 
 #include "base/tools/Object.h"
@@ -27,13 +27,13 @@
 #include <cstddef>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ILogBackend
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(ILogBackend)
+    RXS_DISABLE_COPY_MOVE(ILogBackend)
 
     ILogBackend()           = default;
     virtual ~ILogBackend()  = default;
@@ -42,7 +42,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ILOGBACKEND_H
+#endif // RXS_ILOGBACKEND_H

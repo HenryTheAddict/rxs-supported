@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_NETWORK_H
-#define XMRIG_NETWORK_H
+#ifndef RXS_NETWORK_H
+#define RXS_NETWORK_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -33,7 +33,7 @@
 #include <vector>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Controller;
@@ -44,7 +44,7 @@ class NetworkState;
 class Network : public IJobResultListener, public IStrategyListener, public IBaseListener, public ITimerListener, public IApiListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Network)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Network)
 
     Network(Controller *controller);
     ~Network() override;
@@ -66,7 +66,7 @@ protected:
     void onResultAccepted(IStrategy *strategy, IClient *client, const SubmitResult &result, const char *error) override;
     void onVerifyAlgorithm(IStrategy *strategy, const  IClient *client, const Algorithm &algorithm, bool *ok) override;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     void onRequest(IApiRequest &request) override;
 #   endif
 
@@ -76,7 +76,7 @@ private:
     void setJob(IClient *client, const Job &job);
     void tick();
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     void getConnection(rapidjson::Value &reply, rapidjson::Document &doc, int version) const;
     void getResults(rapidjson::Value &reply, rapidjson::Document &doc, int version) const;
 #   endif
@@ -88,7 +88,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_NETWORK_H
+#endif // RXS_NETWORK_H

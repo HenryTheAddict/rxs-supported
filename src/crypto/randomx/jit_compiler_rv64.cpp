@@ -645,7 +645,7 @@ namespace randomx {
 		//jal x1, SuperscalarHash
 		emitJump(state, ReturnReg, LiteralPoolSize + offsetFixDataCall, SuperScalarHashOffset);
 
-		if (xmrig::Cpu::info()->hasRISCV_Vector()) {
+		if (rxs::Cpu::info()->hasRISCV_Vector()) {
 			vectorCodeSize = ((uint8_t*)randomx_riscv64_vector_code_end) - ((uint8_t*)randomx_riscv64_vector_code_begin);
 			vectorCode = static_cast<uint8_t*>(allocExecutableMemory(vectorCodeSize, hugePagesJIT && hugePagesEnable));
 
@@ -665,19 +665,19 @@ namespace randomx {
 
 	void JitCompilerRV64::enableWriting() const
 	{
-		xmrig::VirtualMemory::protectRW(entryDataInit, ExecutableSize);
+		rxs::VirtualMemory::protectRW(entryDataInit, ExecutableSize);
 
 		if (vectorCode) {
-			xmrig::VirtualMemory::protectRW(vectorCode, vectorCodeSize);
+			rxs::VirtualMemory::protectRW(vectorCode, vectorCodeSize);
 		}
 	}
 
 	void JitCompilerRV64::enableExecution() const
 	{
-		xmrig::VirtualMemory::protectRX(entryDataInit, ExecutableSize);
+		rxs::VirtualMemory::protectRX(entryDataInit, ExecutableSize);
 
 		if (vectorCode) {
-			xmrig::VirtualMemory::protectRX(vectorCode, vectorCodeSize);
+			rxs::VirtualMemory::protectRX(vectorCode, vectorCodeSize);
 		}
 	}
 

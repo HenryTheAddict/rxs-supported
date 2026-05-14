@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HANDLE_H
-#define XMRIG_HANDLE_H
+#ifndef RXS_HANDLE_H
+#define RXS_HANDLE_H
 
 
 #include <uv.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Handle
@@ -80,7 +80,7 @@ inline void Handle::close(uv_fs_event_t *handle)
 }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_HANDLE_H */
+#endif /* RXS_HANDLE_H */

@@ -23,8 +23,8 @@
  */
 
 
-#ifndef XMRIG_APIREQUEST_H
-#define XMRIG_APIREQUEST_H
+#ifndef RXS_APIREQUEST_H
+#define RXS_APIREQUEST_H
 
 
 #include "base/api/interfaces/IApiRequest.h"
@@ -32,13 +32,13 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ApiRequest : public IApiRequest
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(ApiRequest)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(ApiRequest)
 
     ApiRequest(Source source, bool restricted);
     ~ApiRequest() override;
@@ -71,8 +71,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_APIREQUEST_H
+#endif // RXS_APIREQUEST_H
 

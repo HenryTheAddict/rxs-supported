@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HTTPD_H
-#define XMRIG_HTTPD_H
+#ifndef RXS_HTTPD_H
+#define RXS_HTTPD_H
 
 
 #include "base/kernel/interfaces/IBaseListener.h"
 #include "base/net/http/HttpListener.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Base;
@@ -36,7 +36,7 @@ class TcpServer;
 class Httpd : public IBaseListener, public IHttpListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Httpd)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Httpd)
 
     explicit Httpd(Base *base);
     ~Httpd() override;
@@ -58,7 +58,7 @@ private:
     TcpServer *m_server     = nullptr;
     uint16_t m_port         = 0;
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     HttpsServer *m_http     = nullptr;
 #   else
     HttpServer *m_http      = nullptr;
@@ -66,7 +66,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPD_H
+#endif // RXS_HTTPD_H

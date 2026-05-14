@@ -25,7 +25,7 @@
 
 #if __ARM_FEATURE_CRYPTO
 #   include <sys/auxv.h>
-#   if !defined(XMRIG_OS_FREEBSD)
+#   if !defined(RXS_OS_FREEBSD)
 #       include <asm/hwcap.h>
 #   else
 #       include <stdint.h>
@@ -37,19 +37,19 @@
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 extern String cpu_name_arm();
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-void xmrig::BasicCpuInfo::init_arm()
+void rxs::BasicCpuInfo::init_arm()
 {
 #   if __ARM_FEATURE_CRYPTO
-#   if defined(XMRIG_OS_FREEBSD)
+#   if defined(RXS_OS_FREEBSD)
     uint64_t isar0 = READ_SPECIALREG(id_aa64isar0_el1);
     m_flags.set(FLAG_AES, ID_AA64ISAR0_AES_VAL(isar0) >= ID_AA64ISAR0_AES_BASE);
 #   else
@@ -57,7 +57,7 @@ void xmrig::BasicCpuInfo::init_arm()
 #   endif
 #   endif
 
-#   if defined(XMRIG_OS_UNIX)
+#   if defined(RXS_OS_UNIX)
     auto name = cpu_name_arm();
     if (!name.isNull()) {
         strncpy(m_brand, name, sizeof(m_brand) - 1);

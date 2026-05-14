@@ -17,31 +17,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IRXLISTENER_H
-#define XMRIG_IRXLISTENER_H
+#ifndef RXS_IRXLISTENER_H
+#define RXS_IRXLISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IRxListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IRxListener)
+    RXS_DISABLE_COPY_MOVE(IRxListener)
 
     IRxListener()           = default;
     virtual ~IRxListener()  = default;
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     virtual void onDatasetReady() = 0;
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IRXLISTENER_H
+#endif // RXS_IRXLISTENER_H

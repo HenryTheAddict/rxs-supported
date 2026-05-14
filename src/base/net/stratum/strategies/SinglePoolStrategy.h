@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SINGLEPOOLSTRATEGY_H
-#define XMRIG_SINGLEPOOLSTRATEGY_H
+#ifndef RXS_SINGLEPOOLSTRATEGY_H
+#define RXS_SINGLEPOOLSTRATEGY_H
 
 
 #include "base/kernel/interfaces/IClientListener.h"
@@ -31,7 +31,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Client;
@@ -42,7 +42,7 @@ class Pool;
 class SinglePoolStrategy : public IStrategy, public IClientListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(SinglePoolStrategy)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(SinglePoolStrategy)
 
     SinglePoolStrategy(const Pool &pool, int retryPause, int retries, IStrategyListener *listener, bool quiet = false);
     ~SinglePoolStrategy() override;
@@ -73,7 +73,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_SINGLEPOOLSTRATEGY_H */
+#endif /* RXS_SINGLEPOOLSTRATEGY_H */

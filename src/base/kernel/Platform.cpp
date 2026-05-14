@@ -23,22 +23,22 @@
 #include <uv.h>
 
 
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 #   include <openssl/ssl.h>
 #   include <openssl/err.h>
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 String Platform::m_userAgent;
 
-} // namespace xmrig
+} // namespace rxs
 
 
-void xmrig::Platform::init(const char *userAgent)
+void rxs::Platform::init(const char *userAgent)
 {
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     SSL_library_init();
     SSL_load_error_strings();
 

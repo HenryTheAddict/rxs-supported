@@ -28,13 +28,13 @@
 using uv_getaddrinfo_t = struct uv_getaddrinfo_s;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsUvBackend : public IDnsBackend
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(DnsUvBackend)
+    RXS_DISABLE_COPY_MOVE(DnsUvBackend)
 
     DnsUvBackend();
     ~DnsUvBackend() override;
@@ -62,4 +62,4 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs

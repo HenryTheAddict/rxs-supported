@@ -24,7 +24,7 @@
 #include <windows.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static thread_local std::pair<const void*, const void*> mainLoopBounds = { nullptr, nullptr };
@@ -58,16 +58,16 @@ static LONG WINAPI MainLoopHandler(_EXCEPTION_POINTERS *ExceptionInfo)
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-void xmrig::RxFix::setMainLoopBounds(const std::pair<const void *, const void *> &bounds)
+void rxs::RxFix::setMainLoopBounds(const std::pair<const void *, const void *> &bounds)
 {
     mainLoopBounds = bounds;
 }
 
 
-void xmrig::RxFix::setupMainLoopExceptionFrame()
+void rxs::RxFix::setupMainLoopExceptionFrame()
 {
     AddVectoredExceptionHandler(1, MainLoopHandler);
 }

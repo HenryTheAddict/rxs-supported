@@ -31,14 +31,14 @@
 #include "version.h"
 
 
-char *xmrig::Platform::createUserAgent()
+char *rxs::Platform::createUserAgent()
 {
     constexpr const size_t max = 256;
 
     char *buf = new char[max]();
     int length = snprintf(buf, max,
                           "%s/%s (Macintosh; macOS"
-#                         ifdef XMRIG_ARM
+#                         ifdef RXS_ARM
                           "; arm64"
 #                         else
                           "; x86_64"
@@ -55,18 +55,18 @@ char *xmrig::Platform::createUserAgent()
 }
 
 
-bool xmrig::Platform::setThreadAffinity(uint64_t cpu_id)
+bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {
     return true;
 }
 
 
-void xmrig::Platform::setProcessPriority(int)
+void rxs::Platform::setProcessPriority(int)
 {
 }
 
 
-void xmrig::Platform::setThreadPriority(int priority)
+void rxs::Platform::setThreadPriority(int priority)
 {
     if (priority == -1) {
         return;
@@ -103,13 +103,13 @@ void xmrig::Platform::setThreadPriority(int priority)
 }
 
 
-bool xmrig::Platform::isOnBatteryPower()
+bool rxs::Platform::isOnBatteryPower()
 {
     return IOPSGetTimeRemainingEstimate() != kIOPSTimeRemainingUnlimited;
 }
 
 
-uint64_t xmrig::Platform::idleTime()
+uint64_t rxs::Platform::idleTime()
 {
     uint64_t idle_time  = 0;
     const auto service  = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOHIDSystem"));

@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HASHAESKERNEL_H
-#define XMRIG_HASHAESKERNEL_H
+#ifndef RXS_HASHAESKERNEL_H
+#define RXS_HASHAESKERNEL_H
 
 
 #include "backend/opencl/wrappers/OclKernel.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HashAesKernel : public OclKernel
@@ -42,7 +42,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_HASHAESKERNEL_H */
+#endif /* RXS_HASHAESKERNEL_H */

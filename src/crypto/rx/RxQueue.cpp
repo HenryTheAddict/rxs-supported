@@ -27,12 +27,12 @@
 #include "crypto/rx/RxBasicStorage.h"
 
 
-#ifdef XMRIG_FEATURE_HWLOC
+#ifdef RXS_FEATURE_HWLOC
 #   include "crypto/rx/RxNUMAStorage.h"
 #endif
 
 
-xmrig::RxQueue::RxQueue(IRxListener *listener) :
+rxs::RxQueue::RxQueue(IRxListener *listener) :
     m_listener(listener)
 {
     m_async  = std::make_shared<Async>(this);
@@ -40,7 +40,7 @@ xmrig::RxQueue::RxQueue(IRxListener *listener) :
 }
 
 
-xmrig::RxQueue::~RxQueue()
+rxs::RxQueue::~RxQueue()
 {
     std::unique_lock<std::mutex> lock(m_mutex);
     m_state = STATE_SHUTDOWN;
@@ -54,7 +54,7 @@ xmrig::RxQueue::~RxQueue()
 }
 
 
-xmrig::RxDataset *xmrig::RxQueue::dataset(const Job &job, uint32_t nodeId)
+rxs::RxDataset *rxs::RxQueue::dataset(const Job &job, uint32_t nodeId)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -66,7 +66,7 @@ xmrig::RxDataset *xmrig::RxQueue::dataset(const Job &job, uint32_t nodeId)
 }
 
 
-xmrig::HugePagesInfo xmrig::RxQueue::hugePages()
+rxs::HugePagesInfo rxs::RxQueue::hugePages()
 {
     std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -75,7 +75,7 @@ xmrig::HugePagesInfo xmrig::RxQueue::hugePages()
 
 
 template<typename T>
-bool xmrig::RxQueue::isReady(const T &seed)
+bool rxs::RxQueue::isReady(const T &seed)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -83,12 +83,12 @@ bool xmrig::RxQueue::isReady(const T &seed)
 }
 
 
-void xmrig::RxQueue::enqueue(const RxSeed &seed, const std::vector<uint32_t> &nodeset, uint32_t threads, bool hugePages, bool oneGbPages, RxConfig::Mode mode, int priority)
+void rxs::RxQueue::enqueue(const RxSeed &seed, const std::vector<uint32_t> &nodeset, uint32_t threads, bool hugePages, bool oneGbPages, RxConfig::Mode mode, int priority)
 {
     std::unique_lock<std::mutex> lock(m_mutex);
 
     if (!m_storage) {
-#       ifdef XMRIG_FEATURE_HWLOC
+#       ifdef RXS_FEATURE_HWLOC
         if (!nodeset.empty()) {
             m_storage = new RxNUMAStorage(nodeset);
         }
@@ -114,13 +114,13 @@ void xmrig::RxQueue::enqueue(const RxSeed &seed, const std::vector<uint32_t> &no
 
 
 template<typename T>
-bool xmrig::RxQueue::isReadyUnsafe(const T &seed) const
+bool rxs::RxQueue::isReadyUnsafe(const T &seed) const
 {
     return m_storage != nullptr && m_storage->isAllocated() && m_state == STATE_IDLE && m_seed == seed;
 }
 
 
-void xmrig::RxQueue::backgroundInit()
+void rxs::RxQueue::backgroundInit()
 {
     while (m_state != STATE_SHUTDOWN) {
         std::unique_lock<std::mutex> lock(m_mutex);
@@ -162,7 +162,7 @@ void xmrig::RxQueue::backgroundInit()
 }
 
 
-void xmrig::RxQueue::onReady()
+void rxs::RxQueue::onReady()
 {
     std::unique_lock<std::mutex> lock(m_mutex);
     const bool ready = m_listener && m_state == STATE_IDLE;
@@ -174,11 +174,11 @@ void xmrig::RxQueue::onReady()
 }
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template bool RxQueue::isReady(const Job &);
 template bool RxQueue::isReady(const RxSeed &);
 
 
-} // namespace xmrig
+} // namespace rxs

@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CONFIGTRANSFORM_H
-#define XMRIG_CONFIGTRANSFORM_H
+#ifndef RXS_CONFIGTRANSFORM_H
+#define RXS_CONFIGTRANSFORM_H
 
 
 #include "base/kernel/config/BaseTransform.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ConfigTransform : public BaseTransform
@@ -36,7 +36,7 @@ private:
     void transformBoolean(rapidjson::Document &doc, int key, bool enable);
     void transformUint64(rapidjson::Document &doc, int key, uint64_t arg);
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     void transformBenchmark(rapidjson::Document &doc, int key, const char *arg);
 #   endif
 
@@ -47,7 +47,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CONFIGTRANSFORM_H */
+#endif /* RXS_CONFIGTRANSFORM_H */

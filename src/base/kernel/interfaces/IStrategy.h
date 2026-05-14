@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ISTRATEGY_H
-#define XMRIG_ISTRATEGY_H
+#ifndef RXS_ISTRATEGY_H
+#define RXS_ISTRATEGY_H
 
 
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -55,7 +55,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ISTRATEGY_H
+#endif // RXS_ISTRATEGY_H

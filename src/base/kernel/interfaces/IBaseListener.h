@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IBASELISTENER_H
-#define XMRIG_IBASELISTENER_H
+#ifndef RXS_IBASELISTENER_H
+#define RXS_IBASELISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Config;
@@ -32,7 +32,7 @@ class Config;
 class IBaseListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IBaseListener)
+    RXS_DISABLE_COPY_MOVE(IBaseListener)
 
     IBaseListener()             = default;
     virtual ~IBaseListener()    = default;
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IBASELISTENER_H
+#endif // RXS_IBASELISTENER_H

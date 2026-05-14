@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ISIGNALLISTENER_H
-#define XMRIG_ISIGNALLISTENER_H
+#ifndef RXS_ISIGNALLISTENER_H
+#define RXS_ISIGNALLISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class String;
@@ -32,7 +32,7 @@ class String;
 class ISignalListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(ISignalListener)
+    RXS_DISABLE_COPY_MOVE(ISignalListener)
 
     ISignalListener()           = default;
     virtual ~ISignalListener()  = default;
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ISIGNALLISTENER_H
+#endif // RXS_ISIGNALLISTENER_H

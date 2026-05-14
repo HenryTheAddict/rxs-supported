@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HASHRATE_H
-#define XMRIG_HASHRATE_H
+#ifndef RXS_HASHRATE_H
+#define RXS_HASHRATE_H
 
 
 #include <cmath>
@@ -30,13 +30,13 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Hashrate
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Hashrate)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Hashrate)
 
     enum Intervals : size_t {
         ShortInterval  = 10000,
@@ -58,7 +58,7 @@ public:
     static const char *format(std::pair<bool, double> h, char *buf, size_t size);
     static rapidjson::Value normalize(std::pair<bool, double> d);
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     rapidjson::Value toJSON(rapidjson::Document &doc) const;
     rapidjson::Value toJSON(size_t threadId, rapidjson::Document &doc) const;
 #   endif
@@ -80,7 +80,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_HASHRATE_H */
+#endif /* RXS_HASHRATE_H */

@@ -25,7 +25,7 @@
 #include <cstring>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 /* Replace non-ASCII characters with dots */
@@ -72,4 +72,4 @@ const char *dmi_string(dmi_header *dm, size_t offset)
 }
 
 
-} // namespace xmrig
+} // namespace rxs

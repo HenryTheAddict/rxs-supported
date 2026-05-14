@@ -25,7 +25,7 @@
 #include "base/tools/Cvt.h"
 
 
-void xmrig::BlockTemplate::calculateMinerTxHash(const uint8_t *prefix_begin, const uint8_t *prefix_end, uint8_t *hash)
+void rxs::BlockTemplate::calculateMinerTxHash(const uint8_t *prefix_begin, const uint8_t *prefix_end, uint8_t *hash)
 {
     uint8_t hashes[kHashSize * 3];
 
@@ -48,7 +48,7 @@ void xmrig::BlockTemplate::calculateMinerTxHash(const uint8_t *prefix_begin, con
 }
 
 
-void xmrig::BlockTemplate::calculateRootHash(const uint8_t *prefix_begin, const uint8_t *prefix_end, const Buffer &miner_tx_merkle_tree_branch, uint32_t miner_tx_merkle_tree_path, uint8_t *root_hash)
+void rxs::BlockTemplate::calculateRootHash(const uint8_t *prefix_begin, const uint8_t *prefix_end, const Buffer &miner_tx_merkle_tree_branch, uint32_t miner_tx_merkle_tree_path, uint8_t *root_hash)
 {
     calculateMinerTxHash(prefix_begin, prefix_end, root_hash);
 
@@ -67,7 +67,7 @@ void xmrig::BlockTemplate::calculateRootHash(const uint8_t *prefix_begin, const 
 }
 
 
-void xmrig::BlockTemplate::calculateMerkleTreeHash(uint32_t index)
+void rxs::BlockTemplate::calculateMerkleTreeHash(uint32_t index)
 {
     m_minerTxMerkleTreeBranch.clear();
 	m_minerTxMerkleTreePath = 0;
@@ -143,7 +143,7 @@ void xmrig::BlockTemplate::calculateMerkleTreeHash(uint32_t index)
 }
 
 
-bool xmrig::BlockTemplate::parse(const Buffer &blocktemplate, const Coin &coin, bool hashes)
+bool rxs::BlockTemplate::parse(const Buffer &blocktemplate, const Coin &coin, bool hashes)
 {
     if (blocktemplate.size() < kMinSize) {
         return false;
@@ -161,7 +161,7 @@ bool xmrig::BlockTemplate::parse(const Buffer &blocktemplate, const Coin &coin, 
 }
 
 
-bool xmrig::BlockTemplate::parse(const char *blocktemplate, size_t size, const Coin &coin, bool hashes)
+bool rxs::BlockTemplate::parse(const char *blocktemplate, size_t size, const Coin &coin, bool hashes)
 {
     if (size < (kMinSize * 2) || !Cvt::fromHex(m_blob, blocktemplate, size)) {
         return false;
@@ -178,19 +178,19 @@ bool xmrig::BlockTemplate::parse(const char *blocktemplate, size_t size, const C
 }
 
 
-bool xmrig::BlockTemplate::parse(const rapidjson::Value &blocktemplate, const Coin &coin, bool hashes)
+bool rxs::BlockTemplate::parse(const rapidjson::Value &blocktemplate, const Coin &coin, bool hashes)
 {
     return blocktemplate.IsString() && parse(blocktemplate.GetString(), blocktemplate.GetStringLength(), coin, hashes);
 }
 
 
-bool xmrig::BlockTemplate::parse(const String &blocktemplate, const Coin &coin, bool hashes)
+bool rxs::BlockTemplate::parse(const String &blocktemplate, const Coin &coin, bool hashes)
 {
     return parse(blocktemplate.data(), blocktemplate.size(), coin, hashes);
 }
 
 
-void xmrig::BlockTemplate::generateHashingBlob(Buffer &out) const
+void rxs::BlockTemplate::generateHashingBlob(Buffer &out) const
 {
     out.clear();
     out.reserve(offset(MINER_TX_PREFIX_OFFSET) + kHashSize + 3);
@@ -207,7 +207,7 @@ void xmrig::BlockTemplate::generateHashingBlob(Buffer &out) const
 }
 
 
-bool xmrig::BlockTemplate::parse(bool hashes)
+bool rxs::BlockTemplate::parse(bool hashes)
 {
     BlobReader<true> ar(m_blob.data(), m_blob.size());
 

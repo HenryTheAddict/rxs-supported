@@ -24,20 +24,20 @@
 #include "3rdparty/rapidjson/document.h"
 
 
-#if defined(XMRIG_FEATURE_HWLOC)
+#if defined(RXS_FEATURE_HWLOC)
 #   include "backend/cpu/platform/HwlocCpuInfo.h"
 #else
 #   include "backend/cpu/platform/BasicCpuInfo.h"
 #endif
 
 
-static xmrig::ICpuInfo *cpuInfo = nullptr;
+static rxs::ICpuInfo *cpuInfo = nullptr;
 
 
-xmrig::ICpuInfo *xmrig::Cpu::info()
+rxs::ICpuInfo *rxs::Cpu::info()
 {
     if (cpuInfo == nullptr) {
-#       if defined(XMRIG_FEATURE_HWLOC)
+#       if defined(RXS_FEATURE_HWLOC)
         cpuInfo = new HwlocCpuInfo();
 #       else
         cpuInfo = new BasicCpuInfo();
@@ -48,13 +48,13 @@ xmrig::ICpuInfo *xmrig::Cpu::info()
 }
 
 
-rapidjson::Value xmrig::Cpu::toJSON(rapidjson::Document &doc)
+rapidjson::Value rxs::Cpu::toJSON(rapidjson::Document &doc)
 {
     return info()->toJSON(doc);
 }
 
 
-void xmrig::Cpu::release()
+void rxs::Cpu::release()
 {
     delete cpuInfo;
     cpuInfo = nullptr;

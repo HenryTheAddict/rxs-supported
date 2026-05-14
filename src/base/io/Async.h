@@ -18,8 +18,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ASYNC_H
-#define XMRIG_ASYNC_H
+#ifndef RXS_ASYNC_H
+#define RXS_ASYNC_H
 
 
 #include "base/tools/Object.h"
@@ -28,7 +28,7 @@
 #include <functional>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class AsyncPrivate;
@@ -38,7 +38,7 @@ class IAsyncListener;
 class Async
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Async)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Async)
 
     using Callback = std::function<void()>;
 
@@ -53,7 +53,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_ASYNC_H */
+#endif /* RXS_ASYNC_H */

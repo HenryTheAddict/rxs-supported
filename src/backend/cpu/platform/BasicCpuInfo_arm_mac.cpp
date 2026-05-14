@@ -21,7 +21,7 @@
 #include <sys/sysctl.h>
 
 
-void xmrig::BasicCpuInfo::init_arm()
+void rxs::BasicCpuInfo::init_arm()
 {
 #   if __ARM_FEATURE_CRYPTO
     m_flags.set(FLAG_AES, true); // FIXME

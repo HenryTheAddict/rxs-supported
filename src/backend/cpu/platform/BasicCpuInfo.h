@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BASICCPUINFO_H
-#define XMRIG_BASICCPUINFO_H
+#ifndef RXS_BASICCPUINFO_H
+#define RXS_BASICCPUINFO_H
 
 
 #include "backend/cpu/interfaces/ICpuInfo.h"
@@ -27,7 +27,7 @@
 #include <bitset>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class BasicCpuInfo : public ICpuInfo
@@ -66,7 +66,7 @@ protected:
     inline Vendor vendor() const override                       { return m_vendor; }
     inline uint32_t model() const override
     {
-#   if !defined(XMRIG_ARM) && !defined(XMRIG_RISCV)
+#   if !defined(RXS_ARM) && !defined(RXS_RISCV)
         return m_model;
 #   else
         return 0;
@@ -81,7 +81,7 @@ protected:
     Vendor m_vendor         = VENDOR_UNKNOWN;
 
 private:
-#   if !defined(XMRIG_ARM) && !defined(XMRIG_RISCV)
+#   if !defined(RXS_ARM) && !defined(RXS_RISCV)
     uint32_t m_procInfo     = 0;
     uint32_t m_family       = 0;
     uint32_t m_model        = 0;
@@ -96,7 +96,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_BASICCPUINFO_H
+#endif // RXS_BASICCPUINFO_H

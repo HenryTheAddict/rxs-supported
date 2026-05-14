@@ -23,8 +23,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_JOBRESULT_H
-#define XMRIG_JOBRESULT_H
+#ifndef RXS_JOBRESULT_H
+#define RXS_JOBRESULT_H
 
 
 #include <memory.h>
@@ -37,7 +37,7 @@
 #include "crypto/randomx/randomx.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class JobResult
@@ -116,7 +116,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_JOBRESULT_H */
+#endif /* RXS_JOBRESULT_H */

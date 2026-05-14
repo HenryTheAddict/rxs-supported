@@ -42,19 +42,19 @@
 
 
 
-#ifdef XMRIG_FEATURE_API
+#ifdef RXS_FEATURE_API
 #   include "base/api/interfaces/IApiRequest.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_ADL
+#ifdef RXS_FEATURE_ADL
 #include "backend/opencl/wrappers/AdlLib.h"
 
-namespace xmrig { static const char *kAdlLabel = "ADL"; }
+namespace rxs { static const char *kAdlLabel = "ADL"; }
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 extern template class Threads<OclThreads>;
@@ -152,7 +152,7 @@ public:
             return printDisabled(kLabel, RED_S " (no devices)");
         }
 
-#       ifdef XMRIG_FEATURE_ADL
+#       ifdef RXS_FEATURE_ADL
         if (cl.isAdlEnabled()) {
             if (AdlLib::init()) {
                 Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-13s") "press " MAGENTA_BG(WHITE_BOLD_S "e") " for health report",
@@ -224,7 +224,7 @@ public:
     }
 
 
-#   ifdef XMRIG_FEATURE_ADL
+#   ifdef RXS_FEATURE_ADL
     void printHealth()
     {
         if (!AdlLib::isReady()) {
@@ -262,70 +262,70 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-const char *xmrig::ocl_tag()
+const char *rxs::ocl_tag()
 {
     return Tags::opencl();
 }
 
 
-xmrig::OclBackend::OclBackend(Controller *controller) :
+rxs::OclBackend::OclBackend(Controller *controller) :
     d_ptr(new OclBackendPrivate(controller))
 {
     d_ptr->workers.setBackend(this);
 }
 
 
-xmrig::OclBackend::~OclBackend()
+rxs::OclBackend::~OclBackend()
 {
     delete d_ptr;
 
     OclLib::close();
 
-#   ifdef XMRIG_FEATURE_ADL
+#   ifdef RXS_FEATURE_ADL
     AdlLib::close();
 #   endif
 }
 
 
-bool xmrig::OclBackend::isEnabled() const
+bool rxs::OclBackend::isEnabled() const
 {
     return d_ptr->controller->config()->cl().isEnabled() && OclLib::isInitialized() && d_ptr->platform.isValid() && !d_ptr->devices.empty();
 }
 
 
-bool xmrig::OclBackend::isEnabled(const Algorithm &algorithm) const
+bool rxs::OclBackend::isEnabled(const Algorithm &algorithm) const
 {
     return !d_ptr->controller->config()->cl().threads().get(algorithm).isEmpty();
 }
 
 
-const xmrig::Hashrate *xmrig::OclBackend::hashrate() const
+const rxs::Hashrate *rxs::OclBackend::hashrate() const
 {
     return d_ptr->workers.hashrate();
 }
 
 
-const xmrig::String &xmrig::OclBackend::profileName() const
+const rxs::String &rxs::OclBackend::profileName() const
 {
     return d_ptr->profileName;
 }
 
 
-const xmrig::String &xmrig::OclBackend::type() const
+const rxs::String &rxs::OclBackend::type() const
 {
     return kType;
 }
 
 
-void xmrig::OclBackend::execCommand(char)
+void rxs::OclBackend::execCommand(char)
 {
 }
 
 
-void xmrig::OclBackend::prepare(const Job &job)
+void rxs::OclBackend::prepare(const Job &job)
 {
     if (d_ptr) {
         d_ptr->workers.jobEarlyNotification(job);
@@ -333,7 +333,7 @@ void xmrig::OclBackend::prepare(const Job &job)
 }
 
 
-void xmrig::OclBackend::printHashrate(bool details)
+void rxs::OclBackend::printHashrate(bool details)
 {
     if (!details || !hashrate()) {
         return;
@@ -388,15 +388,15 @@ void xmrig::OclBackend::printHashrate(bool details)
 }
 
 
-void xmrig::OclBackend::printHealth()
+void rxs::OclBackend::printHealth()
 {
-#   ifdef XMRIG_FEATURE_ADL
+#   ifdef RXS_FEATURE_ADL
     d_ptr->printHealth();
 #   endif
 }
 
 
-void xmrig::OclBackend::setJob(const Job &job)
+void rxs::OclBackend::setJob(const Job &job)
 {
     const auto &cl = d_ptr->controller->config()->cl();
     if (cl.isEnabled()) {
@@ -434,7 +434,7 @@ void xmrig::OclBackend::setJob(const Job &job)
 }
 
 
-void xmrig::OclBackend::start(IWorker *worker, bool ready)
+void rxs::OclBackend::start(IWorker *worker, bool ready)
 {
     mutex.lock();
 
@@ -452,7 +452,7 @@ void xmrig::OclBackend::start(IWorker *worker, bool ready)
 }
 
 
-void xmrig::OclBackend::stop()
+void rxs::OclBackend::stop()
 {
     if (d_ptr->threads.empty()) {
         return;
@@ -469,14 +469,14 @@ void xmrig::OclBackend::stop()
 }
 
 
-bool xmrig::OclBackend::tick(uint64_t ticks)
+bool rxs::OclBackend::tick(uint64_t ticks)
 {
     return d_ptr->workers.tick(ticks);
 }
 
 
-#ifdef XMRIG_FEATURE_API
-rapidjson::Value xmrig::OclBackend::toJSON(rapidjson::Document &doc) const
+#ifdef RXS_FEATURE_API
+rapidjson::Value rxs::OclBackend::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -514,7 +514,7 @@ rapidjson::Value xmrig::OclBackend::toJSON(rapidjson::Document &doc) const
 }
 
 
-void xmrig::OclBackend::handleRequest(IApiRequest &)
+void rxs::OclBackend::handleRequest(IApiRequest &)
 {
 }
 #endif

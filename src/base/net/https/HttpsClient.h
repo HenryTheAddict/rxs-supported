@@ -18,8 +18,8 @@
  */
 
 
-#ifndef XMRIG_HTTPSCLIENT_H
-#define XMRIG_HTTPSCLIENT_H
+#ifndef RXS_HTTPSCLIENT_H
+#define RXS_HTTPSCLIENT_H
 
 
 using BIO       = struct bio_st;
@@ -32,13 +32,13 @@ using X509      = struct x509_st;
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HttpsClient : public HttpClient
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(HttpsClient)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(HttpsClient)
 
     HttpsClient(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener);
     ~HttpsClient() override;
@@ -66,7 +66,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPSCLIENT_H
+#endif // RXS_HTTPSCLIENT_H

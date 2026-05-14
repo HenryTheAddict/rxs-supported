@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_MSR_H
-#define XMRIG_MSR_H
+#ifndef RXS_MSR_H
+#define RXS_MSR_H
 
 
 #include "base/tools/Object.h"
@@ -28,7 +28,7 @@
 #include <memory>
 
 
-namespace xmrig
+namespace rxs
 {
 
 
@@ -38,7 +38,7 @@ class MsrPrivate;
 class Msr
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(Msr)
+    RXS_DISABLE_COPY_MOVE(Msr)
 
     using Callback = std::function<bool(int32_t cpu)>;
 
@@ -63,7 +63,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_MSR_H */
+#endif /* RXS_MSR_H */

@@ -24,7 +24,7 @@
 #include <algorithm>
 
 
-namespace xmrig {
+namespace rxs {
 
 static const char *kIndex        = "index";
 static const char *kIntensity    = "intensity";
@@ -33,16 +33,16 @@ static const char *kThreads      = "threads";
 static const char *kUnroll       = "unroll";
 static const char *kWorksize     = "worksize";
 
-#ifdef XMRIG_ALGO_RANDOMX
+#ifdef RXS_ALGO_RANDOMX
 static const char *kBFactor      = "bfactor";
 static const char *kGCNAsm       = "gcn_asm";
 static const char* kDatasetHost  = "dataset_host";
 #endif
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::OclThread::OclThread(const rapidjson::Value &value)
+rxs::OclThread::OclThread(const rapidjson::Value &value)
 {
     if (!value.IsObject()) {
         return;
@@ -78,7 +78,7 @@ xmrig::OclThread::OclThread(const rapidjson::Value &value)
         m_threads.emplace_back(-1);
     }
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     const auto &gcnAsm = Json::getValue(value, kGCNAsm);
     if (gcnAsm.IsBool()) {
         m_fields.set(RANDOMX_FIELDS, true);
@@ -91,7 +91,7 @@ xmrig::OclThread::OclThread(const rapidjson::Value &value)
 }
 
 
-bool xmrig::OclThread::isEqual(const OclThread &other) const
+bool rxs::OclThread::isEqual(const OclThread &other) const
 {
     return other.m_threads.size() == m_threads.size() &&
            std::equal(m_threads.begin(), m_threads.end(), other.m_threads.begin()) &&
@@ -107,7 +107,7 @@ bool xmrig::OclThread::isEqual(const OclThread &other) const
 }
 
 
-rapidjson::Value xmrig::OclThread::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::OclThread::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -136,7 +136,7 @@ rapidjson::Value xmrig::OclThread::toJSON(rapidjson::Document &doc) const
     out.AddMember(StringRef(kThreads), threads, allocator);
 
     if (m_fields.test(RANDOMX_FIELDS)) {
-#       ifdef XMRIG_ALGO_RANDOMX
+#       ifdef RXS_ALGO_RANDOMX
         out.AddMember(StringRef(kBFactor),      bfactor(), allocator);
         out.AddMember(StringRef(kGCNAsm),       isAsm(), allocator);
         out.AddMember(StringRef(kDatasetHost),  isDatasetHost(), allocator);

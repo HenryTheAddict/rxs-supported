@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_GPUWORKER_H
-#define XMRIG_GPUWORKER_H
+#ifndef RXS_GPUWORKER_H
+#define RXS_GPUWORKER_H
 
 
 #include <atomic>
@@ -27,7 +27,7 @@
 #include "backend/common/Worker.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class GpuWorker : public Worker
@@ -52,7 +52,7 @@ protected:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_GPUWORKER_H */
+#endif /* RXS_GPUWORKER_H */

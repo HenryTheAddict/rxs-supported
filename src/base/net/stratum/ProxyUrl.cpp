@@ -21,14 +21,14 @@
 #include "3rdparty/rapidjson/document.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 static const String kLocalhost = "127.0.0.1";
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::ProxyUrl::ProxyUrl(const rapidjson::Value &value)
+rxs::ProxyUrl::ProxyUrl(const rapidjson::Value &value)
 {
     m_port = 0;
 
@@ -41,13 +41,13 @@ xmrig::ProxyUrl::ProxyUrl(const rapidjson::Value &value)
 }
 
 
-const xmrig::String &xmrig::ProxyUrl::host() const
+const rxs::String &rxs::ProxyUrl::host() const
 {
     return m_host.isNull() && isValid() ? kLocalhost : m_host;
 }
 
 
-rapidjson::Value xmrig::ProxyUrl::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::ProxyUrl::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     if (!isValid()) {

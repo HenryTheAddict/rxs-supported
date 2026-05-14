@@ -326,7 +326,7 @@ void* generateProgramVectorRV64(uint8_t* buf, Program& prog, ProgramConfiguratio
 	params[3] = RandomX_CurrentConfig.DatasetBaseSize - 64;
 	params[4] = (1 << RandomX_ConfigurationBase::JumpBits) - 1;
 
-	const bool hasAES = xmrig::Cpu::info()->hasAES();
+	const bool hasAES = rxs::Cpu::info()->hasAES();
 
 	if (RandomX_CurrentConfig.Tweak_V2_AES && !hasAES) {
 		params[5] = (uint64_t) &lutEnc[2][0];

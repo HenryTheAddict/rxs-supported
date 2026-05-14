@@ -21,7 +21,7 @@
 #include "base/tools/Handle.h"
 
 
-xmrig::Console::Console(IConsoleListener *listener)
+rxs::Console::Console(IConsoleListener *listener)
     : m_listener(listener)
 {
     if (!isSupported()) {
@@ -41,7 +41,7 @@ xmrig::Console::Console(IConsoleListener *listener)
 }
 
 
-xmrig::Console::~Console()
+rxs::Console::~Console()
 {
     uv_tty_reset_mode();
 
@@ -49,14 +49,14 @@ xmrig::Console::~Console()
 }
 
 
-bool xmrig::Console::isSupported()
+bool rxs::Console::isSupported()
 {
     const uv_handle_type type = uv_guess_handle(0);
     return type == UV_TTY || type == UV_NAMED_PIPE;
 }
 
 
-void xmrig::Console::onAllocBuffer(uv_handle_t *handle, size_t, uv_buf_t *buf)
+void rxs::Console::onAllocBuffer(uv_handle_t *handle, size_t, uv_buf_t *buf)
 {
     auto console = static_cast<Console*>(handle->data);
     buf->len  = 1;
@@ -64,7 +64,7 @@ void xmrig::Console::onAllocBuffer(uv_handle_t *handle, size_t, uv_buf_t *buf)
 }
 
 
-void xmrig::Console::onRead(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf)
+void rxs::Console::onRead(uv_stream_t *stream, ssize_t nread, const uv_buf_t *buf)
 {
     if (nread < 0) {
         return uv_close(reinterpret_cast<uv_handle_t*>(stream), nullptr);

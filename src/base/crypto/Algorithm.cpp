@@ -33,7 +33,7 @@
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const char *Algorithm::kINVALID   = "invalid";
@@ -152,4 +152,4 @@ std::vector<Algorithm> Algorithm::all(const std::function<bool(const Algorithm &
 }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */

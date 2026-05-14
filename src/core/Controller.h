@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CONTROLLER_H
-#define XMRIG_CONTROLLER_H
+#ifndef RXS_CONTROLLER_H
+#define RXS_CONTROLLER_H
 
 
 #include "base/kernel/Base.h"
@@ -26,7 +26,7 @@
 #include <memory>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HwApi;
@@ -38,7 +38,7 @@ class Network;
 class Controller : public Base
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Controller)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Controller)
 
     Controller(Process *process);
     ~Controller() override;
@@ -55,13 +55,13 @@ private:
     std::shared_ptr<Miner> m_miner;
     std::shared_ptr<Network> m_network;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     std::shared_ptr<HwApi> m_hwApi;
 #   endif
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CONTROLLER_H */
+#endif /* RXS_CONTROLLER_H */

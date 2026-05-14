@@ -22,11 +22,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IJOBRESULTLISTENER_H
-#define XMRIG_IJOBRESULTLISTENER_H
+#ifndef RXS_IJOBRESULTLISTENER_H
+#define RXS_IJOBRESULTLISTENER_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Client;
@@ -42,7 +42,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IJOBRESULTLISTENER_H
+#endif // RXS_IJOBRESULTLISTENER_H

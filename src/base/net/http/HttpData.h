@@ -18,8 +18,8 @@
  */
 
 
-#ifndef XMRIG_HTTPDATA_H
-#define XMRIG_HTTPDATA_H
+#ifndef RXS_HTTPDATA_H
+#define RXS_HTTPDATA_H
 
 
 #include "3rdparty/rapidjson/document.h"
@@ -30,13 +30,13 @@
 #include <string>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HttpData
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(HttpData)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(HttpData)
 
     static const std::string kApplicationJson;
     static const std::string kContentType;
@@ -77,8 +77,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPDATA_H
+#endif // RXS_HTTPDATA_H
 

@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CN1KERNEL_H
-#define XMRIG_CN1KERNEL_H
+#ifndef RXS_CN1KERNEL_H
+#define RXS_CN1KERNEL_H
 
 
 #include "backend/opencl/wrappers/OclKernel.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Cn1Kernel : public OclKernel
@@ -43,7 +43,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CN1KERNEL_H */
+#endif /* RXS_CN1KERNEL_H */

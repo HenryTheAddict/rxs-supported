@@ -16,21 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_PROCESS_H
-#define XMRIG_PROCESS_H
+#ifndef RXS_PROCESS_H
+#define RXS_PROCESS_H
 
 
 #include "base/tools/Arguments.h"
 
 
 #ifdef WIN32
-#   define XMRIG_DIR_SEPARATOR "\\"
+#   define RXS_DIR_SEPARATOR "\\"
 #else
-#   define XMRIG_DIR_SEPARATOR "/"
+#   define RXS_DIR_SEPARATOR "/"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Process
@@ -58,7 +58,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_PROCESS_H */
+#endif /* RXS_PROCESS_H */

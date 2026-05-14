@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_COIN_H
-#define XMRIG_COIN_H
+#ifndef RXS_COIN_H
+#define RXS_COIN_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 #include "base/crypto/Algorithm.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Coin
@@ -82,7 +82,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_COIN_H */
+#endif /* RXS_COIN_H */

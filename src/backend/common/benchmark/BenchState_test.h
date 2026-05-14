@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BENCHSTATE_TEST_H
-#define XMRIG_BENCHSTATE_TEST_H
+#ifndef RXS_BENCHSTATE_TEST_H
+#define RXS_BENCHSTATE_TEST_H
 
 
 #include "base/crypto/Algorithm.h"
@@ -26,7 +26,7 @@
 #include <map>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const std::map<int, std::map<uint32_t, uint64_t> > hashCheck = {
@@ -145,8 +145,8 @@ static const std::map<int, std::map<uint32_t, uint64_t> > hashCheck1T = {
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 
-#endif /* XMRIG_BENCHSTATE_TEST_H */
+#endif /* RXS_BENCHSTATE_TEST_H */

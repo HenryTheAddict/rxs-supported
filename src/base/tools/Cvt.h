@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CVT_H
-#define XMRIG_CVT_H
+#ifndef RXS_CVT_H
+#define RXS_CVT_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -29,7 +29,7 @@
 #include <string>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Cvt
@@ -60,7 +60,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CVT_H */
+#endif /* RXS_CVT_H */

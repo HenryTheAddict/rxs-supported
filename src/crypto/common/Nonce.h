@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_NONCE_H
-#define XMRIG_NONCE_H
+#ifndef RXS_NONCE_H
+#define RXS_NONCE_H
 
 
 #include <atomic>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Nonce
@@ -56,7 +56,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_NONCE_H */
+#endif /* RXS_NONCE_H */

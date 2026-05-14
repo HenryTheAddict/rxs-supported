@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ITIMERLISTENER_H
-#define XMRIG_ITIMERLISTENER_H
+#ifndef RXS_ITIMERLISTENER_H
+#define RXS_ITIMERLISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Timer;
@@ -32,7 +32,7 @@ class Timer;
 class ITimerListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(ITimerListener)
+    RXS_DISABLE_COPY_MOVE(ITimerListener)
 
     ITimerListener()            = default;
     virtual ~ITimerListener()   = default;
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ITIMERLISTENER_H
+#endif // RXS_ITIMERLISTENER_H

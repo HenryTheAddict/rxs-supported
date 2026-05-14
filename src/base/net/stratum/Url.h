@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_URL_H
-#define XMRIG_URL_H
+#ifndef RXS_URL_H
+#define RXS_URL_H
 
 
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Url
@@ -64,7 +64,7 @@ protected:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_URL_H */
+#endif /* RXS_URL_H */

@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_FILLAESKERNEL_H
-#define XMRIG_FILLAESKERNEL_H
+#ifndef RXS_FILLAESKERNEL_H
+#define RXS_FILLAESKERNEL_H
 
 
 #include "backend/opencl/wrappers/OclKernel.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class FillAesKernel : public OclKernel
@@ -42,7 +42,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_FILLAESKERNEL_H */
+#endif /* RXS_FILLAESKERNEL_H */

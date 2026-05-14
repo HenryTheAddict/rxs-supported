@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPUBACKEND_H
-#define XMRIG_CPUBACKEND_H
+#ifndef RXS_CPUBACKEND_H
+#define RXS_CPUBACKEND_H
 
 
 #include "backend/common/interfaces/IBackend.h"
@@ -27,7 +27,7 @@
 #include <utility>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Controller;
@@ -38,7 +38,7 @@ class Miner;
 class CpuBackend : public IBackend
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(CpuBackend)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(CpuBackend)
 
     CpuBackend(Controller *controller);
     ~CpuBackend() override;
@@ -59,12 +59,12 @@ protected:
     void start(IWorker *worker, bool ready) override;
     void stop() override;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     rapidjson::Value toJSON(rapidjson::Document &doc) const override;
     void handleRequest(IApiRequest &request) override;
 #   endif
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     Benchmark *benchmark() const override;
     void printBenchProgress() const override;
 #   endif
@@ -74,7 +74,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CPUBACKEND_H */
+#endif /* RXS_CPUBACKEND_H */

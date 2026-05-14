@@ -25,7 +25,7 @@
 #include <windows.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 /*
@@ -41,10 +41,10 @@ struct RawSMBIOSData {
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::DmiReader::read()
+bool rxs::DmiReader::read()
 {
     constexpr uint32_t RSMB = 0x52534D42;
 

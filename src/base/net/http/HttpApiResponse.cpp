@@ -23,22 +23,22 @@
 #include "base/net/http/HttpData.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 static const char *kError  = "error";
 static const char *kStatus = "status";
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::HttpApiResponse::HttpApiResponse(uint64_t id) :
+rxs::HttpApiResponse::HttpApiResponse(uint64_t id) :
     HttpResponse(id),
     m_doc(rapidjson::kObjectType)
 {
 }
 
 
-xmrig::HttpApiResponse::HttpApiResponse(uint64_t id, int status) :
+rxs::HttpApiResponse::HttpApiResponse(uint64_t id, int status) :
     HttpResponse(id),
     m_doc(rapidjson::kObjectType)
 {
@@ -46,7 +46,7 @@ xmrig::HttpApiResponse::HttpApiResponse(uint64_t id, int status) :
 }
 
 
-void xmrig::HttpApiResponse::end()
+void rxs::HttpApiResponse::end()
 {
     using namespace rapidjson;
 

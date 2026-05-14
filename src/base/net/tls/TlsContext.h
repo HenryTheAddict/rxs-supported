@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_TLSCONTEXT_H
-#define XMRIG_TLSCONTEXT_H
+#ifndef RXS_TLSCONTEXT_H
+#define RXS_TLSCONTEXT_H
 
 
 #include "base/tools/Object.h"
@@ -27,7 +27,7 @@
 using SSL_CTX = struct ssl_ctx_st;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class TlsConfig;
@@ -36,7 +36,7 @@ class TlsConfig;
 class TlsContext
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(TlsContext)
+    RXS_DISABLE_COPY_MOVE(TlsContext)
 
     ~TlsContext();
 
@@ -57,7 +57,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_TLSCONTEXT_H
+#endif // RXS_TLSCONTEXT_H

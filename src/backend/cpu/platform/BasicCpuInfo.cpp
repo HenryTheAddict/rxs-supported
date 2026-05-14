@@ -51,7 +51,7 @@
 #define EDX_Reg  (3)
 
 
-namespace xmrig {
+namespace rxs {
 
 
 constexpr size_t kCpuFlagsSize                                  = 16;
@@ -59,7 +59,7 @@ static const std::array<const char *, kCpuFlagsSize> flagNames  = { "aes", "vaes
 static_assert(kCpuFlagsSize == ICpuInfo::FLAG_MAX, "kCpuFlagsSize and FLAG_MAX mismatch");
 
 
-#ifdef XMRIG_FEATURE_MSR
+#ifdef RXS_FEATURE_MSR
 constexpr size_t kMsrArraySize                                  = 7;
 static const std::array<const char *, kMsrArraySize> msrNames   = { MSR_NAMES_LIST };
 static_assert(kMsrArraySize == ICpuInfo::MSR_MOD_MAX, "kMsrArraySize and MSR_MOD_MAX mismatch");
@@ -155,22 +155,22 @@ static inline bool has_cat_l3()     { return has_feature(EXTENDED_FEATURES,     
 static inline bool is_vm()          { return has_feature(PROCESSOR_INFO,        ECX_Reg, 1 << 31); }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 // Required by the argon2 library used internally by RandomX
 extern "C" {
 
-int cpu_flags_has_avx2()    { return xmrig::has_avx2(); }
-int cpu_flags_has_avx512f() { return xmrig::has_avx512f(); }
-int cpu_flags_has_sse2()    { return xmrig::has_sse2(); }
-int cpu_flags_has_ssse3()   { return xmrig::has_ssse3(); }
-int cpu_flags_has_xop()     { return xmrig::has_xop(); }
+int cpu_flags_has_avx2()    { return rxs::has_avx2(); }
+int cpu_flags_has_avx512f() { return rxs::has_avx512f(); }
+int cpu_flags_has_sse2()    { return rxs::has_sse2(); }
+int cpu_flags_has_ssse3()   { return rxs::has_ssse3(); }
+int cpu_flags_has_xop()     { return rxs::has_xop(); }
 
 }
 
 
-xmrig::BasicCpuInfo::BasicCpuInfo() :
+rxs::BasicCpuInfo::BasicCpuInfo() :
     m_threads(std::thread::hardware_concurrency())
 {
     cpu_brand_string(m_brand);
@@ -196,7 +196,7 @@ xmrig::BasicCpuInfo::BasicCpuInfo() :
         m_units[i] = i;
     }
 
-#   ifdef XMRIG_FEATURE_ASM
+#   ifdef RXS_FEATURE_ASM
     if (m_flags.test(FLAG_AES)) {
         char vendor[13] = { 0 };
         int32_t data[4] = { 0 };
@@ -307,13 +307,13 @@ xmrig::BasicCpuInfo::BasicCpuInfo() :
 }
 
 
-const char *xmrig::BasicCpuInfo::backend() const
+const char *rxs::BasicCpuInfo::backend() const
 {
     return "basic/1";
 }
 
 
-xmrig::CpuThreads xmrig::BasicCpuInfo::threads(const Algorithm &algorithm, uint32_t) const
+rxs::CpuThreads rxs::BasicCpuInfo::threads(const Algorithm &algorithm, uint32_t) const
 {
     const size_t count = std::thread::hardware_concurrency();
 
@@ -335,7 +335,7 @@ xmrig::CpuThreads xmrig::BasicCpuInfo::threads(const Algorithm &algorithm, uint3
 }
 
 
-rapidjson::Value xmrig::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -359,13 +359,13 @@ rapidjson::Value xmrig::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
     out.AddMember("nodes",      static_cast<uint64_t>(nodes()), allocator);
     out.AddMember("backend",    StringRef(backend()), allocator);
 
-#   ifdef XMRIG_FEATURE_MSR
+#   ifdef RXS_FEATURE_MSR
     out.AddMember("msr",        StringRef(msrNames[msrMod()]), allocator);
 #   else
     out.AddMember("msr",        "none", allocator);
 #   endif
 
-#   ifdef XMRIG_FEATURE_ASM
+#   ifdef RXS_FEATURE_ASM
     out.AddMember("assembly",   StringRef(Assembly(assembly()).toString()), allocator);
 #   else
     out.AddMember("assembly",   "none", allocator);

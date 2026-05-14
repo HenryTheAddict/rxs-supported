@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_FINDSHARESKERNEL_H
-#define XMRIG_FINDSHARESKERNEL_H
+#ifndef RXS_FINDSHARESKERNEL_H
+#define RXS_FINDSHARESKERNEL_H
 
 
 #include "backend/opencl/wrappers/OclKernel.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class FindSharesKernel : public OclKernel
@@ -44,7 +44,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_FINDSHARESKERNEL_H */
+#endif /* RXS_FINDSHARESKERNEL_H */

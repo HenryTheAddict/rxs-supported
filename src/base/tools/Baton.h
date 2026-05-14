@@ -16,11 +16,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BATON_H
-#define XMRIG_BATON_H
+#ifndef RXS_BATON_H
+#define RXS_BATON_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template<typename REQ>
@@ -33,7 +33,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_BATON_H */
+#endif /* RXS_BATON_H */

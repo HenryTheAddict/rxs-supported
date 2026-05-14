@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_DAEMONCLIENT_H
-#define XMRIG_DAEMONCLIENT_H
+#ifndef RXS_DAEMONCLIENT_H
+#define RXS_DAEMONCLIENT_H
 
 
 #include "base/kernel/interfaces/IDnsListener.h"
@@ -39,14 +39,14 @@ using uv_handle_t   = struct uv_handle_s;
 using uv_stream_t   = struct uv_stream_s;
 using uv_tcp_t      = struct uv_tcp_s;
 
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 using BIO           = struct bio_st;
 using SSL           = struct ssl_st;
 using SSL_CTX       = struct ssl_ctx_st;
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsRequest;
@@ -55,7 +55,7 @@ class DnsRequest;
 class DaemonClient : public BaseClient, public IDnsListener, public ITimerListener, public IHttpListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(DaemonClient)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(DaemonClient)
 
     DaemonClient(int id, IClientListener *listener);
     ~DaemonClient() override;
@@ -145,7 +145,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_DAEMONCLIENT_H */
+#endif /* RXS_DAEMONCLIENT_H */

@@ -35,16 +35,16 @@
 #include <uv.h>
 
 
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 #   include <openssl/opensslv.h>
 #endif
 
-#ifdef XMRIG_FEATURE_HWLOC
+#ifdef RXS_FEATURE_HWLOC
 #   include "backend/cpu/Cpu.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const char *BaseConfig::kApi            = "api";
@@ -64,15 +64,15 @@ const char *BaseConfig::kVerbose        = "verbose";
 const char *BaseConfig::kWatch          = "watch";
 
 
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 const char *BaseConfig::kTls            = "tls";
 #endif
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::BaseConfig::read(const IJsonReader &reader, const char *fileName)
+bool rxs::BaseConfig::read(const IJsonReader &reader, const char *fileName)
 {
     m_fileName = fileName;
 
@@ -90,7 +90,7 @@ bool xmrig::BaseConfig::read(const IJsonReader &reader, const char *fileName)
     m_printTime         = std::min(reader.getUint(kPrintTime, m_printTime), 3600U);
     m_title             = reader.getValue(kTitle);
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     m_tls = reader.getValue(kTls);
 #   endif
 
@@ -112,7 +112,7 @@ bool xmrig::BaseConfig::read(const IJsonReader &reader, const char *fileName)
 }
 
 
-bool xmrig::BaseConfig::save()
+bool rxs::BaseConfig::save()
 {
     if (m_fileName.isNull()) {
         return false;
@@ -130,7 +130,7 @@ bool xmrig::BaseConfig::save()
 }
 
 
-void xmrig::BaseConfig::printVersions()
+void rxs::BaseConfig::printVersions()
 {
     char buf[256] = { 0 };
 
@@ -146,7 +146,7 @@ void xmrig::BaseConfig::printVersions()
 
     std::string libs;
 
-#   if defined(XMRIG_FEATURE_TLS)
+#   if defined(RXS_FEATURE_TLS)
     {
 #       if defined(LIBRESSL_VERSION_TEXT)
         snprintf(buf, sizeof buf, "LibreSSL/%s ", LIBRESSL_VERSION_TEXT + 9);
@@ -159,7 +159,7 @@ void xmrig::BaseConfig::printVersions()
     }
 #   endif
 
-#   if defined(XMRIG_FEATURE_HWLOC)
+#   if defined(RXS_FEATURE_HWLOC)
     libs += Cpu::info()->backend();
 #   endif
 
@@ -167,7 +167,7 @@ void xmrig::BaseConfig::printVersions()
 }
 
 
-void xmrig::BaseConfig::setVerbose(const rapidjson::Value &value)
+void rxs::BaseConfig::setVerbose(const rapidjson::Value &value)
 {
     if (value.IsBool()) {
         Log::setVerbose(value.GetBool() ? 1 : 0);

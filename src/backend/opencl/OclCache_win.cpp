@@ -6,7 +6,7 @@
  * Copyright 2016      Jay D Dee   <jayddee246@gmail.com>
  * Copyright 2017-2018 XMR-Stak    <https://github.com/fireice-uk>, <https://github.com/psychocrypt>
  * Copyright 2018-2019 SChernykh   <https://github.com/SChernykh>
- * Copyright 2016-2019 XMRig       <https://github.com/xmrig>, <support@xmrig.com>
+ * Copyright 2016-2019 XMRig       <https://github.com/rxs>, <support@xmrig.com>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -31,9 +31,9 @@
 #include "backend/opencl/OclCache.h"
 
 
-void xmrig::OclCache::createDirectory()
+void rxs::OclCache::createDirectory()
 {
-    std::string path = prefix() + "/xmrig";
+    std::string path = prefix() + "/rxs";
     _mkdir(path.c_str());
 
     path += "/.cache";
@@ -41,7 +41,7 @@ void xmrig::OclCache::createDirectory()
 }
 
 
-std::string xmrig::OclCache::prefix()
+std::string rxs::OclCache::prefix()
 {
     char path[MAX_PATH + 1];
     if (SHGetSpecialFolderPathA(HWND_DESKTOP, path, CSIDL_LOCAL_APPDATA, FALSE)) {

@@ -24,7 +24,7 @@
 #include <uv.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const char *DnsConfig::kField   = "dns";
@@ -32,10 +32,10 @@ const char *DnsConfig::kIPv     = "ip_version";
 const char *DnsConfig::kTTL     = "ttl";
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::DnsConfig::DnsConfig(const rapidjson::Value &value)
+rxs::DnsConfig::DnsConfig(const rapidjson::Value &value)
 {
     const uint32_t ipv = Json::getUint(value, kIPv, m_ipv);
     if (ipv == 0 || ipv == 4 || ipv == 6) {
@@ -46,7 +46,7 @@ xmrig::DnsConfig::DnsConfig(const rapidjson::Value &value)
 }
 
 
-int xmrig::DnsConfig::ai_family() const
+int rxs::DnsConfig::ai_family() const
 {
     if (m_ipv == 4) {
         return AF_INET;
@@ -60,7 +60,7 @@ int xmrig::DnsConfig::ai_family() const
 }
 
 
-rapidjson::Value xmrig::DnsConfig::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::DnsConfig::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
 

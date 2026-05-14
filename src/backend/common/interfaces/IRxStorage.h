@@ -17,8 +17,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IRXSTORAGE_H
-#define XMRIG_IRXSTORAGE_H
+#ifndef RXS_IRXSTORAGE_H
+#define RXS_IRXSTORAGE_H
 
 
 #include "base/tools/Object.h"
@@ -30,7 +30,7 @@
 #include <utility>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Job;
@@ -41,7 +41,7 @@ class RxSeed;
 class IRxStorage
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IRxStorage)
+    RXS_DISABLE_COPY_MOVE(IRxStorage)
 
     IRxStorage()            = default;
     virtual ~IRxStorage()   = default;
@@ -53,7 +53,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IRXSTORAGE_H
+#endif // RXS_IRXSTORAGE_H

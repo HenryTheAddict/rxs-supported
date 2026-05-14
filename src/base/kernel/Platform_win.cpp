@@ -45,7 +45,7 @@ static inline OSVERSIONINFOEX winOsVersion()
 }
 
 
-char *xmrig::Platform::createUserAgent()
+char *rxs::Platform::createUserAgent()
 {
     const auto osver = winOsVersion();
     constexpr const size_t max = 256;
@@ -53,9 +53,9 @@ char *xmrig::Platform::createUserAgent()
     char *buf = new char[max]();
     int length = snprintf(buf, max, "%s/%s (Windows NT %lu.%lu", APP_NAME, APP_VERSION, osver.dwMajorVersion, osver.dwMinorVersion);
 
-#   if defined(XMRIG_64_BIT)
+#   if defined(RXS_64_BIT)
     length += snprintf(buf + length, max - length, "; Win64; "
-#   if defined(XMRIG_ARM)
+#   if defined(RXS_ARM)
     "arm64"
 #   else
     "x64"
@@ -77,14 +77,14 @@ char *xmrig::Platform::createUserAgent()
 }
 
 
-bool xmrig::Platform::hasKeepalive()
+bool rxs::Platform::hasKeepalive()
 {
     return winOsVersion().dwMajorVersion >= 6;
 }
 
 
-#ifndef XMRIG_FEATURE_HWLOC
-bool xmrig::Platform::setThreadAffinity(uint64_t cpu_id)
+#ifndef RXS_FEATURE_HWLOC
+bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {
     const bool result = (SetThreadAffinityMask(GetCurrentThread(), 1ULL << cpu_id) != 0);
     Sleep(1);
@@ -93,7 +93,7 @@ bool xmrig::Platform::setThreadAffinity(uint64_t cpu_id)
 #endif
 
 
-void xmrig::Platform::setProcessPriority(int priority)
+void rxs::Platform::setProcessPriority(int priority)
 {
     if (priority == -1) {
         return;
@@ -130,7 +130,7 @@ void xmrig::Platform::setProcessPriority(int priority)
 }
 
 
-void xmrig::Platform::setThreadPriority(int priority)
+void rxs::Platform::setThreadPriority(int priority)
 {
     if (priority == -1) {
         return;
@@ -167,7 +167,7 @@ void xmrig::Platform::setThreadPriority(int priority)
 }
 
 
-bool xmrig::Platform::isOnBatteryPower()
+bool rxs::Platform::isOnBatteryPower()
 {
     SYSTEM_POWER_STATUS st;
     if (GetSystemPowerStatus(&st)) {
@@ -177,7 +177,7 @@ bool xmrig::Platform::isOnBatteryPower()
 }
 
 
-uint64_t xmrig::Platform::idleTime()
+uint64_t rxs::Platform::idleTime()
 {
     LASTINPUTINFO info{};
     info.cbSize = sizeof(LASTINPUTINFO);

@@ -17,20 +17,20 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SYSLOG_H
-#define XMRIG_SYSLOG_H
+#ifndef RXS_SYSLOG_H
+#define RXS_SYSLOG_H
 
 
 #include "base/kernel/interfaces/ILogBackend.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class SysLog : public ILogBackend
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(SysLog)
+    RXS_DISABLE_COPY_MOVE(SysLog)
 
     SysLog();
     ~SysLog() override;
@@ -40,7 +40,7 @@ protected:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_SYSLOG_H */
+#endif /* RXS_SYSLOG_H */

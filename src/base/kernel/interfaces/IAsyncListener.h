@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IASYNCLISTENER_H
-#define XMRIG_IASYNCLISTENER_H
+#ifndef RXS_IASYNCLISTENER_H
+#define RXS_IASYNCLISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Async;
@@ -32,7 +32,7 @@ class Async;
 class IAsyncListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IAsyncListener)
+    RXS_DISABLE_COPY_MOVE(IAsyncListener)
 
     IAsyncListener()            = default;
     virtual ~IAsyncListener()   = default;
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IASYNCLISTENER_H
+#endif // RXS_IASYNCLISTENER_H

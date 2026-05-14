@@ -25,7 +25,7 @@
 #include "crypto/common/portable/mm_malloc.h"
 
 
-#ifdef XMRIG_FEATURE_HWLOC
+#ifdef RXS_FEATURE_HWLOC
 #   include "crypto/common/NUMAMemoryPool.h"
 #endif
 
@@ -34,7 +34,7 @@
 #include <mutex>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 size_t VirtualMemory::m_hugePageSize    = VirtualMemory::kDefaultHugePageSize;
@@ -42,10 +42,10 @@ static IMemoryPool *pool                = nullptr;
 static std::mutex mutex;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::VirtualMemory::VirtualMemory(size_t size, bool hugePages, bool oneGbPages, bool usePool, uint32_t node, size_t alignSize) :
+rxs::VirtualMemory::VirtualMemory(size_t size, bool hugePages, bool oneGbPages, bool usePool, uint32_t node, size_t alignSize) :
     m_size(alignToHugePageSize(size)),
     m_node(node),
     m_capacity(m_size)
@@ -88,7 +88,7 @@ xmrig::VirtualMemory::VirtualMemory(size_t size, bool hugePages, bool oneGbPages
 }
 
 
-xmrig::VirtualMemory::~VirtualMemory()
+rxs::VirtualMemory::~VirtualMemory()
 {
     if (!m_scratchpad) {
         return;
@@ -107,33 +107,33 @@ xmrig::VirtualMemory::~VirtualMemory()
 }
 
 
-xmrig::HugePagesInfo xmrig::VirtualMemory::hugePages() const
+rxs::HugePagesInfo rxs::VirtualMemory::hugePages() const
 {
     return { this };
 }
 
 
-#ifndef XMRIG_FEATURE_HWLOC
-uint32_t xmrig::VirtualMemory::bindToNUMANode(int64_t)
+#ifndef RXS_FEATURE_HWLOC
+uint32_t rxs::VirtualMemory::bindToNUMANode(int64_t)
 {
     return 0;
 }
 #endif
 
 
-void xmrig::VirtualMemory::destroy()
+void rxs::VirtualMemory::destroy()
 {
     delete pool;
 }
 
 
-void xmrig::VirtualMemory::init(size_t poolSize, size_t hugePageSize)
+void rxs::VirtualMemory::init(size_t poolSize, size_t hugePageSize)
 {
     if (!pool) {
         osInit(hugePageSize);
     }
 
-#   ifdef XMRIG_FEATURE_HWLOC
+#   ifdef RXS_FEATURE_HWLOC
     if (Cpu::info()->nodes() > 1) {
         pool = new NUMAMemoryPool(align(poolSize, Cpu::info()->nodes()), hugePageSize > 0);
     } else

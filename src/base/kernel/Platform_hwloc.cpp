@@ -24,8 +24,8 @@
 #include <thread>
 
 
-#ifndef XMRIG_OS_APPLE
-bool xmrig::Platform::setThreadAffinity(uint64_t cpu_id)
+#ifndef RXS_OS_APPLE
+bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {
     auto topology = Cpu::info()->topology();
     auto pu       = hwloc_get_pu_obj_by_os_index(topology, static_cast<unsigned>(cpu_id));

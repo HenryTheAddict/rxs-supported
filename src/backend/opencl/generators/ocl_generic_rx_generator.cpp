@@ -31,7 +31,7 @@
 #include "crypto/rx/RxAlgo.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 bool ocl_generic_rx_generator(const OclDevice &device, const Algorithm &algorithm, OclThreads &threads)
@@ -112,4 +112,4 @@ bool ocl_generic_rx_generator(const OclDevice &device, const Algorithm &algorith
 }
 
 
-} // namespace xmrig
+} // namespace rxs

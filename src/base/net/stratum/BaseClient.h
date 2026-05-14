@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BASECLIENT_H
-#define XMRIG_BASECLIENT_H
+#ifndef RXS_BASECLIENT_H
+#define RXS_BASECLIENT_H
 
 
 #include <map>
@@ -29,7 +29,7 @@
 #include "base/tools/Chrono.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IClientListener;
@@ -105,7 +105,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_BASECLIENT_H */
+#endif /* RXS_BASECLIENT_H */

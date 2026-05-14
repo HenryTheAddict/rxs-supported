@@ -30,27 +30,27 @@
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 static const char kStratumTcp[]            = "stratum+tcp://";
 static const char kStratumSsl[]            = "stratum+ssl://";
 static const char kSOCKS5[]                = "socks5://";
 
-#ifdef XMRIG_FEATURE_HTTP
+#ifdef RXS_FEATURE_HTTP
 static const char kDaemonHttp[]            = "daemon+http://";
 static const char kDaemonHttps[]           = "daemon+https://";
 #endif
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::Url::Url(const char *url)
+rxs::Url::Url(const char *url)
 {
     parse(url);
 }
 
 
-xmrig::Url::Url(const char *host, uint16_t port, bool tls, Scheme scheme) :
+rxs::Url::Url(const char *host, uint16_t port, bool tls, Scheme scheme) :
     m_tls(tls),
     m_scheme(scheme),
     m_host(host),
@@ -66,13 +66,13 @@ xmrig::Url::Url(const char *host, uint16_t port, bool tls, Scheme scheme) :
 }
 
 
-bool xmrig::Url::isEqual(const Url &other) const
+bool rxs::Url::isEqual(const Url &other) const
 {
     return (m_tls == other.m_tls && m_scheme == other.m_scheme && m_host == other.m_host && m_url == other.m_url && m_port == other.m_port);
 }
 
 
-bool xmrig::Url::parse(const char *url)
+bool rxs::Url::parse(const char *url)
 {
     if (url == nullptr) {
         return false;
@@ -94,7 +94,7 @@ bool xmrig::Url::parse(const char *url)
             m_scheme = SOCKS5;
             m_tls    = false;
         }
-#       ifdef XMRIG_FEATURE_HTTP
+#       ifdef RXS_FEATURE_HTTP
         else if (strncasecmp(url, kDaemonHttps, sizeof(kDaemonHttps) - 1) == 0) {
             m_scheme = DAEMON;
             m_tls    = true;
@@ -137,7 +137,7 @@ bool xmrig::Url::parse(const char *url)
 }
 
 
-bool xmrig::Url::parseIPv6(const char *addr)
+bool rxs::Url::parseIPv6(const char *addr)
 {
     const char *end = strchr(addr, ']');
     if (!end) {

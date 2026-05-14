@@ -31,22 +31,22 @@
 #include <map>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static std::map<uint32_t, OclSharedData> map;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::OclSharedData &xmrig::OclSharedState::get(uint32_t index)
+rxs::OclSharedData &rxs::OclSharedState::get(uint32_t index)
 {
     return map[index];
 }
 
 
-void xmrig::OclSharedState::release()
+void rxs::OclSharedState::release()
 {
     for (auto &kv : map) {
         kv.second.release();
@@ -56,7 +56,7 @@ void xmrig::OclSharedState::release()
 }
 
 
-void xmrig::OclSharedState::start(const std::vector<OclLaunchData> &threads, const Job &job)
+void rxs::OclSharedState::start(const std::vector<OclLaunchData> &threads, const Job &job)
 {
     assert(map.empty());
 
@@ -65,7 +65,7 @@ void xmrig::OclSharedState::start(const std::vector<OclLaunchData> &threads, con
 
         ++sharedData;
 
-#       ifdef XMRIG_ALGO_RANDOMX
+#       ifdef RXS_ALGO_RANDOMX
         if (data.algorithm.family() == Algorithm::RANDOM_X) {
             sharedData.createDataset(data.ctx, job, data.thread.isDatasetHost());
         }

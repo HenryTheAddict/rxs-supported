@@ -23,31 +23,31 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BACKEND_TAGS_H
-#define XMRIG_BACKEND_TAGS_H
+#ifndef RXS_BACKEND_TAGS_H
+#define RXS_BACKEND_TAGS_H
 
 
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const char *backend_tag(uint32_t backend);
 const char *cpu_tag();
 
 
-#ifdef XMRIG_FEATURE_OPENCL
+#ifdef RXS_FEATURE_OPENCL
 const char *ocl_tag();
 #endif
 
 
-#ifdef XMRIG_FEATURE_CUDA
+#ifdef RXS_FEATURE_CUDA
 const char *cuda_tag();
 #endif
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_BACKEND_TAGS_H */
+#endif /* RXS_BACKEND_TAGS_H */

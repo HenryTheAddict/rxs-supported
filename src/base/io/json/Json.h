@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_JSON_H
-#define XMRIG_JSON_H
+#ifndef RXS_JSON_H
+#define RXS_JSON_H
 
 
 #include "base/kernel/interfaces/IJsonReader.h"
@@ -26,7 +26,7 @@
 #include <string>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Json
@@ -82,7 +82,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_JSON_H */
+#endif /* RXS_JSON_H */

@@ -29,10 +29,10 @@
 #include "base/tools/String.h"
 
 
-static const xmrig::String kLocalHost("127.0.0.1");
+static const rxs::String kLocalHost("127.0.0.1");
 
 
-xmrig::TcpServer::TcpServer(const String &host, uint16_t port, ITcpServerListener *listener) :
+rxs::TcpServer::TcpServer(const String &host, uint16_t port, ITcpServerListener *listener) :
     m_host(host.isNull() ? kLocalHost : host),
     m_listener(listener),
     m_port(port)
@@ -54,13 +54,13 @@ xmrig::TcpServer::TcpServer(const String &host, uint16_t port, ITcpServerListene
 }
 
 
-xmrig::TcpServer::~TcpServer()
+rxs::TcpServer::~TcpServer()
 {
     Handle::close(m_tcp);
 }
 
 
-int xmrig::TcpServer::bind()
+int rxs::TcpServer::bind()
 {
     if (!m_version) {
         return UV_EAI_ADDRFAMILY;
@@ -86,7 +86,7 @@ int xmrig::TcpServer::bind()
 }
 
 
-void xmrig::TcpServer::create(uv_stream_t *stream, int status)
+void rxs::TcpServer::create(uv_stream_t *stream, int status)
 {
     if (status < 0) {
         return;
@@ -96,7 +96,7 @@ void xmrig::TcpServer::create(uv_stream_t *stream, int status)
 }
 
 
-void xmrig::TcpServer::onConnection(uv_stream_t *stream, int status)
+void rxs::TcpServer::onConnection(uv_stream_t *stream, int status)
 {
     static_cast<TcpServer *>(stream->data)->create(stream, status);
 }

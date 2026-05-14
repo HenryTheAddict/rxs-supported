@@ -22,11 +22,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLGENERATOR_H
-#define XMRIG_OCLGENERATOR_H
+#ifndef RXS_OCLGENERATOR_H
+#define RXS_OCLGENERATOR_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -37,7 +37,7 @@ class OclThreads;
 using ocl_gen_config_fun = bool (*)(const OclDevice &device, const Algorithm &algorithm, OclThreads &threads);
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLGENERATOR_H */
+#endif /* RXS_OCLGENERATOR_H */

@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IDNSLISTENER_H
-#define XMRIG_IDNSLISTENER_H
+#ifndef RXS_IDNSLISTENER_H
+#define RXS_IDNSLISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsRecords;
@@ -32,7 +32,7 @@ class DnsRecords;
 class IDnsListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IDnsListener)
+    RXS_DISABLE_COPY_MOVE(IDnsListener)
 
     IDnsListener()          = default;
     virtual ~IDnsListener() = default;
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IDNSLISTENER_H
+#endif // RXS_IDNSLISTENER_H

@@ -27,7 +27,7 @@
 #include "crypto/rx/RxSeed.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 constexpr size_t oneMiB = 1024 * 1024;
@@ -36,7 +36,7 @@ constexpr size_t oneMiB = 1024 * 1024;
 class RxBasicStoragePrivate
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(RxBasicStoragePrivate)
+    RXS_DISABLE_COPY_MOVE(RxBasicStoragePrivate)
 
     inline RxBasicStoragePrivate() = default;
     inline ~RxBasicStoragePrivate() { deleteDataset(); }
@@ -120,28 +120,28 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::RxBasicStorage::RxBasicStorage() :
+rxs::RxBasicStorage::RxBasicStorage() :
     d_ptr(new RxBasicStoragePrivate())
 {
 }
 
 
-xmrig::RxBasicStorage::~RxBasicStorage()
+rxs::RxBasicStorage::~RxBasicStorage()
 {
     delete d_ptr;
 }
 
 
-bool xmrig::RxBasicStorage::isAllocated() const
+bool rxs::RxBasicStorage::isAllocated() const
 {
     return d_ptr->dataset() && d_ptr->dataset()->cache() && d_ptr->dataset()->cache()->get();
 }
 
 
-xmrig::HugePagesInfo xmrig::RxBasicStorage::hugePages() const
+rxs::HugePagesInfo rxs::RxBasicStorage::hugePages() const
 {
     if (!d_ptr->dataset()) {
         return {};
@@ -151,7 +151,7 @@ xmrig::HugePagesInfo xmrig::RxBasicStorage::hugePages() const
 }
 
 
-xmrig::RxDataset *xmrig::RxBasicStorage::dataset(const Job &job, uint32_t) const
+rxs::RxDataset *rxs::RxBasicStorage::dataset(const Job &job, uint32_t) const
 {
     if (!d_ptr->isReady(job)) {
         return nullptr;
@@ -161,7 +161,7 @@ xmrig::RxDataset *xmrig::RxBasicStorage::dataset(const Job &job, uint32_t) const
 }
 
 
-void xmrig::RxBasicStorage::init(const RxSeed &seed, uint32_t threads, bool hugePages, bool oneGbPages, RxConfig::Mode mode, int priority)
+void rxs::RxBasicStorage::init(const RxSeed &seed, uint32_t threads, bool hugePages, bool oneGbPages, RxConfig::Mode mode, int priority)
 {
     d_ptr->setSeed(seed);
 

@@ -16,7 +16,7 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef XMRIG_HWLOC_DEBUG
+#ifdef RXS_HWLOC_DEBUG
 #   include <uv.h>
 #endif
 
@@ -44,7 +44,7 @@ static inline int hwloc_obj_type_is_cache(hwloc_obj_type_t type)
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template <typename func>
@@ -87,7 +87,7 @@ static inline size_t countByType(hwloc_topology_t topology, hwloc_obj_type_t typ
 }
 
 
-#if !defined(XMRIG_ARM) && !defined(XMRIG_RISCV)
+#if !defined(RXS_ARM) && !defined(RXS_RISCV)
 static inline std::vector<hwloc_obj_t> findByType(hwloc_obj_t obj, hwloc_obj_type_t type)
 {
     std::vector<hwloc_obj_t> out;
@@ -114,15 +114,15 @@ static inline bool isCacheExclusive(hwloc_obj_t obj)
 #endif
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::HwlocCpuInfo::HwlocCpuInfo()
+rxs::HwlocCpuInfo::HwlocCpuInfo()
 {
     hwloc_topology_init(&m_topology);
     hwloc_topology_load(m_topology);
 
-#   ifdef XMRIG_HWLOC_DEBUG
+#   ifdef RXS_HWLOC_DEBUG
 #   if defined(UV_VERSION_HEX) && UV_VERSION_HEX >= 0x010c00
     {
         char env[520] = { 0 };
@@ -177,7 +177,7 @@ xmrig::HwlocCpuInfo::HwlocCpuInfo()
         }
     }
 
-#   if defined(XMRIG_OS_MACOS) && defined(XMRIG_ARM)
+#   if defined(RXS_OS_MACOS) && defined(RXS_ARM)
     if (L2() == 33554432U && m_cores == 8 && m_cores == m_threads) {
         m_cache[2] = 16777216U;
     }
@@ -185,13 +185,13 @@ xmrig::HwlocCpuInfo::HwlocCpuInfo()
 }
 
 
-xmrig::HwlocCpuInfo::~HwlocCpuInfo()
+rxs::HwlocCpuInfo::~HwlocCpuInfo()
 {
     hwloc_topology_destroy(m_topology);
 }
 
 
-bool xmrig::HwlocCpuInfo::membind(hwloc_const_bitmap_t nodeset)
+bool rxs::HwlocCpuInfo::membind(hwloc_const_bitmap_t nodeset)
 {
     if (!hwloc_topology_get_support(m_topology)->membind->set_thisthread_membind) {
         return false;
@@ -205,9 +205,9 @@ bool xmrig::HwlocCpuInfo::membind(hwloc_const_bitmap_t nodeset)
 }
 
 
-xmrig::CpuThreads xmrig::HwlocCpuInfo::threads(const Algorithm &algorithm, uint32_t limit) const
+rxs::CpuThreads rxs::HwlocCpuInfo::threads(const Algorithm &algorithm, uint32_t limit) const
 {
-#   if !defined(XMRIG_ARM) && !defined(XMRIG_RISCV)
+#   if !defined(RXS_ARM) && !defined(RXS_RISCV)
     if (L2() == 0 && L3() == 0) {
         return BasicCpuInfo::threads(algorithm, limit);
     }
@@ -255,7 +255,7 @@ xmrig::CpuThreads xmrig::HwlocCpuInfo::threads(const Algorithm &algorithm, uint3
 }
 
 
-xmrig::CpuThreads xmrig::HwlocCpuInfo::allThreads(const Algorithm &algorithm, uint32_t limit) const
+rxs::CpuThreads rxs::HwlocCpuInfo::allThreads(const Algorithm &algorithm, uint32_t limit) const
 {
     CpuThreads threads;
     threads.reserve(m_threads);
@@ -275,9 +275,9 @@ xmrig::CpuThreads xmrig::HwlocCpuInfo::allThreads(const Algorithm &algorithm, ui
 
 
 
-void xmrig::HwlocCpuInfo::processTopLevelCache(hwloc_obj_t cache, const Algorithm &algorithm, CpuThreads &threads, size_t limit) const
+void rxs::HwlocCpuInfo::processTopLevelCache(hwloc_obj_t cache, const Algorithm &algorithm, CpuThreads &threads, size_t limit) const
 {
-#   if !defined(XMRIG_ARM) && !defined(XMRIG_RISCV)
+#   if !defined(RXS_ARM) && !defined(RXS_RISCV)
     constexpr size_t oneMiB = 1024U * 1024U;
 
     size_t PUs = countByType(cache, HWLOC_OBJ_PU);
@@ -416,7 +416,7 @@ void xmrig::HwlocCpuInfo::processTopLevelCache(hwloc_obj_t cache, const Algorith
 }
 
 
-void xmrig::HwlocCpuInfo::setThreads(size_t threads)
+void rxs::HwlocCpuInfo::setThreads(size_t threads)
 {
     if (!threads) {
         return;

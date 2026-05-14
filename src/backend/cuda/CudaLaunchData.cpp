@@ -21,7 +21,7 @@
 #include "backend/common/Tags.h"
 
 
-xmrig::CudaLaunchData::CudaLaunchData(const Miner *miner, const Algorithm &algorithm, const CudaThread &thread, const CudaDevice &device) :
+rxs::CudaLaunchData::CudaLaunchData(const Miner *miner, const Algorithm &algorithm, const CudaThread &thread, const CudaDevice &device) :
     algorithm(algorithm),
     device(device),
     thread(thread),
@@ -31,7 +31,7 @@ xmrig::CudaLaunchData::CudaLaunchData(const Miner *miner, const Algorithm &algor
 }
 
 
-bool xmrig::CudaLaunchData::isEqual(const CudaLaunchData &other) const
+bool rxs::CudaLaunchData::isEqual(const CudaLaunchData &other) const
 {
     return (other.algorithm.family() == algorithm.family() &&
             other.algorithm.l3()     == algorithm.l3() &&
@@ -39,7 +39,7 @@ bool xmrig::CudaLaunchData::isEqual(const CudaLaunchData &other) const
 }
 
 
-const char *xmrig::CudaLaunchData::tag()
+const char *rxs::CudaLaunchData::tag()
 {
     return cuda_tag();
 }

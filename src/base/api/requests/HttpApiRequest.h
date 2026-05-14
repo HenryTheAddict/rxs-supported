@@ -17,8 +17,8 @@
  */
 
 
-#ifndef XMRIG_HTTPAPIREQUEST_H
-#define XMRIG_HTTPAPIREQUEST_H
+#ifndef RXS_HTTPAPIREQUEST_H
+#define RXS_HTTPAPIREQUEST_H
 
 
 #include "base/api/requests/ApiRequest.h"
@@ -26,7 +26,7 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HttpData;
@@ -61,8 +61,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTPAPIREQUEST_H
+#endif // RXS_HTTPAPIREQUEST_H
 

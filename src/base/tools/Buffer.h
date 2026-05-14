@@ -16,21 +16,21 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BUFFER_H
-#define XMRIG_BUFFER_H
+#ifndef RXS_BUFFER_H
+#define RXS_BUFFER_H
 
 
 #include <cstdint>
 #include <vector>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 using Buffer = std::vector<uint8_t>;
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_BUFFER_H */
+#endif /* RXS_BUFFER_H */

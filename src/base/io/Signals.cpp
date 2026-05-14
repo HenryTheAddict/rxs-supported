@@ -25,16 +25,16 @@
 
 
 #ifdef SIGUSR1
-static const int signums[xmrig::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM, SIGUSR1 };
+static const int signums[rxs::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM, SIGUSR1 };
 #else
-static const int signums[xmrig::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM };
+static const int signums[rxs::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM };
 #endif
 
 
-xmrig::Signals::Signals(ISignalListener *listener)
+rxs::Signals::Signals(ISignalListener *listener)
     : m_listener(listener)
 {
-#   ifndef XMRIG_OS_WIN
+#   ifndef RXS_OS_WIN
     signal(SIGPIPE, SIG_IGN);
 #   endif
 
@@ -50,7 +50,7 @@ xmrig::Signals::Signals(ISignalListener *listener)
 }
 
 
-xmrig::Signals::~Signals()
+rxs::Signals::~Signals()
 {
     for (auto signal : m_signals) {
         Handle::close(signal);
@@ -58,7 +58,7 @@ xmrig::Signals::~Signals()
 }
 
 
-void xmrig::Signals::onSignal(uv_signal_t *handle, int signum)
+void rxs::Signals::onSignal(uv_signal_t *handle, int signum)
 {
     switch (signum)
     {

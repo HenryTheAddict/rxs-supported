@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_NVMLLIB_H
-#define XMRIG_NVMLLIB_H
+#ifndef RXS_NVMLLIB_H
+#define RXS_NVMLLIB_H
 
 
 #include "backend/cuda/wrappers/CudaDevice.h"
 #include "backend/cuda/wrappers/NvmlHealth.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class NvmlLib
@@ -54,7 +54,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_NVMLLIB_H */
+#endif /* RXS_NVMLLIB_H */

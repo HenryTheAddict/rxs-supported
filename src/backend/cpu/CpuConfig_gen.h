@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPUCONFIG_GEN_H
-#define XMRIG_CPUCONFIG_GEN_H
+#ifndef RXS_CPUCONFIG_GEN_H
+#define RXS_CPUCONFIG_GEN_H
 
 
 #include "backend/common/Threads.h"
@@ -25,7 +25,7 @@
 #include "backend/cpu/CpuThreads.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static inline size_t generate(const char *key, Threads<CpuThreads> &threads, const Algorithm &algorithm, uint32_t limit)
@@ -70,7 +70,7 @@ size_t inline generate<Algorithm::RANDOM_X>(Threads<CpuThreads> &threads, uint32
 }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CPUCONFIG_GEN_H */
+#endif /* RXS_CPUCONFIG_GEN_H */

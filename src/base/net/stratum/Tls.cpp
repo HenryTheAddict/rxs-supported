@@ -32,7 +32,7 @@
 #include <openssl/ssl.h>
 
 
-xmrig::Client::Tls::Tls(Client *client) :
+rxs::Client::Tls::Tls(Client *client) :
     m_client(client)
 {
     m_ctx = SSL_CTX_new(SSLv23_method());
@@ -48,7 +48,7 @@ xmrig::Client::Tls::Tls(Client *client) :
 }
 
 
-xmrig::Client::Tls::~Tls()
+rxs::Client::Tls::~Tls()
 {
     if (m_ctx) {
         SSL_CTX_free(m_ctx);
@@ -60,7 +60,7 @@ xmrig::Client::Tls::~Tls()
 }
 
 
-bool xmrig::Client::Tls::handshake(const char* servername)
+bool rxs::Client::Tls::handshake(const char* servername)
 {
     m_ssl = SSL_new(m_ctx);
     assert(m_ssl != nullptr);
@@ -81,7 +81,7 @@ bool xmrig::Client::Tls::handshake(const char* servername)
 }
 
 
-bool xmrig::Client::Tls::send(const char *data, size_t size)
+bool rxs::Client::Tls::send(const char *data, size_t size)
 {
     SSL_write(m_ssl, data, size);
 
@@ -89,19 +89,19 @@ bool xmrig::Client::Tls::send(const char *data, size_t size)
 }
 
 
-const char *xmrig::Client::Tls::fingerprint() const
+const char *rxs::Client::Tls::fingerprint() const
 {
     return m_ready ? m_fingerprint : nullptr;
 }
 
 
-const char *xmrig::Client::Tls::version() const
+const char *rxs::Client::Tls::version() const
 {
     return m_ready ? SSL_get_version(m_ssl) : nullptr;
 }
 
 
-void xmrig::Client::Tls::read(const char *data, size_t size)
+void rxs::Client::Tls::read(const char *data, size_t size)
 {
     BIO_write(m_read, data, size);
 
@@ -136,13 +136,13 @@ void xmrig::Client::Tls::read(const char *data, size_t size)
 }
 
 
-bool xmrig::Client::Tls::send()
+bool rxs::Client::Tls::send()
 {
     return m_client->send(m_write);
 }
 
 
-bool xmrig::Client::Tls::verify(X509 *cert)
+bool rxs::Client::Tls::verify(X509 *cert)
 {
     if (cert == nullptr) {
         LOG_ERR("[%s] Failed to get server certificate", m_client->url());
@@ -166,7 +166,7 @@ bool xmrig::Client::Tls::verify(X509 *cert)
 }
 
 
-bool xmrig::Client::Tls::verifyFingerprint(X509 *cert)
+bool rxs::Client::Tls::verifyFingerprint(X509 *cert)
 {
     const EVP_MD *digest = EVP_get_digestbyname("sha256");
     if (digest == nullptr) {

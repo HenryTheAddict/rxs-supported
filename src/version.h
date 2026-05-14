@@ -5,21 +5,21 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-#ifndef XMRIG_VERSION_H
-#define XMRIG_VERSION_H
+#ifndef RXS_VERSION_H
+#define RXS_VERSION_H
 
-#define APP_ID        "xmrig"
-#define APP_NAME      "XMRig"
-#define APP_DESC      "XMRig miner"
-#define APP_VERSION   "6.26.0"
-#define APP_DOMAIN    "xmrig.com"
-#define APP_SITE      "www.xmrig.com"
+#define APP_ID        "rxs"
+#define APP_NAME      "rxs"
+#define APP_DESC      "RandomX Miner"
+#define APP_VERSION   "0.0.1"
+#define APP_DOMAIN    ""
+#define APP_SITE      ""
 #define APP_COPYRIGHT "Copyright (C) 2016-2026 xmrig.com"
 #define APP_KIND      "miner"
 
-#define APP_VER_MAJOR  6
-#define APP_VER_MINOR  26
-#define APP_VER_PATCH  0
+#define APP_VER_MAJOR 0
+#define APP_VER_MINOR 0
+#define APP_VER_PATCH 1
 
 #ifdef _MSC_VER
 #   if (_MSC_VER >= 1950)
@@ -43,21 +43,21 @@
 #   endif
 #endif
 
-#ifdef XMRIG_OS_WIN
+#ifdef RXS_OS_WIN
 #    define APP_OS "Windows"
-#elif defined XMRIG_OS_IOS
+#elif defined RXS_OS_IOS
 #    define APP_OS "iOS"
-#elif defined XMRIG_OS_MACOS
+#elif defined RXS_OS_MACOS
 #    define APP_OS "macOS"
-#elif defined XMRIG_OS_ANDROID
+#elif defined RXS_OS_ANDROID
 #    define APP_OS "Android"
-#elif defined XMRIG_OS_LINUX
+#elif defined RXS_OS_LINUX
 #    define APP_OS "Linux"
-#elif defined XMRIG_OS_FREEBSD
+#elif defined RXS_OS_FREEBSD
 #    define APP_OS "FreeBSD"
-#elif defined XMRIG_OS_OPENBSD
+#elif defined RXS_OS_OPENBSD
 #    define APP_OS "OpenBSD"
-#elif defined XMRIG_OS_HAIKU
+#elif defined RXS_OS_HAIKU
 #    define APP_OS "Haiku"
 #else
 #    define APP_OS "Unknown OS"
@@ -66,9 +66,9 @@
 #define STR(X) #X
 #define STR2(X) STR(X)
 
-#ifdef XMRIG_ARM
-#   define APP_ARCH "ARMv" STR2(XMRIG_ARM)
-#elif defined(XMRIG_RISCV)
+#ifdef RXS_ARM
+#   define APP_ARCH "ARMv" STR2(RXS_ARM)
+#elif defined(RXS_RISCV)
 #   define APP_ARCH "RISC-V"
 #else
 #   if defined(__x86_64__) || defined(__amd64__) || defined(_M_X64) || defined(_M_AMD64)
@@ -78,10 +78,10 @@
 #   endif
 #endif
 
-#ifdef XMRIG_64_BIT
+#ifdef RXS_64_BIT
 #   define APP_BITS "64 bit"
 #else
 #   define APP_BITS "32 bit"
 #endif
 
-#endif // XMRIG_VERSION_H
+#endif // RXS_VERSION_H

@@ -17,8 +17,8 @@
  */
 
 
-#ifndef XMRIG_SERVERTLS_H
-#define XMRIG_SERVERTLS_H
+#ifndef RXS_SERVERTLS_H
+#define RXS_SERVERTLS_H
 
 
 using BIO       = struct bio_st;
@@ -30,13 +30,13 @@ using SSL_CTX   = struct ssl_ctx_st;
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ServerTls
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(ServerTls)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(ServerTls)
 
     ServerTls(SSL_CTX *ctx);
     virtual ~ServerTls();
@@ -63,7 +63,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_SERVERTLS_H */
+#endif /* RXS_SERVERTLS_H */

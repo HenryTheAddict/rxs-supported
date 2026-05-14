@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPUWORKER_H
-#define XMRIG_CPUWORKER_H
+#ifndef RXS_CPUWORKER_H
+#define RXS_CPUWORKER_H
 
 
 #include "backend/common/Worker.h"
@@ -30,7 +30,7 @@
 class randomx_vm;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class RxVm;
@@ -40,7 +40,7 @@ template<size_t N>
 class CpuWorker : public Worker
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(CpuWorker)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(CpuWorker)
 
     CpuWorker(size_t id, const CpuLaunchData &data);
     ~CpuWorker() override;
@@ -74,7 +74,7 @@ private:
     randomx_vm *m_vm        = nullptr;
     Buffer m_seed;
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     uint32_t m_benchSize    = 0;
 #   endif
 };
@@ -88,7 +88,7 @@ extern template class CpuWorker<5>;
 extern template class CpuWorker<8>;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CPUWORKER_H */
+#endif /* RXS_CPUWORKER_H */

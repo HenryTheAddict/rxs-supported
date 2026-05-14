@@ -17,15 +17,15 @@
  */
 
 
-#ifndef XMRIG_CONFIG_DEFAULT_H
-#define XMRIG_CONFIG_DEFAULT_H
+#ifndef RXS_CONFIG_DEFAULT_H
+#define RXS_CONFIG_DEFAULT_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 // This feature require CMake option: -DWITH_EMBEDDED_CONFIG=ON
-#ifdef XMRIG_FEATURE_EMBEDDED_CONFIG
+#ifdef RXS_FEATURE_EMBEDDED_CONFIG
 const static char *default_config =
 R"===(
 {
@@ -123,7 +123,7 @@ R"===(
 #endif
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CONFIG_DEFAULT_H */
+#endif /* RXS_CONFIG_DEFAULT_H */

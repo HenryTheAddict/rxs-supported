@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_MEMPOOL_H
-#define XMRIG_MEMPOOL_H
+#ifndef RXS_MEMPOOL_H
+#define RXS_MEMPOOL_H
 
 
 #include <array>
@@ -27,7 +27,7 @@
 #include <set>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template<size_t CHUNK_SIZE, size_t INIT_SIZE>
@@ -91,7 +91,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_MEMPOOL_H */
+#endif /* RXS_MEMPOOL_H */

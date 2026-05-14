@@ -16,27 +16,27 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_AUTOCLIENT_H
-#define XMRIG_AUTOCLIENT_H
+#ifndef RXS_AUTOCLIENT_H
+#define RXS_AUTOCLIENT_H
 
 
 #include "base/net/stratum/Client.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class AutoClient : public Client
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(AutoClient)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(AutoClient)
 
     inline AutoClient(int id, const char *agent, IClientListener *listener) : Client(id, agent, listener) {}
     ~AutoClient() override = default;
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_AUTOCLIENT_H */
+#endif /* RXS_AUTOCLIENT_H */

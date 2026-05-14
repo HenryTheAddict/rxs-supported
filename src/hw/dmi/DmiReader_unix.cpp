@@ -31,7 +31,7 @@
 #include <unistd.h>
 #include <cstdio>
 
-#ifdef XMRIG_OS_FREEBSD
+#ifdef RXS_OS_FREEBSD
 #   include <kenv.h>
 #endif
 
@@ -39,7 +39,7 @@
 #define FLAG_NO_FILE_OFFSET     (1 << 0)
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const char *kMemDevice       = "/dev/mem";
@@ -49,7 +49,7 @@ static const char *kSysTableFile    = "/sys/firmware/dmi/tables/DMI";
 
 static inline void safe_memcpy(void *dest, const void *src, size_t n)
 {
-#   ifdef XMRIG_ARM
+#   ifdef RXS_ARM
     for (size_t i = 0; i < n; i++) {
         *((uint8_t *)dest + i) = *((const uint8_t *)src + i);
     }
@@ -288,7 +288,7 @@ static off_t address_from_efi()
     const char *filename;
     char linebuf[64];
     off_t address = 0;
-#   elif defined(XMRIG_OS_FREEBSD)
+#   elif defined(RXS_OS_FREEBSD)
     char addrstr[KENV_MVALLEN + 1];
 #   endif
 
@@ -310,7 +310,7 @@ static off_t address_from_efi()
     fclose(efi_systab);
 
     return address;
-#   elif defined(XMRIG_OS_FREEBSD)
+#   elif defined(RXS_OS_FREEBSD)
     if (kenv(KENV_GET, "hint.smbios.0.mem", addrstr, sizeof(addrstr)) == -1) {
         return EFI_NOT_FOUND;
     }
@@ -322,10 +322,10 @@ static off_t address_from_efi()
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::DmiReader::read()
+bool rxs::DmiReader::read()
 {
     size_t size  = 0x20;
     uint8_t *buf = read_file(0, &size, kSysEntryFile);

@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IJSONREADER_H
-#define XMRIG_IJSONREADER_H
+#ifndef RXS_IJSONREADER_H
+#define RXS_IJSONREADER_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -25,13 +25,13 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IJsonReader
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IJsonReader)
+    RXS_DISABLE_COPY_MOVE(IJsonReader)
 
     IJsonReader()           = default;
     virtual ~IJsonReader()  = default;
@@ -52,7 +52,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IJSONREADER_H
+#endif // RXS_IJSONREADER_H

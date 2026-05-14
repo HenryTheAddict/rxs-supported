@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ETHSTRATUMCLIENT_H
-#define XMRIG_ETHSTRATUMCLIENT_H
+#ifndef RXS_ETHSTRATUMCLIENT_H
+#define RXS_ETHSTRATUMCLIENT_H
 
 
 #include "base/net/stratum/Client.h"
@@ -26,13 +26,13 @@
 #include <utility>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class EthStratumClient : public Client
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(EthStratumClient)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(EthStratumClient)
 
     EthStratumClient(int id, const char *agent, IClientListener *listener);
     ~EthStratumClient() override = default;
@@ -47,7 +47,7 @@ protected:
 
     void setExtraNonce(const rapidjson::Value &nonce);
 
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
     inline void setExtraNonce2Size(uint64_t size)   { m_extraNonce2Size = size; }
 #   endif
 
@@ -62,7 +62,7 @@ private:
     bool m_authorized   = false;
     std::pair<uint64_t, String> m_extraNonce{};
 
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
     uint64_t m_extraNonce2Size = 0;
     uint64_t m_nextDifficulty = 0;
     String m_ntime;
@@ -70,7 +70,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_ETHSTRATUMCLIENT_H */
+#endif /* RXS_ETHSTRATUMCLIENT_H */

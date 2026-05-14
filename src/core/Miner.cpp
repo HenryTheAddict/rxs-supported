@@ -39,18 +39,18 @@
 #include "version.h"
 
 
-#ifdef XMRIG_FEATURE_API
+#ifdef RXS_FEATURE_API
 #   include "base/api/Api.h"
 #   include "base/api/interfaces/IApiRequest.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_OPENCL
+#ifdef RXS_FEATURE_OPENCL
 #   include "backend/opencl/OclBackend.h"
 #endif
 
 
-#ifdef XMRIG_FEATURE_CUDA
+#ifdef RXS_FEATURE_CUDA
 #   include "backend/cuda/CudaBackend.h"
 #endif
 
@@ -62,7 +62,7 @@
 
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static std::mutex mutex;
@@ -71,7 +71,7 @@ static std::mutex mutex;
 class MinerPrivate
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(MinerPrivate)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(MinerPrivate)
 
 
     inline explicit MinerPrivate(Controller *controller) : controller(controller) {}
@@ -134,7 +134,7 @@ public:
     }
 
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     void getMiner(rapidjson::Value &reply, rapidjson::Document &doc, int) const
     {
         using namespace rapidjson;
@@ -226,7 +226,7 @@ public:
 
     static inline void printProfile()
     {
-#       ifdef XMRIG_FEATURE_PROFILING
+#       ifdef RXS_FEATURE_PROFILING
         ProfileScopeData* data[ProfileScopeData::MAX_DATA_COUNT];
 
         const uint32_t n = std::min<uint32_t>(ProfileScopeData::s_dataCount, ProfileScopeData::MAX_DATA_COUNT);
@@ -335,7 +335,7 @@ public:
                  avg_hashrate_buf
                  );
 
-#       ifdef XMRIG_FEATURE_BENCHMARK
+#       ifdef RXS_FEATURE_BENCHMARK
         for (auto backend : backends) {
             backend->printBenchProgress();
         }
@@ -368,11 +368,11 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 
-xmrig::Miner::Miner(Controller *controller)
+rxs::Miner::Miner(Controller *controller)
     : d_ptr(new MinerPrivate(controller))
 {
     const int priority = controller->config()->cpu().priority();
@@ -381,7 +381,7 @@ xmrig::Miner::Miner(Controller *controller)
         Platform::setThreadPriority(std::min(priority + 1, 5));
     }
 
-#   ifdef XMRIG_FEATURE_PROFILING
+#   ifdef RXS_FEATURE_PROFILING
     ProfileScopeData::Init();
 #   endif
 
@@ -389,7 +389,7 @@ xmrig::Miner::Miner(Controller *controller)
 
     controller->addListener(this);
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     controller->api()->addListener(this);
 #   endif
 
@@ -398,11 +398,11 @@ xmrig::Miner::Miner(Controller *controller)
     d_ptr->backends.reserve(3);
     d_ptr->backends.push_back(new CpuBackend(controller));
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     d_ptr->backends.push_back(new OclBackend(controller));
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     d_ptr->backends.push_back(new CudaBackend(controller));
 #   endif
 
@@ -410,37 +410,37 @@ xmrig::Miner::Miner(Controller *controller)
 }
 
 
-xmrig::Miner::~Miner()
+rxs::Miner::~Miner()
 {
     delete d_ptr;
 }
 
 
-bool xmrig::Miner::isEnabled() const
+bool rxs::Miner::isEnabled() const
 {
     return d_ptr->enabled;
 }
 
 
-bool xmrig::Miner::isEnabled(const Algorithm &algorithm) const
+bool rxs::Miner::isEnabled(const Algorithm &algorithm) const
 {
     return std::find(d_ptr->algorithms.begin(), d_ptr->algorithms.end(), algorithm) != d_ptr->algorithms.end();
 }
 
 
-const xmrig::Algorithms &xmrig::Miner::algorithms() const
+const rxs::Algorithms &rxs::Miner::algorithms() const
 {
     return d_ptr->algorithms;
 }
 
 
-const std::vector<xmrig::IBackend *> &xmrig::Miner::backends() const
+const std::vector<rxs::IBackend *> &rxs::Miner::backends() const
 {
     return d_ptr->backends;
 }
 
 
-xmrig::Job xmrig::Miner::job() const
+rxs::Job rxs::Miner::job() const
 {
     std::lock_guard<std::mutex> lock(mutex);
 
@@ -448,7 +448,7 @@ xmrig::Job xmrig::Miner::job() const
 }
 
 
-void xmrig::Miner::execCommand(char command)
+void rxs::Miner::execCommand(char command)
 {
     switch (command) {
     case 'h':
@@ -483,7 +483,7 @@ void xmrig::Miner::execCommand(char command)
 }
 
 
-void xmrig::Miner::pause()
+void rxs::Miner::pause()
 {
     d_ptr->active = false;
     d_ptr->m_taskbar.setActive(false);
@@ -493,7 +493,7 @@ void xmrig::Miner::pause()
 }
 
 
-void xmrig::Miner::setEnabled(bool enabled)
+void rxs::Miner::setEnabled(bool enabled)
 {
     if (d_ptr->enabled == enabled) {
         return;
@@ -529,7 +529,7 @@ void xmrig::Miner::setEnabled(bool enabled)
 }
 
 
-void xmrig::Miner::setJob(const Job &job)
+void rxs::Miner::setJob(const Job &job)
 {
     for (IBackend *backend : d_ptr->backends) {
         backend->prepare(job);
@@ -585,7 +585,7 @@ void xmrig::Miner::setJob(const Job &job)
 }
 
 
-void xmrig::Miner::stop()
+void rxs::Miner::stop()
 {
     Nonce::stop();
 
@@ -595,7 +595,7 @@ void xmrig::Miner::stop()
 }
 
 
-void xmrig::Miner::onConfigChanged(Config *config, Config *previousConfig)
+void rxs::Miner::onConfigChanged(Config *config, Config *previousConfig)
 {
     d_ptr->rebuild();
 
@@ -611,7 +611,7 @@ void xmrig::Miner::onConfigChanged(Config *config, Config *previousConfig)
 }
 
 
-void xmrig::Miner::onTimer(const Timer *)
+void rxs::Miner::onTimer(const Timer *)
 {
     double maxHashrate          = 0.0;
     const auto config           = d_ptr->controller->config();
@@ -670,8 +670,8 @@ void xmrig::Miner::onTimer(const Timer *)
 }
 
 
-#ifdef XMRIG_FEATURE_API
-void xmrig::Miner::onRequest(IApiRequest &request)
+#ifdef RXS_FEATURE_API
+void rxs::Miner::onRequest(IApiRequest &request)
 {
     if (request.method() == IApiRequest::METHOD_GET) {
         if (request.type() == IApiRequest::REQ_SUMMARY) {
@@ -711,7 +711,7 @@ void xmrig::Miner::onRequest(IApiRequest &request)
 #endif
 
 
-void xmrig::Miner::onDatasetReady()
+void rxs::Miner::onDatasetReady()
 {
     if (!Rx::isReady(job())) {
         return;

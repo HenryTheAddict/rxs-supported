@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_TLSGEN_H
-#define XMRIG_TLSGEN_H
+#ifndef RXS_TLSGEN_H
+#define RXS_TLSGEN_H
 
 
 #include "base/tools/Object.h"
@@ -28,13 +28,13 @@ using EVP_PKEY  = struct evp_pkey_st;
 using X509      = struct x509_st;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class TlsGen
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(TlsGen)
+    RXS_DISABLE_COPY_MOVE(TlsGen)
 
     TlsGen() : m_cert("cert.pem"), m_certKey("cert_key.pem") {}
     ~TlsGen();
@@ -55,7 +55,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_TLSGEN_H
+#endif // RXS_TLSGEN_H

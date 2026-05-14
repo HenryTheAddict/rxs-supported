@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ITCPSERVERLISTENER_H
-#define XMRIG_ITCPSERVERLISTENER_H
+#ifndef RXS_ITCPSERVERLISTENER_H
+#define RXS_ITCPSERVERLISTENER_H
 
 
 #include <stdint.h>
@@ -32,7 +32,7 @@
 typedef struct uv_stream_s uv_stream_t;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class String;
@@ -47,7 +47,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ITCPSERVERLISTENER_H
+#endif // RXS_ITCPSERVERLISTENER_H

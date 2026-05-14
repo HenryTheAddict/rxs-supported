@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ICLIENT_H
-#define XMRIG_ICLIENT_H
+#ifndef RXS_ICLIENT_H
+#define RXS_ICLIENT_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -27,7 +27,7 @@
 #include <functional>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -41,7 +41,7 @@ class String;
 class IClient
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IClient)
+    RXS_DISABLE_COPY_MOVE(IClient)
 
     enum Extension {
         EXT_ALGO,
@@ -87,7 +87,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ICLIENT_H
+#endif // RXS_ICLIENT_H

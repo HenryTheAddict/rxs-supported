@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IHTTPLISTENER_H
-#define XMRIG_IHTTPLISTENER_H
+#ifndef RXS_IHTTPLISTENER_H
+#define RXS_IHTTPLISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class HttpData;
@@ -33,7 +33,7 @@ class HttpResponse;
 class IHttpListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IHttpListener)
+    RXS_DISABLE_COPY_MOVE(IHttpListener)
 
     IHttpListener()             = default;
     virtual ~IHttpListener()    = default;
@@ -42,7 +42,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IHTTPLISTENER_H
+#endif // RXS_IHTTPLISTENER_H

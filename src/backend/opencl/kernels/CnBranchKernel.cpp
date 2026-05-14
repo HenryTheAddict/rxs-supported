@@ -27,21 +27,21 @@
 #include "backend/opencl/wrappers/OclLib.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static const char *names[4] = { "Blake", "Groestl", "JH", "Skein" };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::CnBranchKernel::CnBranchKernel(size_t index, cl_program program) : OclKernel(program, names[index])
+rxs::CnBranchKernel::CnBranchKernel(size_t index, cl_program program) : OclKernel(program, names[index])
 {
 }
 
 
-void xmrig::CnBranchKernel::enqueue(cl_command_queue queue, uint32_t nonce, size_t threads, size_t worksize)
+void rxs::CnBranchKernel::enqueue(cl_command_queue queue, uint32_t nonce, size_t threads, size_t worksize)
 {
     const size_t offset   = nonce;
     const size_t gthreads = threads;
@@ -52,7 +52,7 @@ void xmrig::CnBranchKernel::enqueue(cl_command_queue queue, uint32_t nonce, size
 
 
 // __kernel void Skein(__global ulong *states, __global uint *BranchBuf, __global uint *output, ulong Target, uint Threads)
-void xmrig::CnBranchKernel::setArgs(cl_mem states, cl_mem branch, cl_mem output, uint32_t threads)
+void rxs::CnBranchKernel::setArgs(cl_mem states, cl_mem branch, cl_mem output, uint32_t threads)
 {
     setArg(0, sizeof(cl_mem), &states);
     setArg(1, sizeof(cl_mem), &branch);
@@ -61,7 +61,7 @@ void xmrig::CnBranchKernel::setArgs(cl_mem states, cl_mem branch, cl_mem output,
 }
 
 
-void xmrig::CnBranchKernel::setTarget(uint64_t target)
+void rxs::CnBranchKernel::setTarget(uint64_t target)
 {
     setArg(3, sizeof(cl_ulong), &target);
 }

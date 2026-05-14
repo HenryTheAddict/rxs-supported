@@ -26,7 +26,7 @@
 #include "backend/opencl/wrappers/OclError.h"
 
 
-const char *xmrig::OclError::toString(cl_int ret)
+const char *rxs::OclError::toString(cl_int ret)
 {
     switch(ret)
     {

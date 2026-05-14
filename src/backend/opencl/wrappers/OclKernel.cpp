@@ -33,20 +33,20 @@
 #include <stdexcept>
 
 
-xmrig::OclKernel::OclKernel(cl_program program, const char *name) :
+rxs::OclKernel::OclKernel(cl_program program, const char *name) :
     m_name(name)
 {
     m_kernel = OclLib::createKernel(program, name);
 }
 
 
-xmrig::OclKernel::~OclKernel()
+rxs::OclKernel::~OclKernel()
 {
     OclLib::release(m_kernel);
 }
 
 
-void xmrig::OclKernel::enqueueNDRange(cl_command_queue queue, uint32_t work_dim, const size_t *global_work_offset, const size_t *global_work_size, const size_t *local_work_size)
+void rxs::OclKernel::enqueueNDRange(cl_command_queue queue, uint32_t work_dim, const size_t *global_work_offset, const size_t *global_work_size, const size_t *local_work_size)
 {
     const cl_int ret = OclLib::enqueueNDRangeKernel(queue, m_kernel, work_dim, global_work_offset, global_work_size, local_work_size, 0, nullptr, nullptr);
     if (ret != CL_SUCCESS) {
@@ -58,7 +58,7 @@ void xmrig::OclKernel::enqueueNDRange(cl_command_queue queue, uint32_t work_dim,
 }
 
 
-void xmrig::OclKernel::setArg(uint32_t index, size_t size, const void *value)
+void rxs::OclKernel::setArg(uint32_t index, size_t size, const void *value)
 {
     const cl_int ret = OclLib::setKernelArg(m_kernel, index, size, value);
     if (ret != CL_SUCCESS) {

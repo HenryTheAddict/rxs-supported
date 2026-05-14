@@ -35,7 +35,7 @@
 #include <thread>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 constexpr size_t oneMiB = 1024 * 1024;
@@ -74,7 +74,7 @@ static inline void printDatasetReady(uint32_t nodeId, uint64_t ts)
 class RxNUMAStoragePrivate
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(RxNUMAStoragePrivate)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(RxNUMAStoragePrivate)
 
     inline explicit RxNUMAStoragePrivate(const std::vector<uint32_t> &nodeset) :
         m_nodeset(nodeset)
@@ -329,28 +329,28 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::RxNUMAStorage::RxNUMAStorage(const std::vector<uint32_t> &nodeset) :
+rxs::RxNUMAStorage::RxNUMAStorage(const std::vector<uint32_t> &nodeset) :
     d_ptr(new RxNUMAStoragePrivate(nodeset))
 {
 }
 
 
-xmrig::RxNUMAStorage::~RxNUMAStorage()
+rxs::RxNUMAStorage::~RxNUMAStorage()
 {
     delete d_ptr;
 }
 
 
-bool xmrig::RxNUMAStorage::isAllocated() const
+bool rxs::RxNUMAStorage::isAllocated() const
 {
     return d_ptr->isAllocated();
 }
 
 
-xmrig::HugePagesInfo xmrig::RxNUMAStorage::hugePages() const
+rxs::HugePagesInfo rxs::RxNUMAStorage::hugePages() const
 {
     if (!d_ptr->isAllocated()) {
         return {};
@@ -360,7 +360,7 @@ xmrig::HugePagesInfo xmrig::RxNUMAStorage::hugePages() const
 }
 
 
-xmrig::RxDataset *xmrig::RxNUMAStorage::dataset(const Job &job, uint32_t nodeId) const
+rxs::RxDataset *rxs::RxNUMAStorage::dataset(const Job &job, uint32_t nodeId) const
 {
     if (!d_ptr->isReady(job)) {
         return nullptr;
@@ -370,7 +370,7 @@ xmrig::RxDataset *xmrig::RxNUMAStorage::dataset(const Job &job, uint32_t nodeId)
 }
 
 
-void xmrig::RxNUMAStorage::init(const RxSeed &seed, uint32_t threads, bool hugePages, bool oneGbPages, RxConfig::Mode, int priority)
+void rxs::RxNUMAStorage::init(const RxSeed &seed, uint32_t threads, bool hugePages, bool oneGbPages, RxConfig::Mode, int priority)
 {
     d_ptr->setSeed(seed);
 

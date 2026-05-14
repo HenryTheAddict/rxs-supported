@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_HTTP_H
-#define XMRIG_HTTP_H
+#ifndef RXS_HTTP_H
+#define RXS_HTTP_H
 
 
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Http
@@ -66,8 +66,8 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_HTTP_H
+#endif // RXS_HTTP_H
 

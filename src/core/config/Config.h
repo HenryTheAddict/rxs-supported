@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CONFIG_H
-#define XMRIG_CONFIG_H
+#ifndef RXS_CONFIG_H
+#define RXS_CONFIG_H
 
 
 #include <cstdint>
@@ -29,7 +29,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ConfigPrivate;
@@ -42,24 +42,24 @@ class RxConfig;
 class Config : public BaseConfig
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(Config);
+    RXS_DISABLE_COPY_MOVE(Config);
 
     static const char *kPauseOnBattery;
     static const char *kPauseOnActive;
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     static const char *kOcl;
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     static const char *kCuda;
 #   endif
 
-#   if defined(XMRIG_FEATURE_NVML) || defined (XMRIG_FEATURE_ADL)
+#   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
     static const char *kHealthPrintTime;
 #   endif
 
-#   ifdef XMRIG_FEATURE_DMI
+#   ifdef RXS_FEATURE_DMI
     static const char *kDMI;
 #   endif
 
@@ -72,25 +72,25 @@ public:
     const CpuConfig &cpu() const;
     uint32_t idleTime() const;
 
-#   ifdef XMRIG_FEATURE_OPENCL
+#   ifdef RXS_FEATURE_OPENCL
     const OclConfig &cl() const;
 #   endif
 
-#   ifdef XMRIG_FEATURE_CUDA
+#   ifdef RXS_FEATURE_CUDA
     const CudaConfig &cuda() const;
 #   endif
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     const RxConfig &rx() const;
 #   endif
 
-#   if defined(XMRIG_FEATURE_NVML) || defined (XMRIG_FEATURE_ADL)
+#   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
     uint32_t healthPrintTime() const;
 #   else
     uint32_t healthPrintTime() const        { return 0; }
 #   endif
 
-#   ifdef XMRIG_FEATURE_DMI
+#   ifdef RXS_FEATURE_DMI
     bool isDMI() const;
 #   else
     static constexpr inline bool isDMI()    { return false; }
@@ -105,7 +105,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CONFIG_H */
+#endif /* RXS_CONFIG_H */

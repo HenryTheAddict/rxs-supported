@@ -21,7 +21,7 @@
 #include "base/net/dns/DnsRecord.h"
 
 
-xmrig::DnsRecord::DnsRecord(const addrinfo *addr)
+rxs::DnsRecord::DnsRecord(const addrinfo *addr)
 {
     static_assert(sizeof(m_data) >= sizeof(sockaddr_in6), "Not enough storage for IPv6 address.");
 
@@ -29,7 +29,7 @@ xmrig::DnsRecord::DnsRecord(const addrinfo *addr)
 }
 
 
-const sockaddr *xmrig::DnsRecord::addr(uint16_t port) const
+const sockaddr *rxs::DnsRecord::addr(uint16_t port) const
 {
     reinterpret_cast<sockaddr_in*>(m_data)->sin_port = htons(port);
 
@@ -37,7 +37,7 @@ const sockaddr *xmrig::DnsRecord::addr(uint16_t port) const
 }
 
 
-xmrig::String xmrig::DnsRecord::ip() const
+rxs::String rxs::DnsRecord::ip() const
 {
     char *buf = nullptr;
 

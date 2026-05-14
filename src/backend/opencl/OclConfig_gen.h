@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLCONFIG_GEN_H
-#define XMRIG_OCLCONFIG_GEN_H
+#ifndef RXS_OCLCONFIG_GEN_H
+#define RXS_OCLCONFIG_GEN_H
 
 
 #include "backend/common/Threads.h"
@@ -27,7 +27,7 @@
 #include <algorithm>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static inline size_t generate(const char *key, Threads<OclThreads> &threads, const Algorithm &algorithm, const std::vector<OclDevice> &devices)
@@ -70,7 +70,7 @@ static inline std::vector<OclDevice> filterDevices(const std::vector<OclDevice> 
 }
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_OCLCONFIG_GEN_H */
+#endif /* RXS_OCLCONFIG_GEN_H */

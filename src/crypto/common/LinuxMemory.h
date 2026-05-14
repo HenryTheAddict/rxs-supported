@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_LINUXMEMORY_H
-#define XMRIG_LINUXMEMORY_H
+#ifndef RXS_LINUXMEMORY_H
+#define RXS_LINUXMEMORY_H
 
 
 #include <cstdint>
 #include <cstddef>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class LinuxMemory
@@ -34,7 +34,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_LINUXMEMORY_H
+#endif // RXS_LINUXMEMORY_H

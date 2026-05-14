@@ -18,8 +18,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BLOCKTEMPLATE_H
-#define XMRIG_BLOCKTEMPLATE_H
+#ifndef RXS_BLOCKTEMPLATE_H
+#define RXS_BLOCKTEMPLATE_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -29,7 +29,7 @@
 #include "base/tools/Span.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class BlockTemplate
@@ -40,7 +40,7 @@ public:
     static constexpr size_t kNonceSize      = 4;
     static constexpr size_t kSignatureSize  = 64;
 
-#   ifdef XMRIG_PROXY_PROJECT
+#   ifdef RXS_PROXY_PROJECT
     static constexpr bool kCalcHashes       = true;
 #   else
     static constexpr bool kCalcHashes       = false;
@@ -157,7 +157,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_BLOCKTEMPLATE_H */
+#endif /* RXS_BLOCKTEMPLATE_H */

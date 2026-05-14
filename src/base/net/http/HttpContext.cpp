@@ -29,7 +29,7 @@
 #include <uv.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static llhttp_settings_t http_settings;
@@ -40,7 +40,7 @@ static uint64_t SEQUENCE = 0;
 class HttpWriteBaton : public Baton<uv_write_t>
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(HttpWriteBaton)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(HttpWriteBaton)
 
     inline HttpWriteBaton(std::string &&body, HttpContext *ctx) :
         m_ctx(ctx),
@@ -68,10 +68,10 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::HttpContext::HttpContext(int parser_type, const std::weak_ptr<IHttpListener> &listener) :
+rxs::HttpContext::HttpContext(int parser_type, const std::weak_ptr<IHttpListener> &listener) :
     HttpData(SEQUENCE++),
     m_timestamp(Chrono::steadyMSecs()),
     m_listener(listener)
@@ -94,14 +94,14 @@ xmrig::HttpContext::HttpContext(int parser_type, const std::weak_ptr<IHttpListen
 }
 
 
-xmrig::HttpContext::~HttpContext()
+rxs::HttpContext::~HttpContext()
 {
     delete m_tcp;
     delete m_parser;
 }
 
 
-void xmrig::HttpContext::write(std::string &&data, bool close)
+void rxs::HttpContext::write(std::string &&data, bool close)
 {
     if (uv_is_writable(stream()) != 1) {
         return;
@@ -112,13 +112,13 @@ void xmrig::HttpContext::write(std::string &&data, bool close)
 }
 
 
-bool xmrig::HttpContext::isRequest() const
+bool rxs::HttpContext::isRequest() const
 {
     return m_parser->type == HTTP_REQUEST;
 }
 
 
-bool xmrig::HttpContext::parse(const char *data, size_t size)
+bool rxs::HttpContext::parse(const char *data, size_t size)
 {
     if (size == 0) {
         return true;
@@ -128,7 +128,7 @@ bool xmrig::HttpContext::parse(const char *data, size_t size)
 }
 
 
-std::string xmrig::HttpContext::ip() const
+std::string rxs::HttpContext::ip() const
 {
     char ip[46]           = {};
     sockaddr_storage addr = {};
@@ -146,13 +146,13 @@ std::string xmrig::HttpContext::ip() const
 }
 
 
-uint64_t xmrig::HttpContext::elapsed() const
+uint64_t rxs::HttpContext::elapsed() const
 {
     return Chrono::steadyMSecs() - m_timestamp;
 }
 
 
-void xmrig::HttpContext::close(int status)
+void rxs::HttpContext::close(int status)
 {
     if (!get(id())) {
         return;
@@ -173,7 +173,7 @@ void xmrig::HttpContext::close(int status)
 }
 
 
-xmrig::HttpContext *xmrig::HttpContext::get(uint64_t id)
+rxs::HttpContext *rxs::HttpContext::get(uint64_t id)
 {
     const auto it = storage.find(id);
 
@@ -181,7 +181,7 @@ xmrig::HttpContext *xmrig::HttpContext::get(uint64_t id)
 }
 
 
-void xmrig::HttpContext::closeAll()
+void rxs::HttpContext::closeAll()
 {
     for (auto &kv : storage) {
         if (!uv_is_closing(kv.second->handle())) {
@@ -191,7 +191,7 @@ void xmrig::HttpContext::closeAll()
 }
 
 
-int xmrig::HttpContext::onHeaderField(llhttp_t *parser, const char *at, size_t length)
+int rxs::HttpContext::onHeaderField(llhttp_t *parser, const char *at, size_t length)
 {
     auto ctx = static_cast<HttpContext*>(parser->data);
 
@@ -210,7 +210,7 @@ int xmrig::HttpContext::onHeaderField(llhttp_t *parser, const char *at, size_t l
 }
 
 
-int xmrig::HttpContext::onHeaderValue(llhttp_t *parser, const char *at, size_t length)
+int rxs::HttpContext::onHeaderValue(llhttp_t *parser, const char *at, size_t length)
 {
     auto ctx = static_cast<HttpContext*>(parser->data);
 
@@ -225,7 +225,7 @@ int xmrig::HttpContext::onHeaderValue(llhttp_t *parser, const char *at, size_t l
 }
 
 
-void xmrig::HttpContext::attach(llhttp_settings_t *settings)
+void rxs::HttpContext::attach(llhttp_settings_t *settings)
 {
     settings->on_message_begin  = nullptr;
     settings->on_status         = nullptr;
@@ -278,7 +278,7 @@ void xmrig::HttpContext::attach(llhttp_settings_t *settings)
 }
 
 
-void xmrig::HttpContext::setHeader()
+void rxs::HttpContext::setHeader()
 {
     std::transform(m_lastHeaderField.begin(), m_lastHeaderField.end(), m_lastHeaderField.begin(), ::tolower);
     headers.insert({ m_lastHeaderField, m_lastHeaderValue });

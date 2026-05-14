@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDATHREADS_H
-#define XMRIG_CUDATHREADS_H
+#ifndef RXS_CUDATHREADS_H
+#define RXS_CUDATHREADS_H
 
 
 #include <vector>
@@ -27,7 +27,7 @@
 #include "backend/cuda/wrappers/CudaDevice.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CudaThreads
@@ -54,7 +54,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CUDATHREADS_H */
+#endif /* RXS_CUDATHREADS_H */

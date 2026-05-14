@@ -20,13 +20,13 @@
 #include "base/net/stratum/Socks5.h"
 
 
-xmrig::Client::Socks5::Socks5(Client *client) :
+rxs::Client::Socks5::Socks5(Client *client) :
     m_client(client)
 {
 }
 
 
-bool xmrig::Client::Socks5::read(const char *data, size_t size)
+bool rxs::Client::Socks5::read(const char *data, size_t size)
 {
     if (size < m_nextSize) {
         return false;
@@ -48,7 +48,7 @@ bool xmrig::Client::Socks5::read(const char *data, size_t size)
 }
 
 
-void xmrig::Client::Socks5::handshake()
+void rxs::Client::Socks5::handshake()
 {
     m_nextSize  = 2;
     m_state     = SentInitialHandshake;
@@ -59,19 +59,19 @@ void xmrig::Client::Socks5::handshake()
 }
 
 
-bool xmrig::Client::Socks5::isIPv4(const String &host, sockaddr_storage *addr)
+bool rxs::Client::Socks5::isIPv4(const String &host, sockaddr_storage *addr)
 {
     return uv_ip4_addr(host.data(), 0, reinterpret_cast<sockaddr_in *>(addr)) == 0;
 }
 
 
-bool xmrig::Client::Socks5::isIPv6(const String &host, sockaddr_storage *addr)
+bool rxs::Client::Socks5::isIPv6(const String &host, sockaddr_storage *addr)
 {
    return uv_ip6_addr(host.data(), 0, reinterpret_cast<sockaddr_in6 *>(addr)) == 0;
 }
 
 
-void xmrig::Client::Socks5::connect()
+void rxs::Client::Socks5::connect()
 {
     m_nextSize  = 5;
     m_state     = SentFinalHandshake;

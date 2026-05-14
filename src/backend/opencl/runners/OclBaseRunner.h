@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLBASERUNNER_H
-#define XMRIG_OCLBASERUNNER_H
+#ifndef RXS_OCLBASERUNNER_H
+#define RXS_OCLBASERUNNER_H
 
 
 #include <string>
@@ -34,7 +34,7 @@
 #include "base/crypto/Algorithm.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclLaunchData;
@@ -43,7 +43,7 @@ class OclLaunchData;
 class OclBaseRunner : public IOclRunner
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(OclBaseRunner)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(OclBaseRunner)
 
     OclBaseRunner(size_t id, const OclLaunchData &data);
     ~OclBaseRunner() override;
@@ -91,7 +91,7 @@ protected:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_OCLBASERUNNER_H
+#endif // RXS_OCLBASERUNNER_H

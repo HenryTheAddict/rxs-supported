@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BASETRANSFORM_H
-#define XMRIG_BASETRANSFORM_H
+#ifndef RXS_BASETRANSFORM_H
+#define RXS_BASETRANSFORM_H
 
 
 #include "3rdparty/rapidjson/document.h"
@@ -28,7 +28,7 @@
 struct option;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IConfigTransform;
@@ -117,7 +117,7 @@ inline void BaseTransform::set(rapidjson::Document &doc, rapidjson::Value &obj, 
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_BASETRANSFORM_H */
+#endif /* RXS_BASETRANSFORM_H */

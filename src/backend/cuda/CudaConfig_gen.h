@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDACONFIG_GEN_H
-#define XMRIG_CUDACONFIG_GEN_H
+#ifndef RXS_CUDACONFIG_GEN_H
+#define RXS_CUDACONFIG_GEN_H
 
 
 #include "backend/common/Threads.h"
@@ -28,7 +28,7 @@
 #include <algorithm>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 static inline size_t generate(const char *key, Threads<CudaThreads> &threads, const Algorithm &algorithm, const std::vector<CudaDevice> &devices)
@@ -55,7 +55,7 @@ static inline size_t generate(Threads<CudaThreads> &, const std::vector<CudaDevi
 
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CUDACONFIG_GEN_H */
+#endif /* RXS_CUDACONFIG_GEN_H */

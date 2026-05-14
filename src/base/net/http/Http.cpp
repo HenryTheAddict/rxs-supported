@@ -21,7 +21,7 @@
 #include "base/io/json/Json.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 const char *Http::kEnabled    = "enabled";
@@ -32,16 +32,16 @@ const char *Http::kRestricted = "restricted";
 const char *Http::kToken      = "access-token";
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::Http::Http() :
+rxs::Http::Http() :
     m_host(kLocalhost)
 {
 }
 
 
-bool xmrig::Http::isEqual(const Http &other) const
+bool rxs::Http::isEqual(const Http &other) const
 {
     return other.m_enabled    == m_enabled &&
            other.m_restricted == m_restricted &&
@@ -51,7 +51,7 @@ bool xmrig::Http::isEqual(const Http &other) const
 }
 
 
-rapidjson::Value xmrig::Http::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::Http::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -68,7 +68,7 @@ rapidjson::Value xmrig::Http::toJSON(rapidjson::Document &doc) const
 }
 
 
-void xmrig::Http::load(const rapidjson::Value &http)
+void rxs::Http::load(const rapidjson::Value &http)
 {
     if (!http.IsObject()) {
         return;
@@ -83,7 +83,7 @@ void xmrig::Http::load(const rapidjson::Value &http)
 }
 
 
-void xmrig::Http::setPort(int port)
+void rxs::Http::setPort(int port)
 {
     if (port >= 0 && port <= 65536) {
         m_port = static_cast<uint16_t>(port);

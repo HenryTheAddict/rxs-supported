@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IAPILISTENER_H
-#define XMRIG_IAPILISTENER_H
+#ifndef RXS_IAPILISTENER_H
+#define RXS_IAPILISTENER_H
 
 
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IApiRequest;
@@ -32,18 +32,18 @@ class IApiRequest;
 class IApiListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IApiListener)
+    RXS_DISABLE_COPY_MOVE(IApiListener)
 
     IApiListener()          = default;
     virtual ~IApiListener() = default;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     virtual void onRequest(IApiRequest &request) = 0;
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_IAPILISTENER_H
+#endif // RXS_IAPILISTENER_H

@@ -33,7 +33,7 @@
 #include <sys/types.h>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 bool AdlLib::m_initialized          = false;
@@ -133,10 +133,10 @@ static size_t sysfs_prefix(char path[PATH_MAX], const PciTopology &topology)
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-bool xmrig::AdlLib::init()
+bool rxs::AdlLib::init()
 {
     if (!m_initialized) {
         m_ready       = dlopen() && load();
@@ -147,19 +147,19 @@ bool xmrig::AdlLib::init()
 }
 
 
-const char *xmrig::AdlLib::lastError() noexcept
+const char *rxs::AdlLib::lastError() noexcept
 {
     return nullptr;
 }
 
 
-void xmrig::AdlLib::close()
+void rxs::AdlLib::close()
 {
 }
 
 
 // https://dri.freedesktop.org/docs/drm/gpu/amdgpu.html#gpu-power-thermal-controls-and-monitoring
-AdlHealth xmrig::AdlLib::health(const OclDevice &device)
+AdlHealth rxs::AdlLib::health(const OclDevice &device)
 {
     if (!isReady() || device.vendorId() != OCL_VENDOR_AMD) {
         return {};
@@ -187,7 +187,7 @@ AdlHealth xmrig::AdlLib::health(const OclDevice &device)
 }
 
 
-bool xmrig::AdlLib::dlopen()
+bool rxs::AdlLib::dlopen()
 {
     struct stat sb;
     if (stat(kPrefix.c_str(), &sb) == -1) {
@@ -198,7 +198,7 @@ bool xmrig::AdlLib::dlopen()
 }
 
 
-bool xmrig::AdlLib::load()
+bool rxs::AdlLib::load()
 {
     return true;
 }

@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ENV_H
-#define XMRIG_ENV_H
+#ifndef RXS_ENV_H
+#define RXS_ENV_H
 
 
 #include "base/tools/String.h"
@@ -26,7 +26,7 @@
 #include <map>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Env
@@ -38,7 +38,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_ENV_H */
+#endif /* RXS_ENV_H */

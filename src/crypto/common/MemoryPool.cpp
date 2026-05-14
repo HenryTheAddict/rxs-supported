@@ -32,16 +32,16 @@
 #include <cassert>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 constexpr size_t pageSize = 2 * 1024 * 1024;
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::MemoryPool::MemoryPool(size_t size, bool hugePages, uint32_t node)
+rxs::MemoryPool::MemoryPool(size_t size, bool hugePages, uint32_t node)
 {
     if (!size) {
         return;
@@ -55,19 +55,19 @@ xmrig::MemoryPool::MemoryPool(size_t size, bool hugePages, uint32_t node)
 }
 
 
-xmrig::MemoryPool::~MemoryPool()
+rxs::MemoryPool::~MemoryPool()
 {
     delete m_memory;
 }
 
 
-bool xmrig::MemoryPool::isHugePages(uint32_t) const
+bool rxs::MemoryPool::isHugePages(uint32_t) const
 {
     return m_memory && m_memory->isHugePages();
 }
 
 
-uint8_t *xmrig::MemoryPool::get(size_t size, uint32_t)
+uint8_t *rxs::MemoryPool::get(size_t size, uint32_t)
 {
     assert(!(size % pageSize));
 
@@ -84,7 +84,7 @@ uint8_t *xmrig::MemoryPool::get(size_t size, uint32_t)
 }
 
 
-void xmrig::MemoryPool::release(uint32_t)
+void rxs::MemoryPool::release(uint32_t)
 {
     assert(m_refs > 0);
 

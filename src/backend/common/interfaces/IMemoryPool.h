@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IMEMORYPOOL_H
-#define XMRIG_IMEMORYPOOL_H
+#ifndef RXS_IMEMORYPOOL_H
+#define RXS_IMEMORYPOOL_H
 
 
 #include "base/tools/Object.h"
@@ -27,13 +27,13 @@
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IMemoryPool
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IMemoryPool)
+    RXS_DISABLE_COPY_MOVE(IMemoryPool)
 
     IMemoryPool()           = default;
     virtual ~IMemoryPool()  = default;
@@ -44,8 +44,8 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
 
-#endif /* XMRIG_IMEMORYPOOL_H */
+#endif /* RXS_IMEMORYPOOL_H */

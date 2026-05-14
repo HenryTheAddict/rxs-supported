@@ -32,12 +32,12 @@
 #include "backend/opencl/wrappers/OclError.h"
 
 
-xmrig::OclRxJitRunner::OclRxJitRunner(size_t index, const OclLaunchData &data) : OclRxBaseRunner(index, data)
+rxs::OclRxJitRunner::OclRxJitRunner(size_t index, const OclLaunchData &data) : OclRxBaseRunner(index, data)
 {
 }
 
 
-xmrig::OclRxJitRunner::~OclRxJitRunner()
+rxs::OclRxJitRunner::~OclRxJitRunner()
 {
     delete m_randomx_jit;
     delete m_randomx_run;
@@ -49,13 +49,13 @@ xmrig::OclRxJitRunner::~OclRxJitRunner()
 }
 
 
-size_t xmrig::OclRxJitRunner::bufferSize() const
+size_t rxs::OclRxJitRunner::bufferSize() const
 {
     return OclRxBaseRunner::bufferSize() + align(256 * m_intensity) + align(5120 * m_intensity) + align(10048 * m_intensity);
 }
 
 
-void xmrig::OclRxJitRunner::build()
+void rxs::OclRxJitRunner::build()
 {
     OclRxBaseRunner::build();
 
@@ -75,7 +75,7 @@ void xmrig::OclRxJitRunner::build()
 }
 
 
-void xmrig::OclRxJitRunner::execute(uint32_t iteration)
+void rxs::OclRxJitRunner::execute(uint32_t iteration)
 {
     m_randomx_jit->enqueue(m_queue, m_intensity, iteration);
 
@@ -85,7 +85,7 @@ void xmrig::OclRxJitRunner::execute(uint32_t iteration)
 }
 
 
-void xmrig::OclRxJitRunner::init()
+void rxs::OclRxJitRunner::init()
 {
     OclRxBaseRunner::init();
 
@@ -95,7 +95,7 @@ void xmrig::OclRxJitRunner::init()
 }
 
 
-bool xmrig::OclRxJitRunner::loadAsmProgram()
+bool rxs::OclRxJitRunner::loadAsmProgram()
 {
     // Adrenaline drivers on Windows and amdgpu-pro drivers on Linux use ELF header's flags (offset 0x30) to store internal device ID
     // Read it from compiled OpenCL code and substitute this ID into pre-compiled binary to make sure the driver accepts it

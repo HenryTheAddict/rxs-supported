@@ -24,7 +24,7 @@
 #include <cstring>
 #include <string>
 
-namespace xmrig {
+namespace rxs {
 
 struct riscv_cpu_desc
 {
@@ -147,4 +147,4 @@ bool has_riscv_aes()
     return false;
 }
 
-} // namespace xmrig
+} // namespace rxs

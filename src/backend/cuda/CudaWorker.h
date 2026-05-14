@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDAWORKER_H
-#define XMRIG_CUDAWORKER_H
+#ifndef RXS_CUDAWORKER_H
+#define RXS_CUDAWORKER_H
 
 
 #include "backend/common/GpuWorker.h"
@@ -27,7 +27,7 @@
 #include "net/JobResult.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ICudaRunner;
@@ -36,7 +36,7 @@ class ICudaRunner;
 class CudaWorker : public GpuWorker
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(CudaWorker)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(CudaWorker)
 
     CudaWorker(size_t id, const CudaLaunchData &data);
 
@@ -62,7 +62,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_CUDAWORKER_H */
+#endif /* RXS_CUDAWORKER_H */

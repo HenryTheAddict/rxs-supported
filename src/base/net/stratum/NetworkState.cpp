@@ -34,7 +34,7 @@
 
 
 
-namespace xmrig {
+namespace rxs {
 
 
 inline static void printCount(uint64_t accepted, uint64_t rejected)
@@ -104,17 +104,17 @@ inline static void printLatency(uint32_t latency)
 }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 
-xmrig::NetworkState::NetworkState(IStrategyListener *listener) : StrategyProxy(listener)
+rxs::NetworkState::NetworkState(IStrategyListener *listener) : StrategyProxy(listener)
 {
 }
 
 
-#ifdef XMRIG_FEATURE_API
-rapidjson::Value xmrig::NetworkState::getConnection(rapidjson::Document &doc, int version) const
+#ifdef RXS_FEATURE_API
+rapidjson::Value rxs::NetworkState::getConnection(rapidjson::Document &doc, int version) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -145,7 +145,7 @@ rapidjson::Value xmrig::NetworkState::getConnection(rapidjson::Document &doc, in
 }
 
 
-rapidjson::Value xmrig::NetworkState::getResults(rapidjson::Document &doc, int version) const
+rapidjson::Value rxs::NetworkState::getResults(rapidjson::Document &doc, int version) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -177,7 +177,7 @@ rapidjson::Value xmrig::NetworkState::getResults(rapidjson::Document &doc, int v
 #endif
 
 
-void xmrig::NetworkState::printConnection() const
+void rxs::NetworkState::printConnection() const
 {
     if (!m_active) {
         LOG_NOTICE(YELLOW_BOLD_S "no active connection");
@@ -196,7 +196,7 @@ void xmrig::NetworkState::printConnection() const
 }
 
 
-void xmrig::NetworkState::printResults() const
+void rxs::NetworkState::printResults() const
 {
     if (!m_hashes) {
         LOG_NOTICE(YELLOW_BOLD_S "no results yet");
@@ -223,7 +223,7 @@ void xmrig::NetworkState::printResults() const
 }
 
 
-const char *xmrig::NetworkState::scaleDiff(uint64_t &diff)
+const char *rxs::NetworkState::scaleDiff(uint64_t &diff)
 {
     if (diff >= 100000000000) {
         diff /= 1000000000;
@@ -247,7 +247,7 @@ const char *xmrig::NetworkState::scaleDiff(uint64_t &diff)
 }
 
 
-std::string xmrig::NetworkState::humanDiff(uint64_t diff)
+std::string rxs::NetworkState::humanDiff(uint64_t diff)
 {
     const char *scale = scaleDiff(diff);
 
@@ -255,7 +255,7 @@ std::string xmrig::NetworkState::humanDiff(uint64_t diff)
 }
 
 
-void xmrig::NetworkState::onActive(IStrategy *strategy, IClient *client)
+void rxs::NetworkState::onActive(IStrategy *strategy, IClient *client)
 {
     snprintf(m_pool, sizeof(m_pool) - 1, "%s:%d", client->pool().host().data(), client->pool().port());
 
@@ -269,7 +269,7 @@ void xmrig::NetworkState::onActive(IStrategy *strategy, IClient *client)
 }
 
 
-void xmrig::NetworkState::onJob(IStrategy *strategy, IClient *client, const Job &job, const rapidjson::Value &params)
+void rxs::NetworkState::onJob(IStrategy *strategy, IClient *client, const Job &job, const rapidjson::Value &params)
 {
     m_algorithm = job.algorithm();
     m_diff      = job.diff();
@@ -278,7 +278,7 @@ void xmrig::NetworkState::onJob(IStrategy *strategy, IClient *client, const Job 
 }
 
 
-void xmrig::NetworkState::onPause(IStrategy *strategy)
+void rxs::NetworkState::onPause(IStrategy *strategy)
 {
     if (!strategy->isActive()) {
         stop();
@@ -288,7 +288,7 @@ void xmrig::NetworkState::onPause(IStrategy *strategy)
 }
 
 
-void xmrig::NetworkState::onResultAccepted(IStrategy *strategy, IClient *client, const SubmitResult &result, const char *error)
+void rxs::NetworkState::onResultAccepted(IStrategy *strategy, IClient *client, const SubmitResult &result, const char *error)
 {
     add(result, error);
 
@@ -296,7 +296,7 @@ void xmrig::NetworkState::onResultAccepted(IStrategy *strategy, IClient *client,
 }
 
 
-uint32_t xmrig::NetworkState::latency() const
+uint32_t rxs::NetworkState::latency() const
 {
     const size_t calls = m_latency.size();
     if (calls == 0) {
@@ -310,7 +310,7 @@ uint32_t xmrig::NetworkState::latency() const
 }
 
 
-uint64_t xmrig::NetworkState::avgTime() const
+uint64_t rxs::NetworkState::avgTime() const
 {
     if (m_latency.empty()) {
         return 0;
@@ -320,13 +320,13 @@ uint64_t xmrig::NetworkState::avgTime() const
 }
 
 
-uint64_t xmrig::NetworkState::connectionTime() const
+uint64_t rxs::NetworkState::connectionTime() const
 {
     return m_active ? ((Chrono::steadyMSecs() - m_connectionTime)) : 0;
 }
 
 
-void xmrig::NetworkState::add(const SubmitResult &result, const char *error)
+void rxs::NetworkState::add(const SubmitResult &result, const char *error)
 {
     if (error) {
         m_rejected++;
@@ -346,7 +346,7 @@ void xmrig::NetworkState::add(const SubmitResult &result, const char *error)
 }
 
 
-void xmrig::NetworkState::stop()
+void rxs::NetworkState::stop()
 {
     m_active      = false;
     m_diff        = 0;

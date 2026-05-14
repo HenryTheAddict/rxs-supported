@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BASECONFIG_H
-#define XMRIG_BASECONFIG_H
+#ifndef RXS_BASECONFIG_H
+#define RXS_BASECONFIG_H
 
 
 #include "base/kernel/config/Title.h"
@@ -26,12 +26,12 @@
 #include "base/net/stratum/Pools.h"
 
 
-#ifdef XMRIG_FEATURE_TLS
+#ifdef RXS_FEATURE_TLS
 #   include "base/net/tls/TlsConfig.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IJsonReader;
@@ -56,7 +56,7 @@ public:
     static const char *kVerbose;
     static const char *kWatch;
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     static const char *kTls;
 #   endif
 
@@ -75,7 +75,7 @@ public:
     inline const Title &title() const                       { return m_title; }
     inline uint32_t printTime() const                       { return m_printTime; }
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     inline const TlsConfig &tls() const                     { return m_tls; }
 #   endif
 
@@ -105,7 +105,7 @@ protected:
     Title m_title;
     uint32_t m_printTime    = 60;
 
-#   ifdef XMRIG_FEATURE_TLS
+#   ifdef RXS_FEATURE_TLS
     TlsConfig m_tls;
 #   endif
 
@@ -114,7 +114,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_BASECONFIG_H */
+#endif /* RXS_BASECONFIG_H */

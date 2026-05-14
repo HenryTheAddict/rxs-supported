@@ -44,7 +44,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "crypto/randomx/soft_aes.h"
 #include "crypto/rx/Profiler.h"
 
-#ifdef XMRIG_FIX_RYZEN
+#ifdef RXS_FIX_RYZEN
 #   include "crypto/rx/RxFix.h"
 #endif
 
@@ -209,13 +209,13 @@ namespace randomx {
 	void JitCompilerX86::enableWriting() const {
 		uint8_t* p1 = alignToPage(code, 4096);
 		uint8_t* p2 = code + CodeSize;
-		xmrig::VirtualMemory::protectRW(p1, p2 - p1);
+		rxs::VirtualMemory::protectRW(p1, p2 - p1);
 	}
 
 	void JitCompilerX86::enableExecution() const {
 		uint8_t* p1 = alignToPage(code, 4096);
 		uint8_t* p2 = code + CodeSize;
-		xmrig::VirtualMemory::protectRX(p1, p2 - p1);
+		rxs::VirtualMemory::protectRX(p1, p2 - p1);
 	}
 
 #	ifdef _MSC_VER
@@ -228,12 +228,12 @@ namespace randomx {
 	constexpr size_t codeOffsetIncrement = 59 * 64;
 
 	JitCompilerX86::JitCompilerX86(bool hugePagesEnable, bool optimizedInitDatasetEnable) {
-		BranchesWithin32B = xmrig::Cpu::info()->jccErratum();
+		BranchesWithin32B = rxs::Cpu::info()->jccErratum();
 
-		hasAES = xmrig::Cpu::info()->hasAES();
+		hasAES = rxs::Cpu::info()->hasAES();
 
-		hasAVX = xmrig::Cpu::info()->hasAVX();
-		hasAVX2 = xmrig::Cpu::info()->hasAVX2();
+		hasAVX = rxs::Cpu::info()->hasAVX();
+		hasAVX2 = rxs::Cpu::info()->hasAVX2();
 
 		// Disable by default
 		initDatasetAVX2 = false;
@@ -247,35 +247,35 @@ namespace randomx {
 				initDatasetAVX2 = true;
 			}
 			else if (optimizedDatasetInit < 0) {
-				xmrig::ICpuInfo::Vendor vendor = xmrig::Cpu::info()->vendor();
-				xmrig::ICpuInfo::Arch arch = xmrig::Cpu::info()->arch();
+				rxs::ICpuInfo::Vendor vendor = rxs::Cpu::info()->vendor();
+				rxs::ICpuInfo::Arch arch = rxs::Cpu::info()->arch();
 
-				if (vendor == xmrig::ICpuInfo::VENDOR_INTEL) {
+				if (vendor == rxs::ICpuInfo::VENDOR_INTEL) {
 					// AVX2 init is faster on Intel CPUs without HT
-					initDatasetAVX2 = (xmrig::Cpu::info()->cores() == xmrig::Cpu::info()->threads());
+					initDatasetAVX2 = (rxs::Cpu::info()->cores() == rxs::Cpu::info()->threads());
 				}
-				else if (vendor == xmrig::ICpuInfo::VENDOR_AMD) {
+				else if (vendor == rxs::ICpuInfo::VENDOR_AMD) {
 					switch (arch) {
-					case xmrig::ICpuInfo::ARCH_ZEN:
-					case xmrig::ICpuInfo::ARCH_ZEN_PLUS:
+					case rxs::ICpuInfo::ARCH_ZEN:
+					case rxs::ICpuInfo::ARCH_ZEN_PLUS:
 					default:
 						// AVX2 init is slower on Zen/Zen+
 						// Also disable it for other unknown architectures
 						initDatasetAVX2 = false;
 						break;
-					case xmrig::ICpuInfo::ARCH_ZEN2:
+					case rxs::ICpuInfo::ARCH_ZEN2:
 						// AVX2 init is faster on Zen2 without SMT (mobile CPUs)
-						initDatasetAVX2 = (xmrig::Cpu::info()->cores() == xmrig::Cpu::info()->threads());
+						initDatasetAVX2 = (rxs::Cpu::info()->cores() == rxs::Cpu::info()->threads());
 						break;
-					case xmrig::ICpuInfo::ARCH_ZEN3:
+					case rxs::ICpuInfo::ARCH_ZEN3:
 						// AVX2 init is faster on Zen3
 						initDatasetAVX2 = true;
 						break;
-					case xmrig::ICpuInfo::ARCH_ZEN4:
+					case rxs::ICpuInfo::ARCH_ZEN4:
 						// AVX2 init is slower on Zen4
 						initDatasetAVX2 = false;
 						break;
-					case xmrig::ICpuInfo::ARCH_ZEN5:
+					case rxs::ICpuInfo::ARCH_ZEN5:
 						// AVX2 init is 49% faster on Zen5
 						initDatasetAVX2 = true;
 						break;
@@ -289,11 +289,11 @@ namespace randomx {
 			initDatasetAVX2 = false;
 		}
 
-		hasXOP = xmrig::Cpu::info()->hasXOP();
+		hasXOP = rxs::Cpu::info()->hasXOP();
 
 		allocatedSize = initDatasetAVX2 ? (CodeSize * 4) : (CodeSize * 2);
 		allocatedCode = static_cast<uint8_t*>(allocExecutableMemory(allocatedSize,
-#			ifdef XMRIG_SECURE_JIT
+#			ifdef RXS_SECURE_JIT
 			false
 #			else
 			hugePagesJIT && hugePagesEnable
@@ -314,7 +314,7 @@ namespace randomx {
 
 		codePosFirst = prologueSize + (hasXOP ? loopLoadXOPSize : loopLoadSize);
 
-#		ifdef XMRIG_FIX_RYZEN
+#		ifdef RXS_FIX_RYZEN
 		mainLoopBounds.first = code + prologueSize;
 		mainLoopBounds.second = code + epilogueOffset;
 #		endif
@@ -343,7 +343,7 @@ namespace randomx {
 	void JitCompilerX86::generateProgram(Program& prog, ProgramConfiguration& pcfg, uint32_t flags) {
 		PROFILE_SCOPE(RandomX_JIT_compile);
 
-#		ifdef XMRIG_SECURE_JIT
+#		ifdef RXS_SECURE_JIT
 		enableWriting();
 #		endif
 
@@ -454,8 +454,8 @@ namespace randomx {
 			*p = (*p & 0xFF000000U) | 0x0077F8C5U; // vzeroupper
 		}
 
-#		ifdef XMRIG_FIX_RYZEN
-		xmrig::RxFix::setMainLoopBounds(mainLoopBounds);
+#		ifdef RXS_FIX_RYZEN
+		rxs::RxFix::setMainLoopBounds(mainLoopBounds);
 #		endif
 
 		imul_rcp_storage = code + (ADDR(randomx_program_imul_rcp_store) - codePrologue) + 2;

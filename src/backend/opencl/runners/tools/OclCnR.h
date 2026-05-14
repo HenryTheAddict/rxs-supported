@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLCNR_H
-#define XMRIG_OCLCNR_H
+#ifndef RXS_OCLCNR_H
+#define RXS_OCLCNR_H
 
 
 #include <cstddef>
@@ -33,7 +33,7 @@
 using cl_program = struct _cl_program *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Algorithm;
@@ -50,7 +50,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLCNR_H */
+#endif /* RXS_OCLCNR_H */

@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLSHAREDSTATE_H
-#define XMRIG_OCLSHAREDSTATE_H
+#ifndef RXS_OCLSHAREDSTATE_H
+#define RXS_OCLSHAREDSTATE_H
 
 
 #include "backend/opencl/OclLaunchData.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclSharedState
@@ -41,7 +41,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_OCLSHAREDSTATE_H */
+#endif /* RXS_OCLSHAREDSTATE_H */

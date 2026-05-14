@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ARGUMENTS_H
-#define XMRIG_ARGUMENTS_H
+#ifndef RXS_ARGUMENTS_H
+#define RXS_ARGUMENTS_H
 
 
 #include <vector>
@@ -26,7 +26,7 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Arguments
@@ -50,7 +50,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_ARGUMENTS_H */
+#endif /* RXS_ARGUMENTS_H */

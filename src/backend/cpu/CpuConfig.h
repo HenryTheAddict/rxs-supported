@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CPUCONFIG_H
-#define XMRIG_CPUCONFIG_H
+#ifndef RXS_CPUCONFIG_H
+#define RXS_CPUCONFIG_H
 
 
 #include "backend/common/Threads.h"
@@ -26,7 +26,7 @@
 #include "crypto/common/Assembly.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CpuConfig
@@ -48,11 +48,11 @@ public:
     static const char *kPriority;
     static const char *kYield;
 
-#   ifdef XMRIG_FEATURE_ASM
+#   ifdef RXS_FEATURE_ASM
     static const char *kAsm;
 #   endif
 
-#   ifdef XMRIG_ALGO_ARGON2
+#   ifdef RXS_ALGO_ARGON2
 #   endif
 
     CpuConfig() = default;
@@ -99,7 +99,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CPUCONFIG_H */
+#endif /* RXS_CPUCONFIG_H */

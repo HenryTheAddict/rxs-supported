@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_BSWAP_64_H
-#define XMRIG_BSWAP_64_H
+#ifndef RXS_BSWAP_64_H
+#define RXS_BSWAP_64_H
 
 #ifdef _MSC_VER
 
@@ -36,4 +36,4 @@
 
 #endif
 
-#endif /* XMRIG_BSWAP_64_H */
+#endif /* RXS_BSWAP_64_H */

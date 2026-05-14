@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLWORKER_H
-#define XMRIG_OCLWORKER_H
+#ifndef RXS_OCLWORKER_H
+#define RXS_OCLWORKER_H
 
 
 #include "backend/common/GpuWorker.h"
@@ -27,7 +27,7 @@
 #include "net/JobResult.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IOclRunner;
@@ -37,7 +37,7 @@ class Job;
 class OclWorker : public GpuWorker
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(OclWorker)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(OclWorker)
 
     OclWorker(size_t id, const OclLaunchData &data);
 
@@ -64,7 +64,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLWORKER_H */
+#endif /* RXS_OCLWORKER_H */

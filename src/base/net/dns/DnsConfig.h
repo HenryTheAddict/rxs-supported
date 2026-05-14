@@ -21,7 +21,7 @@
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsConfig
@@ -46,4 +46,4 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs

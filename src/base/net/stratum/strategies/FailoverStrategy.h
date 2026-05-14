@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_FAILOVERSTRATEGY_H
-#define XMRIG_FAILOVERSTRATEGY_H
+#ifndef RXS_FAILOVERSTRATEGY_H
+#define RXS_FAILOVERSTRATEGY_H
 
 
 #include <vector>
@@ -29,7 +29,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Client;
@@ -39,7 +39,7 @@ class IStrategyListener;
 class FailoverStrategy : public IStrategy, public IClientListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(FailoverStrategy)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(FailoverStrategy)
 
     FailoverStrategy(const std::vector<Pool> &pool, int retryPause, int retries, IStrategyListener *listener, bool quiet = false);
     FailoverStrategy(int retryPause, int retries, IStrategyListener *listener, bool quiet = false);
@@ -79,6 +79,6 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
-#endif /* XMRIG_FAILOVERSTRATEGY_H */
+#endif /* RXS_FAILOVERSTRATEGY_H */

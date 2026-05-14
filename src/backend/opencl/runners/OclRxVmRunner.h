@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLRXVMRUNNER_H
-#define XMRIG_OCLRXVMRUNNER_H
+#ifndef RXS_OCLRXVMRUNNER_H
+#define RXS_OCLRXVMRUNNER_H
 
 
 #include "backend/opencl/runners/OclRxBaseRunner.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ExecuteVmKernel;
@@ -33,7 +33,7 @@ class InitVmKernel;
 class OclRxVmRunner : public OclRxBaseRunner
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(OclRxVmRunner)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(OclRxVmRunner)
 
     OclRxVmRunner(size_t index, const OclLaunchData &data);
     ~OclRxVmRunner() override;
@@ -51,7 +51,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_OCLRXVMRUNNER_H
+#endif // RXS_OCLRXVMRUNNER_H

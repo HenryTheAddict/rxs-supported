@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CHRONO_H
-#define XMRIG_CHRONO_H
+#ifndef RXS_CHRONO_H
+#define RXS_CHRONO_H
 
 
 #include <chrono>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Chrono
@@ -52,6 +52,6 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
-#endif /* XMRIG_CHRONO_H */
+#endif /* RXS_CHRONO_H */

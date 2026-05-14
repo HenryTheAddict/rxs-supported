@@ -17,8 +17,8 @@
  */
 
 
-#ifndef XMRIG_THREADS_H
-#define XMRIG_THREADS_H
+#ifndef RXS_THREADS_H
+#define RXS_THREADS_H
 
 
 #include <map>
@@ -30,7 +30,7 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template <class T>
@@ -72,7 +72,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_THREADS_H */
+#endif /* RXS_THREADS_H */

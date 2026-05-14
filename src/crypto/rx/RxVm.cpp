@@ -25,7 +25,7 @@
 #include "crypto/rx/RxVm.h"
 
 
-randomx_vm *xmrig::RxVm::create(RxDataset *dataset, uint8_t *scratchpad, bool softAes, const Assembly &assembly, uint32_t node)
+randomx_vm *rxs::RxVm::create(RxDataset *dataset, uint8_t *scratchpad, bool softAes, const Assembly &assembly, uint32_t node)
 {
     int flags = 0;
 
@@ -33,7 +33,7 @@ randomx_vm *xmrig::RxVm::create(RxDataset *dataset, uint8_t *scratchpad, bool so
     // The RandomX portable intrinsics will throw at runtime when HAVE_AES is not defined
     // for this architecture. Until native AES intrinsics are wired for RISC-V, avoid
     // setting HARD_AES to prevent "Platform doesn't support hardware AES" aborts.
-#   ifndef XMRIG_RISCV
+#   ifndef RXS_RISCV
     if (!softAes) {
        flags |= RANDOMX_FLAG_HARD_AES;
     }
@@ -58,7 +58,7 @@ randomx_vm *xmrig::RxVm::create(RxDataset *dataset, uint8_t *scratchpad, bool so
 }
 
 
-void xmrig::RxVm::destroy(randomx_vm* vm)
+void rxs::RxVm::destroy(randomx_vm* vm)
 {
     if (vm) {
         randomx_destroy_vm(vm);

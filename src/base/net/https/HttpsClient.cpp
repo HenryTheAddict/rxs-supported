@@ -33,7 +33,7 @@
 #endif
 
 
-xmrig::HttpsClient::HttpsClient(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener) :
+rxs::HttpsClient::HttpsClient(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener) :
     HttpClient(tag, std::move(req), listener)
 {
     m_ctx = SSL_CTX_new(SSLv23_method());
@@ -49,7 +49,7 @@ xmrig::HttpsClient::HttpsClient(const char *tag, FetchRequest &&req, const std::
 }
 
 
-xmrig::HttpsClient::~HttpsClient()
+rxs::HttpsClient::~HttpsClient()
 {
     if (m_ctx) {
         SSL_CTX_free(m_ctx);
@@ -61,19 +61,19 @@ xmrig::HttpsClient::~HttpsClient()
 }
 
 
-const char *xmrig::HttpsClient::tlsFingerprint() const
+const char *rxs::HttpsClient::tlsFingerprint() const
 {
     return m_ready ? m_fingerprint : nullptr;
 }
 
 
-const char *xmrig::HttpsClient::tlsVersion() const
+const char *rxs::HttpsClient::tlsVersion() const
 {
     return m_ready ? SSL_get_version(m_ssl) : nullptr;
 }
 
 
-void xmrig::HttpsClient::handshake()
+void rxs::HttpsClient::handshake()
 {
     m_ssl = SSL_new(m_ctx);
     assert(m_ssl != nullptr);
@@ -92,7 +92,7 @@ void xmrig::HttpsClient::handshake()
 }
 
 
-void xmrig::HttpsClient::read(const char *data, size_t size)
+void rxs::HttpsClient::read(const char *data, size_t size)
 {
     BIO_write(m_read, data, size);
 
@@ -130,7 +130,7 @@ void xmrig::HttpsClient::read(const char *data, size_t size)
 }
 
 
-void xmrig::HttpsClient::write(std::string &&data, bool close)
+void rxs::HttpsClient::write(std::string &&data, bool close)
 {
     const std::string body = std::move(data);
     SSL_write(m_ssl, body.data(), body.size());
@@ -139,7 +139,7 @@ void xmrig::HttpsClient::write(std::string &&data, bool close)
 }
 
 
-bool xmrig::HttpsClient::verify(X509 *cert)
+bool rxs::HttpsClient::verify(X509 *cert)
 {
     if (cert == nullptr) {
         return false;
@@ -162,7 +162,7 @@ bool xmrig::HttpsClient::verify(X509 *cert)
 }
 
 
-bool xmrig::HttpsClient::verifyFingerprint(X509 *cert)
+bool rxs::HttpsClient::verifyFingerprint(X509 *cert)
 {
     const EVP_MD *digest = EVP_get_digestbyname("sha256");
     if (digest == nullptr) {
@@ -182,7 +182,7 @@ bool xmrig::HttpsClient::verifyFingerprint(X509 *cert)
 }
 
 
-void xmrig::HttpsClient::flush(bool close)
+void rxs::HttpsClient::flush(bool close)
 {
     if (uv_is_writable(stream()) != 1) {
         return;

@@ -21,7 +21,7 @@
 #include <Windows.h>
 
 
-void xmrig::BasicCpuInfo::init_arm()
+void rxs::BasicCpuInfo::init_arm()
 {
     DWORD size         = sizeof(m_brand) - 1;
     const char *subkey = "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\0";

@@ -32,7 +32,7 @@
 #include "base/tools/Timer.h"
 
 
-xmrig::Watcher::Watcher(const String &path, IWatcherListener *listener) :
+rxs::Watcher::Watcher(const String &path, IWatcherListener *listener) :
     m_listener(listener),
     m_path(path)
 {
@@ -46,7 +46,7 @@ xmrig::Watcher::Watcher(const String &path, IWatcherListener *listener) :
 }
 
 
-xmrig::Watcher::~Watcher()
+rxs::Watcher::~Watcher()
 {
     delete m_timer;
 
@@ -54,7 +54,7 @@ xmrig::Watcher::~Watcher()
 }
 
 
-void xmrig::Watcher::onFsEvent(uv_fs_event_t *handle, const char *filename, int, int)
+void rxs::Watcher::onFsEvent(uv_fs_event_t *handle, const char *filename, int, int)
 {
     if (!filename) {
         return;
@@ -64,14 +64,14 @@ void xmrig::Watcher::onFsEvent(uv_fs_event_t *handle, const char *filename, int,
 }
 
 
-void xmrig::Watcher::queueUpdate()
+void rxs::Watcher::queueUpdate()
 {
     m_timer->stop();
     m_timer->start(kDelay, 0);
 }
 
 
-void xmrig::Watcher::reload()
+void rxs::Watcher::reload()
 {
     m_listener->onFileChanged(m_path);
 
@@ -82,7 +82,7 @@ void xmrig::Watcher::reload()
 }
 
 
-void xmrig::Watcher::start()
+void rxs::Watcher::start()
 {
-    uv_fs_event_start(m_fsEvent, xmrig::Watcher::onFsEvent, m_path, 0);
+    uv_fs_event_start(m_fsEvent, rxs::Watcher::onFsEvent, m_path, 0);
 }

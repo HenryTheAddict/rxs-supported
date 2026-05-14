@@ -33,7 +33,7 @@
 #include <thread>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 std::atomic<bool> CudaWorker::ready;
@@ -42,11 +42,11 @@ std::atomic<bool> CudaWorker::ready;
 static inline bool isReady()    { return !Nonce::isPaused() && CudaWorker::ready; }
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
 
-xmrig::CudaWorker::CudaWorker(size_t id, const CudaLaunchData &data) :
+rxs::CudaWorker::CudaWorker(size_t id, const CudaLaunchData &data) :
     GpuWorker(id, data.thread.affinity(), -1, data.device.index()),
     m_algorithm(data.algorithm),
     m_miner(data.miner)
@@ -64,13 +64,13 @@ xmrig::CudaWorker::CudaWorker(size_t id, const CudaLaunchData &data) :
 }
 
 
-xmrig::CudaWorker::~CudaWorker()
+rxs::CudaWorker::~CudaWorker()
 {
     delete m_runner;
 }
 
 
-void xmrig::CudaWorker::jobEarlyNotification(const Job &job)
+void rxs::CudaWorker::jobEarlyNotification(const Job &job)
 {
     if (m_runner) {
         m_runner->jobEarlyNotification(job);
@@ -78,19 +78,19 @@ void xmrig::CudaWorker::jobEarlyNotification(const Job &job)
 }
 
 
-bool xmrig::CudaWorker::selfTest()
+bool rxs::CudaWorker::selfTest()
 {
     return m_runner != nullptr;
 }
 
 
-size_t xmrig::CudaWorker::intensity() const
+size_t rxs::CudaWorker::intensity() const
 {
     return m_runner ? m_runner->roundSize() : 0;
 }
 
 
-void xmrig::CudaWorker::start()
+void rxs::CudaWorker::start()
 {
     while (Nonce::sequence(Nonce::CUDA) > 0) {
         if (!isReady()) {
@@ -135,7 +135,7 @@ void xmrig::CudaWorker::start()
 }
 
 
-bool xmrig::CudaWorker::consumeJob()
+bool rxs::CudaWorker::consumeJob()
 {
     if (Nonce::sequence(Nonce::CUDA) == 0) {
         return false;
@@ -147,7 +147,7 @@ bool xmrig::CudaWorker::consumeJob()
 }
 
 
-void xmrig::CudaWorker::storeStats()
+void rxs::CudaWorker::storeStats()
 {
     if (!isReady()) {
         return;

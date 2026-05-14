@@ -28,7 +28,7 @@
 #include "backend/opencl/wrappers/OclLib.h"
 
 
-std::vector<xmrig::OclPlatform> xmrig::OclPlatform::get()
+std::vector<rxs::OclPlatform> rxs::OclPlatform::get()
 {
     const std::vector<cl_platform_id> platforms = OclLib::getPlatformIDs();
     std::vector<OclPlatform> out;
@@ -46,7 +46,7 @@ std::vector<xmrig::OclPlatform> xmrig::OclPlatform::get()
 }
 
 
-void xmrig::OclPlatform::print()
+void rxs::OclPlatform::print()
 {
     const auto platforms = OclPlatform::get();
 
@@ -63,7 +63,7 @@ void xmrig::OclPlatform::print()
 }
 
 
-rapidjson::Value xmrig::OclPlatform::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::OclPlatform::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     auto &allocator = doc.GetAllocator();
@@ -84,7 +84,7 @@ rapidjson::Value xmrig::OclPlatform::toJSON(rapidjson::Document &doc) const
 }
 
 
-std::vector<xmrig::OclDevice> xmrig::OclPlatform::devices() const
+std::vector<rxs::OclDevice> rxs::OclPlatform::devices() const
 {
     std::vector<OclDevice> out;
     if (!isValid()) {
@@ -109,31 +109,31 @@ std::vector<xmrig::OclDevice> xmrig::OclPlatform::devices() const
 }
 
 
-xmrig::String xmrig::OclPlatform::extensions() const
+rxs::String rxs::OclPlatform::extensions() const
 {
     return OclLib::getString(id(), CL_PLATFORM_EXTENSIONS);
 }
 
 
-xmrig::String xmrig::OclPlatform::name() const
+rxs::String rxs::OclPlatform::name() const
 {
     return OclLib::getString(id(), CL_PLATFORM_NAME);
 }
 
 
-xmrig::String xmrig::OclPlatform::profile() const
+rxs::String rxs::OclPlatform::profile() const
 {
     return OclLib::getString(id(), CL_PLATFORM_PROFILE);
 }
 
 
-xmrig::String xmrig::OclPlatform::vendor() const
+rxs::String rxs::OclPlatform::vendor() const
 {
     return OclLib::getString(id(), CL_PLATFORM_VENDOR);
 }
 
 
-xmrig::String xmrig::OclPlatform::version() const
+rxs::String rxs::OclPlatform::version() const
 {
     return OclLib::getString(id(), CL_PLATFORM_VERSION);
 }

@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLCONTEXT_H
-#define XMRIG_OCLCONTEXT_H
+#ifndef RXS_OCLCONTEXT_H
+#define RXS_OCLCONTEXT_H
 
 
 #include "backend/opencl/OclLaunchData.h"
@@ -34,7 +34,7 @@
 using cl_context = struct _cl_context *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Job;
@@ -43,7 +43,7 @@ class Job;
 class OclContext
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(OclContext)
+    RXS_DISABLE_COPY_MOVE(OclContext)
 
     OclContext() = default;
     OclContext(const OclDevice &device);
@@ -59,7 +59,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLCONTEXT_H */
+#endif /* RXS_OCLCONTEXT_H */

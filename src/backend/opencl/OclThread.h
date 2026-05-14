@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLTHREAD_H
-#define XMRIG_OCLTHREAD_H
+#ifndef RXS_OCLTHREAD_H
+#define RXS_OCLTHREAD_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
@@ -27,7 +27,7 @@
 #include <vector>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclThread
@@ -45,7 +45,7 @@ public:
         setIntensity(intensity);
     }
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     OclThread(uint32_t index, uint32_t intensity, uint32_t worksize, uint32_t threads, bool gcnAsm, bool datasetHost, uint32_t bfactor) :
         m_datasetHost(datasetHost),
         m_gcnAsm(gcnAsm),
@@ -61,7 +61,7 @@ public:
     }
 #   endif
 
-#   ifdef XMRIG_ALGO_KAWPOW
+#   ifdef RXS_ALGO_KAWPOW
     OclThread(uint32_t index, uint32_t intensity, uint32_t worksize, uint32_t threads) :
         m_fields(8),
         m_threads(threads, -1),
@@ -119,7 +119,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_OCLTHREAD_H */
+#endif /* RXS_OCLTHREAD_H */

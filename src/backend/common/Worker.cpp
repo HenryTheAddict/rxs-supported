@@ -22,7 +22,7 @@
 #include "crypto/common/VirtualMemory.h"
 
 
-xmrig::Worker::Worker(size_t id, int64_t affinity, int priority) :
+rxs::Worker::Worker(size_t id, int64_t affinity, int priority) :
     m_affinity(affinity),
     m_id(id)
 {

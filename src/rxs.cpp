@@ -23,7 +23,7 @@
 
 int main(int argc, char **argv)
 {
-    using namespace xmrig;
+    using namespace rxs;
 
     Process process(argc, argv);
     const Entry::Id entry = Entry::get(process);

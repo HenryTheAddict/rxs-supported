@@ -17,14 +17,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ADLLIB_H
-#define XMRIG_ADLLIB_H
+#ifndef RXS_ADLLIB_H
+#define RXS_ADLLIB_H
 
 
 #include "backend/opencl/wrappers/AdlHealth.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclDevice;
@@ -51,7 +51,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_ADLLIB_H */
+#endif /* RXS_ADLLIB_H */

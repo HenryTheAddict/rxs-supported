@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDACONFIG_H
-#define XMRIG_CUDACONFIG_H
+#ifndef RXS_CUDACONFIG_H
+#define RXS_CUDACONFIG_H
 
 
 #include "backend/cuda/CudaLaunchData.h"
@@ -25,7 +25,7 @@
 #include "backend/cuda/CudaThreads.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CudaConfig
@@ -45,7 +45,7 @@ public:
     inline int32_t bfactor() const                              { return m_bfactor; }
     inline int32_t bsleep() const                               { return m_bsleep; }
 
-#   ifdef XMRIG_FEATURE_NVML
+#   ifdef RXS_FEATURE_NVML
     inline bool isNvmlEnabled() const                           { return m_nvml; }
     inline const String &nvmlLoader() const                     { return m_nvmlLoader; }
 #   endif
@@ -68,14 +68,14 @@ private:
     int32_t m_bsleep       = 0;
 #   endif
 
-#   ifdef XMRIG_FEATURE_NVML
+#   ifdef RXS_FEATURE_NVML
     bool m_nvml            = true;
     String m_nvmlLoader;
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CUDACONFIG_H */
+#endif /* RXS_CUDACONFIG_H */

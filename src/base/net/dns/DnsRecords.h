@@ -21,7 +21,7 @@
 #include "base/net/dns/DnsRecord.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsRecords
@@ -42,4 +42,4 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs

@@ -27,13 +27,13 @@
 #include "crypto/randomx/aes_hash.hpp"
 
 
-#ifdef XMRIG_FEATURE_MSR
+#ifdef RXS_FEATURE_MSR
 #   include "crypto/rx/RxFix.h"
 #   include "crypto/rx/RxMsr.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class RxPrivate;
@@ -52,24 +52,24 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-xmrig::HugePagesInfo xmrig::Rx::hugePages()
+rxs::HugePagesInfo rxs::Rx::hugePages()
 {
     return d_ptr->queue.hugePages();
 }
 
 
-xmrig::RxDataset *xmrig::Rx::dataset(const Job &job, uint32_t nodeId)
+rxs::RxDataset *rxs::Rx::dataset(const Job &job, uint32_t nodeId)
 {
     return d_ptr->queue.dataset(job, nodeId);
 }
 
 
-void xmrig::Rx::destroy()
+void rxs::Rx::destroy()
 {
-#   ifdef XMRIG_FEATURE_MSR
+#   ifdef RXS_FEATURE_MSR
     RxMsr::destroy();
 #   endif
 
@@ -79,14 +79,14 @@ void xmrig::Rx::destroy()
 }
 
 
-void xmrig::Rx::init(IRxListener *listener)
+void rxs::Rx::init(IRxListener *listener)
 {
     d_ptr = new RxPrivate(listener);
 }
 
 
 #include "crypto/randomx/blake2/blake2.h"
-#if defined(XMRIG_FEATURE_AVX2)
+#if defined(RXS_FEATURE_AVX2)
 #include "crypto/randomx/blake2/avx2/blake2b.h"
 #endif
 
@@ -96,32 +96,32 @@ int (*rx_blake2b)(void* out, size_t outlen, const void* in, size_t inlen) = rx_b
 
 
 template<typename T>
-bool xmrig::Rx::init(const T &seed, const RxConfig &config, const CpuConfig &cpu)
+bool rxs::Rx::init(const T &seed, const RxConfig &config, const CpuConfig &cpu)
 {
     const auto f = seed.algorithm().family();
     if ((f != Algorithm::RANDOM_X)
-#       ifdef XMRIG_ALGO_CN_HEAVY
+#       ifdef RXS_ALGO_CN_HEAVY
 #       endif
-#       ifdef XMRIG_ALGO_GHOSTRIDER
+#       ifdef RXS_ALGO_GHOSTRIDER
 #       endif
         ) {
-#       ifdef XMRIG_FEATURE_MSR
+#       ifdef RXS_FEATURE_MSR
         RxMsr::destroy();
 #       endif
 
         return true;
     }
 
-#   ifdef XMRIG_FEATURE_MSR
+#   ifdef RXS_FEATURE_MSR
     if (!RxMsr::isInitialized()) {
         RxMsr::init(config, cpu.threads().get(seed.algorithm()).data());
     }
 #   endif
 
-#   ifdef XMRIG_ALGO_CN_HEAVY
+#   ifdef RXS_ALGO_CN_HEAVY
 #   endif
 
-#   ifdef XMRIG_ALGO_GHOSTRIDER
+#   ifdef RXS_ALGO_GHOSTRIDER
 #   endif
 
     randomx_set_scratchpad_prefetch_mode(config.scratchpadPrefetchMode());
@@ -129,7 +129,7 @@ bool xmrig::Rx::init(const T &seed, const RxConfig &config, const CpuConfig &cpu
     randomx_set_optimized_dataset_init(config.initDatasetAVX2());
 
     if (!osInitialized) {
-#       ifdef XMRIG_FIX_RYZEN
+#       ifdef RXS_FIX_RYZEN
         RxFix::setupMainLoopExceptionFrame();
 #       endif
 
@@ -137,13 +137,13 @@ bool xmrig::Rx::init(const T &seed, const RxConfig &config, const CpuConfig &cpu
             SelectSoftAESImpl(cpu.threads().get(seed.algorithm()).count());
         }
 
-#       if defined(XMRIG_FEATURE_SSE4_1)
+#       if defined(RXS_FEATURE_SSE4_1)
         if (Cpu::info()->has(ICpuInfo::FLAG_SSE41)) {
             rx_blake2b_compress = rx_blake2b_compress_sse41;
         }
 #       endif
 
-#if     defined(XMRIG_FEATURE_AVX2)
+#if     defined(RXS_FEATURE_AVX2)
         if (Cpu::info()->has(ICpuInfo::FLAG_AVX2)) {
             rx_blake2b = blake2b_avx2;
         }
@@ -163,21 +163,21 @@ bool xmrig::Rx::init(const T &seed, const RxConfig &config, const CpuConfig &cpu
 
 
 template<typename T>
-bool xmrig::Rx::isReady(const T &seed)
+bool rxs::Rx::isReady(const T &seed)
 {
     return d_ptr->queue.isReady(seed);
 }
 
 
-#ifdef XMRIG_FEATURE_MSR
-bool xmrig::Rx::isMSR()
+#ifdef RXS_FEATURE_MSR
+bool rxs::Rx::isMSR()
 {
     return RxMsr::isEnabled();
 }
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template bool Rx::init(const RxSeed &seed, const RxConfig &config, const CpuConfig &cpu);
@@ -186,4 +186,4 @@ template bool Rx::init(const Job &seed, const RxConfig &config, const CpuConfig 
 template bool Rx::isReady(const Job &seed);
 
 
-} // namespace xmrig
+} // namespace rxs

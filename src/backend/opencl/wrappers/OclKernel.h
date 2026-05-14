@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLKERNEL_H
-#define XMRIG_OCLKERNEL_H
+#ifndef RXS_OCLKERNEL_H
+#define RXS_OCLKERNEL_H
 
 
 #include "base/tools/Object.h"
@@ -36,13 +36,13 @@ using cl_mem            = struct _cl_mem *;
 using cl_program        = struct _cl_program *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class OclKernel
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(OclKernel)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(OclKernel)
 
     OclKernel(cl_program program, const char *name);
     virtual ~OclKernel();
@@ -60,7 +60,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLKERNEL_H */
+#endif /* RXS_OCLKERNEL_H */

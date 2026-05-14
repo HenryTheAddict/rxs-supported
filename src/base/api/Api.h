@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_API_H
-#define XMRIG_API_H
+#ifndef RXS_API_H
+#define RXS_API_H
 
 
 #include <vector>
@@ -27,7 +27,7 @@
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Base;
@@ -41,7 +41,7 @@ class String;
 class Api : public IBaseListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(Api)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(Api)
 
     explicit Api(Base *base);
     ~Api() override;
@@ -73,7 +73,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_API_H
+#endif // RXS_API_H

@@ -16,14 +16,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ASSEMBLY_H
-#define XMRIG_ASSEMBLY_H
+#ifndef RXS_ASSEMBLY_H
+#define RXS_ASSEMBLY_H
 
 
 #include "3rdparty/rapidjson/fwd.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Assembly
@@ -64,7 +64,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_ASSEMBLY_H */
+#endif /* RXS_ASSEMBLY_H */

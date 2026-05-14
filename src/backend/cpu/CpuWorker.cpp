@@ -37,20 +37,20 @@
 #include "crypto/randomx/randomx.h"
 
 
-#ifdef XMRIG_FEATURE_BENCHMARK
+#ifdef RXS_FEATURE_BENCHMARK
 #   include "backend/common/benchmark/BenchState.h"
 #endif
 
 
-namespace xmrig {
+namespace rxs {
 
 static constexpr uint32_t kReserveCount = 32768;
 
-} // namespace xmrig
+} // namespace rxs
 
 
 template<size_t N>
-xmrig::CpuWorker<N>::CpuWorker(size_t id, const CpuLaunchData &data) :
+rxs::CpuWorker<N>::CpuWorker(size_t id, const CpuLaunchData &data) :
     Worker(id, data.affinity, data.priority),
     m_algorithm(data.algorithm),
     m_assembly(data.assembly),
@@ -64,7 +64,7 @@ xmrig::CpuWorker<N>::CpuWorker(size_t id, const CpuLaunchData &data) :
 
 
 template<size_t N>
-xmrig::CpuWorker<N>::~CpuWorker()
+rxs::CpuWorker<N>::~CpuWorker()
 {
     RxVm::destroy(m_vm);
     delete m_memory;
@@ -72,7 +72,7 @@ xmrig::CpuWorker<N>::~CpuWorker()
 
 
 template<size_t N>
-void xmrig::CpuWorker<N>::allocateRandomX_VM()
+void rxs::CpuWorker<N>::allocateRandomX_VM()
 {
     RxDataset *dataset = Rx::dataset(m_job.currentJob(), node());
 
@@ -98,7 +98,7 @@ void xmrig::CpuWorker<N>::allocateRandomX_VM()
 
 
 template<size_t N>
-bool xmrig::CpuWorker<N>::selfTest()
+bool rxs::CpuWorker<N>::selfTest()
 {
     if (m_algorithm.family() == Algorithm::RANDOM_X) {
         return N == 1;
@@ -108,7 +108,7 @@ bool xmrig::CpuWorker<N>::selfTest()
 
 
 template<size_t N>
-void xmrig::CpuWorker<N>::hashrateData(uint64_t &hashCount, uint64_t &, uint64_t &rawHashes) const
+void rxs::CpuWorker<N>::hashrateData(uint64_t &hashCount, uint64_t &, uint64_t &rawHashes) const
 {
     hashCount = m_count;
     rawHashes = m_count;
@@ -116,7 +116,7 @@ void xmrig::CpuWorker<N>::hashrateData(uint64_t &hashCount, uint64_t &, uint64_t
 
 
 template<size_t N>
-void xmrig::CpuWorker<N>::start()
+void rxs::CpuWorker<N>::start()
 {
     while (Nonce::sequence(Nonce::CPU) > 0) {
         if (Nonce::isPaused()) {
@@ -150,7 +150,7 @@ void xmrig::CpuWorker<N>::start()
                 current_job_nonces[i] = readUnaligned(m_job.nonce(i));
             }
 
-#           ifdef XMRIG_FEATURE_BENCHMARK
+#           ifdef RXS_FEATURE_BENCHMARK
             if (m_benchSize) {
                 if (current_job_nonces[0] >= m_benchSize) {
                     return BenchState::done();
@@ -199,7 +199,7 @@ void xmrig::CpuWorker<N>::start()
             for (size_t i = 0; i < N; ++i) {
                 const uint64_t value = *reinterpret_cast<uint64_t*>(m_hash + (i * 32) + 24);
 
-#               ifdef XMRIG_FEATURE_BENCHMARK
+#               ifdef RXS_FEATURE_BENCHMARK
                 if (m_benchSize) {
                     if (current_job_nonces[i] < m_benchSize) {
                         BenchState::add(value);
@@ -236,9 +236,9 @@ void xmrig::CpuWorker<N>::start()
 
 
 template<size_t N>
-bool xmrig::CpuWorker<N>::nextRound()
+bool rxs::CpuWorker<N>::nextRound()
 {
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     const uint32_t count = m_benchSize ? 1U : kReserveCount;
 #   else
     constexpr uint32_t count = kReserveCount;
@@ -254,7 +254,7 @@ bool xmrig::CpuWorker<N>::nextRound()
 
 
 template<size_t N>
-void xmrig::CpuWorker<N>::consumeJob()
+void rxs::CpuWorker<N>::consumeJob()
 {
     if (Nonce::sequence(Nonce::CPU) == 0) {
         return;
@@ -262,7 +262,7 @@ void xmrig::CpuWorker<N>::consumeJob()
 
     auto job = m_miner->job();
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     m_benchSize          = job.benchSize();
     const uint32_t count = m_benchSize ? 1U : kReserveCount;
 #   else
@@ -275,7 +275,7 @@ void xmrig::CpuWorker<N>::consumeJob()
 }
 
 
-namespace xmrig {
+namespace rxs {
 
 template class CpuWorker<1>;
 template class CpuWorker<2>;
@@ -284,4 +284,4 @@ template class CpuWorker<4>;
 template class CpuWorker<5>;
 template class CpuWorker<8>;
 
-} // namespace xmrig
+} // namespace rxs

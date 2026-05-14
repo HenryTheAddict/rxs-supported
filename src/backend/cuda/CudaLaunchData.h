@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDALAUNCHDATA_H
-#define XMRIG_CUDALAUNCHDATA_H
+#ifndef RXS_CUDALAUNCHDATA_H
+#define RXS_CUDALAUNCHDATA_H
 
 
 #include "backend/cuda/CudaThread.h"
@@ -25,7 +25,7 @@
 #include "crypto/common/Nonce.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class CudaDevice;
@@ -55,7 +55,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLLAUNCHDATA_H */
+#endif /* RXS_OCLLAUNCHDATA_H */

@@ -27,13 +27,13 @@
 #include <cstring>
 
 
-xmrig::LineReader::~LineReader()
+rxs::LineReader::~LineReader()
 {
     NetBuffer::release(m_buf);
 }
 
 
-void xmrig::LineReader::parse(char *data, size_t size)
+void rxs::LineReader::parse(char *data, size_t size)
 {
     assert(m_listener != nullptr && size > 0);
     if (!m_listener || size == 0) {
@@ -44,7 +44,7 @@ void xmrig::LineReader::parse(char *data, size_t size)
 }
 
 
-void xmrig::LineReader::reset()
+void rxs::LineReader::reset()
 {
     if (m_buf) {
         NetBuffer::release(m_buf);
@@ -54,9 +54,9 @@ void xmrig::LineReader::reset()
 }
 
 
-void xmrig::LineReader::add(const char *data, size_t size)
+void rxs::LineReader::add(const char *data, size_t size)
 {
-    if (size + m_pos > XMRIG_NET_BUFFER_CHUNK_SIZE) {
+    if (size + m_pos > RXS_NET_BUFFER_CHUNK_SIZE) {
         // it breaks correctness silently for long lines
         return;
     }
@@ -71,7 +71,7 @@ void xmrig::LineReader::add(const char *data, size_t size)
 }
 
 
-void xmrig::LineReader::getline(char *data, size_t size)
+void rxs::LineReader::getline(char *data, size_t size)
 {
     char *end        = nullptr;
     char *start      = data;

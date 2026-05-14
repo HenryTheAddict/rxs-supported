@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_OCLCACHE_H
-#define XMRIG_OCLCACHE_H
+#ifndef RXS_OCLCACHE_H
+#define RXS_OCLCACHE_H
 
 
 #include <string>
@@ -26,7 +26,7 @@
 using cl_program = struct _cl_program *;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IOclRunner;
@@ -46,7 +46,7 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_OCLCACHE_H */
+#endif /* RXS_OCLCACHE_H */

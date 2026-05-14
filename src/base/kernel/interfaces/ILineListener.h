@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_ILINELISTENER_H
-#define XMRIG_ILINELISTENER_H
+#ifndef RXS_ILINELISTENER_H
+#define RXS_ILINELISTENER_H
 
 
 #include "base/tools/Object.h"
@@ -32,13 +32,13 @@
 #include <cstdint>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class ILineListener
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(ILineListener)
+    RXS_DISABLE_COPY_MOVE(ILineListener)
 
     ILineListener()             = default;
     virtual ~ILineListener()    = default;
@@ -47,7 +47,7 @@ public:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif // XMRIG_ILINELISTENER_H
+#endif // RXS_ILINELISTENER_H

@@ -16,11 +16,11 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_SUMMARY_H
-#define XMRIG_SUMMARY_H
+#ifndef RXS_SUMMARY_H
+#define RXS_SUMMARY_H
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Controller;
@@ -33,7 +33,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif /* XMRIG_SUMMARY_H */
+#endif /* RXS_SUMMARY_H */

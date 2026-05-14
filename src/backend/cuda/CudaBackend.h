@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_CUDABACKEND_H
-#define XMRIG_CUDABACKEND_H
+#ifndef RXS_CUDABACKEND_H
+#define RXS_CUDABACKEND_H
 
 
 #include <utility>
@@ -27,7 +27,7 @@
 #include "base/tools/Object.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Controller;
@@ -38,7 +38,7 @@ class Miner;
 class CudaBackend : public IBackend
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE_DEFAULT(CudaBackend)
+    RXS_DISABLE_COPY_MOVE_DEFAULT(CudaBackend)
 
     CudaBackend(Controller *controller);
 
@@ -59,12 +59,12 @@ protected:
     void stop() override;
     bool tick(uint64_t ticks) override;
 
-#   ifdef XMRIG_FEATURE_API
+#   ifdef RXS_FEATURE_API
     rapidjson::Value toJSON(rapidjson::Document &doc) const override;
     void handleRequest(IApiRequest &request) override;
 #   endif
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     inline Benchmark *benchmark() const override        { return nullptr; }
     inline void printBenchProgress() const override     {}
 #   endif
@@ -74,7 +74,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_CUDABACKEND_H */
+#endif /* RXS_CUDABACKEND_H */

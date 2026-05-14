@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_WATCHER_H
-#define XMRIG_WATCHER_H
+#ifndef RXS_WATCHER_H
+#define RXS_WATCHER_H
 
 
 #include "base/kernel/interfaces/ITimerListener.h"
@@ -33,7 +33,7 @@
 typedef struct uv_fs_event_s uv_fs_event_t;
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IWatcherListener;
@@ -65,7 +65,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_WATCHER_H */
+#endif /* RXS_WATCHER_H */

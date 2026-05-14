@@ -17,14 +17,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_RXMSR_H
-#define XMRIG_RXMSR_H
+#ifndef RXS_RXMSR_H
+#define RXS_RXMSR_H
 
 
 #include <vector>
 
 
-namespace xmrig
+namespace rxs
 {
 
 
@@ -48,7 +48,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_RXMSR_H */
+#endif /* RXS_RXMSR_H */

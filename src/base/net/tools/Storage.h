@@ -16,15 +16,15 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_STORAGE_H
-#define XMRIG_STORAGE_H
+#ifndef RXS_STORAGE_H
+#define RXS_STORAGE_H
 
 
 #include <cassert>
 #include <map>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 template <class TYPE>
@@ -82,7 +82,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_STORAGE_H */
+#endif /* RXS_STORAGE_H */

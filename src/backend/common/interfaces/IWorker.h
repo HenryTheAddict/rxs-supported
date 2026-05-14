@@ -16,8 +16,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_IWORKER_H
-#define XMRIG_IWORKER_H
+#ifndef RXS_IWORKER_H
+#define RXS_IWORKER_H
 
 
 #include "base/tools/Object.h"
@@ -27,7 +27,7 @@
 #include <cstddef>
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class Job;
@@ -37,7 +37,7 @@ class VirtualMemory;
 class IWorker
 {
 public:
-    XMRIG_DISABLE_COPY_MOVE(IWorker)
+    RXS_DISABLE_COPY_MOVE(IWorker)
 
     IWorker()           = default;
     virtual ~IWorker()  = default;
@@ -53,7 +53,7 @@ public:
 };
 
 
-} // namespace xmrig
+} // namespace rxs
 
 
-#endif // XMRIG_IWORKER_H
+#endif // RXS_IWORKER_H

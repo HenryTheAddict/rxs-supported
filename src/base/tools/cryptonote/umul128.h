@@ -25,10 +25,10 @@
 
 #include <cstdint>
 
-#if defined(XMRIG_64_BIT)
+#if defined(RXS_64_BIT)
 #   if defined(_MSC_VER)
 #       include <intrin.h>
-#       if defined(XMRIG_ARM)
+#       if defined(RXS_ARM)
             #pragma intrinsic(__umulh)
             static inline uint64_t __umul128(uint64_t a, uint64_t b, uint64_t *high) {
                 *high = __umulh(a, b);

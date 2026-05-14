@@ -27,14 +27,14 @@
 #include <cinttypes>
 
 
-xmrig::Benchmark::Benchmark(size_t workers, const IBackend *backend) :
+rxs::Benchmark::Benchmark(size_t workers, const IBackend *backend) :
     m_backend(backend),
     m_workers(workers)
 {
 }
 
 
-bool xmrig::Benchmark::finish(uint64_t totalHashCount)
+bool rxs::Benchmark::finish(uint64_t totalHashCount)
 {
     m_current = totalHashCount;
 
@@ -42,13 +42,13 @@ bool xmrig::Benchmark::finish(uint64_t totalHashCount)
 }
 
 
-void xmrig::Benchmark::start()
+void rxs::Benchmark::start()
 {
     m_startTime = BenchState::start(m_workers, m_backend);
 }
 
 
-void xmrig::Benchmark::printProgress() const
+void rxs::Benchmark::printProgress() const
 {
     if (!m_startTime || !m_current) {
         return;

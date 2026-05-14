@@ -24,7 +24,7 @@ struct sockaddr;
 #include "base/tools/String.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class DnsRecord
@@ -41,4 +41,4 @@ private:
 };
 
 
-} // namespace xmrig
+} // namespace rxs

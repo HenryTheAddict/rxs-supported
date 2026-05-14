@@ -22,8 +22,8 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_POOLS_H
-#define XMRIG_POOLS_H
+#ifndef RXS_POOLS_H
+#define RXS_POOLS_H
 
 
 #include <vector>
@@ -32,7 +32,7 @@
 #include "base/net/stratum/Pool.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class IJsonReader;
@@ -50,7 +50,7 @@ public:
 
     Pools();
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     inline bool isBenchmark() const                     { return !!m_benchmark; }
 #   else
     inline constexpr static bool isBenchmark()          { return false; }
@@ -80,13 +80,13 @@ private:
     int m_retryPause            = 5;
     std::vector<Pool> m_data;
 
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#   ifdef RXS_FEATURE_BENCHMARK
     std::shared_ptr<BenchConfig> m_benchmark;
 #   endif
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_POOLS_H */
+#endif /* RXS_POOLS_H */

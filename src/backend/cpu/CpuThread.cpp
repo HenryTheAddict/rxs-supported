@@ -28,7 +28,7 @@
 #include "base/io/json/Json.h"
 
 
-xmrig::CpuThread::CpuThread(const rapidjson::Value &value)
+rxs::CpuThread::CpuThread(const rapidjson::Value &value)
 {
     if (value.IsArray() && value.Size() >= 2) {
         m_intensity = value[0].GetUint();
@@ -41,7 +41,7 @@ xmrig::CpuThread::CpuThread(const rapidjson::Value &value)
 }
 
 
-rapidjson::Value xmrig::CpuThread::toJSON(rapidjson::Document &doc) const
+rapidjson::Value rxs::CpuThread::toJSON(rapidjson::Document &doc) const
 {
     using namespace rapidjson;
     if (m_intensity == 0) {

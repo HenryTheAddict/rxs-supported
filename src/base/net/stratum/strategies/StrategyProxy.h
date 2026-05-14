@@ -22,14 +22,14 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef XMRIG_STRATEGYPROXY_H
-#define XMRIG_STRATEGYPROXY_H
+#ifndef RXS_STRATEGYPROXY_H
+#define RXS_STRATEGYPROXY_H
 
 
 #include "base/kernel/interfaces/IStrategyListener.h"
 
 
-namespace xmrig {
+namespace rxs {
 
 
 class StrategyProxy : public IStrategyListener
@@ -73,7 +73,7 @@ private:
 };
 
 
-} /* namespace xmrig */
+} /* namespace rxs */
 
 
-#endif /* XMRIG_STRATEGYPROXY_H */
+#endif /* RXS_STRATEGYPROXY_H */

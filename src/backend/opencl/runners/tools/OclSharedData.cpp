@@ -33,7 +33,7 @@
 constexpr size_t oneGiB = 1024 * 1024 * 1024;
 
 
-cl_mem xmrig::OclSharedData::createBuffer(cl_context context, size_t size, size_t &offset, size_t limit)
+cl_mem rxs::OclSharedData::createBuffer(cl_context context, size_t size, size_t &offset, size_t limit)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
 
@@ -55,7 +55,7 @@ cl_mem xmrig::OclSharedData::createBuffer(cl_context context, size_t size, size_
 }
 
 
-uint64_t xmrig::OclSharedData::adjustDelay(size_t /*id*/)
+uint64_t rxs::OclSharedData::adjustDelay(size_t /*id*/)
 {
     if (m_threads < 2) {
         return 0;
@@ -88,7 +88,7 @@ uint64_t xmrig::OclSharedData::adjustDelay(size_t /*id*/)
 
     std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 
-#   ifdef XMRIG_INTERLEAVE_DEBUG
+#   ifdef RXS_INTERLEAVE_DEBUG
     LOG_WARN("Thread #%zu was paused for %" PRIu64 " ms to adjust interleaving", id, delay);
 #   endif
 
@@ -96,7 +96,7 @@ uint64_t xmrig::OclSharedData::adjustDelay(size_t /*id*/)
 }
 
 
-uint64_t xmrig::OclSharedData::resumeDelay(size_t /*id*/)
+uint64_t rxs::OclSharedData::resumeDelay(size_t /*id*/)
 {
     if (m_threads < 2) {
         return 0;
@@ -120,7 +120,7 @@ uint64_t xmrig::OclSharedData::resumeDelay(size_t /*id*/)
         delay = 1000;
     }
 
-#   ifdef XMRIG_INTERLEAVE_DEBUG
+#   ifdef RXS_INTERLEAVE_DEBUG
     LOG_WARN("Thread #%zu will be paused for %" PRIu64 " ms to before resuming", id, delay);
 #   endif
 
@@ -130,17 +130,17 @@ uint64_t xmrig::OclSharedData::resumeDelay(size_t /*id*/)
 }
 
 
-void xmrig::OclSharedData::release()
+void rxs::OclSharedData::release()
 {
     OclLib::release(m_buffer);
 
-#   ifdef XMRIG_ALGO_RANDOMX
+#   ifdef RXS_ALGO_RANDOMX
     OclLib::release(m_dataset);
 #   endif
 }
 
 
-void xmrig::OclSharedData::setResumeCounter(uint32_t value)
+void rxs::OclSharedData::setResumeCounter(uint32_t value)
 {
     if (m_threads < 2) {
         return;
@@ -151,7 +151,7 @@ void xmrig::OclSharedData::setResumeCounter(uint32_t value)
 }
 
 
-void xmrig::OclSharedData::setRunTime(uint64_t time)
+void rxs::OclSharedData::setRunTime(uint64_t time)
 {
     // averagingBias = 1.0 - only the last delta time is taken into account
     // averagingBias = 0.5 - the last delta time has the same weight as all the previous ones combined
@@ -163,8 +163,8 @@ void xmrig::OclSharedData::setRunTime(uint64_t time)
 }
 
 
-#ifdef XMRIG_ALGO_RANDOMX
-cl_mem xmrig::OclSharedData::dataset() const
+#ifdef RXS_ALGO_RANDOMX
+cl_mem rxs::OclSharedData::dataset() const
 {
     if (!m_dataset) {
         throw std::runtime_error("RandomX dataset is not available");
@@ -174,7 +174,7 @@ cl_mem xmrig::OclSharedData::dataset() const
 }
 
 
-void xmrig::OclSharedData::createDataset(cl_context ctx, const Job &job, bool host)
+void rxs::OclSharedData::createDataset(cl_context ctx, const Job &job, bool host)
 {
     if (m_dataset) {
         return;
