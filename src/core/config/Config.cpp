@@ -36,13 +36,6 @@
 #endif
 
 
-
-
-#ifdef RXS_FEATURE_CUDA
-#   include "backend/cuda/CudaConfig.h"
-#endif
-
-
 namespace rxs {
 
 
@@ -52,11 +45,6 @@ constexpr static uint32_t kIdleTime     = 60U;
 const char *Config::kPauseOnBattery     = "pause-on-battery";
 const char *Config::kPauseOnActive      = "pause-on-active";
 
-
-
-#ifdef RXS_FEATURE_CUDA
-const char *Config::kCuda               = "cuda";
-#endif
 
 #if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
 const char *Config::kHealthPrintTime    = "health-print-time";
@@ -76,11 +64,6 @@ public:
 
 #   ifdef RXS_ALGO_RANDOMX
     RxConfig rx;
-#   endif
-
-
-#   ifdef RXS_FEATURE_CUDA
-    CudaConfig cuda;
 #   endif
 
 #   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
@@ -135,16 +118,6 @@ uint32_t rxs::Config::idleTime() const
 }
 
 
-
-
-#ifdef RXS_FEATURE_CUDA
-const rxs::CudaConfig &rxs::Config::cuda() const
-{
-    return d_ptr->cuda;
-}
-#endif
-
-
 #ifdef RXS_ALGO_RANDOMX
 const rxs::RxConfig &rxs::Config::rx() const
 {
@@ -175,13 +148,6 @@ bool rxs::Config::isShouldSave() const
         return false;
     }
 
-
-#   ifdef RXS_FEATURE_CUDA
-    if (cuda().isShouldSave()) {
-        return true;
-    }
-#   endif
-
     return (m_upgrade || cpu().isShouldSave());
 }
 
@@ -200,13 +166,6 @@ bool rxs::Config::read(const IJsonReader &reader, const char *fileName)
 #   ifdef RXS_ALGO_RANDOMX
     if (!d_ptr->rx.read(reader.getValue(RxConfig::kField))) {
         m_upgrade = true;
-    }
-#   endif
-
-
-#   ifdef RXS_FEATURE_CUDA
-    if (!pools().isBenchmark()) {
-        d_ptr->cuda.read(reader.getValue(kCuda));
     }
 #   endif
 
@@ -246,11 +205,6 @@ void rxs::Config::getJSON(rapidjson::Document &doc) const
 #   endif
 
     doc.AddMember(StringRef(CpuConfig::kField),         cpu().toJSON(doc), allocator);
-
-
-#   ifdef RXS_FEATURE_CUDA
-    doc.AddMember(StringRef(kCuda),                     cuda().toJSON(doc), allocator);
-#   endif
 
     doc.AddMember(StringRef(kLogFile),                  m_logFile.toJSON(), allocator);
 
