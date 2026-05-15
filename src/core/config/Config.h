@@ -33,9 +33,7 @@ namespace rxs {
 
 
 class ConfigPrivate;
-class CudaConfig;
 class IThread;
-class OclConfig;
 class RxConfig;
 
 
@@ -46,11 +44,6 @@ public:
 
     static const char *kPauseOnBattery;
     static const char *kPauseOnActive;
-
-
-#   ifdef RXS_FEATURE_CUDA
-    static const char *kCuda;
-#   endif
 
 #   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
     static const char *kHealthPrintTime;
@@ -68,11 +61,6 @@ public:
     bool isPauseOnBattery() const;
     const CpuConfig &cpu() const;
     uint32_t idleTime() const;
-
-
-#   ifdef RXS_FEATURE_CUDA
-    const CudaConfig &cuda() const;
-#   endif
 
 #   ifdef RXS_ALGO_RANDOMX
     const RxConfig &rx() const;
