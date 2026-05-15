@@ -21,13 +21,6 @@
 #include "backend/cpu/CpuThreads.h"
 
 
-
-
-#ifdef RXS_FEATURE_CUDA
-#   include "backend/cuda/CudaThreads.h"
-#endif
-
-
 namespace rxs {
 
 
@@ -151,10 +144,5 @@ void rxs::Threads<T>::toJSON(rapidjson::Value &out, rapidjson::Document &doc) co
 namespace rxs {
 
 template class Threads<CpuThreads>;
-
-
-#ifdef RXS_FEATURE_CUDA
-template class Threads<CudaThreads>;
-#endif
 
 } // namespace rxs
