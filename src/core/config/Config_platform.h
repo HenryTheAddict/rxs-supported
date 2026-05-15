@@ -74,8 +74,6 @@ static const option options[] = {
     { "cpu-memory-pool",       1, nullptr, IConfig::MemoryPoolKey         },
     { "cpu-no-yield",          0, nullptr, IConfig::YieldKey              },
     { "no-yield",              0, nullptr, IConfig::YieldKey              },
-    { "cpu-argon2-impl",       1, nullptr, IConfig::Argon2ImplKey         },
-    { "argon2-impl",           1, nullptr, IConfig::Argon2ImplKey         },
     { "verbose",               0, nullptr, IConfig::VerboseKey            },
     { "proxy",                 1, nullptr, IConfig::ProxyKey              },
     { "data-dir",              1, nullptr, IConfig::DataDirKey            },
