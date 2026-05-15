@@ -51,9 +51,6 @@ const char *rxs::BasicCpuInfo::backend() const
 
 rxs::CpuThreads rxs::BasicCpuInfo::threads(const Algorithm &algorithm, uint32_t) const
 {
-#   ifdef RXS_ALGO_GHOSTRIDER
-#   endif
-
     return CpuThreads(threads());
 }
 
