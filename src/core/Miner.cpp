@@ -46,12 +46,6 @@
 
 
 
-
-#ifdef RXS_FEATURE_CUDA
-#   include "backend/cuda/CudaBackend.h"
-#endif
-
-
 #   include "crypto/rx/Profiler.h"
 #   include "crypto/rx/Rx.h"
 #   include "crypto/rx/RxConfig.h"
@@ -395,10 +389,6 @@ rxs::Miner::Miner(Controller *controller)
     d_ptr->backends.reserve(3);
     d_ptr->backends.push_back(new CpuBackend(controller));
 
-
-#   ifdef RXS_FEATURE_CUDA
-    d_ptr->backends.push_back(new CudaBackend(controller));
-#   endif
 
     d_ptr->rebuild();
 }
