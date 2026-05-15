@@ -50,10 +50,6 @@ public:
     static const char *proxy();
 #   endif
 
-#   ifdef RXS_FEATURE_CUDA
-    static const char *nvidia();
-#   endif
-
 
 #   ifdef RXS_FEATURE_PROFILING
     static const char* profiler();
