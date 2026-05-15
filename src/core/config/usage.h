@@ -105,19 +105,6 @@ static inline const std::string &usage()
     u += "      --randomx-cache-qos       enable Cache QoS\n";
 #   endif
 
-
-#   ifdef RXS_FEATURE_CUDA
-    u += "\nCUDA backend:\n";
-    u += "      --cuda                    enable CUDA mining backend\n";
-    u += "      --cuda-loader=PATH        path to CUDA plugin (xmrig-cuda.dll or libxmrig-cuda.so)\n";
-    u += "      --cuda-devices=N          comma separated list of CUDA devices to use\n";
-    u += "      --cuda-bfactor-hint=N     bfactor hint for autoconfig (0-12)\n";
-    u += "      --cuda-bsleep-hint=N      bsleep hint for autoconfig\n";
-#   endif
-#   ifdef RXS_FEATURE_NVML
-    u += "      --no-nvml                 disable NVML (NVIDIA Management Library) support\n";
-#   endif
-
 #   ifdef RXS_FEATURE_HTTP
     u += "\nAPI:\n";
     u += "      --api-worker-id=ID        custom worker-id for API\n";
@@ -147,7 +134,7 @@ static inline const std::string &usage()
 
     u += "  -l, --log-file=FILE           log all output to a file\n";
     u += "      --print-time=N            print hashrate report every N seconds\n";
-#   if defined(RXS_FEATURE_NVML) || defined(RXS_FEATURE_ADL)
+#   if defined(RXS_FEATURE_ADL)
     u += "      --health-print-time=N     print health report every N seconds\n";
 #   endif
     u += "      --no-color                disable colored output\n";
