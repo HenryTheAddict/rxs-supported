@@ -37,13 +37,6 @@ const char *backend_tag(uint32_t backend);
 const char *cpu_tag();
 
 
-
-
-#ifdef RXS_FEATURE_CUDA
-const char *cuda_tag();
-#endif
-
-
 } // namespace rxs
 
 
