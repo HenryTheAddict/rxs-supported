@@ -41,9 +41,6 @@ const char *CpuConfig::kYield               = "yield";
 const char *CpuConfig::kAsm                 = "asm";
 #endif
 
-#ifdef RXS_ALGO_ARGON2
-#endif
-
 
 extern template class Threads<CpuThreads>;
 
@@ -77,9 +74,6 @@ rapidjson::Value rxs::CpuConfig::toJSON(rapidjson::Document &doc) const
 
 #   ifdef RXS_FEATURE_ASM
     obj.AddMember(StringRef(kAsm), m_assembly.toJSON(), allocator);
-#   endif
-
-#   ifdef RXS_ALGO_ARGON2
 #   endif
 
     m_threads.toJSON(obj, doc);
