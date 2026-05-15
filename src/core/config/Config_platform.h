@@ -126,19 +126,6 @@ static const option options[] = {
     { "randomx-cache-qos",     0, nullptr, IConfig::RandomXCacheQoSKey    },
     { "cache-qos",             0, nullptr, IConfig::RandomXCacheQoSKey    },
 #   endif
-#   ifdef RXS_FEATURE_CUDA
-    { "cuda",                  0, nullptr, IConfig::CudaKey               },
-    { "cuda-loader",           1, nullptr, IConfig::CudaLoaderKey         },
-    { "cuda-devices",          1, nullptr, IConfig::CudaDevicesKey        },
-    { "cuda-bfactor-hint",     1, nullptr, IConfig::CudaBFactorKey        },
-    { "cuda-bsleep-hint",      1, nullptr, IConfig::CudaBSleepKey         },
-#   endif
-#   ifdef RXS_FEATURE_NVML
-    { "no-nvml",               0, nullptr, IConfig::NvmlKey               },
-#   endif
-#   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
-    { "health-print-time",     1, nullptr, IConfig::HealthPrintTimeKey    },
-#   endif
 #   ifdef RXS_FEATURE_DMI
     { "no-dmi",                0, nullptr, IConfig::DmiKey                },
 #   endif
