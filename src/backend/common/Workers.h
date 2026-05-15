@@ -27,13 +27,6 @@
 #include "backend/cpu/CpuLaunchData.h"
 
 
-
-
-#ifdef RXS_FEATURE_CUDA
-#   include "backend/cuda/CudaLaunchData.h"
-#endif
-
-
 namespace rxs {
 
 
@@ -88,15 +81,6 @@ void rxs::Workers<T>::jobEarlyNotification(const Job &job)
 template<>
 IWorker *Workers<CpuLaunchData>::create(Thread<CpuLaunchData> *handle);
 extern template class Workers<CpuLaunchData>;
-
-
-
-
-#ifdef RXS_FEATURE_CUDA
-template<>
-IWorker *Workers<CudaLaunchData>::create(Thread<CudaLaunchData> *handle);
-extern template class Workers<CudaLaunchData>;
-#endif
 
 
 } // namespace rxs
