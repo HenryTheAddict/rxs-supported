@@ -34,10 +34,6 @@ namespace rxs {
 class Algorithm
 {
 public:
-    // Changes in following file may required if this enum changed:
-    //
-    // src/backend/opencl/cl/cn/algorithm.cl
-    //
     // Id encoding:
     // 1 byte: family
     // 1 byte: L3 memory as power of 2 (if applicable).
