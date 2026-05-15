@@ -99,12 +99,7 @@ template<typename T>
 bool rxs::Rx::init(const T &seed, const RxConfig &config, const CpuConfig &cpu)
 {
     const auto f = seed.algorithm().family();
-    if ((f != Algorithm::RANDOM_X)
-#       ifdef RXS_ALGO_CN_HEAVY
-#       endif
-#       ifdef RXS_ALGO_GHOSTRIDER
-#       endif
-        ) {
+    if (f != Algorithm::RANDOM_X) {
 #       ifdef RXS_FEATURE_MSR
         RxMsr::destroy();
 #       endif
@@ -116,12 +111,6 @@ bool rxs::Rx::init(const T &seed, const RxConfig &config, const CpuConfig &cpu)
     if (!RxMsr::isInitialized()) {
         RxMsr::init(config, cpu.threads().get(seed.algorithm()).data());
     }
-#   endif
-
-#   ifdef RXS_ALGO_CN_HEAVY
-#   endif
-
-#   ifdef RXS_ALGO_GHOSTRIDER
 #   endif
 
     randomx_set_scratchpad_prefetch_mode(config.scratchpadPrefetchMode());
