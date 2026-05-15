@@ -48,10 +48,6 @@ public:
     static void submit(const Job &job, uint32_t nonce, const uint8_t *result);
     static void submit(const Job& job, uint32_t nonce, const uint8_t* result, const uint8_t* extra_data);
     static void submit(const JobResult &result);
-
-#   if defined(RXS_FEATURE_OPENCL) || defined(RXS_FEATURE_CUDA)
-    static void submit(const Job &job, uint32_t *results, size_t count, uint32_t device_index);
-#   endif
 };
 
 
