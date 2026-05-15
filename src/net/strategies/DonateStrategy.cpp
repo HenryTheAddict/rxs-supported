@@ -63,11 +63,7 @@ rxs::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener *l
     keccak(reinterpret_cast<const uint8_t *>(user.data()), user.size(), hash);
     Cvt::toHex(m_userId, sizeof(m_userId), hash, 32);
 
-#   if defined RXS_ALGO_KAWPOW || defined RXS_ALGO_GHOSTRIDER
-    constexpr Pool::Mode mode = Pool::MODE_AUTO_ETH;
-#   else
     constexpr Pool::Mode mode = Pool::MODE_POOL;
-#   endif
 
 #   ifdef RXS_FEATURE_TLS
     m_pools.emplace_back(kDonateHostTls, 443, m_userId, nullptr, nullptr, 0, true, true, mode);
