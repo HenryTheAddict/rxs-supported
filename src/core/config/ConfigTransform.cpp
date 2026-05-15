@@ -150,34 +150,6 @@ void rxs::ConfigTransform::transform(rapidjson::Document &doc, int key, const ch
 #   endif
 
 
-#   ifdef RXS_FEATURE_CUDA
-    case IConfig::CudaKey: /* --cuda */
-        return set(doc, Config::kCuda, kEnabled, true);
-
-    case IConfig::CudaLoaderKey: /* --cuda-loader */
-        return set(doc, Config::kCuda, "loader", arg);
-
-    case IConfig::CudaDevicesKey: /* --cuda-devices */
-        set(doc, Config::kCuda, kEnabled, true);
-        return set(doc, Config::kCuda, "devices-hint", arg);
-
-    case IConfig::CudaBFactorKey: /* --cuda-bfactor-hint */
-        return set(doc, Config::kCuda, "bfactor-hint", static_cast<uint64_t>(strtol(arg, nullptr, 10)));
-
-    case IConfig::CudaBSleepKey: /* --cuda-bsleep-hint */
-        return set(doc, Config::kCuda, "bsleep-hint", static_cast<uint64_t>(strtol(arg, nullptr, 10)));
-#   endif
-
-#   ifdef RXS_FEATURE_NVML
-    case IConfig::NvmlKey: /* --no-nvml */
-        return set(doc, Config::kCuda, "nvml", false);
-#   endif
-
-#   if defined(RXS_FEATURE_NVML) || defined (RXS_FEATURE_ADL)
-    case IConfig::HealthPrintTimeKey: /* --health-print-time */
-        return set(doc, Config::kHealthPrintTime, static_cast<uint64_t>(strtol(arg, nullptr, 10)));
-#   endif
-
 #   ifdef RXS_FEATURE_DMI
     case IConfig::DmiKey: /* --no-dmi */
         return set(doc, Config::kDMI, false);
@@ -293,4 +265,3 @@ void rxs::ConfigTransform::transformBenchmark(rapidjson::Document &doc, int key,
     }
 }
 #endif
-
