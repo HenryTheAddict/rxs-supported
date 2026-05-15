@@ -222,13 +222,7 @@ rxs::IClient *rxs::Pool::createClient(int id, IClientListener *listener) const
     IClient *client = nullptr;
 
     if (m_mode == MODE_POOL) {
-#       if defined RXS_ALGO_KAWPOW || defined RXS_ALGO_GHOSTRIDER
-        const uint32_t f = m_algorithm.family();
-        else
-#       endif
-        {
-            client = new Client(id, Platform::userAgent(), listener);
-        }
+        client = new Client(id, Platform::userAgent(), listener);
     }
 #   ifdef RXS_FEATURE_HTTP
     else if (m_mode == MODE_DAEMON) {
@@ -236,11 +230,6 @@ rxs::IClient *rxs::Pool::createClient(int id, IClientListener *listener) const
     }
     else if (m_mode == MODE_SELF_SELECT) {
         client = new SelfSelectClient(id, Platform::userAgent(), listener, m_submitToOrigin);
-    }
-#   endif
-#   if defined RXS_ALGO_KAWPOW || defined RXS_ALGO_GHOSTRIDER
-    else if (m_mode == MODE_AUTO_ETH) {
-        client = new AutoClient(id, Platform::userAgent(), listener);
     }
 #   endif
 #   ifdef RXS_FEATURE_BENCHMARK
