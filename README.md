@@ -6,3 +6,9 @@ rxs is a modified version of the popular miner [XMRig](https://github.com/xmrig/
 - **CPU** (x86/x64/ARMv7/ARMv8/RISC-V)
 - **OpenCL** for AMD GPUs.
 - **CUDA** for NVIDIA GPUs via an external [CUDA plugin](https://github.com/xmrig/xmrig-cuda).
+
+## Donations
+* This modified version of xmrig does not mine donations at all. If you would like to donate to support xmrig, donate to the address here: [xmrig](https://github.com/xmrig/xmrig)
+
+* If you would like to support this project, you can donate to
+`8BrtzsRcWMsTWhJKNnG1vHgRAHPE7gfrjbvtBQQfm1rmexsYQYBkByfjW3Ho8nZGBEf11B3L14wAWUv2Hgtpd2FABrTATAR`
