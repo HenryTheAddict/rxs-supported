@@ -101,18 +101,6 @@ const char *rxs::Tags::proxy()
 #endif
 
 
-#ifdef RXS_FEATURE_CUDA
-const char *rxs::Tags::nvidia()
-{
-    static const char *tag = GREEN_BG_BOLD(WHITE_BOLD_S " nvidia  ");
-
-    return tag;
-}
-#endif
-
-
-
-
 #ifdef RXS_FEATURE_PROFILING
 const char* rxs::Tags::profiler()
 {
