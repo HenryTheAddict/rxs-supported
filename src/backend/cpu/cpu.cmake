@@ -22,15 +22,9 @@ set(SOURCES_BACKEND_CPU
    )
 
 if (WITH_HWLOC)
-    if (CMAKE_CXX_COMPILER_ID MATCHES MSVC)
-        add_subdirectory(src/3rdparty/hwloc)
-        include_directories(src/3rdparty/hwloc/include)
-        set(CPUID_LIB hwloc)
-    else()
-        find_package(HWLOC REQUIRED)
-        include_directories(${HWLOC_INCLUDE_DIR})
-        set(CPUID_LIB ${HWLOC_LIBRARY})
-    endif()
+    find_package(HWLOC REQUIRED)
+    include_directories(${HWLOC_INCLUDE_DIR})
+    set(CPUID_LIB ${HWLOC_LIBRARY})
 
     add_definitions(/DRXS_FEATURE_HWLOC)
 
@@ -54,16 +48,10 @@ if (RXS_RISCV)
 elseif (RXS_ARM)
     list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/BasicCpuInfo_arm.cpp)
 
-    if (RXS_OS_WIN)
-        list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/BasicCpuInfo_arm_win.cpp)
-    elseif(RXS_OS_APPLE)
-        list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/BasicCpuInfo_arm_mac.cpp)
-    else()
-        list(APPEND SOURCES_BACKEND_CPU
-            src/backend/cpu/platform/lscpu_arm.cpp
-            src/backend/cpu/platform/BasicCpuInfo_arm_unix.cpp
-        )
-    endif()
+    list(APPEND SOURCES_BACKEND_CPU
+        src/backend/cpu/platform/lscpu_arm.cpp
+        src/backend/cpu/platform/BasicCpuInfo_arm_unix.cpp
+    )
 else()
     list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/BasicCpuInfo.cpp)
 endif()
