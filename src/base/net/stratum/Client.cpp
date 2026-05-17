@@ -53,9 +53,6 @@
 #include "net/JobResult.h"
 
 
-#ifdef _MSC_VER
-#   define strncasecmp(x,y,z) _strnicmp(x,y,z)
-#endif
 
 
 namespace rxs {
