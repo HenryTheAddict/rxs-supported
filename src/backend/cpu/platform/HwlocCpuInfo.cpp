@@ -176,12 +176,6 @@ rxs::HwlocCpuInfo::HwlocCpuInfo()
             m_nodeset.emplace_back(node->os_index);
         }
     }
-
-#   if defined(RXS_OS_MACOS) && defined(RXS_ARM)
-    if (L2() == 33554432U && m_cores == 8 && m_cores == m_threads) {
-        m_cache[2] = 16777216U;
-    }
-#   endif
 }
 
 
@@ -310,8 +304,6 @@ void rxs::HwlocCpuInfo::processTopLevelCache(hwloc_obj_t cache, const Algorithm 
 
             if (L3_exclusive) {
                 if ((vendor() == VENDOR_AMD) && ((arch() == ARCH_ZEN4) || (arch() == ARCH_ZEN5))) {
-                    // Use extra L2 only on newer CPUs because older CPUs (Zen 3 and older) don't benefit from it.
-                    // For some reason, AMD CPUs can use only half of the exclusive L2/L3 cache combo efficiently
                     extra += std::min<size_t>(l2->attr->cache.size / 2, scratchpad);
                 }
                 else if (l2->attr->cache.size >= scratchpad) {
@@ -333,7 +325,6 @@ void rxs::HwlocCpuInfo::processTopLevelCache(hwloc_obj_t cache, const Algorithm 
         }
     }
 
-    // This code is supposed to run only on Intel CPUs
     if ((vendor() == VENDOR_INTEL) && (scratchpad == 2 * oneMiB)) {
         if (L2 && (cores.size() * oneMiB) == L2 && L2_associativity == 16 && L3 >= L2) {
             L3    = L2;
@@ -345,7 +336,6 @@ void rxs::HwlocCpuInfo::processTopLevelCache(hwloc_obj_t cache, const Algorithm 
 
 
     if ((vendor() == VENDOR_INTEL) && (algorithm.family() == Algorithm::RANDOM_X) && L3_exclusive && (PUs < cores.size() * 2)) {
-        // Use all L3+L2 on latest Intel CPUs with P-cores, E-cores and exclusive L3 cache
         cacheHashes = (L3 + L2) / scratchpad;
     }
     if (extra == 0 && algorithm.l2() > 0) {
@@ -392,10 +382,6 @@ void rxs::HwlocCpuInfo::processTopLevelCache(hwloc_obj_t cache, const Algorithm 
                 break;
             }
         }
-
-        // Reversing of "threads_data" and "cores" is done to fill in virtual cores starting from the last one, but still in order
-        // For example, cn-heavy threads on 6-core Zen2/Zen3 will have affinity [0,2,4,6,8,10,9,11]
-        // This is important for Zen3 cn-heavy optimization
 
         if (pu_id & 1) {
             std::reverse(threads_data.begin(), threads_data.end());
