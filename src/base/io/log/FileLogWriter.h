@@ -45,11 +45,7 @@ public:
     bool writeLine(const char *data, size_t size);
 
 private:
-#   ifdef RXS_OS_WIN
-    const char m_endl[3]  = {'\r', '\n', 0};
-#   else
-    const char m_endl[2]  = {'\n', 0};
-#   endif
+    const char m_endl[2] = {'\n', 0};
 
     int m_file      = -1;
     int64_t m_pos   = 0;
