@@ -28,11 +28,6 @@
 #include "base/tools/Cvt.h"
 
 
-#ifdef _MSC_VER
-#   define strncasecmp(x,y,z) _strnicmp(x,y,z)
-#endif
-
-
 rxs::HttpsClient::HttpsClient(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpListener> &listener) :
     HttpClient(tag, std::move(req), listener)
 {
