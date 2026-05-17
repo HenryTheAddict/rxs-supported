@@ -34,9 +34,7 @@ static const int signums[rxs::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTER
 rxs::Signals::Signals(ISignalListener *listener)
     : m_listener(listener)
 {
-#   ifndef RXS_OS_WIN
     signal(SIGPIPE, SIG_IGN);
-#   endif
 
     for (size_t i = 0; i < kSignalsCount; ++i) {
         auto signal  = new uv_signal_t;
