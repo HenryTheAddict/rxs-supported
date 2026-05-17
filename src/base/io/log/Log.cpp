@@ -17,12 +17,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef WIN32
-#   include <winsock2.h>
-#   include <windows.h>
-#endif
-
-
 #include <algorithm>
 #include <cassert>
 #include <cstring>
@@ -50,11 +44,7 @@ static const char *colors_map[] = {
     YELLOW_S,      // WARNING
     WHITE_BOLD_S,  // NOTICE
     nullptr,       // INFO
-#   ifdef WIN32
-    BLACK_BOLD_S   // DEBUG
-#   else
     BRIGHT_BLACK_S // DEBUG
-#   endif
 };
 
 
@@ -132,11 +122,7 @@ private:
         time_t now = ms / 1000;
         tm stime{};
 
-#       ifdef _WIN32
-        localtime_s(&stime, &now);
-#       else
         localtime_r(&now, &stime);
-#       endif
 
         const int rc = snprintf(m_buf, sizeof(m_buf) - 1, "[%d-%02d-%02d %02d:%02d:%02d" BLACK_BOLD(".%03d") "] ",
                                 stime.tm_year + 1900,
@@ -176,13 +162,8 @@ private:
 
     inline void endl(size_t &size)
     {
-#       ifdef _WIN32
-        memcpy(m_buf + size, CLEAR "\r\n", 7);
-        size += 6;
-#       else
         memcpy(m_buf + size, CLEAR "\n", 6);
         size += 5;
-#       endif
     }
 
 
