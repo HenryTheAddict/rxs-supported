@@ -24,7 +24,6 @@
 #include <thread>
 
 
-#ifndef RXS_OS_APPLE
 bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {
     auto topology = Cpu::info()->topology();
@@ -44,4 +43,3 @@ bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 
     return result;
 }
-#endif
