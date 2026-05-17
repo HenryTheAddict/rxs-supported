@@ -21,8 +21,7 @@
 #define RXS_CONSOLELOG_H
 
 
-using uv_stream_t = struct uv_stream_s;
-using uv_tty_t    = struct uv_tty_s;
+using uv_tty_t = struct uv_tty_s;
 
 
 #include "base/kernel/interfaces/ILogBackend.h"
@@ -50,12 +49,6 @@ private:
     static bool isSupported();
 
     uv_tty_t *m_tty = nullptr;
-
-#   ifdef RXS_OS_WIN
-    bool isWritable() const;
-
-    uv_stream_t *m_stream = nullptr;
-#   endif
 };
 
 
