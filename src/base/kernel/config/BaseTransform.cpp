@@ -17,12 +17,7 @@
  */
 
 #include <cstdio>
-
-#ifdef _MSC_VER
-#   include "getopt/getopt.h"
-#else
-#   include <getopt.h>
-#endif
+#include <getopt.h>
 
 #include "base/kernel/config/BaseTransform.h"
 #include "base/io/json/JsonChain.h"
