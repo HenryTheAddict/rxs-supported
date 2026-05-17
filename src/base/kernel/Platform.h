@@ -48,12 +48,7 @@ public:
 
     static inline bool isUserActive(uint64_t ms)    { return idleTime() < ms; }
     static inline const String &userAgent()         { return m_userAgent; }
-
-#   ifdef RXS_OS_WIN
-    static bool hasKeepalive();
-#   else
     static constexpr bool hasKeepalive()            { return true; }
-#   endif
 
     static bool isOnBatteryPower();
     static uint64_t idleTime();
