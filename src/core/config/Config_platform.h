@@ -7,12 +7,7 @@
 
 #pragma once
 
-#ifdef _MSC_VER
-#   include "getopt/getopt.h"
-#else
-#   include <getopt.h>
-#endif
-
+#include <getopt.h>
 
 #include "base/kernel/interfaces/IConfig.h"
 
