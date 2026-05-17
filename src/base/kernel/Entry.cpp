@@ -52,9 +52,6 @@ static int showVersion()
 #   elif defined(__GNUC__)
     " with GCC");
     printf(" %d.%d.%d", __GNUC__, __GNUC_MINOR__, __GNUC_PATCHLEVEL__);
-#   elif defined(_MSC_VER)
-    " with MSVC");
-    printf(" %d", MSVC_VERSION);
 #   else
     );
 #   endif
@@ -66,7 +63,7 @@ static int showVersion()
     " 32-bit"
 #   endif
 
-#   if defined(__AES__) || defined(_MSC_VER) || defined(__ARM_FEATURE_CRYPTO)
+#   if defined(__AES__) || defined(__ARM_FEATURE_CRYPTO)
     " AES"
 #   endif
     "\n");
