@@ -22,15 +22,7 @@
 #include <cstring>
 #include <thread>
 
-
-#ifdef _MSC_VER
-#   include <intrin.h>
-#else
-#   include <cpuid.h>
-#endif
-
-
-
+#include <cpuid.h>
 
 #include "backend/cpu/platform/BasicCpuInfo.h"
 #include "3rdparty/rapidjson/document.h"
@@ -69,12 +61,7 @@ static_assert(kMsrArraySize == ICpuInfo::MSR_MOD_MAX, "kMsrArraySize and MSR_MOD
 static inline void cpuid(uint32_t level, int32_t output[4])
 {
     memset(output, 0, sizeof(int32_t) * 4);
-
-#   ifdef _MSC_VER
-    __cpuidex(output, static_cast<int>(level), 0);
-#   else
     __cpuid_count(level, 0, output[0], output[1], output[2], output[3]);
-#   endif
 }
 
 
@@ -126,14 +113,10 @@ static inline int32_t get_masked(int32_t val, int32_t h, int32_t l)
 
 static inline uint64_t xgetbv()
 {
-#ifdef _MSC_VER
-    return _xgetbv(_XCR_XFEATURE_ENABLED_MASK);
-#else
     uint32_t eax_reg = 0;
     uint32_t edx_reg = 0;
     __asm__ __volatile__("xgetbv": "=a"(eax_reg), "=d"(edx_reg) : "c"(0) : "cc");
     return (static_cast<uint64_t>(edx_reg) << 32) | eax_reg;
-#endif
 }
 
 static inline bool has_xcr_avx()    { return (xgetbv() & 0x06) == 0x06; }
@@ -291,7 +274,6 @@ rxs::BasicCpuInfo::BasicCpuInfo() :
                 const uint32_t model = processor_info.model | (processor_info.ext_model << 4);
                 const uint32_t stepping = processor_info.stepping;
 
-                // Affected CPU models and stepping numbers are taken from https://www.intel.com/content/dam/support/us/en/documents/processors/mitigations-jump-conditional-code-erratum.pdf
                 m_jccErratum =
                     ((model == 0x4E) && (stepping == 0x3)) ||
                     ((model == 0x55) && ((stepping == 0x4) || (stepping == 0x7))) ||
@@ -349,7 +331,7 @@ rapidjson::Value rxs::BasicCpuInfo::toJSON(rapidjson::Document &doc) const
     out.AddMember("proc_info",  m_procInfo, allocator);
     out.AddMember("aes",        hasAES(), allocator);
     out.AddMember("avx2",       hasAVX2(), allocator);
-    out.AddMember("x64",        is64bit(), allocator); // DEPRECATED will be removed in the next major release.
+    out.AddMember("x64",        is64bit(), allocator);
     out.AddMember("64_bit",     is64bit(), allocator);
     out.AddMember("l2",         static_cast<uint64_t>(L2()), allocator);
     out.AddMember("l3",         static_cast<uint64_t>(L3()), allocator);
