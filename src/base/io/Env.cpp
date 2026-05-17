@@ -24,11 +24,7 @@
 #include <regex>
 #include <uv.h>
 #include <map>
-
-
-#ifndef _WIN32
-#   include <unistd.h>
-#endif
+#include <unistd.h>
 
 
 #ifndef UV_MAXHOSTNAMESIZE
