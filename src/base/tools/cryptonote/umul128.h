@@ -26,46 +26,26 @@
 #include <cstdint>
 
 #if defined(RXS_64_BIT)
-#   if defined(_MSC_VER)
-#       include <intrin.h>
-#       if defined(RXS_ARM)
-            #pragma intrinsic(__umulh)
-            static inline uint64_t __umul128(uint64_t a, uint64_t b, uint64_t *high) {
-                *high = __umulh(a, b);
-                return a * b;
-            }
-#       else
-#           pragma intrinsic(_umul128)
-#           define __umul128 _umul128
-#       endif
-#   elif defined(__GNUC__)
-        static inline uint64_t _umul128(uint64_t a, uint64_t b, uint64_t* hi)
-        {
-            unsigned __int128 r = (unsigned __int128) a * (unsigned __int128) b;
-            *hi = r >> 64;
-            return (uint64_t) r;
-        }
-#       define __umul128 _umul128
-#   endif
+    static inline uint64_t _umul128(uint64_t a, uint64_t b, uint64_t* hi)
+    {
+        unsigned __int128 r = (unsigned __int128) a * (unsigned __int128) b;
+        *hi = r >> 64;
+        return (uint64_t) r;
+    }
+#   define __umul128 _umul128
 #else
 static inline uint64_t __umul128(uint64_t multiplier, uint64_t multiplicand, uint64_t *product_hi) {
-    // multiplier   = ab = a * 2^32 + b
-    // multiplicand = cd = c * 2^32 + d
-    // ab * cd = a * c * 2^64 + (a * d + b * c) * 2^32 + b * d
     uint64_t a = multiplier >> 32;
     uint64_t b = multiplier & 0xFFFFFFFF;
     uint64_t c = multiplicand >> 32;
     uint64_t d = multiplicand & 0xFFFFFFFF;
 
-    //uint64_t ac = a * c;
     uint64_t ad = a * d;
-    //uint64_t bc = b * c;
     uint64_t bd = b * d;
 
     uint64_t adbc = ad + (b * c);
     uint64_t adbc_carry = adbc < ad ? 1 : 0;
 
-    // multiplier * multiplicand = product_hi * 2^64 + product_lo
     uint64_t product_lo = bd + (adbc << 32);
     uint64_t product_lo_carry = product_lo < bd ? 1 : 0;
     *product_hi = (a * c) + (adbc >> 32) + (adbc_carry << 32) + product_lo_carry;
