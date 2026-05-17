@@ -23,11 +23,7 @@
 #include "base/tools/Arguments.h"
 
 
-#ifdef WIN32
-#   define RXS_DIR_SEPARATOR "\\"
-#else
-#   define RXS_DIR_SEPARATOR "/"
-#endif
+#define RXS_DIR_SEPARATOR "/"
 
 
 namespace rxs {
