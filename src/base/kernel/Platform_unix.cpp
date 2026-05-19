@@ -71,7 +71,7 @@ char *rxs::Platform::createUserAgent()
 
 
 #ifndef RXS_FEATURE_HWLOC
-#if defined(__DragonFly__) || defined(RXS_OS_OPENBSD) || defined(RXS_OS_HAIKU)
+#if defined(__DragonFly__) || defined(RXS_OS_OPENBSD)
 
 bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {
