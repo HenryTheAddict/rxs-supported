@@ -74,8 +74,6 @@ bool rxs::VirtualMemory::isHugepagesAvailable()
 {
 #   ifdef RXS_OS_LINUX
     return std::ifstream("/proc/sys/vm/nr_hugepages").good() || std::ifstream("/sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages").good();
-#   elif defined(RXS_OS_HAIKU)
-    return false;
 #   else
     return true;
 #   endif
@@ -130,8 +128,6 @@ void *rxs::VirtualMemory::allocateExecutableMemory(size_t size, bool hugePages)
     if (!mem) {
         mem = mmap(0, size, PROT_READ | PROT_WRITE | SECURE_PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     }
-#   elif defined(RXS_OS_HAIKU)
-    void *mem = mmap(0, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 #   else
     void *mem = nullptr;
 
@@ -152,8 +148,6 @@ void *rxs::VirtualMemory::allocateLargePagesMemory(size_t size)
 {
 #   if defined(RXS_OS_FREEBSD)
     void *mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_ALIGNED_SUPER | MAP_PREFAULT_READ, -1, 0);
-#   elif defined(RXS_OS_HAIKU)
-    void *mem = nullptr;
 #   else
     void *mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB | MAP_POPULATE | hugePagesFlag(hugePageSize()), 0, 0);
 #   endif
