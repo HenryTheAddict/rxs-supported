@@ -22,7 +22,6 @@
 
 
 #include "core/Miner.h"
-#include "core/Taskbar.h"
 #include "3rdparty/rapidjson/document.h"
 #include "backend/common/Hashrate.h"
 #include "backend/cpu/Cpu.h"
@@ -355,7 +354,6 @@ public:
     Timer *timer        = nullptr;
     uint64_t ticks      = 0;
 
-    Taskbar m_taskbar;
 };
 
 
@@ -470,7 +468,6 @@ void rxs::Miner::execCommand(char command)
 void rxs::Miner::pause()
 {
     d_ptr->active = false;
-    d_ptr->m_taskbar.setActive(false);
 
     Nonce::pause(true);
     Nonce::touch();
@@ -490,7 +487,6 @@ void rxs::Miner::setEnabled(bool enabled)
     }
 
     d_ptr->enabled = enabled;
-    d_ptr->m_taskbar.setEnabled(enabled);
 
     if (enabled) {
         LOG_INFO("%s " GREEN_BOLD("resumed"), Tags::miner());
@@ -561,7 +557,6 @@ void rxs::Miner::setJob(const Job &job)
     mutex.unlock();
 
     d_ptr->active = true;
-    d_ptr->m_taskbar.setActive(true);
 
     if (ready) {
         d_ptr->handleJobChange();
