@@ -40,11 +40,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES GNU)
         add_definitions(-DHAVE_ROTR)
     endif()
 
-    if(CMAKE_SYSTEM_NAME STREQUAL "Haiku")
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc")
-    else()
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
-    endif()
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
 
     if (BUILD_STATIC)
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
