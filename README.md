@@ -1,13 +1,17 @@
 # rxs
 
-rxs is a modified version of the popular miner [XMRig](https://github.com/xmrig/xmrig) designed to deliver the highest possible performance for users. It specifically focuses only on RandomX. Doing this means it can also offer a much smaller binary size. If you would like to use other mining algorithms, such as KawPow, CryptoNight, and GhostRider, or other operating systems such as Windows and macOS, use xmrig. If you're only planning to do RandomX mining, then rxs should be faster and lighter than xmrig.
+A high-performance, lightweight [XMRig](https://github.com/xmrig/xmrig) fork focused exclusively on RandomX. By dropping support for other algorithms, rxs achieves better performance and a smaller binary than XMRig.
 
-## Mining backend
-- **CPU** (x86/x64/ARMv7/ARMv8/RISC-V)
-- **Supports Linux, Android, and BSDs**
+For KawPow, CryptoNight, GhostRider, Windows, or macOS support, use XMRig instead.
+
+## Supported platforms
+
+- **OS:** Linux, Android, BSDs
+- **CPU:** x86/x64, ARMv7, ARMv8, RISC-V
 
 ## Donations
-* This modified version of xmrig does not mine donations at all. If you would like to donate to support xmrig, donate to the address here: [xmrig](https://github.com/xmrig/xmrig)
 
-* If you would like to support this project instead, you can donate to
+rxs does not mine donations. To support XMRig, donate via their [repository](https://github.com/xmrig/xmrig).
+
+To support rxs:
 `8BrtzsRcWMsTWhJKNnG1vHgRAHPE7gfrjbvtBQQfm1rmexsYQYBkByfjW3Ho8nZGBEf11B3L14wAWUv2Hgtpd2FABrTATAR`
