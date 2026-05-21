@@ -384,7 +384,7 @@ rxs::Miner::Miner(Controller *controller)
 
     d_ptr->timer = new Timer(this);
 
-    d_ptr->backends.reserve(3);
+    d_ptr->backends.reserve(1);
     d_ptr->backends.push_back(new CpuBackend(controller));
 
 
