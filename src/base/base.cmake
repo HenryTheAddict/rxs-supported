@@ -4,7 +4,6 @@ set(HEADERS_BASE
     src/base/crypto/Algorithm.h
     src/base/crypto/Coin.h
     src/base/crypto/keccak.h
-    src/base/crypto/sha3.h
     src/base/io/Async.h
     src/base/io/Console.h
     src/base/io/Env.h
@@ -92,7 +91,6 @@ set(SOURCES_BASE
     src/base/crypto/Algorithm.cpp
     src/base/crypto/Coin.cpp
     src/base/crypto/keccak.cpp
-    src/base/crypto/sha3.cpp
     src/base/io/Async.cpp
     src/base/io/Console.cpp
     src/base/io/Env.cpp
@@ -225,11 +223,6 @@ if (WITH_ENV_VARS)
 else()
     remove_definitions(/DRXS_FEATURE_ENV)
 endif()
-
-
-# AutoClient always included
-list(APPEND HEADERS_BASE src/base/net/stratum/AutoClient.h)
-list(APPEND SOURCES_BASE src/base/net/stratum/AutoClient.cpp)
 
 
 if (WITH_RANDOMX AND WITH_BENCHMARK)
