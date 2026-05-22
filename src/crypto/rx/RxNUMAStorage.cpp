@@ -29,8 +29,8 @@
 #include "crypto/rx/RxSeed.h"
 
 
-#include <map>
 #include <mutex>
+#include <unordered_map>
 #include <hwloc.h>
 #include <thread>
 
@@ -94,7 +94,11 @@ public:
 
     inline bool isAllocated() const                     { return m_allocated; }
     inline bool isReady(const Job &job) const           { return m_ready && m_seed == job; }
-    inline RxDataset *dataset(uint32_t nodeId) const    { return m_datasets.count(nodeId) ? m_datasets.at(nodeId) : m_datasets.at(m_nodeset.front()); }
+    inline RxDataset *dataset(uint32_t nodeId) const
+    {
+        auto it = m_datasets.find(nodeId);
+        return it != m_datasets.end() ? it->second : m_datasets.at(m_nodeset.front());
+    }
 
 
     inline void setSeed(const RxSeed &seed)
@@ -323,7 +327,7 @@ private:
     bool m_ready            = false;
     RxCache *m_cache        = nullptr;
     RxSeed m_seed;
-    std::map<uint32_t, RxDataset *> m_datasets;
+    std::unordered_map<uint32_t, RxDataset *> m_datasets;
     std::vector<std::thread> m_threads;
     std::vector<uint32_t> m_nodeset;
 };
