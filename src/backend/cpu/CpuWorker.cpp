@@ -137,6 +137,7 @@ void rxs::CpuWorker<N>::start()
 
         size_t prev_job_size = 0;
         alignas(64) uint8_t prev_job[Job::kMaxBlobSize] = {};
+        uint8_t miner_signature_saved[64] = {};
 
         while (!Nonce::isOutdated(Nonce::CPU, m_job.sequence())) {
             const Job &job = m_job.currentJob();
@@ -162,7 +163,6 @@ void rxs::CpuWorker<N>::start()
             }
 #           endif
 
-            uint8_t miner_signature_saved[64];
             uint8_t* miner_signature_ptr = m_job.blob() + m_job.nonceOffset() + m_job.nonceSize();
 
             if (first) {
