@@ -867,7 +867,7 @@ void rxs::Client::parseResponse(int64_t id, const rapidjson::Value &result, cons
 
 void rxs::Client::ping()
 {
-    send(snprintf(m_sendBuf.data(), m_sendBuf.size(), "{\"id\":%" PRId64 ",\"jsonrpc\":\"2.0\",\"method\":\"keepalived\",\"params\":{\"id\":\"%s\"}}\n", m_sequence, m_rpcId.data()));
+    send(snprintf(m_sendBuf.data(), m_sendBuf.size(), "{\"id\":%" PRId64 ",\"jsonrpc\":\"2.0\",\"method\":\"keepalived\",\"params\":{\"id\":\"%s\"}}\n", m_sequence.load(), m_rpcId.data()));
 }
 
 
