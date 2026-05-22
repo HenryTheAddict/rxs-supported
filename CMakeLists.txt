@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(rxs)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 option(WITH_HWLOC           "Enable hwloc support" ON)
 option(WITH_RANDOMX         "Enable RandomX algorithms family" ON)
 option(WITH_HTTP            "Enable HTTP protocol support (client/server)" ON)
