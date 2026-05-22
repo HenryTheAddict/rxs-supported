@@ -44,7 +44,7 @@ rxs::NUMAMemoryPool::NUMAMemoryPool(size_t size, bool hugePages) :
 
 rxs::NUMAMemoryPool::~NUMAMemoryPool()
 {
-    for (auto kv : m_map) {
+    for (const auto &kv : m_map) {
         delete kv.second;
     }
 }
@@ -81,7 +81,8 @@ void rxs::NUMAMemoryPool::release(uint32_t node)
 
 rxs::IMemoryPool *rxs::NUMAMemoryPool::get(uint32_t node) const
 {
-    return m_map.count(node) ? m_map.at(node) : nullptr;
+    const auto it = m_map.find(node);
+    return it != m_map.end() ? it->second : nullptr;
 }
 
 
