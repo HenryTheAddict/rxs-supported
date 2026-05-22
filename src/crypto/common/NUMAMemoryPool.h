@@ -32,7 +32,7 @@
 #include "base/tools/Object.h"
 
 
-#include <map>
+#include <unordered_map>
 
 
 namespace rxs {
@@ -61,7 +61,7 @@ private:
     bool m_hugePages        = true;
     size_t m_nodeSize       = 0;
     size_t m_size           = 0;
-    mutable std::map<uint32_t, IMemoryPool *> m_map;
+    mutable std::unordered_map<uint32_t, IMemoryPool *> m_map;
 };
 
 
