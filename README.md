@@ -14,4 +14,4 @@ For KawPow, CryptoNight, GhostRider, Windows, or macOS support, use XMRig instea
 rxs does not mine donations. To support XMRig, donate via their [repository](https://github.com/xmrig/xmrig).
 
 To support rxs:
-`8BrtzsRcWMsTWhJKNnG1vHgRAHPE7gfrjbvtBQQfm1rmexsYQYBkByfjW3Ho8nZGBEf11B3L14wAWUv2Hgtpd2FABrTATAR`
+`83B6mR22EkZRPdauz6gPzJBXxQa7ksjs2AyhsAeuKGYKXz3euapMU7Bgp47ufNZeArhnAUP2tkqKu42bCumdorPRTswZcTb`
