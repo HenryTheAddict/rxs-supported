@@ -233,7 +233,7 @@ void rxs::Job::copy(const Job &other)
     m_extraNonce = other.m_extraNonce;
     m_poolWallet = other.m_poolWallet;
 
-    memcpy(m_blob, other.m_blob, sizeof(m_blob));
+    memcpy(m_blob, other.m_blob, m_size);
 
 #   ifdef RXS_PROXY_PROJECT
     m_rawSeedHash = other.m_rawSeedHash;
@@ -285,7 +285,7 @@ void rxs::Job::move(Job &&other)
     m_extraNonce = std::move(other.m_extraNonce);
     m_poolWallet = std::move(other.m_poolWallet);
 
-    memcpy(m_blob, other.m_blob, sizeof(m_blob));
+    memcpy(m_blob, other.m_blob, m_size);
 
     other.m_size        = 0;
     other.m_diff        = 0;
