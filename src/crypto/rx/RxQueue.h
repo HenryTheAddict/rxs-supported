@@ -30,8 +30,10 @@
 
 
 #include <condition_variable>
+#include <optional>
 #include <mutex>
 #include <thread>
+#include <vector>
 
 
 namespace rxs
@@ -101,7 +103,7 @@ private:
     std::mutex m_mutex;
     std::shared_ptr<Async> m_async;
     std::thread m_thread;
-    std::vector<RxQueueItem> m_queue;
+    std::optional<RxQueueItem> m_pending;
 };
 
 
