@@ -124,7 +124,7 @@ void rxs::Client::Tls::read(const char *data, size_t size)
       return;
     }
 
-    static char buf[16384]{};
+    char buf[16384];
     int bytes_read = 0;
 
     while ((bytes_read = SSL_read(m_ssl, buf, sizeof(buf))) > 0) {
@@ -151,7 +151,8 @@ bool rxs::Client::Tls::verify(X509 *cert)
         LOG_ERR("[%s] Failed to verify server certificate fingerprint", m_client->url());
 
         const char *fingerprint = m_client->m_pool.fingerprint();
-        if (strlen(m_fingerprint) == 64 && fingerprint != nullptr) {
+        
+        if (m_fingerprint[0] != '\0' && fingerprint != nullptr) {
             LOG_ERR("\"%s\" was given", m_fingerprint);
             LOG_ERR("\"%s\" was configured", fingerprint);
         }
