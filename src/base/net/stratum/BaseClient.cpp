@@ -29,7 +29,7 @@
 namespace rxs {
 
 
-int64_t BaseClient::m_sequence = 1;
+std::atomic<int64_t> BaseClient::m_sequence{1};
 
 
 } /* namespace rxs */
@@ -49,20 +49,22 @@ void rxs::BaseClient::setPool(const Pool &pool)
     }
 
     m_pool      = pool;
-    m_user      = Env::expand(pool.user());
-    m_password  = Env::expand(pool.password());
-    m_rigId     = Env::expand(pool.rigId());
-    m_tag       = fmt::format("{} " CYAN_BOLD("{}"), Tags::network(), m_pool.url().data());
+    m_user      = std::move(Env::expand(pool.user()));
+    m_password  = std::move(Env::expand(pool.password()));
+    m_rigId     = std::move(Env::expand(pool.rigId()));
+
+    m_tag.clear();
+    fmt::format_to(std::back_inserter(m_tag), "{} " CYAN_BOLD("{}"), Tags::network(), m_pool.url().data());
 }
 
 
 bool rxs::BaseClient::handleResponse(int64_t id, const rapidjson::Value &result, const rapidjson::Value &error)
 {
-    if (id == 1) {
+    if (id <= 1) {
         return false;
     }
 
-    auto it = m_callbacks.find(id);
+    const auto it = m_callbacks.find(id);
     if (it != m_callbacks.end()) {
         const uint64_t elapsed = Chrono::steadyMSecs() - it->second.ts;
 
@@ -84,7 +86,7 @@ bool rxs::BaseClient::handleResponse(int64_t id, const rapidjson::Value &result,
 
 bool rxs::BaseClient::handleSubmitResponse(int64_t id, const char *error)
 {
-    auto it = m_results.find(id);
+    const auto it = m_results.find(id);
     if (it != m_results.end()) {
         it->second.done();
         m_listener->onResultAccepted(this, it->second, error);
