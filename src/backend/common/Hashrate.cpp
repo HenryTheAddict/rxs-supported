@@ -46,12 +46,14 @@ rxs::Hashrate::Hashrate(size_t threads) :
 {
     m_counts     = new uint64_t*[m_threads];
     m_timestamps = new uint64_t*[m_threads];
-    m_top        = new uint32_t[m_threads];
+    m_top        = new uint32_t[m_threads]();
+
+    m_countsBuf     = new uint64_t[m_threads * kBucketSize]();
+    m_timestampsBuf = new uint64_t[m_threads * kBucketSize]();
 
     for (size_t i = 0; i < m_threads; i++) {
-        m_counts[i]     = new uint64_t[kBucketSize]();
-        m_timestamps[i] = new uint64_t[kBucketSize]();
-        m_top[i]        = 0;
+        m_counts[i]     = m_countsBuf     + i * kBucketSize;
+        m_timestamps[i] = m_timestampsBuf + i * kBucketSize;
     }
 
     m_earliestTimestamp = std::numeric_limits<uint64_t>::max();
@@ -61,15 +63,12 @@ rxs::Hashrate::Hashrate(size_t threads) :
 
 rxs::Hashrate::~Hashrate()
 {
-    for (size_t i = 0; i < m_threads; i++) {
-        delete [] m_counts[i];
-        delete [] m_timestamps[i];
-    }
+    delete [] m_countsBuf;
+    delete [] m_timestampsBuf;
 
     delete [] m_counts;
     delete [] m_timestamps;
     delete [] m_top;
-
 }
 
 
