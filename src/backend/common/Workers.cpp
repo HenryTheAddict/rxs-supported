@@ -95,7 +95,7 @@ bool rxs::Workers<T>::tick(uint64_t)
     }
 
     if (totalAvailable) {
-        d_ptr->hashrate->add(totalHashCount, Chrono::steadyMSecs());
+        d_ptr->hashrate->add(totalHashCount, ts);
     }
 
 #   ifdef RXS_FEATURE_BENCHMARK
