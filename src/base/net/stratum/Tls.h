@@ -44,8 +44,8 @@ public:
 
     bool handshake(const char* servername);
     bool send(const char *data, size_t size);
-    const char *fingerprint() const;
-    const char *version() const;
+    [[nodiscard]] const char *fingerprint() const;
+    [[nodiscard]] const char *version() const;
     void read(const char *data, size_t size);
 
 private:
@@ -57,7 +57,7 @@ private:
     BIO *m_write    = nullptr;
     bool m_ready    = false;
     char m_fingerprint[32 * 2 + 8]{};
-    Client *m_client;
+    Client * const m_client;
     SSL *m_ssl      = nullptr;
     SSL_CTX *m_ctx;
 };
