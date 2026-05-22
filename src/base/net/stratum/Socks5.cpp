@@ -53,9 +53,9 @@ void rxs::Client::Socks5::handshake()
     m_nextSize  = 2;
     m_state     = SentInitialHandshake;
 
-    char buf[3] = { 0x05, 0x01, 0x00 };
+    static char buf[3] = { 0x05, 0x01, 0x00 };
 
-    m_client->write(uv_buf_init(buf, sizeof (buf)));
+    m_client->write(uv_buf_init(buf, sizeof(buf)));
 }
 
 
@@ -77,32 +77,34 @@ void rxs::Client::Socks5::connect()
     m_state     = SentFinalHandshake;
 
     const auto &host = m_client->pool().host();
-    std::vector<uint8_t> buf;
+    
+    uint8_t buf[264];
+    size_t bufSize = 0;
     sockaddr_storage addr{};
-
-    if (isIPv4(host, &addr)) {
-        buf.resize(10);
-        buf[3] = 0x01;
-        memcpy(buf.data() + 4, &reinterpret_cast<sockaddr_in *>(&addr)->sin_addr, 4);
-    }
-    else if (isIPv6(host, &addr)) {
-        buf.resize(22);
-        buf[3] = 0x04;
-        memcpy(buf.data() + 4, &reinterpret_cast<sockaddr_in6 *>(&addr)->sin6_addr, 16);
-    }
-    else {
-        buf.resize(host.size() + 7);
-        buf[3] = 0x03;
-        buf[4] = static_cast<uint8_t>(host.size());
-        memcpy(buf.data() + 5, host.data(), host.size());
-    }
 
     buf[0] = 0x05;
     buf[1] = 0x01;
     buf[2] = 0x00;
 
-    const uint16_t port = htons(m_client->pool().port());
-    memcpy(buf.data() + (buf.size() - sizeof(port)), &port, sizeof(port));
+    if (isIPv4(host, &addr)) {
+        bufSize = 10;
+        buf[3] = 0x01;
+        memcpy(buf + 4, &reinterpret_cast<sockaddr_in *>(&addr)->sin_addr, 4);
+    }
+    else if (isIPv6(host, &addr)) {
+        bufSize = 22;
+        buf[3] = 0x04;
+        memcpy(buf + 4, &reinterpret_cast<sockaddr_in6 *>(&addr)->sin6_addr, 16);
+    }
+    else {
+        bufSize = host.size() + 7;
+        buf[3] = 0x03;
+        buf[4] = static_cast<uint8_t>(host.size());
+        memcpy(buf + 5, host.data(), host.size());
+    }
 
-    m_client->write(uv_buf_init(reinterpret_cast<char *>(buf.data()), buf.size()));
+    const uint16_t port = htons(m_client->pool().port());
+    memcpy(buf + (bufSize - sizeof(port)), &port, sizeof(port));
+
+    m_client->write(uv_buf_init(reinterpret_cast<char *>(buf), bufSize));
 }
