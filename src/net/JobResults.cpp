@@ -40,9 +40,9 @@
 
 
 #include <cassert>
-#include <list>
 #include <memory>
 #include <mutex>
+#include <vector>
 #include <uv.h>
 
 
@@ -54,8 +54,7 @@ class JobResultsPrivate : public IAsyncListener
 public:
     RXS_DISABLE_COPY_MOVE_DEFAULT(JobResultsPrivate)
 
-    inline JobResultsPrivate(IJobResultListener *listener, bool hwAES) :
-        m_hwAES(hwAES),
+    inline JobResultsPrivate(IJobResultListener *listener) :
         m_listener(listener)
     {
         m_async = std::make_shared<Async>(this);
@@ -81,7 +80,7 @@ protected:
 private:
     inline void submit()
     {
-        std::list<JobResult> results;
+        std::vector<JobResult> results;
 
         m_mutex.lock();
         m_results.swap(results);
@@ -92,9 +91,8 @@ private:
         }
     }
 
-    const bool m_hwAES;
     IJobResultListener *m_listener;
-    std::list<JobResult> m_results;
+    std::vector<JobResult> m_results;
     std::mutex m_mutex;
     std::shared_ptr<Async> m_async;
 };
@@ -112,11 +110,11 @@ void rxs::JobResults::done(const Job &job)
 }
 
 
-void rxs::JobResults::setListener(IJobResultListener *listener, bool hwAES)
+void rxs::JobResults::setListener(IJobResultListener *listener)
 {
     assert(handler == nullptr);
 
-    handler = new JobResultsPrivate(listener, hwAES);
+    handler = new JobResultsPrivate(listener);
 }
 
 
