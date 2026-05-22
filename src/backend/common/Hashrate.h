@@ -74,6 +74,8 @@ private:
     uint32_t* m_top;
     uint64_t** m_counts;
     uint64_t** m_timestamps;
+    uint64_t* m_countsBuf;
+    uint64_t* m_timestampsBuf;
 
     uint64_t m_earliestTimestamp;
     uint64_t m_totalCount;
