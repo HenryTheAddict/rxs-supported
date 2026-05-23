@@ -140,7 +140,8 @@ void rxs::Httpd::onHttpData(const HttpData &data)
             return HttpApiResponse(data.id(), 403 /* FORBIDDEN */).end();
         }
 
-        if (!data.headers.count(HttpData::kContentTypeL) || data.headers.at(HttpData::kContentTypeL) != HttpData::kApplicationJson) {
+        const auto ct = data.headers.find(HttpData::kContentTypeL);
+        if (ct == data.headers.end() || ct->second != HttpData::kApplicationJson) {
             return HttpApiResponse(data.id(), 415 /* UNSUPPORTED_MEDIA_TYPE */).end();
         }
     }
@@ -153,7 +154,8 @@ int rxs::Httpd::auth(const HttpData &req) const
 {
     const Http &config = m_base->config()->http();
 
-    if (!req.headers.count(kAuthorization)) {
+    const auto it = req.headers.find(kAuthorization);
+    if (it == req.headers.end()) {
         return config.isAuthRequired() ? 401 /* UNAUTHORIZED */ : 200;
     }
 
@@ -161,7 +163,7 @@ int rxs::Httpd::auth(const HttpData &req) const
         return 401 /* UNAUTHORIZED */;
     }
 
-    const std::string &token = req.headers.at(kAuthorization);
+    const std::string &token = it->second;
     const size_t size        = token.size();
 
     if (token.size() < 8 || config.token().size() != size - 7 || memcmp("Bearer ", token.c_str(), 7) != 0) {
