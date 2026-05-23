@@ -30,6 +30,7 @@
 #include "base/tools/cryptonote/WalletAddress.h"
 
 
+#include <map>
 #include <memory>
 
 
