@@ -43,8 +43,6 @@
 #endif
 
 
-
-
 #ifdef RXS_FEATURE_BENCHMARK
 #   include "backend/common/benchmark/Benchmark.h"
 #   include "backend/common/benchmark/BenchState.h"
@@ -177,11 +175,10 @@ public:
         }
     #   endif
 
-        mutex.lock();
-
-        pages += status.hugePages();
-
-        mutex.unlock();
+        {
+            std::lock_guard<std::mutex> lock(mutex);
+            pages += status.hugePages();
+        }
 
         rapidjson::Value hugepages;
 
@@ -214,10 +211,8 @@ public:
 } // namespace rxs
 
 
-const char *rxs::backend_tag(uint32_t backend)
+const char *rxs::backend_tag(uint32_t)
 {
-
-
     return Tags::cpu();
 }
 
@@ -277,7 +272,7 @@ const rxs::String &rxs::CpuBackend::type() const
 }
 
 
-void rxs::CpuBackend::prepare(const Job &nextJob)
+void rxs::CpuBackend::prepare(const Job &/*nextJob*/)
 {
 }
 
