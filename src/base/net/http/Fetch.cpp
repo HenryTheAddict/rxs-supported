@@ -100,8 +100,11 @@ void rxs::fetch(const char *tag, FetchRequest &&req, const std::weak_ptr<IHttpLi
     LOG_DEBUG(CYAN("http%s://%s:%u ") MAGENTA_BOLD("\"%s %s\"") BLACK_BOLD(" body: ") CYAN_BOLD("%zu") BLACK_BOLD(" bytes"),
               req.tls ? "s" : "", req.host.data(), req.port, llhttp_method_name(req.method), req.path.data(), req.body.size());
 
-    if (req.hasBody() && req.body.size() < (Log::kMaxBufferSize - 1024) && req.headers.count(HttpData::kContentType) && req.headers.at(HttpData::kContentType) == HttpData::kApplicationJson) {
-        Log::print(BLUE_BG_BOLD("%s:") BLACK_BOLD_S " %.*s", req.headers.at(HttpData::kContentType).c_str(), static_cast<int>(req.body.size()), req.body.c_str());
+    if (req.hasBody() && req.body.size() < (Log::kMaxBufferSize - 1024)) {
+        const auto ct = req.headers.find(HttpData::kContentType);
+        if (ct != req.headers.end() && ct->second == HttpData::kApplicationJson) {
+            Log::print(BLUE_BG_BOLD("%s:") BLACK_BOLD_S " %.*s", ct->second.c_str(), static_cast<int>(req.body.size()), req.body.c_str());
+        }
     }
 #   endif
 
