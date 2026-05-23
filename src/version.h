@@ -14,7 +14,7 @@
 #define APP_VERSION   "0.0.1"
 #define APP_DOMAIN    ""
 #define APP_SITE      ""
-#define APP_COPYRIGHT "Copyright (C) 2016-2026 xmrig.com"
+#define APP_COPYRIGHT ""
 #define APP_KIND      "miner"
 
 #define APP_VER_MAJOR 0
