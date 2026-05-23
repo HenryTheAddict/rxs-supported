@@ -137,6 +137,7 @@ public:
         reply.AddMember("paused",       !enabled, allocator);
 
         Value algo(kArrayType);
+        algo.Reserve(static_cast<SizeType>(algorithms.size()), allocator);
 
         for (const Algorithm &a : algorithms) {
             algo.PushBack(StringRef(a.name()), allocator);
@@ -153,6 +154,7 @@ public:
 
         Value hashrate(kObjectType);
         Value total(kArrayType);
+        total.Reserve(3, allocator);
         Value threads(kArrayType);
 
         std::pair<bool, double> t[3] = { { true, 0.0 }, { true, 0.0 }, { true, 0.0 } };
@@ -177,6 +179,7 @@ public:
 
             for (size_t i = 0; i < hr->threads(); i++) {
                 Value thread(kArrayType);
+                thread.Reserve(3, allocator);
                 thread.PushBack(Hashrate::normalize(hr->calc(i, Hashrate::ShortInterval)),  allocator);
                 thread.PushBack(Hashrate::normalize(hr->calc(i, Hashrate::MediumInterval)), allocator);
                 thread.PushBack(Hashrate::normalize(hr->calc(i, Hashrate::LargeInterval)),  allocator);
@@ -186,11 +189,17 @@ public:
         }
 
         total.PushBack(Hashrate::normalize(t[0]),  allocator);
-        total.PushBack(Hashrate::normalize(t[1]), allocator);
+        total.PushBack(Hashrate::normalize(t[1]),  allocator);
         total.PushBack(Hashrate::normalize(t[2]),  allocator);
 
         hashrate.AddMember("total",   total, allocator);
-        hashrate.AddMember("highest", Hashrate::normalize({ maxHashrate[algorithm] > 0.0, maxHashrate[algorithm] }), allocator);
+
+        double maxHr = 0.0;
+        auto it = maxHashrate.find(algorithm);
+        if (it != maxHashrate.end()) {
+            maxHr = it->second;
+        }
+        hashrate.AddMember("highest", Hashrate::normalize({ maxHr > 0.0, maxHr }), allocator);
 
         if (version == 1) {
             hashrate.AddMember("threads", threads, allocator);
@@ -206,6 +215,7 @@ public:
         auto &allocator = doc.GetAllocator();
 
         reply.SetArray();
+        reply.Reserve(static_cast<SizeType>(backends.size()), allocator);
 
         for (IBackend *backend : backends) {
             reply.PushBack(backend->toJSON(doc), allocator);
@@ -298,12 +308,19 @@ public:
         double scale  = 1.0;
         const char* h = "H/s";
 
-        if ((speed[0].second >= 1e6) || (speed[1].second >= 1e6) || (speed[2].second >= 1e6) || (maxHashrate[algorithm] >= 1e6)) {
+        double maxHr = 0.0;
+        auto it = maxHashrate.find(algorithm);
+        if (it != maxHashrate.end()) {
+            maxHr = it->second;
+        }
+
+        if ((speed[0].second >= 1e6) || (speed[1].second >= 1e6) || (speed[2].second >= 1e6) || (maxHr >= 1e6)) {
             scale = 1e-6;
 
             speed[0].second *= scale;
             speed[1].second *= scale;
             speed[2].second *= scale;
+            maxHr           *= scale;
 
             h = "MH/s";
         }
@@ -313,7 +330,7 @@ public:
                  Hashrate::format(speed[0],                 num,          16),
                  Hashrate::format(speed[1],                 num + 16,     16),
                  Hashrate::format(speed[2],                 num + 16 * 2, 16), h,
-                 Hashrate::format({ maxHashrate[algorithm] > 0.0, maxHashrate[algorithm] * scale },   num + 16 * 3, 16), h
+                 Hashrate::format({ maxHr > 0.0, maxHr },   num + 16 * 3, 16), h
                  );
 
 #       ifdef RXS_FEATURE_BENCHMARK
@@ -606,7 +623,8 @@ void rxs::Miner::onTimer(const Timer *)
         }
     }
 
-    d_ptr->maxHashrate[d_ptr->algorithm] = std::max(d_ptr->maxHashrate[d_ptr->algorithm], maxHashrate);
+    auto& maxHrRef = d_ptr->maxHashrate[d_ptr->algorithm];
+    maxHrRef = std::max(maxHrRef, maxHashrate);
 
     const auto printTime = config->printTime();
     if (printTime && d_ptr->ticks && (d_ptr->ticks % (printTime * 2)) == 0) {
