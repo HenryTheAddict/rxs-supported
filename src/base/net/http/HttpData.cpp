@@ -42,13 +42,12 @@ const std::string HttpData::kTextPlain          = "text/plain";
 
 bool rxs::HttpData::isJSON() const
 {
-    if (!headers.count(kContentTypeL)) {
+    const auto it = headers.find(kContentTypeL);
+    if (it == headers.end()) {
         return false;
     }
 
-    auto &type = headers.at(kContentTypeL);
-
-    return type == kApplicationJson || type == kTextPlain;
+    return it->second == kApplicationJson || it->second == kTextPlain;
 }
 
 
