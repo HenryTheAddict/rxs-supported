@@ -97,7 +97,7 @@ void rxs::HttpResponse::end(const char *data, size_t size)
                    statusCode(),
                    body.size(),
                    ctx->elapsed(),
-                   ctx->headers.count(kUserAgent) ? ctx->headers.at(kUserAgent).c_str() : nullptr
+                   [&]{ const auto it = ctx->headers.find(kUserAgent); return it != ctx->headers.end() ? it->second.c_str() : nullptr; }()
                    );
     }
 
