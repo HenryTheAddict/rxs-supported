@@ -44,12 +44,11 @@ public:
     Workers();
     ~Workers();
 
-    inline void start(const std::vector<T> &data)   { start(data, true); }
-
     bool tick(uint64_t ticks);
     const Hashrate *hashrate() const;
     void jobEarlyNotification(const Job &job);
     void setBackend(IBackend *backend);
+    void start(const std::vector<T> &data);
     void stop();
 
 #   ifdef RXS_FEATURE_BENCHMARK
@@ -59,8 +58,6 @@ public:
 private:
     static IWorker *create(Thread<T> *handle);
     static void *onReady(void *arg);
-
-    void start(const std::vector<T> &data, bool sleep);
 
     std::vector<Thread<T> *> m_workers;
     WorkersPrivate *d_ptr;
