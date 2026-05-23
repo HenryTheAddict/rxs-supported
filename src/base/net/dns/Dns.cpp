@@ -36,11 +36,12 @@ std::shared_ptr<rxs::DnsRequest> rxs::Dns::resolve(const String &host, IDnsListe
 {
     auto req = std::make_shared<DnsRequest>(listener);
 
-    if (m_backends.find(host) == m_backends.end()) {
-        m_backends.insert({ host, std::make_shared<DnsUvBackend>() });
+    auto it = m_backends.find(host);
+    if (it == m_backends.end()) {
+        it = m_backends.insert({ host, std::make_shared<DnsUvBackend>() }).first;
     }
 
-    m_backends.at(host)->resolve(host, req, m_config);
+    it->second->resolve(host, req, m_config);
 
     return req;
 }
