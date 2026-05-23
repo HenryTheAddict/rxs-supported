@@ -23,7 +23,6 @@
 #include <cstdio>
 #include <cstring>
 #include <utility>
-#include <sstream>
 
 
 #ifdef RXS_FEATURE_TLS
@@ -730,10 +729,9 @@ void rxs::Client::parse(char *line, size_t len)
             return;
         }
 
-        std::stringstream s;
-        s << arr[0].GetString() << ":" << arr[1].GetString();
-        LOG_WARN("%s " YELLOW("client.reconnect to %s"), tag(), s.str().c_str());
-        setPoolUrl(s.str().c_str());
+        const std::string url = std::string(arr[0].GetString()) + ":" + arr[1].GetString();
+        LOG_WARN("%s " YELLOW("client.reconnect to %s"), tag(), url.c_str());
+        setPoolUrl(url.c_str());
         return reconnect();
     }
 
