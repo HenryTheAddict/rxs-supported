@@ -21,7 +21,7 @@
 
 
 #include <cassert>
-#include <map>
+#include <unordered_map>
 
 
 namespace rxs {
@@ -48,12 +48,9 @@ public:
     inline TYPE *get(const void *id) const  { return get(reinterpret_cast<uintptr_t>(id)); }
     inline TYPE *get(uintptr_t id) const
     {
-        assert(m_data.count(id) > 0);
-        if (m_data.count(id) == 0) {
-            return nullptr;
-        }
-
-        return m_data.at(id);
+        const auto it = m_data.find(id);
+        assert(it != m_data.end());
+        return it != m_data.end() ? it->second : nullptr;
     }
 
     inline bool isEmpty() const             { return m_data.empty(); }
@@ -67,17 +64,19 @@ public:
     inline TYPE *release(const void *id)    { return release(reinterpret_cast<uintptr_t>(id)); }
     inline TYPE *release(uintptr_t id)
     {
-        auto obj = get(id);
-        if (obj != nullptr) {
-            m_data.erase(id);
+        const auto it = m_data.find(id);
+        if (it == m_data.end()) {
+            return nullptr;
         }
 
+        TYPE *obj = it->second;
+        m_data.erase(it);
         return obj;
     }
 
 
 private:
-    std::map<uintptr_t, TYPE *> m_data;
+    std::unordered_map<uintptr_t, TYPE *> m_data;
     uintptr_t m_counter  = 0;
 };
 
