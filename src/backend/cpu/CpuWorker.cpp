@@ -18,7 +18,6 @@
 
 #include <cassert>
 #include <thread>
-#include <mutex>
 
 
 #include "backend/cpu/Cpu.h"
