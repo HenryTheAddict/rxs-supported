@@ -110,9 +110,9 @@ bool rxs::RxDataset::init(const Buffer &seed, uint32_t numThreads, int priority)
         std::vector<std::thread> threads;
         threads.reserve(numThreads);
 
-        for (uint64_t i = 0; i < numThreads; ++i) {
-            const uint32_t a = (datasetItemCount * i) / numThreads;
-            const uint32_t b = (datasetItemCount * (i + 1)) / numThreads;
+        for (uint32_t i = 0; i < numThreads; ++i) {
+            const uint32_t a = static_cast<uint32_t>((datasetItemCount * i) / numThreads);
+            const uint32_t b = static_cast<uint32_t>((datasetItemCount * (i + 1)) / numThreads);
             threads.emplace_back(init_dataset_wrapper, m_dataset, m_cache->get(), a, b - a, priority);
         }
 
@@ -196,7 +196,7 @@ void rxs::RxDataset::setRaw(const void *raw)
         return;
     }
 
-    volatile size_t N = maxSize();
+    const size_t N = maxSize();
     memcpy(randomx_get_dataset_memory(m_dataset), raw, N);
 }
 
