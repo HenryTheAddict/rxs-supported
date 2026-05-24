@@ -642,6 +642,7 @@ int hwloc_distances_add_values(hwloc_topology_t topology,
   unsigned i;
   uint64_t *_values;
   hwloc_obj_t *_objs;
+  size_t values_len;
   int err;
 
   /* no strict need to check for duplicates, things shouldn't break */
@@ -652,14 +653,20 @@ int hwloc_distances_add_values(hwloc_topology_t topology,
       goto out;
     }
 
+	if (nbobjs && (size_t) nbobjs > SIZE_MAX / (size_t) nbobjs) {
+    errno = EINVAL;
+    goto out;
+  }
+  values_len = (size_t) nbobjs * (size_t) nbobjs;
+
   /* copy the input arrays and give them to the topology */
   _objs = malloc(nbobjs*sizeof(hwloc_obj_t));
-  _values = malloc(nbobjs*nbobjs*sizeof(*_values));
+  _values = malloc(values_len*sizeof(*_values));
   if (!_objs || !_values)
     goto out_with_arrays;
 
   memcpy(_objs, objs, nbobjs*sizeof(hwloc_obj_t));
-  memcpy(_values, values, nbobjs*nbobjs*sizeof(*_values));
+  memcpy(_values, values, values_len*sizeof(*_values));
 
   err = hwloc_backend_distances_add_values(topology, handle, nbobjs, _objs, _values, flags);
   if (err < 0) {
