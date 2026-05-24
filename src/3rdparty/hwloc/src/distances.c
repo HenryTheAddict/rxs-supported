@@ -161,7 +161,7 @@ static int hwloc_internal_distances_dup_one(struct hwloc_topology *new, struct h
   newdist->indexes = hwloc_tma_malloc(tma, nbobjs * sizeof(*newdist->indexes));
   newdist->objs = hwloc_tma_calloc(tma, nbobjs * sizeof(*newdist->objs));
   newdist->iflags = olddist->iflags & ~HWLOC_INTERNAL_DIST_FLAG_OBJS_VALID; /* must be revalidated after dup() */
-  newdist->values = hwloc_tma_malloc(tma, nbobjs*nbobjs * sizeof(*newdist->values));
+  newdist->values = hwloc_tma_malloc(tma, (size_t) nbobjs * nbobjs * sizeof(*newdist->values));
   if (!newdist->indexes || !newdist->objs || !newdist->values) {
     assert(!tma || !tma->dontfree); /* this tma cannot fail to allocate */
     hwloc_internal_distances_free(newdist);
