@@ -536,7 +536,9 @@ void rxs::Miner::setJob(const Job &job)
 
     d_ptr->algorithm = job.algorithm();
 
-    mutex.lock();
+    bool ready;
+    {
+    std::lock_guard<std::mutex> lock(mutex);
 
     constexpr uint8_t index = 0;
     const bool same_job_index = d_ptr->job.index() == index;
@@ -552,14 +554,13 @@ void rxs::Miner::setJob(const Job &job)
     d_ptr->job.setIndex(index);
     d_ptr->userJobId = job.id();
 
-    const bool ready = d_ptr->initRX();
+    ready = d_ptr->initRX();
 
     // Always reset nonce on RandomX dataset change
-    if (!ready && same_job_index) {
-        d_ptr->reset = true;
+        if (!ready && same_job_index) {
+            d_ptr->reset = true;
+        }
     }
-
-    mutex.unlock();
 
     d_ptr->active = true;
 
