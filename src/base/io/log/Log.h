@@ -73,35 +73,35 @@ private:
 
 #define CSI                 "\x1B["     // Control Sequence Introducer (ANSI spec name)
 #define CLEAR               CSI "0m"    // all attributes off
-#define BRIGHT_BLACK_S      CSI "0;90m" // somewhat MD.GRAY
-#define BLACK_S             CSI "0;30m"
-#define BLACK_BOLD_S        CSI "1;30m" // another name for GRAY
-#define RED_S               CSI "0;31m"
-#define RED_BOLD_S          CSI "1;31m"
-#define GREEN_S             CSI "0;32m"
-#define GREEN_BOLD_S        CSI "1;32m"
-#define YELLOW_S            CSI "0;33m"
-#define YELLOW_BOLD_S       CSI "1;33m"
-#define BLUE_S              CSI "0;34m"
-#define BLUE_BOLD_S         CSI "1;34m"
-#define MAGENTA_S           CSI "0;35m"
-#define MAGENTA_BOLD_S      CSI "1;35m"
-#define CYAN_S              CSI "0;36m"
-#define CYAN_BOLD_S         CSI "1;36m"
-#define WHITE_S             CSI "0;37m" // another name for LT.GRAY
-#define WHITE_BOLD_S        CSI "1;37m" // actually white
 
-#define RED_BG_BOLD_S       CSI "41;1m"
-#define GREEN_BG_BOLD_S     CSI "42;1m"
-#define YELLOW_BG_BOLD_S    CSI "43;1m"
-#define BLUE_BG_S           CSI "44m"
-#define BLUE_BG_BOLD_S      CSI "44;1m"
-#define MAGENTA_BG_S        CSI "45m"
-#define MAGENTA_BG_BOLD_S   CSI "45;1m"
-#define CYAN_BG_S           CSI "46m"
-#define CYAN_BG_BOLD_S      CSI "46;1m"
+#define BRIGHT_BLACK_S      CSI "38;5;245m"
+#define BLACK_S             CSI "38;5;240m"
+#define BLACK_BOLD_S        CSI "1;38;5;246m"
+#define RED_S               CSI "38;5;167m" 
+#define RED_BOLD_S          CSI "1;38;5;203m"
+#define GREEN_S             CSI "38;5;108m"
+#define GREEN_BOLD_S        CSI "1;38;5;114m"
+#define YELLOW_S            CSI "38;5;179m"
+#define YELLOW_BOLD_S       CSI "1;38;5;220m"
+#define BLUE_S              CSI "38;5;75m"
+#define BLUE_BOLD_S         CSI "1;38;5;39m"
+#define MAGENTA_S           CSI "38;5;176m"
+#define MAGENTA_BOLD_S      CSI "1;38;5;207m"
+#define CYAN_S              CSI "38;5;73m"
+#define CYAN_BOLD_S         CSI "1;38;5;87m"
+#define WHITE_S             CSI "38;5;249m"
+#define WHITE_BOLD_S        CSI "1;38;5;231m"
 
-//color wrappings
+#define RED_BG_BOLD_S       CSI "1;48;5;124m"
+#define GREEN_BG_BOLD_S     CSI "1;48;5;22m"
+#define YELLOW_BG_BOLD_S    CSI "1;48;5;58m"
+#define BLUE_BG_S           CSI "48;5;17m"
+#define BLUE_BG_BOLD_S      CSI "1;48;5;18m"
+#define MAGENTA_BG_S        CSI "48;5;53m"
+#define MAGENTA_BG_BOLD_S   CSI "1;48;5;90m"
+#define CYAN_BG_S           CSI "48;5;23m"
+#define CYAN_BG_BOLD_S      CSI "1;48;5;29m"
+
 #define BLACK(x)            BLACK_S x CLEAR
 #define BLACK_BOLD(x)       BLACK_BOLD_S x CLEAR
 #define RED(x)              RED_S x CLEAR
