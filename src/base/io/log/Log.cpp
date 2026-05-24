@@ -71,6 +71,8 @@ public:
 
     void print(Log::Level level, const char *fmt, va_list args)
     {
+        static constexpr size_t kTimestampColorLen = sizeof(BLACK_BOLD_S CLEAR) - 1;
+
         size_t size   = 0;
         size_t offset = 0;
 
@@ -100,7 +102,7 @@ public:
         if (!m_backends.empty()) {
             for (auto backend : m_backends) {
                 backend->print(ts, level, m_buf, offset, size, true);
-                backend->print(ts, level, txt.c_str(), offset ? (offset - 11) : 0, txt.size(), false);
+                backend->print(ts, level, txt.c_str(), offset ? (offset - kTimestampColorLen) : 0, txt.size(), false);
             }
         }
         else {
