@@ -1484,7 +1484,7 @@ hwloc__xml_v2import_distances(hwloc_topology_t topology,
   }
 
   indexes = malloc(nbobjs*sizeof(*indexes));
-  u64values = malloc(nbobjs*nbobjs*sizeof(*u64values));
+  u64values = malloc((size_t) nbobjs * nbobjs * sizeof(*u64values));
   if (heterotypes)
     different_types = malloc(nbobjs*sizeof(*different_types));
   if (!indexes || !u64values || (heterotypes && !different_types)) {
