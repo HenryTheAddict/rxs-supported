@@ -550,10 +550,7 @@ void rxs::Miner::setJob(const Job &job)
 
     d_ptr->job   = job;
     d_ptr->job.setIndex(index);
-
-    if (index == 0) {
-        d_ptr->userJobId = job.id();
-    }
+    d_ptr->userJobId = job.id();
 
     const bool ready = d_ptr->initRX();
 
