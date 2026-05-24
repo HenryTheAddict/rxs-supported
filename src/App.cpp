@@ -89,7 +89,10 @@ int rxs::App::exec()
     uv_loop_t* const loop = uv_default_loop();
     if (loop != nullptr) {
         rc = uv_run(loop, UV_RUN_DEFAULT);
-        uv_loop_close(loop);
+        if (uv_loop_close(loop) == UV_EBUSY) {
+            uv_run(loop, UV_RUN_NOWAIT);
+            uv_loop_close(loop);
+        }
     }
 
     return rc;
