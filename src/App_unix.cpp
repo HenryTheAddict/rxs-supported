@@ -22,8 +22,6 @@
  *   along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cstdlib>
-#include <csignal>
 #include <cerrno>
 #include <unistd.h>
 
