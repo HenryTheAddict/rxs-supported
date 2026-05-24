@@ -40,7 +40,6 @@ namespace rxs {
 
 class Console;
 class Controller;
-class Network;
 class Process;
 class Signals;
 
