@@ -33,12 +33,6 @@
 #include "net/JobResult.h"
 
 
-#include "crypto/randomx/randomx.h"
-#include "crypto/rx/Rx.h"
-#include "crypto/rx/RxVm.h"
-#include "crypto/common/Assembly.h"
-
-
 #include <cassert>
 #include <memory>
 #include <mutex>
