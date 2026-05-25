@@ -23,7 +23,7 @@
 
 const char *rxs::Tags::config()
 {
-    static const char *tag = CYAN_BG_BOLD(WHITE_BOLD_S " config  ");
+    static const char *tag = BLUE_BG_BOLD(WHITE_BOLD_S " config  ");
 
     return tag;
 }
@@ -39,7 +39,7 @@ const char *rxs::Tags::network()
 
 const char* rxs::Tags::origin()
 {
-    static const char* tag = YELLOW_BG_BOLD(WHITE_BOLD_S " origin  ");
+    static const char* tag = BLUE_BG_BOLD(WHITE_BOLD_S " origin  ");
 
     return tag;
 }
@@ -47,7 +47,7 @@ const char* rxs::Tags::origin()
 
 const char *rxs::Tags::signal()
 {
-    static const char *tag = YELLOW_BG_BOLD(WHITE_BOLD_S " signal  ");
+    static const char *tag = TEAL_BG_BOLD(WHITE_BOLD_S " signal  ");
 
     return tag;
 }
@@ -56,7 +56,7 @@ const char *rxs::Tags::signal()
 #ifdef RXS_MINER_PROJECT
 const char *rxs::Tags::cpu()
 {
-    static const char *tag = CYAN_BG_BOLD(WHITE_BOLD_S " cpu     ");
+    static const char *tag = TEAL_BG_BOLD(WHITE_BOLD_S " cpu     ");
 
     return tag;
 }
@@ -64,7 +64,7 @@ const char *rxs::Tags::cpu()
 
 const char *rxs::Tags::miner()
 {
-    static const char *tag = MAGENTA_BG_BOLD(WHITE_BOLD_S " miner   ");
+    static const char *tag = PLUM_BG_BOLD(WHITE_BOLD_S " miner   ");
 
     return tag;
 }
@@ -73,7 +73,7 @@ const char *rxs::Tags::miner()
 #ifdef RXS_ALGO_RANDOMX
 const char *rxs::Tags::randomx()
 {
-    static const char *tag = RED_BG_BOLD(WHITE_BOLD_S " randomx ") " ";
+    static const char *tag = GARNET_BG_BOLD(WHITE_BOLD_S " randomx ") " ";
 
     return tag;
 }
@@ -94,7 +94,7 @@ const char *rxs::Tags::bench()
 #ifdef RXS_PROXY_PROJECT
 const char *rxs::Tags::proxy()
 {
-    static const char *tag = MAGENTA_BG_BOLD(WHITE_BOLD_S " proxy   ");
+    static const char *tag = BLUE_BG_BOLD(WHITE_BOLD_S " proxy   ");
 
     return tag;
 }
@@ -104,7 +104,7 @@ const char *rxs::Tags::proxy()
 #ifdef RXS_FEATURE_PROFILING
 const char* rxs::Tags::profiler()
 {
-    static const char* tag = CYAN_BG_BOLD(WHITE_BOLD_S " profile ");
+    static const char* tag = BLUE_BG_BOLD(WHITE_BOLD_S " profile ");
 
     return tag;
 }
