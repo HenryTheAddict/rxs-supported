@@ -27,7 +27,6 @@
 
 
 #include <pthread.h>
-#include <sched.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,6 +37,9 @@
 #include <fstream>
 #include <limits>
 
+#ifndef RXS_OS_MACOS
+#   include <sched.h>
+#endif
 
 #include "base/kernel/Platform.h"
 #include "version.h"
@@ -48,7 +50,7 @@ char *rxs::Platform::createUserAgent()
     constexpr const size_t max = 256;
 
     char *buf = new char[max]();
-    int length = snprintf(buf, max, "%s/%s (Linux ", APP_NAME, APP_VERSION);
+    int length = snprintf(buf, max, "%s/%s (%s ", APP_NAME, APP_VERSION, APP_OS);
 
 #   if defined(__x86_64__)
     length += snprintf(buf + length, max - length, "x86_64) libuv/%s", uv_version_string());
@@ -71,7 +73,7 @@ char *rxs::Platform::createUserAgent()
 
 
 #ifndef RXS_FEATURE_HWLOC
-#if defined(__DragonFly__) || defined(RXS_OS_OPENBSD)
+#if defined(__DragonFly__) || defined(RXS_OS_OPENBSD) || defined(RXS_OS_MACOS)
 
 bool rxs::Platform::setThreadAffinity(uint64_t cpu_id)
 {

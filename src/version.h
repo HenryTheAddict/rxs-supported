@@ -23,6 +23,10 @@
 
 #ifdef RXS_OS_ANDROID
 #    define APP_OS "Android"
+#elif defined RXS_OS_WIN
+#    define APP_OS "Windows"
+#elif defined RXS_OS_MACOS
+#    define APP_OS "macOS"
 #elif defined RXS_OS_LINUX
 #    define APP_OS "Linux"
 #elif defined RXS_OS_FREEBSD

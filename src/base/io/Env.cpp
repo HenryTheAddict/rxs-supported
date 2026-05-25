@@ -24,7 +24,12 @@
 #include <regex>
 #include <uv.h>
 #include <map>
-#include <unistd.h>
+
+#ifdef RXS_OS_WIN
+#   include <windows.h>
+#else
+#   include <unistd.h>
+#endif
 
 
 #ifndef UV_MAXHOSTNAMESIZE
@@ -140,9 +145,16 @@ rxs::String rxs::Env::hostname()
 {
     char buf[UV_MAXHOSTNAMESIZE]{};
 
+#ifdef RXS_OS_WIN
+    DWORD size = sizeof(buf);
+    if (GetComputerNameA(buf, &size)) {
+        return static_cast<const char *>(buf);
+    }
+#else
     if (gethostname(buf, sizeof(buf)) == 0) {
         return static_cast<const char *>(buf);
     }
+#endif
 
     return {};
 }
