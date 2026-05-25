@@ -121,10 +121,14 @@ static inline int32_t get_masked(int32_t val, int32_t h, int32_t l)
 
 static inline uint64_t xgetbv()
 {
+#ifdef _MSC_VER
+    return _xgetbv(0);
+#else
     uint32_t eax_reg = 0;
     uint32_t edx_reg = 0;
     __asm__ __volatile__("xgetbv": "=a"(eax_reg), "=d"(edx_reg) : "c"(0) : "cc");
     return (static_cast<uint64_t>(edx_reg) << 32) | eax_reg;
+#endif
 }
 
 static inline bool has_xcr_avx()    { return (xgetbv() & 0x06) == 0x06; }
