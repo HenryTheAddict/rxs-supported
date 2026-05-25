@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #if defined(RXS_FEATURE_ASM) && (defined(_M_X64) || defined(__x86_64__))
 #include "crypto/randomx/jit_compiler_x86.hpp"
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) && !defined(RXS_OS_MACOS)
 #include "crypto/randomx/jit_compiler_a64.hpp"
 #elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
 #include "crypto/randomx/jit_compiler_rv64.hpp"

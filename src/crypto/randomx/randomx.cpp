@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #if defined(_M_X64) || defined(__x86_64__)
 #include "crypto/randomx/jit_compiler_x86_static.hpp"
-#elif (RXS_ARM == 8)
+#elif (RXS_ARM == 8) && !defined(RXS_OS_MACOS)
 #include "crypto/randomx/jit_compiler_a64_static.hpp"
 #elif defined(__riscv) && defined(__riscv_xlen) && (__riscv_xlen == 64)
 #include "crypto/randomx/jit_compiler_rv64_static.hpp"
@@ -281,7 +281,7 @@ typedef void(randomx::JitCompilerX86::* InstructionGeneratorX86_2)(const randomx
 		memcpy(randomx::JitCompilerX86::engine + k, &p, sizeof(randomx::JitCompilerX86::engine[k])); \
 	} while (0)
 
-#elif (RXS_ARM == 8)
+#elif (RXS_ARM == 8) && !defined(RXS_OS_MACOS)
 
 	Log2_ScratchpadL1 = Log2(ScratchpadL1_Size);
 	Log2_ScratchpadL2 = Log2(ScratchpadL2_Size);
