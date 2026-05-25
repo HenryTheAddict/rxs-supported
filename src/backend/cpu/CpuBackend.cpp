@@ -350,13 +350,20 @@ void rxs::CpuBackend::setJob(const Job &job)
 
 void rxs::CpuBackend::start(IWorker *worker, bool ready)
 {
-    mutex.lock();
+    bool shouldPrint = false;
+    CpuLaunchStatus snapshot;
 
-    if (d_ptr->status.started(worker, ready)) {
-        d_ptr->status.print();
+    {
+        std::lock_guard<std::mutex> lock(mutex);
+        shouldPrint = d_ptr->status.started(worker, ready);
+        if (shouldPrint) {
+            snapshot = d_ptr->status;
+        }
     }
 
-    mutex.unlock();
+    if (shouldPrint) {
+        snapshot.print();
+    }
 
     if (ready) {
         worker->start();
