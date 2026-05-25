@@ -22,7 +22,11 @@
 #include <cstring>
 #include <thread>
 
-#include <cpuid.h>
+#ifdef _MSC_VER
+#   include <intrin.h>
+#else
+#   include <cpuid.h>
+#endif
 
 #include "backend/cpu/platform/BasicCpuInfo.h"
 #include "3rdparty/rapidjson/document.h"
@@ -61,7 +65,11 @@ static_assert(kMsrArraySize == ICpuInfo::MSR_MOD_MAX, "kMsrArraySize and MSR_MOD
 static inline void cpuid(uint32_t level, int32_t output[4])
 {
     memset(output, 0, sizeof(int32_t) * 4);
+#ifdef _MSC_VER
+    __cpuidex(output, static_cast<int>(level), 0);
+#else
     __cpuid_count(level, 0, output[0], output[1], output[2], output[3]);
+#endif
 }
 
 

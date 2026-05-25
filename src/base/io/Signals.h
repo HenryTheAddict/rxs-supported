@@ -41,7 +41,9 @@ class Signals
 public:
     RXS_DISABLE_COPY_MOVE_DEFAULT(Signals)
 
-#   if defined(SIGUSR1) && defined(SIGHUP)
+#   if defined(RXS_OS_WIN)
+    constexpr static const size_t kSignalsCount = 2;
+#   elif defined(SIGUSR1) && defined(SIGHUP)
     constexpr static const size_t kSignalsCount = 4;
 #   elif defined(SIGHUP)
     constexpr static const size_t kSignalsCount = 3;

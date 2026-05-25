@@ -150,6 +150,7 @@ include(src/hw/dmi/dmi.cmake)
 
 include_directories(src)
 include_directories(src/3rdparty)
+include_directories(src/3rdparty/getopt)
 include_directories(${UV_INCLUDE_DIR})
 
 if (WITH_DEBUG_LOG)

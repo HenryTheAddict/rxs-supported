@@ -24,7 +24,9 @@
 #include "base/tools/Handle.h"
 
 
-#if defined(SIGUSR1) && defined(SIGHUP)
+#if defined(RXS_OS_WIN)
+static const int signums[rxs::Signals::kSignalsCount] = { SIGINT, SIGTERM };
+#elif defined(SIGUSR1) && defined(SIGHUP)
 static const int signums[rxs::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM, SIGUSR1 };
 #elif defined(SIGHUP)
 static const int signums[rxs::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM };
