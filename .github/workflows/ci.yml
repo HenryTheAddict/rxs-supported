@@ -20,15 +20,15 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libuv1-dev libssl-dev
+          sudo apt-get install -y libuv1-dev
 
       - name: Install macOS dependencies
         if: runner.os == 'macOS'
-        run: brew install libuv openssl
+        run: brew install libuv
 
       - name: Install Windows dependencies
         if: runner.os == 'Windows'
-        run: vcpkg install libuv:x64-windows openssl:x64-windows
+        run: vcpkg install libuv:x64-windows
 
       - name: Configure
         shell: bash
@@ -37,7 +37,7 @@ jobs:
           if [ "$RUNNER_OS" = "Windows" ]; then
             extra_args="-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake -A x64"
           fi
-          cmake -S . -B build $extra_args -DCMAKE_BUILD_TYPE=Release -DWITH_HWLOC=OFF
+          cmake -S . -B build $extra_args -DCMAKE_BUILD_TYPE=Release -DWITH_HWLOC=OFF -DWITH_TLS=OFF -DWITH_LTO=OFF
 
       - name: Build
         run: cmake --build build --config Release --parallel
