@@ -101,6 +101,9 @@ private:
 #define MAGENTA_BG_BOLD_S   CSI "1;48;5;90m"
 #define CYAN_BG_S           CSI "48;5;23m"
 #define CYAN_BG_BOLD_S      CSI "1;48;5;29m"
+#define GARNET_BG_BOLD_S    CSI "1;48;5;124m"
+#define PLUM_BG_BOLD_S      CSI "1;48;5;53m"
+#define TEAL_BG_BOLD_S      CSI "1;48;5;23m"
 
 #define BLACK(x)            BLACK_S x CLEAR
 #define BLACK_BOLD(x)       BLACK_BOLD_S x CLEAR
@@ -128,6 +131,9 @@ private:
 #define MAGENTA_BG_BOLD(x)  MAGENTA_BG_BOLD_S x CLEAR
 #define CYAN_BG(x)          CYAN_BG_S x CLEAR
 #define CYAN_BG_BOLD(x)     CYAN_BG_BOLD_S x CLEAR
+#define GARNET_BG_BOLD(x)   GARNET_BG_BOLD_S x CLEAR
+#define PLUM_BG_BOLD(x)     PLUM_BG_BOLD_S x CLEAR
+#define TEAL_BG_BOLD(x)     TEAL_BG_BOLD_S x CLEAR
 
 
 #define LOG_EMERG(x, ...)   rxs::Log::print(rxs::Log::EMERG,   x, ##__VA_ARGS__)
