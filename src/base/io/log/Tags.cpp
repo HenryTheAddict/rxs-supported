@@ -73,7 +73,7 @@ const char *rxs::Tags::miner()
 #ifdef RXS_ALGO_RANDOMX
 const char *rxs::Tags::randomx()
 {
-    static const char *tag = BLUE_BG(WHITE_BOLD_S " randomx ") " ";
+    static const char *tag = RED_BG_BOLD(WHITE_BOLD_S " randomx ") " ";
 
     return tag;
 }
