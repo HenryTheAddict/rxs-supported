@@ -150,7 +150,9 @@ include(src/hw/dmi/dmi.cmake)
 
 include_directories(src)
 include_directories(src/3rdparty)
-include_directories(src/3rdparty/getopt)
+if (RXS_OS_WIN)
+    include_directories(src/3rdparty/getopt)
+endif()
 include_directories(${UV_INCLUDE_DIR})
 
 if (WITH_DEBUG_LOG)
