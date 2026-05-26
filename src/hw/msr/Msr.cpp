@@ -24,6 +24,8 @@ namespace rxs {
 
 
 static const char *kTag = YELLOW_BG_BOLD(WHITE_BOLD_S " msr     ");
+// Keep one shared instance around; setting up the driver is expensive enough that
+// there isn't much point in doing it over and over again.
 static std::weak_ptr<Msr> instance;
 
 
@@ -40,6 +42,7 @@ const char *rxs::Msr::tag()
 
 std::shared_ptr<rxs::Msr> rxs::Msr::get()
 {
+    // Lazy init keeps startup cheap and avoids touching the driver unless we actually need it.
     auto msr = instance.lock();
     if (!msr) {
         msr      = std::make_shared<Msr>();
@@ -50,8 +53,10 @@ std::shared_ptr<rxs::Msr> rxs::Msr::get()
         return msr;
     }
 
+    // If the driver isn't there, fail cleanly instead of pretending MSR support exists.
     return {};
 }
+
 
 
 bool rxs::Msr::write(uint32_t reg, uint64_t value, int32_t cpu, uint64_t mask, bool verbose)
