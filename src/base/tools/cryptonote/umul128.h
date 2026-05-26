@@ -25,10 +25,7 @@
 
 #include <cstdint>
 
-#if defined(_MSC_VER) && defined(RXS_64_BIT)
-#   include <intrin.h>
-#   define __umul128 _umul128
-#elif defined(RXS_64_BIT)
+#if defined(RXS_64_BIT)
     static inline uint64_t _umul128(uint64_t a, uint64_t b, uint64_t* hi)
     {
         unsigned __int128 r = (unsigned __int128) a * (unsigned __int128) b;

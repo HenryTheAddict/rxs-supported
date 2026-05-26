@@ -325,7 +325,7 @@ public:
             h = "MH/s";
         }
 
-        LOG_INFO("%s " WHITE_BOLD("speed") " 10s/60s/15m " CYAN_BOLD("%s") CYAN(" %s %s ") CYAN_BOLD("%s") " max " CYAN_BOLD("%s %s"),
+        LOG_INFO("%s " MAUVE_BOLD("speed") " 10s/60s/15m " SAGE_BOLD("%s") SAGE(" %s %s ") SAGE_BOLD("%s") " max " SAGE_BOLD("%s %s"),
                  Tags::miner(),
                  Hashrate::format(speed[0],                 num,          16),
                  Hashrate::format(speed[1],                 num + 16,     16),
@@ -504,7 +504,7 @@ void rxs::Miner::setEnabled(bool enabled)
             LOG_INFO("%s " YELLOW_BOLD("paused"), Tags::miner());
         }
         else {
-            LOG_INFO("%s " YELLOW_BOLD("paused") ", press " MAGENTA_BG_BOLD(" r ") " to resume", Tags::miner());
+            LOG_INFO("%s " YELLOW_BOLD("paused") ", press " PLUM_BG_BOLD(" r ") " to resume", Tags::miner());
         }
     }
 

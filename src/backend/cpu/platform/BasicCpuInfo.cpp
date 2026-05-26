@@ -22,11 +22,7 @@
 #include <cstring>
 #include <thread>
 
-#ifdef _MSC_VER
-#   include <intrin.h>
-#else
-#   include <cpuid.h>
-#endif
+#include <cpuid.h>
 
 #include "backend/cpu/platform/BasicCpuInfo.h"
 #include "3rdparty/rapidjson/document.h"
@@ -65,11 +61,7 @@ static_assert(kMsrArraySize == ICpuInfo::MSR_MOD_MAX, "kMsrArraySize and MSR_MOD
 static inline void cpuid(uint32_t level, int32_t output[4])
 {
     memset(output, 0, sizeof(int32_t) * 4);
-#ifdef _MSC_VER
-    __cpuidex(output, static_cast<int>(level), 0);
-#else
     __cpuid_count(level, 0, output[0], output[1], output[2], output[3]);
-#endif
 }
 
 
@@ -121,14 +113,10 @@ static inline int32_t get_masked(int32_t val, int32_t h, int32_t l)
 
 static inline uint64_t xgetbv()
 {
-#ifdef _MSC_VER
-    return _xgetbv(0);
-#else
     uint32_t eax_reg = 0;
     uint32_t edx_reg = 0;
     __asm__ __volatile__("xgetbv": "=a"(eax_reg), "=d"(edx_reg) : "c"(0) : "cc");
     return (static_cast<uint64_t>(edx_reg) << 32) | eax_reg;
-#endif
 }
 
 static inline bool has_xcr_avx()    { return (xgetbv() & 0x06) == 0x06; }

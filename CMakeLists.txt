@@ -20,7 +20,6 @@ option(WITH_VAES            "Enable VAES (AVX-512 + VAES) support" ON)
 option(WITH_BENCHMARK       "Enable builtin RandomX benchmark and stress test" ON)
 option(WITH_SECURE_JIT      "Enable secure access to JIT memory" OFF)
 option(WITH_DMI             "Enable DMI/SMBIOS reader" ON)
-option(WITH_LTO             "Enable link-time/interprocedural optimization when supported" ON)
 
 option(BUILD_STATIC         "Build static binary" OFF)
 option(ARM_V8               "Force ARMv8 (64 bit) architecture, use with caution if automatic detection fails, but you sure it may work" OFF)
@@ -99,21 +98,12 @@ if (WITH_HWLOC)
         )
 endif()
 
-if (RXS_OS_WIN)
-    list(APPEND SOURCES_OS
-        src/App_win.cpp
-        src/crypto/common/VirtualMemory_win.cpp
-        )
-elseif (RXS_OS_UNIX)
-    list(APPEND SOURCES_OS
-        src/App_unix.cpp
-        src/crypto/common/VirtualMemory_unix.cpp
-        )
-endif()
+list(APPEND SOURCES_OS
+    src/App_unix.cpp
+    src/crypto/common/VirtualMemory_unix.cpp
+    )
 
-if (RXS_OS_WIN)
-    set(EXTRA_LIBS ws2_32 iphlpapi psapi userenv)
-elseif (RXS_OS_ANDROID)
+if (RXS_OS_ANDROID)
     set(EXTRA_LIBS pthread rt dl log)
 elseif (RXS_OS_LINUX)
     list(APPEND SOURCES_OS
@@ -150,28 +140,15 @@ include(src/hw/dmi/dmi.cmake)
 
 include_directories(src)
 include_directories(src/3rdparty)
-if (RXS_OS_WIN)
-    include_directories(src/3rdparty/getopt)
-endif()
 include_directories(${UV_INCLUDE_DIR})
 
 if (WITH_DEBUG_LOG)
     add_definitions(/DAPP_DEBUG)
 endif()
 
-if (WITH_LTO)
-    include(CheckIPOSupported)
-    check_ipo_supported(RESULT RXS_IPO_SUPPORTED OUTPUT RXS_IPO_ERROR)
-    if (RXS_IPO_SUPPORTED)
-        set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)
-    else()
-        message(STATUS "IPO/LTO unavailable: ${RXS_IPO_ERROR}")
-    endif()
-endif()
-
 add_executable(${CMAKE_PROJECT_NAME} ${HEADERS} ${SOURCES} ${SOURCES_OS} ${HEADERS_CRYPTO} ${SOURCES_CRYPTO} ${SOURCES_SYSLOG} ${TLS_SOURCES} ${RXS_ASM_SOURCES})
 target_link_libraries(${CMAKE_PROJECT_NAME} ${RXS_ASM_LIBRARY} ${OPENSSL_LIBRARIES} ${UV_LIBRARIES} ${EXTRA_LIBS} ${CPUID_LIB} ${ARGON2_LIBRARY})
 
 if (CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_BUILD_TYPE STREQUAL Release AND NOT CMAKE_GENERATOR STREQUAL Xcode)
-    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>")
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>")
 endif()

@@ -51,12 +51,6 @@ rxs::App::~App()
     Cpu::release();
 }
 
-static void printBootBanner()
-{
-    LOG_NOTICE(CYAN_BOLD("rxs") WHITE_BOLD(" :: RandomX engine online") BLACK_BOLD(" -- donations: 0%, nonsense: 0%"));
-    LOG_NOTICE(CYAN_BOLD("rxs") WHITE_BOLD(" :: booting lean, mean, and allergic to tip jars"));
-}
-
 
 int rxs::App::exec()
 {
@@ -82,7 +76,6 @@ int rxs::App::exec()
         m_console = std::make_shared<Console>(this);
     }
 
-    printBootBanner();
     Summary::print(m_controller.get());
 
     if (m_controller->config()->isDryRun()) {
@@ -109,7 +102,7 @@ int rxs::App::exec()
 void rxs::App::onConsoleCommand(char command)
 {
     if (command == 3) {
-        LOG_WARN("%s " YELLOW("Ctrl+C received, exiting"), Tags::signal());
+        LOG_WARN("%s " SLATE_BOLD("Ctrl+C received, exiting"), Tags::signal());
         close();
     }
     else {
@@ -122,9 +115,7 @@ void rxs::App::onSignal(int signum)
 {
     switch (signum)
     {
-#ifdef SIGHUP
     case SIGHUP:
-#endif
     case SIGTERM:
     case SIGINT:
         close();

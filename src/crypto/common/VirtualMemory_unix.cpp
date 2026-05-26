@@ -27,18 +27,6 @@
 #include <fstream>
 #include <sys/mman.h>
 
-#ifndef MAP_ANONYMOUS
-#   define MAP_ANONYMOUS MAP_ANON
-#endif
-
-#ifndef MADV_RANDOM
-#   define MADV_RANDOM 0
-#endif
-
-#ifndef MADV_WILLNEED
-#   define MADV_WILLNEED 0
-#endif
-
 
 #define MEXTRA 0
 
@@ -140,7 +128,7 @@ void *rxs::VirtualMemory::allocateExecutableMemory(size_t size, bool hugePages)
     if (!mem) {
         mem = mmap(0, size, PROT_READ | PROT_WRITE | SECURE_PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     }
-#   elif !defined(RXS_OS_MACOS)
+#   else
     void *mem = nullptr;
 
     if (hugePages) {
@@ -150,8 +138,6 @@ void *rxs::VirtualMemory::allocateExecutableMemory(size_t size, bool hugePages)
     if (!mem) {
         mem = mmap(0, size, PROT_READ | PROT_WRITE | SECURE_PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     }
-#   else
-    void *mem = mmap(0, size, PROT_READ | PROT_WRITE | SECURE_PROT_EXEC, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 #   endif
 
     return mem == MAP_FAILED ? nullptr : mem;
@@ -162,10 +148,8 @@ void *rxs::VirtualMemory::allocateLargePagesMemory(size_t size)
 {
 #   if defined(RXS_OS_FREEBSD)
     void *mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_ALIGNED_SUPER | MAP_PREFAULT_READ, -1, 0);
-#   elif !defined(RXS_OS_MACOS)
-    void *mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB | MAP_POPULATE | hugePagesFlag(hugePageSize()), 0, 0);
 #   else
-    void *mem = nullptr;
+    void *mem = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB | MAP_POPULATE | hugePagesFlag(hugePageSize()), 0, 0);
 #   endif
 
     return (mem == nullptr || mem == MAP_FAILED) ? nullptr : mem;
@@ -218,9 +202,7 @@ bool rxs::VirtualMemory::allocateLargePagesMemory()
     if (m_scratchpad) {
         m_flags.set(FLAG_HUGEPAGES, true);
 
-#       if !defined(RXS_OS_MACOS)
         madvise(m_scratchpad, m_size, MADV_RANDOM | MADV_WILLNEED);
-#       endif
 
         if (mlock(m_scratchpad, m_size) == 0) {
             m_flags.set(FLAG_LOCK, true);

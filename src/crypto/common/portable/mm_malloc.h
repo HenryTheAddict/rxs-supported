@@ -26,9 +26,7 @@
 #define RXS_MM_MALLOC_PORTABLE_H
 
 
-#if defined(_MSC_VER)
-#include <malloc.h>
-#elif (defined(RXS_ARM) || defined(RXS_RISCV)) && !defined(__clang__)
+#if (defined(RXS_ARM) || defined(RXS_RISCV)) && !defined(__clang__)
 #include <stdlib.h>
 
 

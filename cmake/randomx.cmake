@@ -49,14 +49,14 @@ if (WITH_RANDOMX)
         src/crypto/rx/RxVm.cpp
     )
 
-    if (WITH_ASM AND NOT RXS_ARM AND NOT RXS_RISCV AND NOT RXS_OS_WIN AND NOT RXS_OS_MACOS AND NOT MSVC AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    if (WITH_ASM AND NOT RXS_ARM AND NOT RXS_RISCV AND CMAKE_SIZEOF_VOID_P EQUAL 8)
         list(APPEND SOURCES_CRYPTO
              src/crypto/randomx/jit_compiler_x86_static.S
              src/crypto/randomx/jit_compiler_x86.cpp
             )
         # cheat because cmake and ccache hate each other
         set_property(SOURCE src/crypto/randomx/jit_compiler_x86_static.S PROPERTY LANGUAGE C)
-    elseif (RXS_ARM AND NOT RXS_OS_MACOS AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    elseif (RXS_ARM AND CMAKE_SIZEOF_VOID_P EQUAL 8)
         list(APPEND SOURCES_CRYPTO
              src/crypto/randomx/jit_compiler_a64_static.S
              src/crypto/randomx/jit_compiler_a64.cpp
@@ -118,7 +118,7 @@ if (WITH_RANDOMX)
         endif()
     endif()
 
-    if (CMAKE_CXX_COMPILER_ID MATCHES Clang AND NOT MSVC)
+    if (CMAKE_CXX_COMPILER_ID MATCHES Clang)
         set_source_files_properties(src/crypto/randomx/jit_compiler_x86.cpp PROPERTIES COMPILE_FLAGS -Wno-unused-const-variable)
     endif()
 
@@ -167,7 +167,7 @@ if (WITH_RANDOMX)
         list(APPEND SOURCES_CRYPTO src/crypto/rx/Profiler.cpp)
     endif()
 
-    if (WITH_VAES AND NOT MSVC)
+    if (WITH_VAES)
         set(SOURCES_CRYPTO "${SOURCES_CRYPTO}" src/crypto/randomx/aes_hash_vaes512.cpp)
         if (CMAKE_C_COMPILER_ID MATCHES GNU OR CMAKE_C_COMPILER_ID MATCHES Clang)
             set_source_files_properties(src/crypto/randomx/aes_hash_vaes512.cpp PROPERTIES COMPILE_FLAGS "-mavx512f -mvaes")

@@ -23,7 +23,7 @@
 #include <fstream>
 
 
-#if __ARM_FEATURE_CRYPTO && !defined(RXS_OS_MACOS)
+#if __ARM_FEATURE_CRYPTO
 #   include <sys/auxv.h>
 #   if !defined(RXS_OS_FREEBSD)
 #       include <asm/hwcap.h>
@@ -49,9 +49,7 @@ extern String cpu_name_arm();
 void rxs::BasicCpuInfo::init_arm()
 {
 #   if __ARM_FEATURE_CRYPTO
-#   if defined(RXS_OS_MACOS)
-    m_flags.set(FLAG_AES, true);
-#   elif defined(RXS_OS_FREEBSD)
+#   if defined(RXS_OS_FREEBSD)
     uint64_t isar0 = READ_SPECIALREG(id_aa64isar0_el1);
     m_flags.set(FLAG_AES, ID_AA64ISAR0_AES_VAL(isar0) >= ID_AA64ISAR0_AES_BASE);
 #   else

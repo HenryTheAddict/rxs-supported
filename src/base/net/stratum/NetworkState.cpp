@@ -61,7 +61,7 @@ inline static void printCount(uint64_t accepted, uint64_t rejected)
 
 inline static void printHashes(uint64_t accepted, uint64_t hashes)
 {
-    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") CYAN_BOLD("%" PRIu64) " avg " CYAN("%1.0f"),
+    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") SAGE_BOLD("%" PRIu64) " avg " SAGE("%1.0f"),
                "pool-side hashes", hashes, static_cast<double>(hashes) / accepted);
 }
 
@@ -74,7 +74,7 @@ inline static void printAvgTime(uint64_t time)
 
 static void printDiff(uint64_t diff)
 {
-    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") CYAN_BOLD("%s"), "difficulty", NetworkState::humanDiff(diff).c_str());
+    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") SAGE_BOLD("%s"), "difficulty", NetworkState::humanDiff(diff).c_str());
 }
 
 
@@ -185,14 +185,14 @@ void rxs::NetworkState::printConnection() const
         return;
     }
 
-    Log::print(MAGENTA_BOLD_S " - CONNECTION");
-    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") CYAN_BOLD("%s ") BLACK_BOLD("(%s) ") GREEN_BOLD("%s"),
+    Log::print(SLATE_BOLD_S " - CONNECTION");
+    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") SAGE_BOLD("%s ") BLACK_BOLD("(%s) ") GREEN_BOLD("%s"),
                "pool address", m_pool, m_ip.data(), m_tls.isNull() ? "" : m_tls.data());
 
     Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") WHITE_BOLD("%s"), "algorithm", m_algorithm.name());
     printDiff(m_diff);
     printLatency(latency());
-    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") CYAN_BOLD("%" PRIu64 "s"), "connection time", connectionTime() / 1000);
+    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") SAGE_BOLD("%" PRIu64 "s"), "connection time", connectionTime() / 1000);
 }
 
 
@@ -204,7 +204,7 @@ void rxs::NetworkState::printResults() const
         return;
     }
 
-    Log::print(MAGENTA_BOLD_S " - RESULTS");
+    Log::print(SLATE_BOLD_S " - RESULTS");
 
     printCount(m_accepted, m_rejected);
     printHashes(m_accepted, m_hashes);
@@ -214,7 +214,7 @@ void rxs::NetworkState::printResults() const
         printAvgTime(avgTime());
     }
 
-    Log::print(MAGENTA_BOLD_S " - TOP 10");
+    Log::print(SLATE_BOLD_S " - TOP 10");
     Log::print(WHITE_BOLD_S "  # | DIFFICULTY | EFFORT %% |");
 
     for (size_t i = 0; i < m_topDiff.size(); ++i) {
@@ -251,7 +251,15 @@ std::string rxs::NetworkState::humanDiff(uint64_t diff)
 {
     const char *scale = scaleDiff(diff);
 
-    return std::to_string(diff) + scale;
+    if (*scale) {
+        return std::to_string(diff) + scale;
+    }
+
+    std::string s = std::to_string(diff);
+    for (int i = static_cast<int>(s.size()) - 3; i > 0; i -= 3) {
+        s.insert(static_cast<size_t>(i), ",");
+    }
+    return s;
 }
 
 

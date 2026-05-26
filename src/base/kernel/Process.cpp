@@ -19,12 +19,7 @@
 #include <ctime>
 #include <string>
 #include <uv.h>
-
-#ifdef RXS_OS_WIN
-#   include <direct.h>
-#else
-#   include <sys/stat.h>
-#endif
+#include <sys/stat.h>
 
 
 #include "base/kernel/Process.h"
@@ -33,11 +28,7 @@
 #include "version.h"
 
 
-#ifdef RXS_OS_WIN
-#   define MKDIR(path) _mkdir(path.c_str())
-#else
-#   define MKDIR(path) mkdir(path.c_str(), 0700)
-#endif
+#define MKDIR(path) mkdir(path.c_str(), 0700)
 
 
 namespace rxs {

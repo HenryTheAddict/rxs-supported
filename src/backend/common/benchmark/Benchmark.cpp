@@ -57,5 +57,5 @@ void rxs::Benchmark::printProgress() const
     const double dt      = static_cast<double>(Chrono::steadyMSecs() - m_startTime) / 1000.0;
     const double percent = static_cast<double>(m_current) / BenchState::size() * 100.0;
 
-    LOG_NOTICE("%s " MAGENTA_BOLD("%5.2f%% ") CYAN_BOLD("%" PRIu64) CYAN("/%u") BLACK_BOLD(" (%.3fs)"), Tags::bench(), percent, m_current, BenchState::size(), dt);
+    LOG_NOTICE("%s " MAUVE_BOLD("%5.2f%% ") SAGE_BOLD("%" PRIu64) SAGE("/%u") BLACK_BOLD(" (%.3fs)"), Tags::bench(), percent, m_current, BenchState::size(), dt);
 }

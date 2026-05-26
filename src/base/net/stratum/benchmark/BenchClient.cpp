@@ -134,7 +134,7 @@ void rxs::BenchClient::onBenchDone(uint64_t result, uint64_t diff, uint64_t ts)
     const char *color  = ref ? ((result == ref) ? GREEN_BOLD_S : RED_BOLD_S) : BLACK_BOLD_S;
 
     const double dt = static_cast<int64_t>(ts - m_readyTime) / 1000.0;
-    LOG_NOTICE("%s " WHITE_BOLD("benchmark finished in ") CYAN_BOLD("%.3f seconds (%.1f h/s)") WHITE_BOLD_S " hash sum = " CLEAR "%s%016" PRIX64 CLEAR, tag(), dt, BenchState::size() / dt, color, result);
+    LOG_NOTICE("%s " WHITE_BOLD("benchmark finished in ") SAGE_BOLD("%.3f seconds (%.1f h/s)") WHITE_BOLD_S " hash sum = " CLEAR "%s%016" PRIX64 CLEAR, tag(), dt, BenchState::size() / dt, color, result);
 
     if (m_token.isEmpty()) {
         printExit();
@@ -252,7 +252,7 @@ uint64_t rxs::BenchClient::referenceHash() const
 
 void rxs::BenchClient::printExit() const
 {
-    LOG_INFO("%s " WHITE_BOLD("press ") MAGENTA_BOLD("Ctrl+C") WHITE_BOLD(" to exit"), tag());
+    LOG_INFO("%s " WHITE_BOLD("press ") SLATE_BOLD("Ctrl+C") WHITE_BOLD(" to exit"), tag());
 }
 
 
@@ -260,7 +260,7 @@ void rxs::BenchClient::start()
 {
     const uint32_t size = BenchState::size();
 
-    LOG_NOTICE("%s " MAGENTA_BOLD("start benchmark ") "hashes " CYAN_BOLD("%u%s") " algo " WHITE_BOLD("%s"),
+    LOG_NOTICE("%s " SLATE_BOLD("start benchmark ") "hashes " SAGE_BOLD("%u%s") " algo " WHITE_BOLD("%s"),
                tag(),
                size < 1000000 ? size / 1000 : size / 1000000,
                size < 1000000 ? "K" : "M",
@@ -289,7 +289,7 @@ void rxs::BenchClient::onCreateReply(const rapidjson::Value &value)
 
 void rxs::BenchClient::onDoneReply(const rapidjson::Value &)
 {
-    LOG_NOTICE("%s " WHITE_BOLD("benchmark submitted ") CYAN_BOLD("https://xmrig.com/benchmark/%s"), tag(), m_job.id().data());
+    LOG_NOTICE("%s " WHITE_BOLD("benchmark submitted ") SAGE_BOLD("https://xmrig.com/benchmark/%s"), tag(), m_job.id().data());
     printExit();
 }
 
