@@ -29,7 +29,10 @@
 #include <windows.h>
 
 
+// WinRing0 exposes itself as a Windows service, so the service name has to match
+// the driver package we're trying to talk to.
 #define SERVICE_NAME    L"WinRing0_1_2_0"
+// The driver only understands these two IOCTLs: one for reading MSRs and one for writing them.
 #define IOCTL_READ_MSR  CTL_CODE(40000, 0x821, METHOD_BUFFERED, FILE_ANY_ACCESS)
 #define IOCTL_WRITE_MSR CTL_CODE(40000, 0x822, METHOD_BUFFERED, FILE_ANY_ACCESS)
 
@@ -114,6 +117,8 @@ rxs::Msr::Msr() : d_ptr(new MsrPrivate())
         return;
     }
 
+    // The driver lives next to the executable, so we build the path from the
+    // current module instead of assuming anything about the working directory.
     for (auto it = dir.end() - 1; it != dir.begin(); --it) {
         if ((*it == L'\\') || (*it == L'/')) {
             ++it;
@@ -124,6 +129,8 @@ rxs::Msr::Msr() : d_ptr(new MsrPrivate())
 
     const std::wstring path = std::wstring(dir.data()) + L"WinRing0x64.sys";
 
+    // If the service is already there, reuse it when possible instead of tearing
+    // down a driver that might already be in use by another copy.
     d_ptr->service = OpenServiceW(d_ptr->manager, kServiceName, SERVICE_ALL_ACCESS);
     if (d_ptr->service) {
         LOG_WARN("%s " YELLOW("service ") YELLOW_BOLD("WinRing0_1_2_0") YELLOW(" already exists"), tag());
@@ -153,6 +160,8 @@ rxs::Msr::Msr() : d_ptr(new MsrPrivate())
         }
     }
 
+    // Open the device object the driver creates. If this works, we already have
+    // a live path to MSR access and don't need to reinstall anything.
     d_ptr->driver = CreateFileW(L"\\\\.\\" SERVICE_NAME, GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, nullptr);
     if (d_ptr->driver != INVALID_HANDLE_VALUE) {
         LOG_WARN("%s " YELLOW("service ") YELLOW_BOLD("WinRing0_1_2_0") YELLOW(" already exists, but with a different service name"), tag());
@@ -211,6 +220,8 @@ bool rxs::Msr::write(Callback &&callback)
     const auto &units = Cpu::info()->units();
     bool success      = false;
 
+    // The driver works per logical CPU, so the callback gets run with affinity
+    // pinned one unit at a time.
     std::thread thread([&callback, &units, &success]() {
         for (int32_t pu : units) {
             if (!Platform::setThreadAffinity(pu)) {
