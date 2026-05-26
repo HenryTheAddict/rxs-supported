@@ -100,8 +100,8 @@ static void print_cpu(const Config *)
                );
 #   if defined(RXS_FEATURE_HWLOC)
     Log::print(WHITE_BOLD("   %-13s") BLACK_BOLD("L2:") WHITE_BOLD("%.1f MB") BLACK_BOLD(" L3:") WHITE_BOLD("%.1f MB")
-               CYAN_BOLD(" %zu") "C" BLACK_BOLD("/") CYAN_BOLD("%zu") "T"
-               BLACK_BOLD(" NUMA:") CYAN_BOLD("%zu"),
+               SAGE_BOLD(" %zu") "C" BLACK_BOLD("/") SAGE_BOLD("%zu") "T"
+               BLACK_BOLD(" NUMA:") SAGE_BOLD("%zu"),
                "",
                info->L2() / 1048576.0,
                info->L3() / 1048576.0,
@@ -110,7 +110,7 @@ static void print_cpu(const Config *)
                info->nodes()
                );
 #   else
-    Log::print(WHITE_BOLD("   %-13s") BLACK_BOLD("threads:") CYAN_BOLD("%zu"), "", info->threads());
+    Log::print(WHITE_BOLD("   %-13s") BLACK_BOLD("threads:") SAGE_BOLD("%zu"), "", info->threads());
 #   endif
 }
 
@@ -123,7 +123,7 @@ static void print_memory(const Config *config)
 
     const double percent = freeMem > 0 ? ((totalMem - freeMem) / totalMem * 100.0) : 100.0;
 
-    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-13s") CYAN_BOLD("%.1f/%.1f") CYAN(" GB") BLACK_BOLD(" (%.0f%%)"),
+    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-13s") SAGE_BOLD("%.1f/%.1f") SAGE(" GB") BLACK_BOLD(" (%.0f%%)"),
                "MEMORY",
                (totalMem - freeMem) / oneGiB,
                totalMem / oneGiB,
@@ -148,7 +148,7 @@ static void print_memory(const Config *config)
         }
 
         if (memory.size()) {
-            Log::print(WHITE_BOLD("   %-13s") "%s: " CYAN_BOLD("%" PRIu64) CYAN(" GB ") WHITE_BOLD("%s @ %" PRIu64 " MHz ") BLACK_BOLD("%s"),
+            Log::print(WHITE_BOLD("   %-13s") "%s: " SAGE_BOLD("%" PRIu64) SAGE(" GB ") WHITE_BOLD("%s @ %" PRIu64 " MHz ") BLACK_BOLD("%s"),
                        "", memory.id().data(), memory.size() / oneGiB, memory.type(), memory.speed() / 1000000ULL, memory.product().data());
         }
         else if (printEmpty) {
@@ -183,11 +183,11 @@ static void print_threads(const Config *config)
 static void print_commands(Config *)
 {
     if (Log::isColors()) {
-        Log::print(GREEN_BOLD(" * ") WHITE_BOLD("COMMANDS     ") MAGENTA_BG_BOLD("h") WHITE_BOLD("ashrate, ")
-                                                                 MAGENTA_BG_BOLD("p") WHITE_BOLD("ause, ")
-                                                                 MAGENTA_BG_BOLD("r") WHITE_BOLD("esume, ")
-                                                                 WHITE_BOLD("re") MAGENTA_BG(WHITE_BOLD_S "s") WHITE_BOLD("ults, ")
-                                                                 MAGENTA_BG_BOLD("c") WHITE_BOLD("onnection")
+        Log::print(GREEN_BOLD(" * ") WHITE_BOLD("COMMANDS     ") PLUM_BG_BOLD("h") WHITE_BOLD("ashrate, ")
+                                                                 PLUM_BG_BOLD("p") WHITE_BOLD("ause, ")
+                                                                 PLUM_BG_BOLD("r") WHITE_BOLD("esume, ")
+                                                                 WHITE_BOLD("re") PLUM_BG(WHITE_BOLD_S "s") WHITE_BOLD("ults, ")
+                                                                 PLUM_BG_BOLD("c") WHITE_BOLD("onnection")
                    );
     }
     else {

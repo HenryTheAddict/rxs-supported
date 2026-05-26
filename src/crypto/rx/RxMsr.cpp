@@ -63,7 +63,7 @@ static bool wrmsr(const MsrItems &preset, const std::vector<CpuThread> &threads,
                 return false;
             }
 
-            LOG_VERBOSE("%s " CYAN_BOLD("0x%08" PRIx32) CYAN(":0x%016" PRIx64) CYAN_BOLD(" -> 0x%016" PRIx64), Msr::tag(), i.reg(), item.value(), MsrItem::maskedValue(item.value(), i.value(), i.mask()));
+            LOG_VERBOSE("%s " SAGE_BOLD("0x%08" PRIx32) SAGE(":0x%016" PRIx64) SAGE_BOLD(" -> 0x%016" PRIx64), Msr::tag(), i.reg(), item.value(), MsrItem::maskedValue(item.value(), i.value(), i.mask()));
 
             items.emplace_back(item);
         }

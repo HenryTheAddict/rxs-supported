@@ -102,7 +102,7 @@ int rxs::App::exec()
 void rxs::App::onConsoleCommand(char command)
 {
     if (command == 3) {
-        LOG_WARN("%s " YELLOW("Ctrl+C received, exiting"), Tags::signal());
+        LOG_WARN("%s " SLATE_BOLD("Ctrl+C received, exiting"), Tags::signal());
         close();
     }
     else {

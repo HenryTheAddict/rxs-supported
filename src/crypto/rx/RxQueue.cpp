@@ -138,7 +138,7 @@ void rxs::RxQueue::backgroundInit()
 
         lock.unlock();
 
-        LOG_INFO("%s" MAGENTA_BOLD("init dataset%s") " algo " WHITE_BOLD("%s (") CYAN_BOLD("%u") WHITE_BOLD(" threads)") BLACK_BOLD(" seed %s..."),
+        LOG_INFO("%s" SLATE_BOLD("init dataset%s") " algo " WHITE_BOLD("%s (") SAGE_BOLD("%u") WHITE_BOLD(" threads)") BLACK_BOLD(" seed %s..."),
                  Tags::randomx(),
                  item.nodeset.size() > 1 ? "s" : "",
                  item.seed.algorithm().name(),

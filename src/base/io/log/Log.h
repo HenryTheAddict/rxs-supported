@@ -77,7 +77,7 @@ private:
 #define BRIGHT_BLACK_S      CSI "38;5;245m"
 #define BLACK_S             CSI "38;5;240m"
 #define BLACK_BOLD_S        CSI "1;38;5;246m"
-#define RED_S               CSI "38;5;167m" 
+#define RED_S               CSI "38;5;167m"
 #define RED_BOLD_S          CSI "1;38;5;203m"
 #define GREEN_S             CSI "38;5;108m"
 #define GREEN_BOLD_S        CSI "1;38;5;114m"
@@ -91,6 +91,10 @@ private:
 #define CYAN_BOLD_S         CSI "1;38;5;87m"
 #define WHITE_S             CSI "38;5;249m"
 #define WHITE_BOLD_S        CSI "1;38;5;231m"
+#define SLATE_BOLD_S        CSI "1;38;5;110m"
+#define MAUVE_BOLD_S        CSI "1;38;5;139m"
+#define SAGE_S              CSI "38;5;66m"
+#define SAGE_BOLD_S         CSI "1;38;5;66m"
 
 #define RED_BG_BOLD_S       CSI "1;48;5;124m"
 #define GREEN_BG_BOLD_S     CSI "1;48;5;22m"
@@ -102,6 +106,7 @@ private:
 #define CYAN_BG_S           CSI "48;5;23m"
 #define CYAN_BG_BOLD_S      CSI "1;48;5;29m"
 #define GARNET_BG_BOLD_S    CSI "1;48;5;124m"
+#define PLUM_BG_S           CSI "48;5;53m"
 #define PLUM_BG_BOLD_S      CSI "1;48;5;53m"
 #define TEAL_BG_BOLD_S      CSI "1;48;5;23m"
 
@@ -121,6 +126,10 @@ private:
 #define CYAN_BOLD(x)        CYAN_BOLD_S x CLEAR
 #define WHITE(x)            WHITE_S x CLEAR
 #define WHITE_BOLD(x)       WHITE_BOLD_S x CLEAR
+#define SLATE_BOLD(x)       SLATE_BOLD_S x CLEAR
+#define MAUVE_BOLD(x)       MAUVE_BOLD_S x CLEAR
+#define SAGE(x)             SAGE_S x CLEAR
+#define SAGE_BOLD(x)        SAGE_BOLD_S x CLEAR
 
 #define RED_BG_BOLD(x)      RED_BG_BOLD_S x CLEAR
 #define GREEN_BG_BOLD(x)    GREEN_BG_BOLD_S x CLEAR
@@ -132,6 +141,7 @@ private:
 #define CYAN_BG(x)          CYAN_BG_S x CLEAR
 #define CYAN_BG_BOLD(x)     CYAN_BG_BOLD_S x CLEAR
 #define GARNET_BG_BOLD(x)   GARNET_BG_BOLD_S x CLEAR
+#define PLUM_BG(x)          PLUM_BG_S x CLEAR
 #define PLUM_BG_BOLD(x)     PLUM_BG_BOLD_S x CLEAR
 #define TEAL_BG_BOLD(x)     TEAL_BG_BOLD_S x CLEAR
 

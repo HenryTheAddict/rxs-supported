@@ -61,15 +61,15 @@ void rxs::Signals::onSignal(uv_signal_t *handle, int signum)
     switch (signum)
     {
     case SIGHUP:
-        LOG_WARN("%s " YELLOW("SIGHUP received, exiting"), Tags::signal());
+        LOG_WARN("%s " SLATE_BOLD("SIGHUP received, exiting"), Tags::signal());
         break;
 
     case SIGTERM:
-        LOG_WARN("%s " YELLOW("SIGTERM received, exiting"), Tags::signal());
+        LOG_WARN("%s " SLATE_BOLD("SIGTERM received, exiting"), Tags::signal());
         break;
 
     case SIGINT:
-        LOG_WARN("%s " YELLOW("SIGINT received, exiting"), Tags::signal());
+        LOG_WARN("%s " SLATE_BOLD("SIGINT received, exiting"), Tags::signal());
         break;
 
 #   ifdef SIGUSR1

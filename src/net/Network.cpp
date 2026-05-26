@@ -125,7 +125,7 @@ void rxs::Network::onActive(IStrategy * /*strategy*/, IClient *client)
     }
 
     const char *tlsVersion = client->tlsVersion();
-    LOG_INFO("%s " WHITE_BOLD("use %s ") CYAN_BOLD("%s:%d%s ") GREEN_BOLD("%s") " " BLACK_BOLD("%s"),
+    LOG_INFO("%s " WHITE_BOLD("use %s ") SAGE_BOLD("%s:%d%s ") GREEN_BOLD("%s") " " BLACK_BOLD("%s"),
              Tags::network(), client->mode(), pool.host().data(), pool.port(), zmq_buf, tlsVersion ? tlsVersion : "", client->ip().data());
 
     const char *fingerprint = client->tlsFingerprint();
@@ -202,16 +202,15 @@ void rxs::Network::onPause(IStrategy * /*strategy*/)
 
 void rxs::Network::onResultAccepted(IStrategy *, IClient *, const SubmitResult &result, const char *error)
 {
-    uint64_t diff     = result.diff;
-    const char *scale = NetworkState::scaleDiff(diff);
+    const std::string diff_str = NetworkState::humanDiff(result.diff);
 
     if (error) {
-        LOG_INFO("%s " RED_BOLD("rejected") " (%" PRId64 "/%" PRId64 ") diff " WHITE_BOLD("%" PRIu64 "%s") " " RED("\"%s\"") " " BLACK_BOLD("(%" PRIu64 " ms)"),
-                 backend_tag(result.backend), m_state->accepted(), m_state->rejected(), diff, scale, error, result.elapsed);
+        LOG_INFO("%s " RED_BOLD("rejected") " (%" PRId64 "/%" PRId64 ") diff " SAGE_BOLD("%s") " " RED("\"%s\"") " " BLACK_BOLD("(%" PRIu64 " ms)"),
+                 backend_tag(result.backend), m_state->accepted(), m_state->rejected(), diff_str.c_str(), error, result.elapsed);
     }
     else {
-        LOG_INFO("%s " GREEN_BOLD("accepted") " (%" PRId64 "/%" PRId64 ") diff " WHITE_BOLD("%" PRIu64 "%s") " " BLACK_BOLD("(%" PRIu64 " ms)"),
-                 backend_tag(result.backend), m_state->accepted(), m_state->rejected(), diff, scale, result.elapsed);
+        LOG_INFO("%s " GREEN_BOLD("accepted") " (%" PRId64 "/%" PRId64 ") diff " SAGE_BOLD("%s") " " BLACK_BOLD("(%" PRIu64 " ms)"),
+                 backend_tag(result.backend), m_state->accepted(), m_state->rejected(), diff_str.c_str(), result.elapsed);
     }
 }
 
@@ -245,8 +244,8 @@ void rxs::Network::setJob(IClient *client, const Job &job)
     if (!BenchState::size())
 #   endif
     {
-        uint64_t diff       = job.diff();
-        const char *scale   = NetworkState::scaleDiff(diff);
+        uint64_t diff_raw       = job.diff();
+        const std::string diff_str = NetworkState::humanDiff(diff_raw);
 
         char zmq_buf[32] = {};
         if (client->pool().zmq_port() >= 0) {
@@ -261,11 +260,16 @@ void rxs::Network::setJob(IClient *client, const Job &job)
 
         char height_buf[64] = {};
         if (job.height() > 0) {
-            snprintf(height_buf, sizeof(height_buf), " height " WHITE_BOLD("%" PRIu64), job.height());
+            uint64_t h = job.height();
+            std::string h_str = std::to_string(h);
+            for (int i = static_cast<int>(h_str.size()) - 3; i > 0; i -= 3) {
+                h_str.insert(static_cast<size_t>(i), ",");
+            }
+            snprintf(height_buf, sizeof(height_buf), " height " SAGE_BOLD_S "%s" CLEAR, h_str.c_str());
         }
 
-        LOG_INFO("%s " MAGENTA_BOLD("new job") " from " WHITE_BOLD("%s:%d%s") " diff " WHITE_BOLD("%" PRIu64 "%s") " algo " WHITE_BOLD("%s") "%s%s",
-                 Tags::network(), client->pool().host().data(), client->pool().port(), zmq_buf, diff, scale, job.algorithm().name(), height_buf, tx_buf);
+        LOG_INFO("%s " SLATE_BOLD("new job") " from " WHITE_BOLD("%s:%d%s") " diff " SAGE_BOLD("%s") " algo " WHITE_BOLD("%s") "%s%s",
+                 Tags::network(), client->pool().host().data(), client->pool().port(), zmq_buf, diff_str.c_str(), job.algorithm().name(), height_buf, tx_buf);
     }
 
     m_controller->miner()->setJob(job);
