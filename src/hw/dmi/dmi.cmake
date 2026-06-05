@@ -5,7 +5,7 @@ else()
 endif()
 
 if (WITH_DMI)
-    add_definitions(/DRXS_FEATURE_DMI)
+    add_definitions(-DRXS_FEATURE_DMI)
 
     list(APPEND HEADERS
         src/hw/dmi/DmiBoard.h
@@ -23,5 +23,5 @@ if (WITH_DMI)
 
     list(APPEND SOURCES src/hw/dmi/DmiReader_unix.cpp)
 else()
-    remove_definitions(/DRXS_FEATURE_DMI)
+    remove_definitions(-DRXS_FEATURE_DMI)
 endif()

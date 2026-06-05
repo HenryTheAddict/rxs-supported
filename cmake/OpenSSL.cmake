@@ -38,11 +38,11 @@ if (WITH_TLS)
         message(FATAL_ERROR "OpenSSL NOT found: use `-DWITH_TLS=OFF` to build without TLS support")
     endif()
 
-    add_definitions(/DRXS_FEATURE_TLS)
+    add_definitions(-DRXS_FEATURE_TLS)
 else()
     set(TLS_SOURCES "")
     set(OPENSSL_LIBRARIES "")
-    remove_definitions(/DRXS_FEATURE_TLS)
+    remove_definitions(-DRXS_FEATURE_TLS)
 
     if (WITH_HTTP)
         set(TLS_SOURCES ${TLS_SOURCES}

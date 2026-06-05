@@ -3,10 +3,10 @@ if (WITH_RANDOMX)
 
     check_symbol_exists(posix_memalign "stdlib.h" HAVE_POSIX_MEMALIGN)
     if (HAVE_POSIX_MEMALIGN)
-        add_compile_definitions(HAVE_POSIX_MEMALIGN)
+        add_definitions(-DHAVE_POSIX_MEMALIGN)
     endif()
 
-    add_definitions(/DRXS_ALGO_RANDOMX)
+    add_definitions(-DRXS_ALGO_RANDOMX)
     set(WITH_ARGON2 ON)
 
     list(APPEND HEADERS_CRYPTO
@@ -133,8 +133,8 @@ if (WITH_RANDOMX)
     endif()
 
     if (WITH_MSR AND NOT RXS_ARM AND NOT RXS_RISCV AND CMAKE_SIZEOF_VOID_P EQUAL 8 AND RXS_OS_LINUX)
-        add_definitions(/DRXS_FEATURE_MSR)
-        add_definitions(/DRXS_FIX_RYZEN)
+        add_definitions(-DRXS_FEATURE_MSR)
+        add_definitions(-DRXS_FIX_RYZEN)
         message("-- WITH_MSR=ON")
 
         list(APPEND SOURCES_CRYPTO
@@ -155,13 +155,13 @@ if (WITH_RANDOMX)
             src/hw/msr/MsrItem.cpp
             )
     else()
-        remove_definitions(/DRXS_FEATURE_MSR)
-        remove_definitions(/DRXS_FIX_RYZEN)
+        remove_definitions(-DRXS_FEATURE_MSR)
+        remove_definitions(-DRXS_FIX_RYZEN)
         message("-- WITH_MSR=OFF")
     endif()
 
     if (WITH_PROFILING)
-        add_definitions(/DRXS_FEATURE_PROFILING)
+        add_definitions(-DRXS_FEATURE_PROFILING)
 
         list(APPEND HEADERS_CRYPTO src/crypto/rx/Profiler.h)
         list(APPEND SOURCES_CRYPTO src/crypto/rx/Profiler.cpp)
@@ -174,5 +174,5 @@ if (WITH_RANDOMX)
         endif()
     endif()
 else()
-    remove_definitions(/DRXS_ALGO_RANDOMX)
+    remove_definitions(-DRXS_ALGO_RANDOMX)
 endif()

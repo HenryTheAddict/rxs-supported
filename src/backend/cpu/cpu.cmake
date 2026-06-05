@@ -26,16 +26,16 @@ if (WITH_HWLOC)
     include_directories(${HWLOC_INCLUDE_DIR})
     set(CPUID_LIB ${HWLOC_LIBRARY})
 
-    add_definitions(/DRXS_FEATURE_HWLOC)
+    add_definitions(-DRXS_FEATURE_HWLOC)
 
     if (HWLOC_DEBUG)
-        add_definitions(/DRXS_HWLOC_DEBUG)
+        add_definitions(-DRXS_HWLOC_DEBUG)
     endif()
 
     list(APPEND HEADERS_BACKEND_CPU src/backend/cpu/platform/HwlocCpuInfo.h)
     list(APPEND SOURCES_BACKEND_CPU src/backend/cpu/platform/HwlocCpuInfo.cpp)
 else()
-    remove_definitions(/DRXS_FEATURE_HWLOC)
+    remove_definitions(-DRXS_FEATURE_HWLOC)
 
     set(CPUID_LIB "")
 endif()

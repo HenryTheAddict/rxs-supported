@@ -1,6 +1,4 @@
 if (WITH_HTTP)
-    add_definitions(/DRXS_FEATURE_DMI)
-
     list(APPEND HEADERS
         src/hw/api/HwApi.h
         )

@@ -132,7 +132,7 @@ if (VAES_SUPPORTED)
 endif()
 
 if (WITH_EMBEDDED_CONFIG)
-    add_definitions(/DRXS_FEATURE_EMBEDDED_CONFIG)
+    add_definitions(-DRXS_FEATURE_EMBEDDED_CONFIG)
 endif()
 
 include(src/hw/api/api.cmake)
@@ -143,7 +143,7 @@ include_directories(src/3rdparty)
 include_directories(${UV_INCLUDE_DIR})
 
 if (WITH_DEBUG_LOG)
-    add_definitions(/DAPP_DEBUG)
+    add_definitions(-DAPP_DEBUG)
 endif()
 
 add_executable(${CMAKE_PROJECT_NAME} ${HEADERS} ${SOURCES} ${SOURCES_OS} ${HEADERS_CRYPTO} ${SOURCES_CRYPTO} ${SOURCES_SYSLOG} ${TLS_SOURCES} ${RXS_ASM_SOURCES})
