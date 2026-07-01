@@ -25,6 +25,7 @@
 #include "base/net/stratum/Pool.h"
 #include "base/net/stratum/SubmitResult.h"
 #include "base/tools/Chrono.h"
+#include "base/tools/Format.h"
 
 
 #include <algorithm>
@@ -51,18 +52,18 @@ inline static void printCount(uint64_t accepted, uint64_t rejected)
         color       = 3;
     }
 
-    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") CSI "1;3%dm%" PRIu64 CLEAR CSI "0;3%dm (%1.1f%%)", "accepted", color, accepted, color, percent);
+    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") CSI "1;3%dm%s" CLEAR CSI "0;3%dm (%1.1f%%)", "accepted", color, Format::withCommas(accepted).c_str(), color, percent);
 
     if (rejected) {
-        Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") RED_BOLD("%" PRIu64), "rejected", rejected);
+        Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") RED_BOLD("%s"), "rejected", Format::withCommas(rejected).c_str());
     }
 }
 
 
 inline static void printHashes(uint64_t accepted, uint64_t hashes)
 {
-    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") SAGE_BOLD("%" PRIu64) " avg " SAGE("%1.0f"),
-               "pool-side hashes", hashes, static_cast<double>(hashes) / accepted);
+    Log::print(GREEN_BOLD(" * ") WHITE_BOLD("%-17s") SAGE_BOLD("%s") " avg " SAGE("%1.0f"),
+               "pool-side hashes", Format::withCommas(hashes).c_str(), static_cast<double>(hashes) / accepted);
 }
 
 
@@ -88,7 +89,7 @@ inline static void printDiff(size_t i, uint64_t diff, uint64_t hashes)
     const double target = (i + 1) * 100.0;
     const int color     = effort > (target + 100.0) ? 1 : (effort > target ? 3 : 2);
 
-    Log::print("%3zu | %10s | " CSI "0;3%dm%8.2f" CLEAR " |", i + 1, NetworkState::humanDiff(diff).c_str(), color, effort);
+    Log::print("%3zu | %14s | " CSI "0;3%dm%9.2f%%" CLEAR " |", i + 1, Format::withCommas(diff).c_str(), color, effort);
 }
 
 
@@ -215,7 +216,7 @@ void rxs::NetworkState::printResults() const
     }
 
     Log::print(SLATE_BOLD_S " - TOP 10");
-    Log::print(WHITE_BOLD_S "  # | DIFFICULTY | EFFORT %% |");
+    Log::print(WHITE_BOLD_S "  # |     DIFFICULTY |   EFFORT %% |");
 
     for (size_t i = 0; i < m_topDiff.size(); ++i) {
         printDiff(i, m_topDiff[i], m_hashes);
@@ -223,43 +224,15 @@ void rxs::NetworkState::printResults() const
 }
 
 
-const char *rxs::NetworkState::scaleDiff(uint64_t &diff)
+const char *rxs::NetworkState::scaleDiff(uint64_t &/*diff*/)
 {
-    if (diff >= 100000000000) {
-        diff /= 1000000000;
-
-        return "G";
-    }
-
-    if (diff >= 100000000) {
-        diff /= 1000000;
-
-        return "M";
-    }
-
-    if (diff >= 1000000) {
-        diff /= 1000;
-
-        return "K";
-    }
-
     return "";
 }
 
 
 std::string rxs::NetworkState::humanDiff(uint64_t diff)
 {
-    const char *scale = scaleDiff(diff);
-
-    if (*scale) {
-        return std::to_string(diff) + scale;
-    }
-
-    std::string s = std::to_string(diff);
-    for (int i = static_cast<int>(s.size()) - 3; i > 0; i -= 3) {
-        s.insert(static_cast<size_t>(i), ",");
-    }
-    return s;
+    return Format::withCommas(diff);
 }
 
 

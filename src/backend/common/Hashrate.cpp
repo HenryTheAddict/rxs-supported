@@ -20,9 +20,11 @@
 
 #include <cassert>
 #include <cstdio>
+#include <limits>
 
 
 #include "backend/common/Hashrate.h"
+#include "base/tools/Format.h"
 #include "3rdparty/rapidjson/document.h"
 #include "base/io/json/Json.h"
 #include "base/tools/Chrono.h"
@@ -31,44 +33,34 @@
 
 inline static const char *format(std::pair<bool, double> h, char *buf, size_t size)
 {
-    if (h.first) {
-        snprintf(buf, size, (h.second < 100.0) ? "%04.2f" : "%03.1f", h.second);
-        return buf;
+    if (!h.first) {
+        return "n/a";
     }
 
-    return "n/a";
+    snprintf(buf, size, (h.second < 100.0) ? "%04.2f" : "%03.1f", h.second);
+    rxs::Format::withCommas(buf, size);
+    return buf;
 }
 
 
 rxs::Hashrate::Hashrate(size_t threads) :
-    m_threads(threads + 1)
+    m_threads(threads + 1),
+    m_countsBuf    (new uint64_t  [m_threads * kBucketSize]()),
+    m_timestampsBuf(new uint64_t  [m_threads * kBucketSize]()),
+    m_counts       (new uint64_t* [m_threads]),
+    m_timestamps   (new uint64_t* [m_threads]),
+    m_top          (new uint32_t  [m_threads]()),
+    m_earliestTimestamp(std::numeric_limits<uint64_t>::max()),
+    m_totalCount(0)
 {
-    m_counts     = new uint64_t*[m_threads];
-    m_timestamps = new uint64_t*[m_threads];
-    m_top        = new uint32_t[m_threads]();
-
-    m_countsBuf     = new uint64_t[m_threads * kBucketSize]();
-    m_timestampsBuf = new uint64_t[m_threads * kBucketSize]();
-
     for (size_t i = 0; i < m_threads; i++) {
-        m_counts[i]     = m_countsBuf     + i * kBucketSize;
-        m_timestamps[i] = m_timestampsBuf + i * kBucketSize;
+        m_counts[i]     = m_countsBuf.get()     + i * kBucketSize;
+        m_timestamps[i] = m_timestampsBuf.get() + i * kBucketSize;
     }
-
-    m_earliestTimestamp = std::numeric_limits<uint64_t>::max();
-    m_totalCount = 0;
 }
 
 
-rxs::Hashrate::~Hashrate()
-{
-    delete [] m_countsBuf;
-    delete [] m_timestampsBuf;
-
-    delete [] m_counts;
-    delete [] m_timestamps;
-    delete [] m_top;
-}
+rxs::Hashrate::~Hashrate() = default;
 
 
 double rxs::Hashrate::average() const

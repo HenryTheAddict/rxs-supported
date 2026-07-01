@@ -61,8 +61,8 @@ if (WITH_RANDOMX)
              src/crypto/randomx/jit_compiler_a64_static.S
              src/crypto/randomx/jit_compiler_a64.cpp
             )
-        # cheat because cmake and ccache hate each other
-        set_property(SOURCE src/crypto/randomx/jit_compiler_a64_static.S PROPERTY LANGUAGE C)
+        set_property(SOURCE src/crypto/randomx/jit_compiler_a64_static.S PROPERTY LANGUAGE ASM)
+        set_source_files_properties(src/crypto/randomx/jit_compiler_a64_static.S PROPERTIES COMPILE_FLAGS "${ARM8_CXX_FLAGS}")
     elseif (RXS_RISCV AND CMAKE_SIZEOF_VOID_P EQUAL 8)
         list(APPEND SOURCES_CRYPTO
              src/crypto/randomx/jit_compiler_rv64_static.S
@@ -106,7 +106,7 @@ if (WITH_RANDOMX)
         list(APPEND SOURCES_CRYPTO src/crypto/randomx/blake2/blake2b_sse41.c)
 
         if (CMAKE_C_COMPILER_ID MATCHES GNU OR CMAKE_C_COMPILER_ID MATCHES Clang)
-            set_source_files_properties(src/crypto/randomx/blake2/blake2b_sse41.c PROPERTIES COMPILE_FLAGS "-Ofast -msse4.1")
+            set_source_files_properties(src/crypto/randomx/blake2/blake2b_sse41.c PROPERTIES COMPILE_FLAGS "-O3 -msse4.1")
         endif()
     endif()
 
@@ -114,7 +114,7 @@ if (WITH_RANDOMX)
         list(APPEND SOURCES_CRYPTO src/crypto/randomx/blake2/avx2/blake2b_avx2.c)
 
         if (CMAKE_C_COMPILER_ID MATCHES GNU OR CMAKE_C_COMPILER_ID MATCHES Clang)
-            set_source_files_properties(src/crypto/randomx/blake2/avx2/blake2b_avx2.c PROPERTIES COMPILE_FLAGS "-Ofast -mavx2")
+            set_source_files_properties(src/crypto/randomx/blake2/avx2/blake2b_avx2.c PROPERTIES COMPILE_FLAGS "-O3 -mavx2")
         endif()
     endif()
 

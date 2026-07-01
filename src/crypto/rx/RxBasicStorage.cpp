@@ -26,6 +26,8 @@
 #include "crypto/rx/RxDataset.h"
 #include "crypto/rx/RxSeed.h"
 
+#include <memory>
+
 
 namespace rxs {
 
@@ -36,14 +38,16 @@ constexpr size_t oneMiB = 1024 * 1024;
 class RxBasicStoragePrivate
 {
 public:
-    RXS_DISABLE_COPY_MOVE(RxBasicStoragePrivate)
+    RxBasicStoragePrivate(const RxBasicStoragePrivate&) = delete("RxBasicStoragePrivate is not copyable");
+    RxBasicStoragePrivate& operator=(const RxBasicStoragePrivate&) = delete("RxBasicStoragePrivate is not copyable");
 
     inline RxBasicStoragePrivate() = default;
-    inline ~RxBasicStoragePrivate() { deleteDataset(); }
 
+    [[nodiscard("check before accessing dataset")]]
     inline bool isReady(const Job &job) const   { return m_ready && m_seed == job; }
-    inline RxDataset *dataset() const           { return m_dataset; }
-    inline void deleteDataset()                 { delete m_dataset; m_dataset = nullptr; }
+    [[nodiscard]] inline RxDataset *dataset() const           { return m_dataset.get(); }
+    [[nodiscard]] inline bool isAllocated() const             { return m_isAllocated; }
+    inline void deleteDataset()                 { m_dataset.reset(); m_isAllocated = false; }
 
 
     inline void setSeed(const RxSeed &seed)
@@ -58,11 +62,12 @@ public:
     }
 
 
+    [[nodiscard("allocation failure must be handled")]]
     inline bool createDataset(bool hugePages, bool oneGbPages, RxConfig::Mode mode)
     {
         const uint64_t ts = Chrono::steadyMSecs();
 
-        m_dataset = new RxDataset(hugePages, oneGbPages, true, mode, 0);
+        m_dataset = std::make_unique<RxDataset>(hugePages, oneGbPages, true, mode, 0);
         if (!m_dataset->cache()->get()) {
             deleteDataset();
 
@@ -73,6 +78,7 @@ public:
 
         printAllocStatus(ts);
 
+        m_isAllocated = true;
         return true;
     }
 
@@ -90,7 +96,7 @@ public:
 
 
 private:
-    void printAllocStatus(uint64_t ts)
+    void printAllocStatus(uint64_t ts) const
     {
         if (m_dataset->get() != nullptr) {
             const auto pages = m_dataset->hugePages();
@@ -115,7 +121,8 @@ private:
 
 
     bool m_ready         = false;
-    RxDataset *m_dataset = nullptr;
+    bool m_isAllocated   = false;
+    std::unique_ptr<RxDataset> m_dataset;
     RxSeed m_seed;
 };
 
@@ -124,20 +131,15 @@ private:
 
 
 rxs::RxBasicStorage::RxBasicStorage() :
-    d_ptr(new RxBasicStoragePrivate())
+    d_ptr(std::make_unique<RxBasicStoragePrivate>())
 {
 }
 
-
-rxs::RxBasicStorage::~RxBasicStorage()
-{
-    delete d_ptr;
-}
-
+rxs::RxBasicStorage::~RxBasicStorage() = default;
 
 bool rxs::RxBasicStorage::isAllocated() const
 {
-    return d_ptr->dataset() && d_ptr->dataset()->cache() && d_ptr->dataset()->cache()->get();
+    return d_ptr->isAllocated();
 }
 
 
