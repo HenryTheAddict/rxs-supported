@@ -28,7 +28,12 @@ using uv_handle_t   = struct uv_handle_s;
 using uv_stream_t   = struct uv_stream_s;
 using uv_tty_t      = struct uv_tty_s;
 
-#include <sys/types.h>
+#ifdef RXS_OS_WIN
+#   include <BaseTsd.h>
+using ssize_t = SSIZE_T;
+#else
+#   include <sys/types.h>
+#endif
 
 
 namespace rxs {

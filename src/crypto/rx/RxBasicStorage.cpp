@@ -38,8 +38,8 @@ constexpr size_t oneMiB = 1024 * 1024;
 class RxBasicStoragePrivate
 {
 public:
-    RxBasicStoragePrivate(const RxBasicStoragePrivate&) = delete("RxBasicStoragePrivate is not copyable");
-    RxBasicStoragePrivate& operator=(const RxBasicStoragePrivate&) = delete("RxBasicStoragePrivate is not copyable");
+    RxBasicStoragePrivate(const RxBasicStoragePrivate&) = delete;
+    RxBasicStoragePrivate& operator=(const RxBasicStoragePrivate&) = delete;
 
     inline RxBasicStoragePrivate() = default;
 

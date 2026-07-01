@@ -1,8 +1,13 @@
 cmake_minimum_required(VERSION 3.30)
 project(rxs LANGUAGES C CXX ASM)
 
-set(CMAKE_CXX_STANDARD 26)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if (MSVC)
+    set(CMAKE_CXX_STANDARD 23)
+    set(CMAKE_CXX_STANDARD_REQUIRED OFF)
+else()
+    set(CMAKE_CXX_STANDARD 26)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+endif()
 
 option(WITH_HWLOC           "Enable hwloc support" ON)
 option(WITH_RANDOMX         "Enable RandomX algorithms family" ON)
@@ -98,12 +103,21 @@ if (WITH_HWLOC)
         )
 endif()
 
-list(APPEND SOURCES_OS
-    src/App_unix.cpp
-    src/crypto/common/VirtualMemory_unix.cpp
-    )
+if (RXS_OS_WIN)
+    list(APPEND SOURCES_OS
+        src/App_win.cpp
+        src/crypto/common/VirtualMemory_win.cpp
+        )
+elseif (RXS_OS_UNIX)
+    list(APPEND SOURCES_OS
+        src/App_unix.cpp
+        src/crypto/common/VirtualMemory_unix.cpp
+        )
+endif()
 
-if (RXS_OS_ANDROID)
+if (RXS_OS_WIN)
+    set(EXTRA_LIBS ws2_32 iphlpapi psapi userenv dbghelp)
+elseif (RXS_OS_ANDROID)
     set(EXTRA_LIBS pthread rt dl log)
 elseif (RXS_OS_LINUX)
     list(APPEND SOURCES_OS
@@ -140,6 +154,9 @@ include(src/hw/dmi/dmi.cmake)
 
 include_directories(src)
 include_directories(src/3rdparty)
+if (RXS_OS_WIN)
+    include_directories(src/3rdparty/getopt)
+endif()
 include_directories(${UV_INCLUDE_DIR})
 
 if (WITH_DEBUG_LOG)

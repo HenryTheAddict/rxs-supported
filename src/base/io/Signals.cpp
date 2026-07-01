@@ -24,17 +24,23 @@
 #include "base/tools/Handle.h"
 
 
-#ifdef SIGUSR1
+#if defined(RXS_OS_WIN)
+static const int signums[rxs::Signals::kSignalsCount] = { SIGINT, SIGTERM };
+#elif defined(SIGUSR1) && defined(SIGHUP)
 static const int signums[rxs::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM, SIGUSR1 };
-#else
+#elif defined(SIGHUP)
 static const int signums[rxs::Signals::kSignalsCount] = { SIGHUP, SIGINT, SIGTERM };
+#else
+static const int signums[rxs::Signals::kSignalsCount] = { SIGINT, SIGTERM };
 #endif
 
 
 rxs::Signals::Signals(ISignalListener *listener)
     : m_listener(listener)
 {
+#ifdef SIGPIPE
     signal(SIGPIPE, SIG_IGN);
+#endif
 
     for (size_t i = 0; i < kSignalsCount; ++i) {
         auto signal  = new uv_signal_t;
@@ -60,9 +66,11 @@ void rxs::Signals::onSignal(uv_signal_t *handle, int signum)
 {
     switch (signum)
     {
+#   ifdef SIGHUP
     case SIGHUP:
         LOG_WARN("%s " SLATE_BOLD("SIGHUP received, exiting"), Tags::signal());
         break;
+#   endif
 
     case SIGTERM:
         LOG_WARN("%s " SLATE_BOLD("SIGTERM received, exiting"), Tags::signal());
