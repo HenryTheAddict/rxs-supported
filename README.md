@@ -19,7 +19,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DOPENSSL_ROOT_DIR="$(brew --pref
 cmake --build build --parallel
 ```
 
-On macOS, the Release target is an app bundle at `build/rxs.app`. Its executable and editable `config.json` are in `build/rxs.app/Contents/MacOS/`.
+On macOS, the Release target is an app bundle at `build/rxs.app`. Double-click it to open Terminal for first-run setup. It asks once for a primary Monero address, saves the result at `~/Library/Application Support/rxs/config.json`, and starts mining from that per-user config.
 
 To create native build artifacts (an `.app` and a `.zip`) for a Mac with the Homebrew dependencies above, run:
 
@@ -30,4 +30,4 @@ scripts/build-macos.sh
 
 Native CPU tuning is enabled by default. Pass `-DENABLE_MARCH_NATIVE=OFF` when producing a binary for a different Mac. Apple Silicon builds use the platform's hardened JIT API automatically.
 
-The bundled configuration is tuned for maximum throughput: all CPU cores, no worker yielding, and maximum macOS thread QoS. This will increase power draw, heat, and fan noise. RandomX is CPU-oriented; attempting to saturate an Apple GPU at the same time competes for unified-memory bandwidth and power, so rxs intentionally keeps the GPU idle when that produces more total hashes.
+The bundled configuration is tuned for maximum throughput: all CPU cores, no worker yielding, and maximum macOS thread QoS. It defaults to HashVault's TLS endpoint (`pool.hashvault.pro:443`), which currently advertises a 0% pool fee and hourly payouts. This does not guarantee a profit: earnings depend on hashrate, network difficulty, XMR price, power cost, and pool luck. RandomX is CPU-oriented; attempting to saturate an Apple GPU at the same time competes for unified-memory bandwidth and power, so rxs intentionally keeps the GPU idle when that produces more total hashes.

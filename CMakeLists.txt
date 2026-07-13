@@ -182,3 +182,17 @@ endif()
 if (CMAKE_CXX_COMPILER_ID MATCHES Clang AND CMAKE_BUILD_TYPE STREQUAL Release AND NOT CMAKE_GENERATOR STREQUAL Xcode)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>")
 endif()
+
+if (APPLE)
+    configure_file("${CMAKE_SOURCE_DIR}/cmake/macos/rxs-launcher.sh.in" "${CMAKE_CURRENT_BINARY_DIR}/rxs" @ONLY)
+    add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E rename
+            "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>"
+            "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/rxs-bin"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${CMAKE_CURRENT_BINARY_DIR}/rxs"
+            "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/rxs"
+        COMMAND /bin/chmod +x "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>/rxs"
+        COMMENT "Installing macOS app launcher"
+    )
+endif()

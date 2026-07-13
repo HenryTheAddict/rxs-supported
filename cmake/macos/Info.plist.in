@@ -7,7 +7,7 @@
     <key>CFBundleDisplayName</key>
     <string>rxs</string>
     <key>CFBundleExecutable</key>
-    <string>${MACOSX_BUNDLE_EXECUTABLE_NAME}</string>
+    <string>rxs</string>
     <key>CFBundleIdentifier</key>
     <string>${MACOSX_BUNDLE_GUI_IDENTIFIER}</string>
     <key>CFBundleInfoDictionaryVersion</key>
