@@ -60,7 +60,7 @@ R"===(
         "huge-pages": true,
         "huge-pages-jit": true,
         "hw-aes": null,
-        "priority": null,
+        "priority": 5,
         "memory-pool": false,
         "yield": false,
         "max-threads-hint": 100,
